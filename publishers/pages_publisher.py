@@ -43,19 +43,18 @@ def render_monthly_page(payload: dict, docs_dir: str = _DEFAULT_DOCS_DIR) -> str
 
 
 def _regenerate_index(docs_dir: str, latest_date: str) -> None:
+    """Update only the 'Latest:' line in index.md, preserving the rest."""
     index_path = os.path.join(docs_dir, "index.md")
-    content = f"""---
-layout: home
-title: Research Daily Digest
----
-
-# Research Daily Digest
-
-Daily AI/CV/Medical Imaging research updates, auto-generated at UK midnight.
-
-**Latest:** [{latest_date} 日报](/daily/{latest_date}/)
-
-Browse: [Daily](/daily/) | [Weekly](/weekly/) | [Monthly](/monthly/)
-"""
-    with open(index_path, "w", encoding="utf-8") as f:
-        f.write(content)
+    if not os.path.exists(index_path):
+        return  # don't recreate; managed manually
+    with open(index_path, encoding="utf-8") as f:
+        content = f.read()
+    import re
+    updated = re.sub(
+        r'\*\*Latest:\*\*.*',
+        f'**Latest:** [{latest_date} 日报]({{{{ "/daily/{latest_date}/" | relative_url }}}})',
+        content,
+    )
+    if updated != content:
+        with open(index_path, "w", encoding="utf-8") as f:
+            f.write(updated)
