@@ -19,30 +19,123 @@ date: {{ date }}
 
 ---
 
-## 导航
+<style>
+.daily-nav-panel {
+  float: right;
+  width: 270px;
+  margin: 0 0 1rem 1.25rem;
+  padding: 0.9rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  position: sticky;
+  top: 1rem;
+  font-size: 0.92rem;
+}
 
-- [arXiv 精选](#arxiv)
-{% if papers %}
-{% for p in papers | sort(attribute='score', reverse=True) %}
-- [{{ loop.index }}. {{ p.title }}](#paper-{{ loop.index }})
-{% endfor %}
-{% endif %}
-- [Hacker News](#hacker-news)
-- [研究职位](#jobs)
-{% if github_trending %}
-- [GitHub 趋势](#github-trending)
-{% endif %}
-{% if supervisor_updates %}
-- [导师主页更新](#supervisors)
-{% endif %}
+.daily-nav-title {
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+}
+
+.daily-nav-panel ul,
+.daily-nav-mobile ul {
+  margin: 0.35rem 0 0 1rem;
+}
+
+.daily-nav-mobile {
+  display: none;
+  margin-bottom: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  padding: 0.55rem 0.7rem;
+}
+
+@media (max-width: 900px) {
+  .daily-nav-panel {
+    display: none;
+  }
+
+  .daily-nav-mobile {
+    display: block;
+  }
+}
+</style>
+
+<aside class="daily-nav-panel" aria-label="页面导航">
+  <div class="daily-nav-title">快速导航</div>
+  <ul>
+    <li><a href="#arxiv">arXiv 精选</a></li>
+    {% if papers %}
+    <li>论文分类
+      <ul>
+        {% set nav_ns = namespace(seen=[]) %}
+        {% for p in papers | sort(attribute='score', reverse=True) %}
+          {% set category_name = p.get('primary_category', (p.categories[0] if p.categories else 'Other')) %}
+          {% set category_anchor = p.get('primary_category_anchor', category_name | lower | replace('.', '-') | replace(' ', '-') | replace('/', '-')) %}
+          {% if category_anchor not in nav_ns.seen %}
+          <li><a href="#cat-{{ category_anchor }}">{{ category_name }}</a></li>
+          {% set _ = nav_ns.seen.append(category_anchor) %}
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </li>
+    {% endif %}
+    <li><a href="#hacker-news">Hacker News</a></li>
+    <li><a href="#jobs">研究职位</a></li>
+    {% if github_trending %}
+    <li><a href="#github-trending">GitHub 趋势</a></li>
+    {% endif %}
+    {% if supervisor_updates %}
+    <li><a href="#supervisors">导师主页更新</a></li>
+    {% endif %}
+  </ul>
+</aside>
+
+<details class="daily-nav-mobile">
+  <summary><strong>快速导航</strong></summary>
+  <ul>
+    <li><a href="#arxiv">arXiv 精选</a></li>
+    {% if papers %}
+    <li>论文分类
+      <ul>
+        {% set nav_mobile_ns = namespace(seen=[]) %}
+        {% for p in papers | sort(attribute='score', reverse=True) %}
+          {% set category_name = p.get('primary_category', (p.categories[0] if p.categories else 'Other')) %}
+          {% set category_anchor = p.get('primary_category_anchor', category_name | lower | replace('.', '-') | replace(' ', '-') | replace('/', '-')) %}
+          {% if category_anchor not in nav_mobile_ns.seen %}
+          <li><a href="#cat-{{ category_anchor }}">{{ category_name }}</a></li>
+          {% set _ = nav_mobile_ns.seen.append(category_anchor) %}
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </li>
+    {% endif %}
+    <li><a href="#hacker-news">Hacker News</a></li>
+    <li><a href="#jobs">研究职位</a></li>
+    {% if github_trending %}
+    <li><a href="#github-trending">GitHub 趋势</a></li>
+    {% endif %}
+    {% if supervisor_updates %}
+    <li><a href="#supervisors">导师主页更新</a></li>
+    {% endif %}
+  </ul>
+</details>
 
 ---
 
 <h2 id="arxiv">📄 今日 arXiv 精选（{{ papers|length }} 篇）</h2>
 
 {% if papers %}
+{% set content_ns = namespace(seen=[]) %}
 {% for p in papers | sort(attribute='score', reverse=True) %}
-<h3 id="paper-{{ loop.index }}">{{ loop.index }}. <a href="{{ p.url }}">{{ p.title }}</a></h3>
+{% set category_name = p.get('primary_category', (p.categories[0] if p.categories else 'Other')) %}
+{% set category_anchor = p.get('primary_category_anchor', category_name | lower | replace('.', '-') | replace(' ', '-') | replace('/', '-')) %}
+{% if category_anchor not in content_ns.seen %}
+<h3 id="cat-{{ category_anchor }}">{{ category_name }}</h3>
+{% set _ = content_ns.seen.append(category_anchor) %}
+{% endif %}
+
+<h4>{{ loop.index }}. <a href="{{ p.url }}">{{ p.title }}</a></h4>
 
 **作者：** {{ p.authors | join(', ') }} | **分类：** {{ p.categories | join(', ') }} | **评分：** {{ "%.1f"|format(p.score) }}/10
 
