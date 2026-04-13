@@ -47,6 +47,70 @@ def _extract_job_posting_schema(html: str) -> dict[str, Any] | None:
     return None
 
 
+def _extract_jobs_ac_uk_table_details(html: str) -> dict[str, str]:
+    """Extract key details from jobs.ac.uk advert details table."""
+    details = {
+        "institution": "",
+        "location": "",
+        "salary": "",
+        "hours": "",
+        "contract_type": "",
+        "placed_on": "",
+        "deadline": "",
+        "job_ref": "",
+    }
+
+    employer_match = re.search(r'<h3\b[^>]*class="[^"]*j-advert__employer[^"]*"[^>]*>(.*?)</h3>', html, re.IGNORECASE | re.DOTALL)
+    if employer_match:
+        details["institution"] = _clean_html_text(employer_match.group(1))
+
+    row_pattern = re.compile(
+        r"<tr>\s*<th\b[^>]*>(.*?)</th>\s*<td\b[^>]*>(.*?)</td>\s*</tr>",
+        re.IGNORECASE | re.DOTALL,
+    )
+    key_map = {
+        "location": "location",
+        "salary": "salary",
+        "hours": "hours",
+        "contract type": "contract_type",
+        "placed on": "placed_on",
+        "closes": "deadline",
+        "job ref": "job_ref",
+    }
+
+    for raw_key, raw_value in row_pattern.findall(html):
+        key = _clean_html_text(raw_key).rstrip(":").lower()
+        value = _clean_html_text(raw_value)
+        target = key_map.get(key)
+        if target and value:
+            details[target] = value
+
+    return details
+
+
+def _extract_location_from_posting(posting: dict[str, Any]) -> str:
+    job_location = posting.get("jobLocation")
+    locations = job_location if isinstance(job_location, list) else [job_location]
+    parts: list[str] = []
+    for location in locations:
+        if not isinstance(location, dict):
+            continue
+        address = location.get("address")
+        if isinstance(address, str):
+            cleaned = address.strip()
+            if cleaned:
+                parts.append(cleaned)
+            continue
+        if isinstance(address, dict):
+            locality = address.get("addressLocality", "")
+            region = address.get("addressRegion", "")
+            country = address.get("addressCountry", "")
+            location_parts = [item for item in [locality, region, country] if item]
+            if location_parts:
+                parts.append(", ".join(location_parts))
+    return " / ".join(dict.fromkeys(parts))
+
+
 def _coerce_salary(base_salary: Any) -> str:
     if isinstance(base_salary, str):
         return base_salary.strip()
@@ -84,25 +148,27 @@ def enrich_job_details(job: dict[str, Any]) -> dict[str, Any]:
     except Exception:
         return job
 
-    posting = _extract_job_posting_schema(response.text)
-    if not posting:
-        return job
-
-    organization = posting.get("hiringOrganization") or {}
-    location = posting.get("jobLocation") or {}
-    place = location.get("address") if isinstance(location, dict) else {}
-
     enriched = dict(job)
-    enriched["description"] = _clean_html_text(posting.get("description", "")) or enriched.get("description", "")
-    enriched["institution"] = organization.get("name", enriched.get("institution", "")) if isinstance(organization, dict) else enriched.get("institution", "")
-    enriched["deadline"] = posting.get("validThrough", enriched.get("deadline", "")) or enriched.get("deadline", "")
-    enriched["salary"] = _coerce_salary(posting.get("baseSalary")) or enriched.get("salary", "")
-    if isinstance(place, dict):
-        locality = place.get("addressLocality", "")
-        country = place.get("addressCountry", "")
-        parts = [part for part in [locality, country] if part]
-        if parts:
-            enriched["location"] = ", ".join(parts)
+    posting = _extract_job_posting_schema(response.text)
+    if posting:
+        organization = posting.get("hiringOrganization") or {}
+        enriched["description"] = _clean_html_text(posting.get("description", "")) or enriched.get("description", "")
+        if isinstance(organization, dict):
+            enriched["institution"] = organization.get("name", enriched.get("institution", ""))
+        enriched["deadline"] = posting.get("validThrough", enriched.get("deadline", "")) or enriched.get("deadline", "")
+        enriched["salary"] = _coerce_salary(posting.get("baseSalary")) or enriched.get("salary", "")
+        posting_location = _extract_location_from_posting(posting)
+        if posting_location:
+            enriched["location"] = posting_location
+
+    # Fallback for jobs.ac.uk pages where JSON-LD is absent/incomplete.
+    details = _extract_jobs_ac_uk_table_details(response.text)
+    for field in ["institution", "location", "salary", "hours", "contract_type", "placed_on", "job_ref"]:
+        if not enriched.get(field) and details.get(field):
+            enriched[field] = details[field]
+    if not enriched.get("deadline") and details.get("deadline"):
+        enriched["deadline"] = details["deadline"]
+
     return enriched
 
 
@@ -119,6 +185,10 @@ def parse_feed_entry(entry: Any, source_name: str) -> dict[str, Any]:
         "institution": "",
         "location": "",
         "salary": "",
+        "hours": "",
+        "contract_type": "",
+        "placed_on": "",
+        "job_ref": "",
     }
 
 
