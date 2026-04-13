@@ -425,7 +425,9 @@ jobs:
 
 ---
 
-## 8. Claude Code Skill: `/daily-digest`
+## 8. Claude Code Integration
+
+### 8.1 Skill: `/daily-digest`
 
 **File:** `skills/daily-digest.md`
 
@@ -443,6 +445,50 @@ Subcommands:
 ```
 
 The skill reads local `data/` files directly — no network required after the daily Actions run.
+
+### 8.2 SessionStart Hook
+
+**What it does:** Every time a Claude Code session opens, a shell command runs
+`python main.py --check-today`, reads today's JSON, and injects a compact
+summary (~60 tokens) into the session context automatically. No API call is
+made; only local file I/O.
+
+**Token cost:** ~60 input tokens per session open ≈ $0.0001 per open.
+Negligible.
+
+**Hook config** (added to Claude Code settings):
+```json
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python D:/Workspace/DailyUpdate/main.py --check-today"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+**Output injected into context (compact format):**
+```
+[Daily Digest 2026-04-13]
+📄 Papers: 12 new (top: FoundationSeg score=8.5, MedVLM score=8.1)
+💼 Jobs: 2 new (Research Assoc @ ICL, Postdoc @ Oxford)
+🔥 HN: "Meta open-sources vision model" (342pts)
+⚠️  Supervisor updates: 0
+Run /daily-digest for full report.
+```
+
+**File:** `main.py --check-today` reads `data/daily/YYYY-MM-DD.json`,
+formats the compact summary, and prints to stdout. If today's JSON does not
+exist yet (Actions haven't run), it prints the previous day's summary with
+a `[yesterday]` label so context is never empty.
 
 ---
 
