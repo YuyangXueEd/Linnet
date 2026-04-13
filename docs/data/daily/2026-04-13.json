@@ -1,7 +1,51 @@
 {
   "date": "2026-04-13",
-  "generated_at": "2026-04-13T22:35:48.844120+00:00",
+  "generated_at": "2026-04-13T22:38:31.135598+00:00",
   "papers": [
+    {
+      "id": "2604.09425v1",
+      "title": "Do Vision Language Models Need to Process Image Tokens?",
+      "authors": [
+        "Sambit Ghosh",
+        "R. Venkatesh Babu",
+        "Chirag Agarwal"
+      ],
+      "categories": [
+        "cs.CV"
+      ],
+      "abstract": "Vision Language Models (VLMs) have achieved remarkable success by integrating visual encoders with large language models (LLMs). While VLMs process dense image tokens across deep transformer stacks (incurring substantial computational overhead), it remains fundamentally unclear whether sustained image-token processing is necessary for their performance or visual representations meaningfully evolve from early to later layers. In this work, we systematically investigate the functional role of image tokens in VLMs and show that visual representations rapidly converge to a bounded-complexity regime, \\ie their entropy stabilizes, intrinsic dimensionality compresses, and trajectory curvature approaches a near-constant profile. In contrast, textual representations continue to undergo substantial restructuring across depth. Once stabilized, visual representations become largely interchangeable between layers, indicating limited additional transformation in deeper stages. Further, depth-wise visual truncation reveals that the necessity of visual processing is task-dependent, where single-token predictions remain comparatively robust to truncated visual depth, but multi-token generation require sustained access to visual representations. Under deterministic decoding, reducing visual depth perturbs intermediate reasoning trajectories more strongly than final outputs, suggesting that image tokens influence the structure of reasoning more than the ultimate conclusions. Collectively, these findings \\textbf{question the assumption} that deeper visual processing is uniformly essential in VLMs, challenging the current paradigm of multimodal LLM architectures.",
+      "url": "http://arxiv.org/abs/2604.09425v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.09425v1",
+      "score": 9.0,
+      "abstract_zh": "该论文系统研究了视觉语言模型（VLMs）中图像 Token 的作用，发现**视觉表征在浅层后迅速收敛到低复杂度状态**，且层间差异不大。**核心贡献在于证明了深层持续处理图像 Token 的必要性较低**，挑战了当前 VLM 架构的效率假设。",
+      "figure_url": "https://arxiv.org/html/2604.09425v1/pictures/teaser4.png",
+      "figure_caption": "When is visual depth necessary in vision language models? We investigate a) stabilization of image tokens, b) layer-wise functional interchangeability, c) task-dependent utility, d) recoverability after truncation, e) reasoning-chain sensitivity. Our results reveal that image representations stabilize early, but their necessity depends on task and reasoning demands.",
+      "primary_category": "cs.CV",
+      "primary_category_anchor": "cs-cv",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2604.09213v1",
+      "title": "SHIFT: Steering Hidden Intermediates in Flow Transformers",
+      "authors": [
+        "Nina Konovalova",
+        "Andrey Kuznetsov",
+        "Aibek Alanov"
+      ],
+      "categories": [
+        "cs.CV"
+      ],
+      "abstract": "Diffusion models have become leading approaches for high-fidelity image generation. Recent DiT-based diffusion models, in particular, achieve strong prompt adherence while producing high-quality samples. We propose SHIFT, a simple but effective and lightweight framework for concept removal in DiT diffusion models via targeted manipulation of intermediate activations at inference time, inspired by activation steering in large language models. SHIFT learns steering vectors that are dynamically applied to selected layers and timesteps to suppress unwanted visual concepts while preserving the prompt's remaining content and overall image quality. Beyond suppression, the same mechanism can shift generations into a desired \\emph{style domain} or bias samples toward adding or changing target objects. We demonstrate that SHIFT provides effective and flexible control over DiT generation across diverse prompts and targets without time-consuming retraining.",
+      "url": "http://arxiv.org/abs/2604.09213v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.09213v1",
+      "score": 9.0,
+      "abstract_zh": "SHIFT 提出了一种轻量级框架，通过在推理时对 DiT 扩散模型中选定层和时间步的中间激活进行定向干预（学习“转向向量”），以实现对生成图像中特定概念的有效移除。该方法无需耗时再训练，还能灵活地将生成内容转向特定风格或修改目标对象。",
+      "figure_url": "https://arxiv.org/html/2604.09213v1/x1.png",
+      "figure_caption": "Double-stream block.",
+      "primary_category": "cs.CV",
+      "primary_category_anchor": "cs-cv",
+      "primary_category_rank": 0
+    },
     {
       "id": "2604.09547v1",
       "title": "Tango: Taming Visual Signals for Efficient Video Large Language Models",
@@ -19,9 +63,12 @@
       "url": "http://arxiv.org/abs/2604.09547v1",
       "pdf_url": "https://arxiv.org/pdf/2604.09547v1",
       "score": 9.0,
-      "abstract_zh": "Tango 提出了一种新的视觉信号优化框架，用于高效视频大语言模型。它通过**多样性驱动策略**改进了基于注意力的令牌选择，并引入 **ST-RoPE** 以保留时空几何结构，解决了现有剪枝方法在注意力分布和聚类碎片化上的局限性。",
+      "abstract_zh": "Tango 提出了一种新的高效视频大语言模型（Video LLM）框架，通过**多样性驱动策略**改进了基于注意力的 Token 选择，并引入 **ST-RoPE** 以保留时空几何结构。该方法解决了现有 Token 修剪方法在注意力分布处理和聚类结构保持上的局限性，从而更有效地利用视觉信号。",
       "figure_url": "https://arxiv.org/html/2604.09547v1/x1.png",
-      "figure_caption": "Limitations of two typical pre-LLM token pruning approaches. (Top Right) Top-k selection fails to fully capture the attention distribution, which is spatially multimodal and long-tailed in magnitude. (Bottom Right) Direct similarity-based clustering can result in noisy representations."
+      "figure_caption": "Limitations of two typical pre-LLM token pruning approaches. (Top Right) Top-k selection fails to fully capture the attention distribution, which is spatially multimodal and long-tailed in magnitude. (Bottom Right) Direct similarity-based clustering can result in noisy representations.",
+      "primary_category": "cs.CV",
+      "primary_category_anchor": "cs-cv",
+      "primary_category_rank": 0
     },
     {
       "id": "2604.09531v1",
@@ -42,49 +89,77 @@
       "url": "http://arxiv.org/abs/2604.09531v1",
       "pdf_url": "https://arxiv.org/pdf/2604.09531v1",
       "score": 9.0,
-      "abstract_zh": "VisionFoundry提出了一种**任务驱动的合成数据生成流水线**，仅依赖任务关键词（如“深度顺序”），利用LLM生成问答和T2I提示，并用T2I模型合成图像，无需人工标注。该方法构建了包含10个任务的10K合成VQA数据集，旨在**通过针对性的合成监督来增强视觉语言模型（VLMs）的空间理解和视角识别等底层视觉感知能力**。"
+      "abstract_zh": "VisionFoundry 提出了一种**任务驱动的合成数据生成流水线**，仅需任务关键词即可利用 LLM 和 T2I 模型生成带标注的合成图像数据，无需人工干预。该方法**有效增强了 VLM 在空间理解等视觉感知任务上的能力**，并构建了包含 10K 样本的合成 VQA 数据集 VisionFoundry-10K。",
+      "primary_category": "cs.CV",
+      "primary_category_anchor": "cs-cv",
+      "primary_category_rank": 0
     },
     {
-      "id": "2604.09529v1",
-      "title": "VL-Calibration: Decoupled Confidence Calibration for Large Vision-Language Models Reasoning",
+      "id": "2604.09370v1",
+      "title": "Cluster-First Labelling: An Automated Pipeline for Segmentation and Morphological Clustering in Histology Whole Slide Images",
       "authors": [
-        "Wenyi Xiao",
-        "Xinchi Xu",
-        "Leilei Gan"
+        "Muhammad Haseeb Ahmad",
+        "Sharmila Rajendran",
+        "Damion Young",
+        "Jon Mason"
       ],
       "categories": [
         "cs.CV",
-        "cs.AI",
-        "cs.CL"
+        "q-bio.QM"
       ],
-      "abstract": "Large Vision Language Models (LVLMs) achieve strong multimodal reasoning but frequently exhibit hallucinations and incorrect responses with high certainty, which hinders their usage in high-stakes domains. Existing verbalized confidence calibration methods, largely developed for text-only LLMs, typically optimize a single holistic confidence score using binary answer-level correctness. This design is mismatched to LVLMs: an incorrect prediction may arise from perceptual failures or from reasoning errors given correct perception, and a single confidence conflates these sources while visual uncertainty is often dominated by language priors. To address these issues, we propose VL-Calibration, a reinforcement learning framework that explicitly decouples confidence into visual and reasoning confidence. To supervise visual confidence without ground-truth perception labels, we introduce an intrinsic visual certainty estimation that combines (i) visual grounding measured by KL-divergence under image perturbations and (ii) internal certainty measured by token entropy. We further propose token-level advantage reweighting to focus optimization on tokens based on visual certainty, suppressing ungrounded hallucinations while preserving valid perception. Experiments on thirteen benchmarks show that VL-Calibration effectively improves calibration while boosting visual reasoning accuracy, and it generalizes to out-of-distribution benchmarks across model scales and architectures.",
-      "url": "http://arxiv.org/abs/2604.09529v1",
-      "pdf_url": "https://arxiv.org/pdf/2604.09529v1",
+      "abstract": "Labelling tissue components in histology whole slide images (WSIs) is prohibitively labour-intensive: a single slide may contain tens of thousands of structures--cells, nuclei, and other morphologically distinct objects--each requiring manual boundary delineation and classification. We present a cloudnative, end-to-end pipeline that automates this process through a cluster-first paradigm. Our system tiles WSIs, filters out tiles deemed unlikely to contain valuable information, segments tissue components with Cellpose-SAM (including cells, nuclei, and other morphologically similar structures), extracts neural embeddings via a pretrained ResNet-50, reduces dimensionality with UMAP, and groups morphologically similar objects using DBSCAN clustering. Under this paradigm, a human annotator labels representative clusters rather than individual objects, reducing annotation effort by orders of magnitude. We evaluate the pipeline on 3,696 tissue components across 13 diverse tissue types from three species (human, rat, rabbit), measuring how well unsupervised clusters align with independent human labels via per-tile Hungarian-algorithm matching. Our system achieves a weighted cluster-label alignment accuracy of 96.8%, with 7 of 13 tissue types reaching perfect agreement. The pipeline, a companion labelling web application, and all evaluation code are released as open-source software.",
+      "url": "http://arxiv.org/abs/2604.09370v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.09370v1",
       "score": 8.0,
-      "abstract_zh": "该论文提出**VL-Calibration**，一个解耦视觉和推理置信度的强化学习框架，以解决大型视觉语言模型（LVLMs）高置信度错误的问题。它通过**内在视觉确定性估计**来监督视觉置信度，从而更准确地评估模型在不同错误源上的不确定性。",
-      "figure_url": "https://arxiv.org/html/2604.09529v1/figure/first_image.png",
-      "figure_caption": "The baseline method (upper) makes overconfident assumptions. Instead, our method (lower) decouples confidence into visual and reasoning confidence, with clear identification of uncertainty sources and improved calibration."
+      "abstract_zh": "该论文提出了一种**“先聚类后标注”**的自动化流程，用于组织病理全玻片图像（WSI）的分割和形态聚类。它通过**分割、特征提取、降维和DBSCAN聚类**，将海量对象归纳为少数代表性簇，从而**极大地减少了人工标注的工作量**。",
+      "figure_url": "https://arxiv.org/html/2604.09370v1/figures/pipeline_comp2.png",
+      "figure_caption": "Pipeline architecture. WSI slides ( .ndpi ) are tiled into 512 × 512 512\\times 512 patches, quality-filtered, segmented with Cellpose-SAM, embedded with ResNet-50, reduced via UMAP, and clustered with DBSCAN. Optional downstream stages annotate images, extract representative tiles per cluster, and invoke a multimodal LLM for experimental classification.",
+      "primary_category": "cs.CV",
+      "primary_category_anchor": "cs-cv",
+      "primary_category_rank": 0
     },
     {
-      "id": "2604.09527v1",
-      "title": "Envisioning the Future, One Step at a Time",
+      "id": "2604.09201v1",
+      "title": "CT-1: Vision-Language-Camera Models Transfer Spatial Reasoning Knowledge to Camera-Controllable Video Generation",
       "authors": [
-        "Stefan Andreas Baumann",
-        "Jannik Wiese",
-        "Tommaso Martorella",
-        "Mahdi M. Kalayeh",
-        "Björn Ommer"
+        "Haoyu Zhao",
+        "Zihao Zhang",
+        "Jiaxi Gu",
+        "Haoran Chen",
+        "Qingping Zheng"
+      ],
+      "categories": [
+        "cs.CV"
+      ],
+      "abstract": "Camera-controllable video generation aims to synthesize videos with flexible and physically plausible camera movements. However, existing methods either provide imprecise camera control from text prompts or rely on labor-intensive manual camera trajectory parameters, limiting their use in automated scenarios. To address these issues, we propose a novel Vision-Language-Camera model, termed CT-1 (Camera Transformer 1), a specialized model designed to transfer spatial reasoning knowledge to video generation by accurately estimating camera trajectories. Built upon vision-language modules and a Diffusion Transformer model, CT-1 employs a Wavelet-based Regularization Loss in the frequency domain to effectively learn complex camera trajectory distributions. These trajectories are integrated into a video diffusion model to enable spatially aware camera control that aligns with user intentions. To facilitate the training of CT-1, we design a dedicated data curation pipeline and construct CT-200K, a large-scale dataset containing over 47M frames. Experimental results demonstrate that our framework successfully bridges the gap between spatial reasoning and video synthesis, yielding faithful and high-quality camera-controllable videos and improving camera control accuracy by 25.7% over prior methods.",
+      "url": "http://arxiv.org/abs/2604.09201v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.09201v1",
+      "score": 8.0,
+      "abstract_zh": "该论文提出CT-1模型，旨在通过**整合视觉-语言知识和空间推理能力**，实现对视频生成中**相机运动的精确控制**。其核心方法是利用**基于小波的正则化损失**学习复杂的相机轨迹分布，并将其集成到扩散模型中，从而**实现与用户意图一致的空间感知相机控制**。",
+      "primary_category": "cs.CV",
+      "primary_category_anchor": "cs-cv",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2604.09478v1",
+      "title": "Incremental Semantics-Aided Meshing from LiDAR-Inertial Odometry and RGB Direct Label Transfer",
+      "authors": [
+        "Muhammad Affan",
+        "Ville Lehtola",
+        "George Vosselman"
       ],
       "categories": [
         "cs.CV",
-        "cs.AI",
-        "cs.LG"
+        "cs.RO"
       ],
-      "abstract": "Accurately anticipating how complex, diverse scenes will evolve requires models that represent uncertainty, simulate along extended interaction chains, and efficiently explore many plausible futures. Yet most existing approaches rely on dense video or latent-space prediction, expending substantial capacity on dense appearance rather than on the underlying sparse trajectories of points in the scene. This makes large-scale exploration of future hypotheses costly and limits performance when long-horizon, multi-modal motion is essential. We address this by formulating the prediction of open-set future scene dynamics as step-wise inference over sparse point trajectories. Our autoregressive diffusion model advances these trajectories through short, locally predictable transitions, explicitly modeling the growth of uncertainty over time. This dynamics-centric representation enables fast rollout of thousands of diverse futures from a single image, optionally guided by initial constraints on motion, while maintaining physical plausibility and long-range coherence. We further introduce OWM, a benchmark for open-set motion prediction based on diverse in-the-wild videos, to evaluate accuracy and variability of predicted trajectory distributions under real-world uncertainty. Our method matches or surpasses dense simulators in predictive accuracy while achieving orders-of-magnitude higher sampling speed, making open-set future prediction both scalable and practical. Project page: http://compvis.github.io/myriad.",
-      "url": "http://arxiv.org/abs/2604.09527v1",
-      "pdf_url": "https://arxiv.org/pdf/2604.09527v1",
-      "score": 6.0,
-      "abstract_zh": "该论文提出一种**基于稀疏点轨迹的步进式推理**方法，用于预测开放集未来场景动态。其核心是利用**自回归扩散模型**，通过短程、局部可预测的过渡来推进轨迹，并明确建模不确定性的增长。这使得模型能高效地从单张图像快速生成**数千种多样化的未来场景**。"
+      "abstract": "Geometric high-fidelity mesh reconstruction from LiDAR-inertial scans remains challenging in large, complex indoor environments -- such as cultural buildings -- where point cloud sparsity, geometric drift, and fixed fusion parameters produce holes, over-smoothing, and spurious surfaces at structural boundaries. We propose a modular, incremental RGB+LiDAR pipeline that generates incremental semantics-aided high-quality meshes from indoor scans through scan frame-based direct label transfer. A vision foundation model labels each incoming RGB frame; labels are incrementally projected and fused onto a LiDAR-inertial odometry map; and an incremental semantics-aware Truncated Signed Distance Function (TSDF) fusion step produces the final mesh via marching cubes. This frame-level fusion strategy preserves the geometric fidelity of LiDAR while leveraging rich visual semantics to resolve geometric ambiguities at reconstruction boundaries caused by LiDAR point-cloud sparsity and geometric drift. We demonstrate that semantic guidance improves geometric reconstruction quality; quantitative evaluation is therefore performed using geometric metrics on the Oxford Spires dataset, while results from the NTU VIRAL dataset are analyzed qualitatively. The proposed method outperforms state-of-the-art geometric baselines ImMesh and Voxblox, demonstrating the benefit of semantics-aided fusion for geometric mesh quality. The resulting semantically labelled meshes are of value when reconstructing Universal Scene Description (USD) assets, offering a path from indoor LiDAR scanning to XR and digital modeling.",
+      "url": "http://arxiv.org/abs/2604.09478v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.09478v1",
+      "score": 8.0,
+      "abstract_zh": "该论文提出了一种**增量语义辅助的网格重建方法**，结合**LiDAR-惯性里程计**和**RGB图像的直接标签迁移**。\n\n核心在于利用**视觉基础模型为每帧RGB图像提供语义标签**，然后**增量地将这些标签投影并融合到LiDAR里程计地图中**，最终通过**语义感知的TSDF融合**生成高质量网格，有效解决了稀疏点云和漂移导致的几何失真问题。",
+      "primary_category": "cs.CV",
+      "primary_category_anchor": "cs-cv",
+      "primary_category_rank": 0
     },
     {
       "id": "2604.09480v1",
@@ -103,63 +178,12 @@
       "url": "http://arxiv.org/abs/2604.09480v1",
       "pdf_url": "https://arxiv.org/pdf/2604.09480v1",
       "score": 8.0,
-      "abstract_zh": "Online3R通过向冻结的几何基础模型引入**可学习的轻量级视觉提示**进行在线学习，以适应新场景并解决序列重建中的不一致性问题。它采用**局部-全局自监督学习策略**，利用中间结果和稀疏关键帧的约束，高效地更新提示且无需真实标签。",
+      "abstract_zh": "Online3R通过引入**可学习的轻量级视觉提示**到冻结的几何基础模型中，实现了对新场景的在线适应性重建。它采用**局部-全局自监督学习策略**，利用中间结果和稀疏关键帧的约束来解决在线更新中缺乏真实标签和效率的问题，从而有效解决了序列重建中的不一致性。",
       "figure_url": "https://arxiv.org/html/2604.09480v1/x1.png",
-      "figure_caption": "Overview of our proposed Online3R. The core of our Online3R lies in constructing self-supervised methods and online prompt tuning, enabling the model to adapt to the current scene and ensuring consistent reconstruction results. We leverage a local consistency loss derived from temporally fused geometry to enhance the accuracy of subsequent predictions, and a global consistency loss that enforces geometric invariance across distant views to mitigate long-term drift, guaranteeing both consistency and efficiency."
-    },
-    {
-      "id": "2604.09478v1",
-      "title": "Incremental Semantics-Aided Meshing from LiDAR-Inertial Odometry and RGB Direct Label Transfer",
-      "authors": [
-        "Muhammad Affan",
-        "Ville Lehtola",
-        "George Vosselman"
-      ],
-      "categories": [
-        "cs.CV",
-        "cs.RO"
-      ],
-      "abstract": "Geometric high-fidelity mesh reconstruction from LiDAR-inertial scans remains challenging in large, complex indoor environments -- such as cultural buildings -- where point cloud sparsity, geometric drift, and fixed fusion parameters produce holes, over-smoothing, and spurious surfaces at structural boundaries. We propose a modular, incremental RGB+LiDAR pipeline that generates incremental semantics-aided high-quality meshes from indoor scans through scan frame-based direct label transfer. A vision foundation model labels each incoming RGB frame; labels are incrementally projected and fused onto a LiDAR-inertial odometry map; and an incremental semantics-aware Truncated Signed Distance Function (TSDF) fusion step produces the final mesh via marching cubes. This frame-level fusion strategy preserves the geometric fidelity of LiDAR while leveraging rich visual semantics to resolve geometric ambiguities at reconstruction boundaries caused by LiDAR point-cloud sparsity and geometric drift. We demonstrate that semantic guidance improves geometric reconstruction quality; quantitative evaluation is therefore performed using geometric metrics on the Oxford Spires dataset, while results from the NTU VIRAL dataset are analyzed qualitatively. The proposed method outperforms state-of-the-art geometric baselines ImMesh and Voxblox, demonstrating the benefit of semantics-aided fusion for geometric mesh quality. The resulting semantically labelled meshes are of value when reconstructing Universal Scene Description (USD) assets, offering a path from indoor LiDAR scanning to XR and digital modeling.",
-      "url": "http://arxiv.org/abs/2604.09478v1",
-      "pdf_url": "https://arxiv.org/pdf/2604.09478v1",
-      "score": 8.0,
-      "abstract_zh": "该论文提出了一种**增量语义辅助的室内高保真网格重建方法**。它通过**视觉基础模型对新输入的RGB帧进行语义标注，并将这些标签增量地投影和融合到LiDAR里程计地图中**，最终利用**语义感知的TSDF融合和Marching Cubes生成高质量网格**。此方法**利用丰富的视觉语义来解决LiDAR稀疏性和漂移导致的几何重建模糊问题**。"
-    },
-    {
-      "id": "2604.09437v1",
-      "title": "AdaCubic: An Adaptive Cubic Regularization Optimizer for Deep Learning",
-      "authors": [
-        "Ioannis Tsingalis",
-        "Constantine Kotropoulos",
-        "Corentin Briat"
-      ],
-      "categories": [
-        "cs.LG"
-      ],
-      "abstract": "A novel regularization technique, AdaCubic, is proposed that adapts the weight of the cubic term. The heart of AdaCubic is an auxiliary optimization problem with cubic constraints that dynamically adjusts the weight of the cubic term in Newton's cubic regularized method. We use Hutchinson's method to approximate the Hessian matrix, thereby reducing computational cost. We demonstrate that AdaCubic inherits the cubically regularized Newton method's local convergence guarantees. Our experiments in Computer Vision, Natural Language Processing, and Signal Processing tasks demonstrate that AdaCubic outperforms or competes with several widely used optimizers. Unlike other adaptive algorithms that require hyperparameter fine-tuning, AdaCubic is evaluated with a fixed set of hyperparameters, rendering it a highly attractive optimizer in settings where fine-tuning is infeasible. This makes AdaCubic an attractive option for researchers and practitioners alike. To our knowledge, AdaCubic is the first optimizer to leverage cubic regularization in scalable deep learning applications.",
-      "url": "http://arxiv.org/abs/2604.09437v1",
-      "pdf_url": "https://arxiv.org/pdf/2604.09437v1",
-      "score": 6.0,
-      "abstract_zh": "AdaCubic提出了一种**自适应立方正则化优化器**，通过求解一个带立方约束的辅助优化问题来动态调整正则化项的权重。该方法利用Hutchinson方法近似Hessian矩阵以降低计算成本，并**保证了立方正则化牛顿法的局部收敛性**。实验证明，AdaCubic性能优异且**无需超参数微调**。"
-    },
-    {
-      "id": "2604.09436v1",
-      "title": "SCoRe: Clean Image Generation from Diffusion Models Trained on Noisy Images",
-      "authors": [
-        "Yuta Matsuzaki",
-        "Seiichi Uchida",
-        "Shumpei Takezaki"
-      ],
-      "categories": [
-        "cs.CV"
-      ],
-      "abstract": "Diffusion models trained on noisy datasets often reproduce high-frequency training artifacts, significantly degrading generation quality. To address this, we propose SCoRe (Spectral Cutoff Regeneration), a training-free, generation-time spectral regeneration method for clean image generation from diffusion models trained on noisy images. Leveraging the spectral bias of diffusion models, which infer high-frequency details from low-frequency cues, SCoRe suppresses corrupted high-frequency components of a generated image via a frequency cutoff and regenerates them via SDEdit. Crucially, we derive a theoretical mapping between the cutoff frequency and the SDEdit initialization timestep based on Radially Averaged Power Spectral Density (RAPSD), which prevents excessive noise injection during regeneration. Experiments on synthetic (CIFAR-10) and real-world (SIDD) noisy datasets demonstrate that SCoRe substantially outperforms post-processing and noise-robust baselines, restoring samples closer to clean image distributions without any retraining or fine-tuning.",
-      "url": "http://arxiv.org/abs/2604.09436v1",
-      "pdf_url": "https://arxiv.org/pdf/2604.09436v1",
-      "score": 8.0,
-      "abstract_zh": "SCoRe 是一种**训练无关**的生成时谱域修复方法，用于从在噪声数据上训练的扩散模型中生成清晰图像。它利用扩散模型的谱偏置，通过**频率截止**抑制高频噪声，并利用**SDEdit**基于理论映射（RAPSD）精确地重新生成干净的高频细节。该方法显著提升了生成质量。",
-      "figure_url": "https://arxiv.org/html/2604.09436v1/x1.png",
-      "figure_caption": "Impact of a dataset containing noisy training images on the generated results. Images in red boxes are clean examples; all others are noisy."
+      "figure_caption": "Overview of our proposed Online3R. The core of our Online3R lies in constructing self-supervised methods and online prompt tuning, enabling the model to adapt to the current scene and ensuring consistent reconstruction results. We leverage a local consistency loss derived from temporally fused geometry to enhance the accuracy of subsequent predictions, and a global consistency loss that enforces geometric invariance across distant views to mitigate long-term drift, guaranteeing both consistency and efficiency.",
+      "primary_category": "cs.CV",
+      "primary_category_anchor": "cs-cv",
+      "primary_category_rank": 0
     },
     {
       "id": "2604.09429v1",
@@ -180,47 +204,266 @@
       "url": "http://arxiv.org/abs/2604.09429v1",
       "pdf_url": "https://arxiv.org/pdf/2604.09429v1",
       "score": 8.0,
-      "abstract_zh": "该论文提出“Rays as Pixels”模型，一个视频扩散模型（VDM），用于**联合学习视频帧和相机轨迹的分布**。它通过将相机表示为“光线像素”（raxels）并使用解耦自-交叉注意力机制，**统一解决了相机轨迹预测、条件视频生成和新视角渲染**等任务。"
+      "abstract_zh": "该论文提出“Rays as Pixels”模型，将视频帧与相机轨迹联合建模为一个扩散模型。它通过**解耦自-交叉注意力机制**，同时对视频帧和表示相机姿态的“射线像素”（raxels）进行去噪。核心贡献在于**统一解决了相机轨迹预测、带轨迹的视频生成以及基于图像的视角合成**这三个传统分离的任务。",
+      "primary_category": "cs.CV",
+      "primary_category_anchor": "cs-cv",
+      "primary_category_rank": 0
     },
     {
-      "id": "2604.09426v1",
-      "title": "Three Modalities, Two Design Probes, One Prototype, and No Vision: Experience-Based Co-Design of a Multi-modal 3D Data Visualization Tool",
+      "id": "2604.09366v1",
+      "title": "Robust 4D Visual Geometry Transformer with Uncertainty-Aware Priors",
       "authors": [
-        "Sanchita S. Kamath",
-        "Aziz N Zeidieh",
-        "Venkatesh Potluri",
-        "Sile O'Modhrain",
-        "Kenneth Perry"
-      ],
-      "categories": [
-        "cs.HC",
-        "cs.AI",
-        "cs.IR"
-      ],
-      "abstract": "Three-dimensional (3D) data visualizations, such as surface plots, are vital in STEM fields from biomedical imaging to spectroscopy, yet remain largely inaccessible to blind and low-vision (BLV) people. To address this gap, we conducted an Experience-Based Co-Design with BLV co-designers with expertise in non-visual data representations to create an accessible, multi-modal, web-native visualization tool. Using a multi-phase methodology, our team of five BLV and one non-BLV researcher(s) participated in two iterative sessions, comparing a low-fidelity tactile probe with a high-fidelity digital prototype. This process produced a prototype with empirically grounded features, including reference sonification, stereo and volumetric audio, and configurable buffer aggregation, which our co-designers validated as improving analytic accuracy and learnability. In this study, we target core analytic tasks essential for non-visual 3D data exploration: orientation, landmark and peak finding, comparing local maxima versus global trends, gradient tracing, and identifying occluded or partially hidden features. Our work offers accessibility researchers and developers a co-design protocol for translating tactile knowledge to digital interfaces, concrete design guidance for future systems, and opportunities to extend accessible 3D visualization into embodied data environments.",
-      "url": "http://arxiv.org/abs/2604.09426v1",
-      "pdf_url": "https://arxiv.org/pdf/2604.09426v1",
-      "score": 6.0,
-      "abstract_zh": "该论文采用**基于经验的共同设计方法**，与盲人和低视力（BLV）用户合作，开发了一个**多模态的、基于网络的3D数据可视化工具原型**。核心贡献在于通过迭代比较触觉探针和数字原型，确立了**参考声化、立体和体积音频**等经验验证的功能，以提高BLV用户对3D数据的分析准确性和可学习性。"
-    },
-    {
-      "id": "2604.09425v1",
-      "title": "Do Vision Language Models Need to Process Image Tokens?",
-      "authors": [
-        "Sambit Ghosh",
-        "R. Venkatesh Babu",
-        "Chirag Agarwal"
+        "Ying Zang",
+        "Yidong Han",
+        "Chaotao Ding",
+        "Yuanqi Hu",
+        "Deyi Ji"
       ],
       "categories": [
         "cs.CV"
       ],
-      "abstract": "Vision Language Models (VLMs) have achieved remarkable success by integrating visual encoders with large language models (LLMs). While VLMs process dense image tokens across deep transformer stacks (incurring substantial computational overhead), it remains fundamentally unclear whether sustained image-token processing is necessary for their performance or visual representations meaningfully evolve from early to later layers. In this work, we systematically investigate the functional role of image tokens in VLMs and show that visual representations rapidly converge to a bounded-complexity regime, \\ie their entropy stabilizes, intrinsic dimensionality compresses, and trajectory curvature approaches a near-constant profile. In contrast, textual representations continue to undergo substantial restructuring across depth. Once stabilized, visual representations become largely interchangeable between layers, indicating limited additional transformation in deeper stages. Further, depth-wise visual truncation reveals that the necessity of visual processing is task-dependent, where single-token predictions remain comparatively robust to truncated visual depth, but multi-token generation require sustained access to visual representations. Under deterministic decoding, reducing visual depth perturbs intermediate reasoning trajectories more strongly than final outputs, suggesting that image tokens influence the structure of reasoning more than the ultimate conclusions. Collectively, these findings \\textbf{question the assumption} that deeper visual processing is uniformly essential in VLMs, challenging the current paradigm of multimodal LLM architectures.",
-      "url": "http://arxiv.org/abs/2604.09425v1",
-      "pdf_url": "https://arxiv.org/pdf/2604.09425v1",
-      "score": 9.0,
-      "abstract_zh": "该论文系统研究了视觉语言模型（VLMs）中图像 Token 的作用，发现**视觉表征在浅层后迅速收敛到低复杂度状态**，且层间差异不大。 核心贡献在于**证明了深层持续处理图像 Token 的必要性较低**，挑战了当前 VLM 架构的效率假设。",
-      "figure_url": "https://arxiv.org/html/2604.09425v1/pictures/teaser4.png",
-      "figure_caption": "When is visual depth necessary in vision language models? We investigate a) stabilization of image tokens, b) layer-wise functional interchangeability, c) task-dependent utility, d) recoverability after truncation, e) reasoning-chain sensitivity. Our results reveal that image representations stabilize early, but their necessity depends on task and reasoning demands."
+      "abstract": "Reconstructing dynamic 4D scenes is an important yet challenging task. While 3D foundation models like VGGT excel in static settings, they often struggle with dynamic sequences where motion causes significant geometric ambiguity. To address this, we present a framework designed to disentangle dynamic and static components by modeling uncertainty across different stages of the reconstruction process. Our approach introduces three synergistic mechanisms: (1) Entropy-Guided Subspace Projection, which leverages information-theoretic weighting to adaptively aggregate multi-head attention distributions, effectively isolating dynamic motion cues from semantic noise; (2) Local-Consistency Driven Geometry Purification, which enforces spatial continuity via radius-based neighborhood constraints to eliminate structural outliers; and (3) Uncertainty-Aware Cross-View Consistency, which formulates multi-view projection refinement as a heteroscedastic maximum likelihood estimation problem, utilizing depth confidence as a probabilistic weight. Experiments on dynamic benchmarks show that our approach outperforms current state-of-the-art methods, reducing Mean Accuracy error by 13.43\\% and improving segmentation F-measure by 10.49\\%. Our framework maintains the efficiency of feed-forward inference and requires no task-specific fine-tuning or per-scene optimization.",
+      "url": "http://arxiv.org/abs/2604.09366v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.09366v1",
+      "score": 8.0,
+      "abstract_zh": "该论文提出了一种鲁棒的4D视觉几何Transformer，通过**熵引导的子空间投影**分离动态和静态成分。它利用**不确定性感知先验**，通过局部一致性和跨视图一致性机制，有效解决了动态场景重建中的几何模糊问题，提升了重建的鲁棒性。",
+      "figure_url": "https://arxiv.org/html/2604.09366v1/x1.png",
+      "figure_caption": "Overview of the proposed framwwork.",
+      "primary_category": "cs.CV",
+      "primary_category_anchor": "cs-cv",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2604.09436v1",
+      "title": "SCoRe: Clean Image Generation from Diffusion Models Trained on Noisy Images",
+      "authors": [
+        "Yuta Matsuzaki",
+        "Seiichi Uchida",
+        "Shumpei Takezaki"
+      ],
+      "categories": [
+        "cs.CV"
+      ],
+      "abstract": "Diffusion models trained on noisy datasets often reproduce high-frequency training artifacts, significantly degrading generation quality. To address this, we propose SCoRe (Spectral Cutoff Regeneration), a training-free, generation-time spectral regeneration method for clean image generation from diffusion models trained on noisy images. Leveraging the spectral bias of diffusion models, which infer high-frequency details from low-frequency cues, SCoRe suppresses corrupted high-frequency components of a generated image via a frequency cutoff and regenerates them via SDEdit. Crucially, we derive a theoretical mapping between the cutoff frequency and the SDEdit initialization timestep based on Radially Averaged Power Spectral Density (RAPSD), which prevents excessive noise injection during regeneration. Experiments on synthetic (CIFAR-10) and real-world (SIDD) noisy datasets demonstrate that SCoRe substantially outperforms post-processing and noise-robust baselines, restoring samples closer to clean image distributions without any retraining or fine-tuning.",
+      "url": "http://arxiv.org/abs/2604.09436v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.09436v1",
+      "score": 8.0,
+      "abstract_zh": "SCoRe 是一种**无需训练的生成时方法**，用于从在噪声图像上训练的扩散模型中生成清晰图像。它利用扩散模型的**谱偏置**，通过**频率截止**抑制高频噪声，并利用**SDEdit**根据理论映射（基于 RAPSD）重新生成干净的高频细节。",
+      "figure_url": "https://arxiv.org/html/2604.09436v1/x1.png",
+      "figure_caption": "Impact of a dataset containing noisy training images on the generated results. Images in red boxes are clean examples; all others are noisy.",
+      "primary_category": "cs.CV",
+      "primary_category_anchor": "cs-cv",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2604.09227v1",
+      "title": "Training-free, Perceptually Consistent Low-Resolution Previews with High-Resolution Image for Efficient Workflows of Diffusion Models",
+      "authors": [
+        "Wongi Jeong",
+        "Hoigi Seo",
+        "Se Young Chun"
+      ],
+      "categories": [
+        "cs.CV",
+        "eess.IV"
+      ],
+      "abstract": "Image generative models have become indispensable tools to yield exquisite high-resolution (HR) images for everyone, ranging from general users to professional designers. However, a desired outcome often requires generating a large number of HR images with different prompts and seeds, resulting in high computational cost for both users and service providers. Generating low-resolution (LR) images first could alleviate computational burden, but it is not straightforward how to generate LR images that are perceptually consistent with their HR counterparts. Here, we consider the task of generating high-fidelity LR images, called Previews, that preserve perceptual similarity of their HR counterparts for an efficient workflow, allowing users to identify promising candidates before generating the final HR image. We propose the commutator-zero condition to ensure the LR-HR perceptual consistency for flow matching models, leading to the proposed training-free solution with downsampling matrix selection and commutator-zero guidance. Extensive experiments show that our method can generate LR images with up to 33\\% computation reduction while maintaining HR perceptual consistency. When combined with existing acceleration techniques, our method achieves up to 3$\\times$ speedup. Moreover, our formulation can be extended to image manipulations, such as warping and translation, demonstrating its generalizability.",
+      "url": "http://arxiv.org/abs/2604.09227v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.09227v1",
+      "score": 8.0,
+      "abstract_zh": "该论文提出了一种**无需训练**的方法，利用**下采样矩阵**确保低分辨率（LR）预览图与高分辨率（HR）图像在**感知上保持一致性**。其核心贡献是提出了**“零对易子条件”**，使得用户能在生成昂贵HR图像前，快速筛选出具有潜力的LR预览图，从而**提高扩散模型的工作流程效率**。",
+      "figure_url": "https://arxiv.org/html/2604.09227v1/x1.png",
+      "figure_caption": "Motivation of Preview Generation. Most users of generative AI usually produce diverse candidate images through repeated trials from multiple seeds (or prompts) to obtain a desired result. Our goal is to accelerate this workflow by generating low-resolution images that share the same content as their high-resolution counterparts but can be produced much faster in a training-free manner.",
+      "primary_category": "cs.CV",
+      "primary_category_anchor": "cs-cv",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2604.09529v1",
+      "title": "VL-Calibration: Decoupled Confidence Calibration for Large Vision-Language Models Reasoning",
+      "authors": [
+        "Wenyi Xiao",
+        "Xinchi Xu",
+        "Leilei Gan"
+      ],
+      "categories": [
+        "cs.CV",
+        "cs.AI",
+        "cs.CL"
+      ],
+      "abstract": "Large Vision Language Models (LVLMs) achieve strong multimodal reasoning but frequently exhibit hallucinations and incorrect responses with high certainty, which hinders their usage in high-stakes domains. Existing verbalized confidence calibration methods, largely developed for text-only LLMs, typically optimize a single holistic confidence score using binary answer-level correctness. This design is mismatched to LVLMs: an incorrect prediction may arise from perceptual failures or from reasoning errors given correct perception, and a single confidence conflates these sources while visual uncertainty is often dominated by language priors. To address these issues, we propose VL-Calibration, a reinforcement learning framework that explicitly decouples confidence into visual and reasoning confidence. To supervise visual confidence without ground-truth perception labels, we introduce an intrinsic visual certainty estimation that combines (i) visual grounding measured by KL-divergence under image perturbations and (ii) internal certainty measured by token entropy. We further propose token-level advantage reweighting to focus optimization on tokens based on visual certainty, suppressing ungrounded hallucinations while preserving valid perception. Experiments on thirteen benchmarks show that VL-Calibration effectively improves calibration while boosting visual reasoning accuracy, and it generalizes to out-of-distribution benchmarks across model scales and architectures.",
+      "url": "http://arxiv.org/abs/2604.09529v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.09529v1",
+      "score": 8.0,
+      "abstract_zh": "该论文提出了**VL-Calibration**，一个强化学习框架，用于解决大型视觉语言模型（LVLMs）的过度自信问题。它通过引入**内省视觉确定性估计**，将模型的整体置信度解耦为**视觉置信度**和**推理置信度**，从而更准确地评估和校准多模态推理的可靠性。",
+      "figure_url": "https://arxiv.org/html/2604.09529v1/figure/first_image.png",
+      "figure_caption": "The baseline method (upper) makes overconfident assumptions. Instead, our method (lower) decouples confidence into visual and reasoning confidence, with clear identification of uncertainty sources and improved calibration.",
+      "primary_category": "cs.CV",
+      "primary_category_anchor": "cs-cv",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2604.09280v1",
+      "title": "AMO-ENE: Attention-based Multi-Omics Fusion Model for Outcome Prediction in Extra Nodal Extension and HPV-associated Oropharyngeal Cancer",
+      "authors": [
+        "Gautier Hénique",
+        "William Le",
+        "Gabriel Dayan",
+        "Coralie Brodeur",
+        "Kristoff Nelson"
+      ],
+      "categories": [
+        "cs.CV",
+        "eess.IV"
+      ],
+      "abstract": "Extranodal extension (ENE) is an emerging prognostic factor in human papillomavirus (HPV)-associated oropharyngeal cancer (OPC), although it is currently omitted as a clinical staging criteria. Recent works have advocated for the inclusion of iENE as a prognostic marker in HPV-positive OPC staging. However, several practical limitations continue to hinder its clinical integration, including inconsistencies in segmentation, low contrast in the periphery of metastatic lymph nodes on CT imaging, and laborious manual annotations. To address these limitations, we propose a fully automated end-to-end pipeline that uses computed tomography (CT) images with clinical data to assess the status of nodal ENE and predict treatment outcomes. Our approach includes a hierarchical 3D semi-supervised segmentation model designed to detect and delineate relevant iENE from radiotherapy planning CT scans. From these segmentations, a set of radiomics and deep features are extracted to train an imaging-detected ENE grading classifier. The predicted ENE status is then evaluated for its prognostic value and compared with existing staging criteria. Furthermore, we integrate these nodal features with primary tumor characteristics in a multimodal, attention-based outcome prediction model, providing a dynamic framework for outcome prediction. Our method is validated in an internal cohort of 397 HPV-positive OPC patients treated with radiation therapy or chemoradiotherapy between 2009 and 2020. For outcome prediction at the 2-year mark, our pipeline surpassed baseline models with 88.2% (4.8) in AUC for metastatic recurrence, 79.2% (7.4) for overall survival, and 78.1% (8.6) for disease-free survival. We also obtain a concordance index of 83.3% (6.5) for metastatic recurrence, 71.3% (8.9) for overall survival, and 70.0% (8.1) for disease-free survival, making it feasible for clinical decision making.",
+      "url": "http://arxiv.org/abs/2604.09280v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.09280v1",
+      "score": 7.0,
+      "abstract_zh": "该论文提出了一种名为 **AMO-ENE** 的端到端多组学融合模型，用于预测 HPV 相关口咽癌的治疗结局。它结合了**基于注意力的 3D 图像分割**来自动识别和勾勒淋巴结外侵犯（ENE），并融合影像组学和深度特征，以克服手动分割的限制。",
+      "figure_url": "https://arxiv.org/html/2604.09280v1/introduction_Figure_V3.png",
+      "figure_caption": "Illustration for iENE status grading system. Nodes are presented with white borders, red healthy tissue background and black tumoral content. Grade 0 indicates metastatic pathological node with no signs of extension. Grade 1 indicates extension through the nodal capsule into surrounding fat. Grade 2 characterizes coalescent nodal masses with loss of internodal planes. Grade 3 is defined by overt invasion of surrounding structures and tissues. In case of multiple ENE, the maximum grade is reported.",
+      "primary_category": "cs.CV",
+      "primary_category_anchor": "cs-cv",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2604.09405v1",
+      "title": "EGLOCE: Training-Free Energy-Guided Latent Optimization for Concept Erasure",
+      "authors": [
+        "Junyeong Ahn",
+        "Seojin Yoon",
+        "Sungyong Baik"
+      ],
+      "categories": [
+        "cs.CV"
+      ],
+      "abstract": "As text-to-image diffusion models grow increasingly prevalent, the ability to remove specific concepts-mostly explicit content and many copyrighted characters or styles-has become essential for safety and compliance. Existing unlearning approaches often require costly re-training, modify parameters at the cost of degradation of unrelated concept fidelity, or depend on indirect inference-time adjustment that compromise the effectiveness of concept erasure. Inspired by the success of energy-guided sampling for preservation of the condition of diffusion models, we introduce Energy-Guided Latent Optimization for Concept Erasure (EGLOCE), a training-free approach that removes unwanted concepts by re-directing noisy latent during inference. Our method employs a dual-objective framework: a repulsion energy that steers generation away from target concepts via gradient descent in latent space, and a retention energy that preserves semantic alignment to the original prompt. Combined with previous approaches that either require erroneous modified model weights or provide weak inference-time guidance, EGLOCE operates entirely at inference and enhances erasure performance, enabling plug-and-play integration. Extensive experiments demonstrate that EGLOCE improves concept removal while maintaining image quality and prompt alignment across baselines, even with adversarial attacks. To the best of our knowledge, our work is the first to establish a new paradigm for safe and controllable image generation through dual energy-based guidance during sampling.",
+      "url": "http://arxiv.org/abs/2604.09405v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.09405v1",
+      "score": 7.0,
+      "abstract_zh": "EGLOCE提出了一种**无需训练**的方法，通过在推理时**引导潜在空间**来实现概念擦除。它利用**排斥能量**使生成远离目标概念，同时用**保持能量**确保与原提示的语义一致性。该方法有效且避免了重新训练或损害其他概念保真度的问题。",
+      "primary_category": "cs.CV",
+      "primary_category_anchor": "cs-cv",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2604.09324v1",
+      "title": "Structure-Aware Fine-Grained Gaussian Splatting for Expressive Avatar Reconstruction",
+      "authors": [
+        "Yuze Su",
+        "Hongsong Wang",
+        "Jie Gui",
+        "Liang Wang"
+      ],
+      "categories": [
+        "cs.CV"
+      ],
+      "abstract": "Reconstructing photorealistic and topology-aware human avatars from monocular videos remains a significant challenge in the fields of computer vision and graphics. While existing 3D human avatar modeling approaches can effectively capture body motion, they often fail to accurately model fine details such as hand movements and facial expressions. To address this, we propose Structure-aware Fine-grained Gaussian Splatting (SFGS), a novel method for reconstructing expressive and coherent full-body 3D human avatars from a monocular video sequence. The SFGS use both spatial-only triplane and time-aware hexplane to capture dynamic features across consecutive frames. A structure-aware gaussian module is designed to capture pose-dependent details in a spatially coherent manner and improve pose and texture expression. To better model hand deformations, we also propose a residual refinement module based on fine-grained hand reconstruction. Our method requires only a single-stage training and outperforms state-of-the-art baselines in both quantitative and qualitative evaluations, generating high-fidelity avatars with natural motion and fine details. The code is on Github: https://github.com/Su245811YZ/SFGS",
+      "url": "http://arxiv.org/abs/2604.09324v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.09324v1",
+      "score": 7.0,
+      "abstract_zh": "该论文提出了**结构感知细粒度高斯泼溅（SFGS）**方法，利用空间三平面和时间六平面捕捉动态特征。其核心在于设计了**结构感知高斯模块**以实现空间一致的姿态依赖细节捕捉，并引入**残差细化模块**以精确建模手部变形，从而从单目视频重建出逼真且拓扑一致的表情丰富的人体化身。",
+      "figure_url": "https://arxiv.org/html/2604.09324v1/x1.png",
+      "figure_caption": "Limitation of conventional human gaussian splatting methods. The second row shows the error between the reconstructed 3D avatar from the corresponding input image in the first row and the 3D ground truth, with darker colors indicating larger reconstruction errors. The hand exhibits the largest reconstruction error across the entire body.",
+      "primary_category": "cs.CV",
+      "primary_category_anchor": "cs-cv",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2604.09368v1",
+      "title": "Through Their Eyes: Fixation-aligned Tuning for Personalized User Emulation",
+      "authors": [
+        "Lingfeng Huang",
+        "Huizhong Guo",
+        "Tianjun Wei",
+        "Yingpeng Du",
+        "Zhu Sun"
+      ],
+      "categories": [
+        "cs.CV",
+        "cs.MM"
+      ],
+      "abstract": "Large language model (LLM) agents are increasingly deployed as scalable user simulators for recommender system evaluation. Yet existing simulators perceive recommendations through text or structured metadata rather than the visual interfaces real users browse-a critical gap, since attention over recommendation layouts is both visually driven and highly personalized. We investigate whether aligning a vision-language model's (VLM's) visual attention with user-specific gaze patterns can improve simulation fidelity. Analysis of a real-world eye-tracking dataset collected in a carousel-based recommendation setting reveals that users exhibit stable individual gaze patterns strongly predictive of click behavior. Building on this finding, we propose Fixation-Aligned Tuning for user Emulation (FixATE). Our approach first probes the VLM's internal visual attention via interpretability operators to obtain a slot-level relevance distribution comparable with human fixation, and then learns personalized soft prompts to steer the model's attention toward each user's characteristic fixation pattern. Experiments across three interpretability-based probing operators and two architecturally distinct VLM backbones demonstrate consistent improvements in both attention alignment and click prediction accuracy. These results suggest that making the model \"see like the user\" is a viable path toward simulators that more faithfully reproduce how users perceive and act in recommendation interfaces.",
+      "url": "http://arxiv.org/abs/2604.09368v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.09368v1",
+      "score": 7.0,
+      "abstract_zh": "该论文提出**FixATE**方法，通过将**视觉-语言模型（VLM）的内部视觉注意力与用户的真实眼动模式对齐**，来提升推荐系统用户模拟的保真度。核心贡献在于证明了**基于个体凝视模式的微调**能有效捕捉用户对推荐布局的视觉偏好，从而更准确地模拟用户行为。",
+      "figure_url": "https://arxiv.org/html/2604.09368v1/x1.png",
+      "figure_caption": "Figure 1 . The difference of the perception of recommendations between real users and LLM-based user simulators.",
+      "primary_category": "cs.CV",
+      "primary_category_anchor": "cs-cv",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2604.09330v1",
+      "title": "VAG: Dual-Stream Video-Action Generation for Embodied Data Synthesis",
+      "authors": [
+        "Xiaolei Lang",
+        "Yang Wang",
+        "Yukun Zhou",
+        "Chaojun Ni",
+        "Kerui Li"
+      ],
+      "categories": [
+        "cs.CV",
+        "cs.RO"
+      ],
+      "abstract": "Recent advances in robot foundation models trained on large-scale human teleoperation data have enabled robots to perform increasingly complex real-world tasks. However, scaling these systems remains difficult because collecting task-specific demonstrations is expensive and labor-intensive. Synthetic data, especially generated videos, offer a promising direction, but existing World Models (WMs) are not directly suitable for policy learning since they do not provide paired action trajectories. World-Action (WA) models partially address this by predicting actions with visual outputs, yet often lack strong video-action alignment, while two-stage pipelines that generate video first and then infer actions introduce inefficiency and error accumulation. To address these limitations, we propose VAG, a unified flow-matching-based dual-stream framework that jointly generates video and action under visual and language conditioning. By synchronizing denoising in both branches and using an adaptive 3D pooling mechanism to transfer compact global video context to the action branch, VAG improves cross-modal consistency during generation. Across both simulated and real-world settings, VAG produces aligned video-action pairs with competitive prediction quality, supports executable trajectory replay, and provides useful synthetic pretraining data that improves downstream policy generalization, indicating its potential as a practical world-action model for embodied data synthesis.",
+      "url": "http://arxiv.org/abs/2604.09330v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.09330v1",
+      "score": 7.0,
+      "abstract_zh": "VAG 提出了一种基于流匹配的双流框架，用于联合生成视频和动作，以解决机器人学习中合成数据对齐和效率问题。它通过同步视频和动作的去噪过程，实现了更强的视频-动作对齐，为具身智能体提供了高质量的合成数据。",
+      "figure_url": "https://arxiv.org/html/2604.09330v1/x1.png",
+      "figure_caption": "Illustration and capabilities of VAG. (a) We train our dual-stream video-action generation model using teleoperated robot trajectories. (b) Given an initial frame and a language instruction, the model can synchronously generate aligned video–action data pairs. (c) The generated data can be used to train robot policies for improved generalization. (d) The actions generated by the model can also be applied for real-world robot replay. The successful task execution demonstrates that the model holds the potential to function as a policy.",
+      "primary_category": "cs.CV",
+      "primary_category_anchor": "cs-cv",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2604.09305v1",
+      "title": "VAGNet: Vision-based accident anticipation with global features",
+      "authors": [
+        "Vipooshan Vipulananthan",
+        "Charith D. Chitraranjan"
+      ],
+      "categories": [
+        "cs.CV"
+      ],
+      "abstract": "Traffic accidents are a leading cause of fatalities and injuries across the globe. Therefore, the ability to anticipate hazardous situations in advance is essential. Automated accident anticipation enables timely intervention through driver alerts and collision avoidance maneuvers, forming a key component of advanced driver assistance systems. In autonomous driving, such predictive capabilities support proactive safety behaviors, such as initiating defensive driving and human takeover when required. Using dashcam video as input offers a cost-effective solution, but it is challenging due to the complexity of real-world driving scenes. Accident anticipation systems need to operate in real-time. However, current methods involve extracting features from each detected object, which is computationally intensive. We propose VAGNet, a deep neural network that learns to predict accidents from dash-cam video using global features of traffic scenes without requiring explicit object-level features. The network consists of transformer and graph modules, and we use the vision foundation model VideoMAE-V2 for global feature extraction. Experiments on four benchmark datasets (DAD, DoTA, DADA, and Nexar) show that our method anticipates accidents with higher average precision and mean time-to-accident while being computationally more efficient compared to existing methods.",
+      "url": "http://arxiv.org/abs/2604.09305v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.09305v1",
+      "score": 7.0,
+      "abstract_zh": "VAGNet 提出了一种基于深度学习的方法，利用**全局场景特征**而非耗时的逐对象特征来预测交通事故。其核心贡献在于实现了**高效的、基于视频的事故预警**，适用于实时自动驾驶系统。",
+      "figure_url": "https://arxiv.org/html/2604.09305v1/diagrams/vagnet_diagram.png",
+      "figure_caption": "Architecture of the proposed VAGNet accident anticipation framework.",
+      "primary_category": "cs.CV",
+      "primary_category_anchor": "cs-cv",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2604.09527v1",
+      "title": "Envisioning the Future, One Step at a Time",
+      "authors": [
+        "Stefan Andreas Baumann",
+        "Jannik Wiese",
+        "Tommaso Martorella",
+        "Mahdi M. Kalayeh",
+        "Björn Ommer"
+      ],
+      "categories": [
+        "cs.CV",
+        "cs.AI",
+        "cs.LG"
+      ],
+      "abstract": "Accurately anticipating how complex, diverse scenes will evolve requires models that represent uncertainty, simulate along extended interaction chains, and efficiently explore many plausible futures. Yet most existing approaches rely on dense video or latent-space prediction, expending substantial capacity on dense appearance rather than on the underlying sparse trajectories of points in the scene. This makes large-scale exploration of future hypotheses costly and limits performance when long-horizon, multi-modal motion is essential. We address this by formulating the prediction of open-set future scene dynamics as step-wise inference over sparse point trajectories. Our autoregressive diffusion model advances these trajectories through short, locally predictable transitions, explicitly modeling the growth of uncertainty over time. This dynamics-centric representation enables fast rollout of thousands of diverse futures from a single image, optionally guided by initial constraints on motion, while maintaining physical plausibility and long-range coherence. We further introduce OWM, a benchmark for open-set motion prediction based on diverse in-the-wild videos, to evaluate accuracy and variability of predicted trajectory distributions under real-world uncertainty. Our method matches or surpasses dense simulators in predictive accuracy while achieving orders-of-magnitude higher sampling speed, making open-set future prediction both scalable and practical. Project page: http://compvis.github.io/myriad.",
+      "url": "http://arxiv.org/abs/2604.09527v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.09527v1",
+      "score": 6.0,
+      "abstract_zh": "该论文提出了一种**基于稀疏点轨迹的步进式推理**方法，用于预测开放集未来场景动态。其核心是利用**自回归扩散模型**，通过短程、局部可预测的过渡来推进轨迹，并显式建模不确定性增长，从而高效生成数千种多样化的未来场景。",
+      "primary_category": "cs.CV",
+      "primary_category_anchor": "cs-cv",
+      "primary_category_rank": 0
     },
     {
       "id": "2604.09415v1",
@@ -242,170 +485,54 @@
       "url": "http://arxiv.org/abs/2604.09415v1",
       "pdf_url": "https://arxiv.org/pdf/2604.09415v1",
       "score": 6.0,
-      "abstract_zh": "PhysInOne是一个包含200万个视频的大规模合成数据集，旨在解决物理学AI训练数据稀缺的问题。它覆盖了71种基础物理现象，并提供了详尽的3D几何、运动和物理属性等标注。该数据集能有效提升模型在物理感知视频生成、未来帧预测等任务中的物理合理性。"
+      "abstract_zh": "PhysInOne是一个包含200万视频的大规模合成数据集，旨在解决物理学习数据稀缺问题。它覆盖了71种基本物理现象，并提供全面的3D、动态和物理属性标注。该数据集能有效提升AI模型在物理感知视频生成、未来预测和属性估计等任务中的物理合理性。",
+      "primary_category": "cs.CV",
+      "primary_category_anchor": "cs-cv",
+      "primary_category_rank": 0
     },
     {
-      "id": "2604.09405v1",
-      "title": "EGLOCE: Training-Free Energy-Guided Latent Optimization for Concept Erasure",
+      "id": "2604.09426v1",
+      "title": "Three Modalities, Two Design Probes, One Prototype, and No Vision: Experience-Based Co-Design of a Multi-modal 3D Data Visualization Tool",
       "authors": [
-        "Junyeong Ahn",
-        "Seojin Yoon",
-        "Sungyong Baik"
+        "Sanchita S. Kamath",
+        "Aziz N Zeidieh",
+        "Venkatesh Potluri",
+        "Sile O'Modhrain",
+        "Kenneth Perry"
       ],
       "categories": [
-        "cs.CV"
+        "cs.AI",
+        "cs.HC",
+        "cs.IR"
       ],
-      "abstract": "As text-to-image diffusion models grow increasingly prevalent, the ability to remove specific concepts-mostly explicit content and many copyrighted characters or styles-has become essential for safety and compliance. Existing unlearning approaches often require costly re-training, modify parameters at the cost of degradation of unrelated concept fidelity, or depend on indirect inference-time adjustment that compromise the effectiveness of concept erasure. Inspired by the success of energy-guided sampling for preservation of the condition of diffusion models, we introduce Energy-Guided Latent Optimization for Concept Erasure (EGLOCE), a training-free approach that removes unwanted concepts by re-directing noisy latent during inference. Our method employs a dual-objective framework: a repulsion energy that steers generation away from target concepts via gradient descent in latent space, and a retention energy that preserves semantic alignment to the original prompt. Combined with previous approaches that either require erroneous modified model weights or provide weak inference-time guidance, EGLOCE operates entirely at inference and enhances erasure performance, enabling plug-and-play integration. Extensive experiments demonstrate that EGLOCE improves concept removal while maintaining image quality and prompt alignment across baselines, even with adversarial attacks. To the best of our knowledge, our work is the first to establish a new paradigm for safe and controllable image generation through dual energy-based guidance during sampling.",
-      "url": "http://arxiv.org/abs/2604.09405v1",
-      "pdf_url": "https://arxiv.org/pdf/2604.09405v1",
-      "score": 7.0,
-      "abstract_zh": "EGLOCE 提出了一种**无需训练**的方法，通过在推理过程中**引导潜空间**来实现概念擦除。它使用**排斥能量**将生成过程推离目标概念，同时利用**保留能量**确保与原提示的语义一致性。该方法有效且不损害模型性能。"
+      "abstract": "Three-dimensional (3D) data visualizations, such as surface plots, are vital in STEM fields from biomedical imaging to spectroscopy, yet remain largely inaccessible to blind and low-vision (BLV) people. To address this gap, we conducted an Experience-Based Co-Design with BLV co-designers with expertise in non-visual data representations to create an accessible, multi-modal, web-native visualization tool. Using a multi-phase methodology, our team of five BLV and one non-BLV researcher(s) participated in two iterative sessions, comparing a low-fidelity tactile probe with a high-fidelity digital prototype. This process produced a prototype with empirically grounded features, including reference sonification, stereo and volumetric audio, and configurable buffer aggregation, which our co-designers validated as improving analytic accuracy and learnability. In this study, we target core analytic tasks essential for non-visual 3D data exploration: orientation, landmark and peak finding, comparing local maxima versus global trends, gradient tracing, and identifying occluded or partially hidden features. Our work offers accessibility researchers and developers a co-design protocol for translating tactile knowledge to digital interfaces, concrete design guidance for future systems, and opportunities to extend accessible 3D visualization into embodied data environments.",
+      "url": "http://arxiv.org/abs/2604.09426v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.09426v1",
+      "score": 6.0,
+      "abstract_zh": "该论文采用**基于经验的共同设计方法**，与盲人和低视力（BLV）用户合作，开发了一个**多模态的、无需视觉的3D数据可视化工具原型**。核心贡献在于提出了一套**经验验证的无视觉设计特征**（如参考声化、立体和体积音频），显著提高了BLV用户在3D数据分析任务中的准确性和可学习性。",
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 1
     },
     {
-      "id": "2604.09370v1",
-      "title": "Cluster-First Labelling: An Automated Pipeline for Segmentation and Morphological Clustering in Histology Whole Slide Images",
+      "id": "2604.09437v1",
+      "title": "AdaCubic: An Adaptive Cubic Regularization Optimizer for Deep Learning",
       "authors": [
-        "Muhammad Haseeb Ahmad",
-        "Sharmila Rajendran",
-        "Damion Young",
-        "Jon Mason"
+        "Ioannis Tsingalis",
+        "Constantine Kotropoulos",
+        "Corentin Briat"
       ],
       "categories": [
-        "q-bio.QM",
-        "cs.CV"
+        "cs.LG"
       ],
-      "abstract": "Labelling tissue components in histology whole slide images (WSIs) is prohibitively labour-intensive: a single slide may contain tens of thousands of structures--cells, nuclei, and other morphologically distinct objects--each requiring manual boundary delineation and classification. We present a cloudnative, end-to-end pipeline that automates this process through a cluster-first paradigm. Our system tiles WSIs, filters out tiles deemed unlikely to contain valuable information, segments tissue components with Cellpose-SAM (including cells, nuclei, and other morphologically similar structures), extracts neural embeddings via a pretrained ResNet-50, reduces dimensionality with UMAP, and groups morphologically similar objects using DBSCAN clustering. Under this paradigm, a human annotator labels representative clusters rather than individual objects, reducing annotation effort by orders of magnitude. We evaluate the pipeline on 3,696 tissue components across 13 diverse tissue types from three species (human, rat, rabbit), measuring how well unsupervised clusters align with independent human labels via per-tile Hungarian-algorithm matching. Our system achieves a weighted cluster-label alignment accuracy of 96.8%, with 7 of 13 tissue types reaching perfect agreement. The pipeline, a companion labelling web application, and all evaluation code are released as open-source software.",
-      "url": "http://arxiv.org/abs/2604.09370v1",
-      "pdf_url": "https://arxiv.org/pdf/2604.09370v1",
-      "score": 8.0,
-      "abstract_zh": "该论文提出了一种名为“Cluster-First Labelling”的自动化流程，用于对组织全玻片图像（WSI）中的组织成分进行分割和形态聚类。该方法通过**先聚类后标注**的范式，利用深度学习分割、特征提取和DBSCAN聚类，将海量对象的标注任务转化为对少数代表性聚类的标注，**极大地减少了人工标注的工作量**。",
-      "figure_url": "https://arxiv.org/html/2604.09370v1/figures/pipeline_comp2.png",
-      "figure_caption": "Pipeline architecture. WSI slides ( .ndpi ) are tiled into 512 × 512 512\\times 512 patches, quality-filtered, segmented with Cellpose-SAM, embedded with ResNet-50, reduced via UMAP, and clustered with DBSCAN. Optional downstream stages annotate images, extract representative tiles per cluster, and invoke a multimodal LLM for experimental classification."
-    },
-    {
-      "id": "2604.09368v1",
-      "title": "Through Their Eyes: Fixation-aligned Tuning for Personalized User Emulation",
-      "authors": [
-        "Lingfeng Huang",
-        "Huizhong Guo",
-        "Tianjun Wei",
-        "Yingpeng Du",
-        "Zhu Sun"
-      ],
-      "categories": [
-        "cs.MM",
-        "cs.CV"
-      ],
-      "abstract": "Large language model (LLM) agents are increasingly deployed as scalable user simulators for recommender system evaluation. Yet existing simulators perceive recommendations through text or structured metadata rather than the visual interfaces real users browse-a critical gap, since attention over recommendation layouts is both visually driven and highly personalized. We investigate whether aligning a vision-language model's (VLM's) visual attention with user-specific gaze patterns can improve simulation fidelity. Analysis of a real-world eye-tracking dataset collected in a carousel-based recommendation setting reveals that users exhibit stable individual gaze patterns strongly predictive of click behavior. Building on this finding, we propose Fixation-Aligned Tuning for user Emulation (FixATE). Our approach first probes the VLM's internal visual attention via interpretability operators to obtain a slot-level relevance distribution comparable with human fixation, and then learns personalized soft prompts to steer the model's attention toward each user's characteristic fixation pattern. Experiments across three interpretability-based probing operators and two architecturally distinct VLM backbones demonstrate consistent improvements in both attention alignment and click prediction accuracy. These results suggest that making the model \"see like the user\" is a viable path toward simulators that more faithfully reproduce how users perceive and act in recommendation interfaces.",
-      "url": "http://arxiv.org/abs/2604.09368v1",
-      "pdf_url": "https://arxiv.org/pdf/2604.09368v1",
-      "score": 7.0,
-      "abstract_zh": "该论文提出**FixATE**方法，通过将**视觉语言模型（VLM）的内部视觉注意力与用户特定的眼动追踪模式对齐**，来改进推荐系统用户模拟的保真度。核心贡献在于利用真实用户凝视数据，使模拟器能更真实地感知推荐界面的视觉布局，从而更准确地预测用户行为。",
-      "figure_url": "https://arxiv.org/html/2604.09368v1/x1.png",
-      "figure_caption": "Figure 1 . The difference of the perception of recommendations between real users and LLM-based user simulators."
-    },
-    {
-      "id": "2604.09366v1",
-      "title": "Robust 4D Visual Geometry Transformer with Uncertainty-Aware Priors",
-      "authors": [
-        "Ying Zang",
-        "Yidong Han",
-        "Chaotao Ding",
-        "Yuanqi Hu",
-        "Deyi Ji"
-      ],
-      "categories": [
-        "cs.CV"
-      ],
-      "abstract": "Reconstructing dynamic 4D scenes is an important yet challenging task. While 3D foundation models like VGGT excel in static settings, they often struggle with dynamic sequences where motion causes significant geometric ambiguity. To address this, we present a framework designed to disentangle dynamic and static components by modeling uncertainty across different stages of the reconstruction process. Our approach introduces three synergistic mechanisms: (1) Entropy-Guided Subspace Projection, which leverages information-theoretic weighting to adaptively aggregate multi-head attention distributions, effectively isolating dynamic motion cues from semantic noise; (2) Local-Consistency Driven Geometry Purification, which enforces spatial continuity via radius-based neighborhood constraints to eliminate structural outliers; and (3) Uncertainty-Aware Cross-View Consistency, which formulates multi-view projection refinement as a heteroscedastic maximum likelihood estimation problem, utilizing depth confidence as a probabilistic weight. Experiments on dynamic benchmarks show that our approach outperforms current state-of-the-art methods, reducing Mean Accuracy error by 13.43\\% and improving segmentation F-measure by 10.49\\%. Our framework maintains the efficiency of feed-forward inference and requires no task-specific fine-tuning or per-scene optimization.",
-      "url": "http://arxiv.org/abs/2604.09366v1",
-      "pdf_url": "https://arxiv.org/pdf/2604.09366v1",
-      "score": 8.0,
-      "abstract_zh": "该论文提出了一种鲁棒的4D视觉几何Transformer，通过**熵引导的子空间投影**解耦动态和静态成分，并引入**局部一致性驱动的几何纯化**来消除结构异常。 核心贡献在于利用**不确定性感知的先验**，通过异方差最大似然估计来提高动态场景重建的准确性和鲁棒性。",
-      "figure_url": "https://arxiv.org/html/2604.09366v1/x1.png",
-      "figure_caption": "Overview of the proposed framwwork."
-    },
-    {
-      "id": "2604.09330v1",
-      "title": "VAG: Dual-Stream Video-Action Generation for Embodied Data Synthesis",
-      "authors": [
-        "Xiaolei Lang",
-        "Yang Wang",
-        "Yukun Zhou",
-        "Chaojun Ni",
-        "Kerui Li"
-      ],
-      "categories": [
-        "cs.RO",
-        "cs.CV"
-      ],
-      "abstract": "Recent advances in robot foundation models trained on large-scale human teleoperation data have enabled robots to perform increasingly complex real-world tasks. However, scaling these systems remains difficult because collecting task-specific demonstrations is expensive and labor-intensive. Synthetic data, especially generated videos, offer a promising direction, but existing World Models (WMs) are not directly suitable for policy learning since they do not provide paired action trajectories. World-Action (WA) models partially address this by predicting actions with visual outputs, yet often lack strong video-action alignment, while two-stage pipelines that generate video first and then infer actions introduce inefficiency and error accumulation. To address these limitations, we propose VAG, a unified flow-matching-based dual-stream framework that jointly generates video and action under visual and language conditioning. By synchronizing denoising in both branches and using an adaptive 3D pooling mechanism to transfer compact global video context to the action branch, VAG improves cross-modal consistency during generation. Across both simulated and real-world settings, VAG produces aligned video-action pairs with competitive prediction quality, supports executable trajectory replay, and provides useful synthetic pretraining data that improves downstream policy generalization, indicating its potential as a practical world-action model for embodied data synthesis.",
-      "url": "http://arxiv.org/abs/2604.09330v1",
-      "pdf_url": "https://arxiv.org/pdf/2604.09330v1",
-      "score": 7.0,
-      "abstract_zh": "VAG提出了一种基于流匹配（flow-matching）的双流框架，用于联合生成视频和动作，并同时受到视觉和语言的条件约束。其核心贡献在于通过同步去噪机制，实现了视频生成与动作轨迹的强对齐，有效解决了现有世界模型和两阶段方法在具身数据合成中的效率和对齐问题。",
-      "figure_url": "https://arxiv.org/html/2604.09330v1/x1.png",
-      "figure_caption": "Illustration and capabilities of VAG. (a) We train our dual-stream video-action generation model using teleoperated robot trajectories. (b) Given an initial frame and a language instruction, the model can synchronously generate aligned video–action data pairs. (c) The generated data can be used to train robot policies for improved generalization. (d) The actions generated by the model can also be applied for real-world robot replay. The successful task execution demonstrates that the model holds the potential to function as a policy."
-    },
-    {
-      "id": "2604.09324v1",
-      "title": "Structure-Aware Fine-Grained Gaussian Splatting for Expressive Avatar Reconstruction",
-      "authors": [
-        "Yuze Su",
-        "Hongsong Wang",
-        "Jie Gui",
-        "Liang Wang"
-      ],
-      "categories": [
-        "cs.CV"
-      ],
-      "abstract": "Reconstructing photorealistic and topology-aware human avatars from monocular videos remains a significant challenge in the fields of computer vision and graphics. While existing 3D human avatar modeling approaches can effectively capture body motion, they often fail to accurately model fine details such as hand movements and facial expressions. To address this, we propose Structure-aware Fine-grained Gaussian Splatting (SFGS), a novel method for reconstructing expressive and coherent full-body 3D human avatars from a monocular video sequence. The SFGS use both spatial-only triplane and time-aware hexplane to capture dynamic features across consecutive frames. A structure-aware gaussian module is designed to capture pose-dependent details in a spatially coherent manner and improve pose and texture expression. To better model hand deformations, we also propose a residual refinement module based on fine-grained hand reconstruction. Our method requires only a single-stage training and outperforms state-of-the-art baselines in both quantitative and qualitative evaluations, generating high-fidelity avatars with natural motion and fine details. The code is on Github: https://github.com/Su245811YZ/SFGS",
-      "url": "http://arxiv.org/abs/2604.09324v1",
-      "pdf_url": "https://arxiv.org/pdf/2604.09324v1",
-      "score": 7.0,
-      "abstract_zh": "该论文提出了**结构感知细粒度高斯泼溅（SFGS）**方法，利用空间三平面和时间六平面捕捉动态特征。其核心贡献在于设计了结构感知高斯模块和基于细粒度手部重建的残差精炼模块，以**从单目视频中重建出具有高保真度和拓扑感知的、表情丰富的全身体姿态三维人像**。",
-      "figure_url": "https://arxiv.org/html/2604.09324v1/x1.png",
-      "figure_caption": "Limitation of conventional human gaussian splatting methods. The second row shows the error between the reconstructed 3D avatar from the corresponding input image in the first row and the 3D ground truth, with darker colors indicating larger reconstruction errors. The hand exhibits the largest reconstruction error across the entire body."
-    },
-    {
-      "id": "2604.09305v1",
-      "title": "VAGNet: Vision-based accident anticipation with global features",
-      "authors": [
-        "Vipooshan Vipulananthan",
-        "Charith D. Chitraranjan"
-      ],
-      "categories": [
-        "cs.CV"
-      ],
-      "abstract": "Traffic accidents are a leading cause of fatalities and injuries across the globe. Therefore, the ability to anticipate hazardous situations in advance is essential. Automated accident anticipation enables timely intervention through driver alerts and collision avoidance maneuvers, forming a key component of advanced driver assistance systems. In autonomous driving, such predictive capabilities support proactive safety behaviors, such as initiating defensive driving and human takeover when required. Using dashcam video as input offers a cost-effective solution, but it is challenging due to the complexity of real-world driving scenes. Accident anticipation systems need to operate in real-time. However, current methods involve extracting features from each detected object, which is computationally intensive. We propose VAGNet, a deep neural network that learns to predict accidents from dash-cam video using global features of traffic scenes without requiring explicit object-level features. The network consists of transformer and graph modules, and we use the vision foundation model VideoMAE-V2 for global feature extraction. Experiments on four benchmark datasets (DAD, DoTA, DADA, and Nexar) show that our method anticipates accidents with higher average precision and mean time-to-accident while being computationally more efficient compared to existing methods.",
-      "url": "http://arxiv.org/abs/2604.09305v1",
-      "pdf_url": "https://arxiv.org/pdf/2604.09305v1",
-      "score": 7.0,
-      "abstract_zh": "VAGNet 提出了一种基于深度神经网络的方法，利用**全局场景特征**从行车记录仪视频中预测交通事故，而非依赖计算密集型的**逐对象特征提取**。其核心贡献在于实现了高效的、**基于视觉的事故预警**，适用于实时自动驾驶系统。",
-      "figure_url": "https://arxiv.org/html/2604.09305v1/diagrams/vagnet_diagram.png",
-      "figure_caption": "Architecture of the proposed VAGNet accident anticipation framework."
-    },
-    {
-      "id": "2604.09280v1",
-      "title": "AMO-ENE: Attention-based Multi-Omics Fusion Model for Outcome Prediction in Extra Nodal Extension and HPV-associated Oropharyngeal Cancer",
-      "authors": [
-        "Gautier Hénique",
-        "William Le",
-        "Gabriel Dayan",
-        "Coralie Brodeur",
-        "Kristoff Nelson"
-      ],
-      "categories": [
-        "eess.IV",
-        "cs.CV"
-      ],
-      "abstract": "Extranodal extension (ENE) is an emerging prognostic factor in human papillomavirus (HPV)-associated oropharyngeal cancer (OPC), although it is currently omitted as a clinical staging criteria. Recent works have advocated for the inclusion of iENE as a prognostic marker in HPV-positive OPC staging. However, several practical limitations continue to hinder its clinical integration, including inconsistencies in segmentation, low contrast in the periphery of metastatic lymph nodes on CT imaging, and laborious manual annotations. To address these limitations, we propose a fully automated end-to-end pipeline that uses computed tomography (CT) images with clinical data to assess the status of nodal ENE and predict treatment outcomes. Our approach includes a hierarchical 3D semi-supervised segmentation model designed to detect and delineate relevant iENE from radiotherapy planning CT scans. From these segmentations, a set of radiomics and deep features are extracted to train an imaging-detected ENE grading classifier. The predicted ENE status is then evaluated for its prognostic value and compared with existing staging criteria. Furthermore, we integrate these nodal features with primary tumor characteristics in a multimodal, attention-based outcome prediction model, providing a dynamic framework for outcome prediction. Our method is validated in an internal cohort of 397 HPV-positive OPC patients treated with radiation therapy or chemoradiotherapy between 2009 and 2020. For outcome prediction at the 2-year mark, our pipeline surpassed baseline models with 88.2% (4.8) in AUC for metastatic recurrence, 79.2% (7.4) for overall survival, and 78.1% (8.6) for disease-free survival. We also obtain a concordance index of 83.3% (6.5) for metastatic recurrence, 71.3% (8.9) for overall survival, and 70.0% (8.1) for disease-free survival, making it feasible for clinical decision making.",
-      "url": "http://arxiv.org/abs/2604.09280v1",
-      "pdf_url": "https://arxiv.org/pdf/2604.09280v1",
-      "score": 7.0,
-      "abstract_zh": "该论文提出了 **AMO-ENE** 模型，一个基于注意力的多组学融合模型，用于预测 HPV 相关口咽癌的结局。它通过一个**端到端的流程**，结合 **CT 图像**（使用分层 3D 半监督分割技术提取影像组学和深度特征）和临床数据，**自动评估淋巴结外侵犯 (ENE) 状态**并预测治疗结果。",
-      "figure_url": "https://arxiv.org/html/2604.09280v1/introduction_Figure_V3.png",
-      "figure_caption": "Illustration for iENE status grading system. Nodes are presented with white borders, red healthy tissue background and black tumoral content. Grade 0 indicates metastatic pathological node with no signs of extension. Grade 1 indicates extension through the nodal capsule into surrounding fat. Grade 2 characterizes coalescent nodal masses with loss of internodal planes. Grade 3 is defined by overt invasion of surrounding structures and tissues. In case of multiple ENE, the maximum grade is reported."
+      "abstract": "A novel regularization technique, AdaCubic, is proposed that adapts the weight of the cubic term. The heart of AdaCubic is an auxiliary optimization problem with cubic constraints that dynamically adjusts the weight of the cubic term in Newton's cubic regularized method. We use Hutchinson's method to approximate the Hessian matrix, thereby reducing computational cost. We demonstrate that AdaCubic inherits the cubically regularized Newton method's local convergence guarantees. Our experiments in Computer Vision, Natural Language Processing, and Signal Processing tasks demonstrate that AdaCubic outperforms or competes with several widely used optimizers. Unlike other adaptive algorithms that require hyperparameter fine-tuning, AdaCubic is evaluated with a fixed set of hyperparameters, rendering it a highly attractive optimizer in settings where fine-tuning is infeasible. This makes AdaCubic an attractive option for researchers and practitioners alike. To our knowledge, AdaCubic is the first optimizer to leverage cubic regularization in scalable deep learning applications.",
+      "url": "http://arxiv.org/abs/2604.09437v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.09437v1",
+      "score": 6.0,
+      "abstract_zh": "AdaCubic提出了一种自适应立方正则化优化器，通过求解带立方约束的辅助优化问题来动态调整正则化项的权重。该方法利用Hutchinson方法近似Hessian矩阵以降低计算成本，并保持了立方正则化牛顿法的局部收敛保证。实验表明，AdaCubic性能优异且对超参数不敏感。",
+      "primary_category": "cs.LG",
+      "primary_category_anchor": "cs-lg",
+      "primary_category_rank": 2
     },
     {
       "id": "2604.09258v1",
@@ -424,65 +551,10 @@
       "url": "http://arxiv.org/abs/2604.09258v1",
       "pdf_url": "https://arxiv.org/pdf/2604.09258v1",
       "score": 6.0,
-      "abstract_zh": "该论文研究了预训练损失函数的几何结构，发现标准优化器易收敛到任务特定最小值分散的点。作者提出 **Nexus** 方法，旨在使模型收敛到所有数据源的**共同最小值**（Common Minima），以提升下游任务的泛化能力。"
-    },
-    {
-      "id": "2604.09227v1",
-      "title": "Training-free, Perceptually Consistent Low-Resolution Previews with High-Resolution Image for Efficient Workflows of Diffusion Models",
-      "authors": [
-        "Wongi Jeong",
-        "Hoigi Seo",
-        "Se Young Chun"
-      ],
-      "categories": [
-        "eess.IV",
-        "cs.CV"
-      ],
-      "abstract": "Image generative models have become indispensable tools to yield exquisite high-resolution (HR) images for everyone, ranging from general users to professional designers. However, a desired outcome often requires generating a large number of HR images with different prompts and seeds, resulting in high computational cost for both users and service providers. Generating low-resolution (LR) images first could alleviate computational burden, but it is not straightforward how to generate LR images that are perceptually consistent with their HR counterparts. Here, we consider the task of generating high-fidelity LR images, called Previews, that preserve perceptual similarity of their HR counterparts for an efficient workflow, allowing users to identify promising candidates before generating the final HR image. We propose the commutator-zero condition to ensure the LR-HR perceptual consistency for flow matching models, leading to the proposed training-free solution with downsampling matrix selection and commutator-zero guidance. Extensive experiments show that our method can generate LR images with up to 33\\% computation reduction while maintaining HR perceptual consistency. When combined with existing acceleration techniques, our method achieves up to 3$\\times$ speedup. Moreover, our formulation can be extended to image manipulations, such as warping and translation, demonstrating its generalizability.",
-      "url": "http://arxiv.org/abs/2604.09227v1",
-      "pdf_url": "https://arxiv.org/pdf/2604.09227v1",
-      "score": 8.0,
-      "abstract_zh": "该论文提出了一种**无需训练**的方法，利用**下采样矩阵**确保低分辨率（LR）预览图与高分辨率（HR）图像在**感知上保持一致**。其核心贡献在于引入了**“零对合条件”**（commutator-zero condition），从而高效生成可用于筛选的LR预览图，显著**降低了扩散模型的工作流程计算成本**。",
-      "figure_url": "https://arxiv.org/html/2604.09227v1/x1.png",
-      "figure_caption": "Motivation of Preview Generation. Most users of generative AI usually produce diverse candidate images through repeated trials from multiple seeds (or prompts) to obtain a desired result. Our goal is to accelerate this workflow by generating low-resolution images that share the same content as their high-resolution counterparts but can be produced much faster in a training-free manner."
-    },
-    {
-      "id": "2604.09213v1",
-      "title": "SHIFT: Steering Hidden Intermediates in Flow Transformers",
-      "authors": [
-        "Nina Konovalova",
-        "Andrey Kuznetsov",
-        "Aibek Alanov"
-      ],
-      "categories": [
-        "cs.CV"
-      ],
-      "abstract": "Diffusion models have become leading approaches for high-fidelity image generation. Recent DiT-based diffusion models, in particular, achieve strong prompt adherence while producing high-quality samples. We propose SHIFT, a simple but effective and lightweight framework for concept removal in DiT diffusion models via targeted manipulation of intermediate activations at inference time, inspired by activation steering in large language models. SHIFT learns steering vectors that are dynamically applied to selected layers and timesteps to suppress unwanted visual concepts while preserving the prompt's remaining content and overall image quality. Beyond suppression, the same mechanism can shift generations into a desired \\emph{style domain} or bias samples toward adding or changing target objects. We demonstrate that SHIFT provides effective and flexible control over DiT generation across diverse prompts and targets without time-consuming retraining.",
-      "url": "http://arxiv.org/abs/2604.09213v1",
-      "pdf_url": "https://arxiv.org/pdf/2604.09213v1",
-      "score": 9.0,
-      "abstract_zh": "SHIFT 提出了一种轻量级框架，通过在推理时**有针对性地操纵 DiT 扩散模型中的中间激活层**来实现概念移除。它学习可动态应用的**引导向量**，以抑制不需要的概念，同时保持图像质量，并可用于风格迁移或引导生成特定内容。",
-      "figure_url": "https://arxiv.org/html/2604.09213v1/x1.png",
-      "figure_caption": "Double-stream block."
-    },
-    {
-      "id": "2604.09201v1",
-      "title": "CT-1: Vision-Language-Camera Models Transfer Spatial Reasoning Knowledge to Camera-Controllable Video Generation",
-      "authors": [
-        "Haoyu Zhao",
-        "Zihao Zhang",
-        "Jiaxi Gu",
-        "Haoran Chen",
-        "Qingping Zheng"
-      ],
-      "categories": [
-        "cs.CV"
-      ],
-      "abstract": "Camera-controllable video generation aims to synthesize videos with flexible and physically plausible camera movements. However, existing methods either provide imprecise camera control from text prompts or rely on labor-intensive manual camera trajectory parameters, limiting their use in automated scenarios. To address these issues, we propose a novel Vision-Language-Camera model, termed CT-1 (Camera Transformer 1), a specialized model designed to transfer spatial reasoning knowledge to video generation by accurately estimating camera trajectories. Built upon vision-language modules and a Diffusion Transformer model, CT-1 employs a Wavelet-based Regularization Loss in the frequency domain to effectively learn complex camera trajectory distributions. These trajectories are integrated into a video diffusion model to enable spatially aware camera control that aligns with user intentions. To facilitate the training of CT-1, we design a dedicated data curation pipeline and construct CT-200K, a large-scale dataset containing over 47M frames. Experimental results demonstrate that our framework successfully bridges the gap between spatial reasoning and video synthesis, yielding faithful and high-quality camera-controllable videos and improving camera control accuracy by 25.7% over prior methods.",
-      "url": "http://arxiv.org/abs/2604.09201v1",
-      "pdf_url": "https://arxiv.org/pdf/2604.09201v1",
-      "score": 8.0,
-      "abstract_zh": "该论文提出了CT-1模型，一个专用于视频生成的视觉-语言-相机模型，旨在通过准确估计相机轨迹来实现灵活且物理合理的相机控制。CT-1利用Wavelet正则化损失学习复杂的相机运动分布，并将其集成到扩散模型中，从而实现与用户意图对齐的空间感知相机控制。"
+      "abstract_zh": "该论文研究了大型语言模型预训练中，不同数据源的损失函数是否收敛到共同的极小值点。作者发现标准优化器常导致任务特定极小值分散，并提出 **Nexus** 方法来促使模型收敛到更接近的共同极小值，从而提升下游任务的泛化能力。",
+      "primary_category": "cs.LG",
+      "primary_category_anchor": "cs-lg",
+      "primary_category_rank": 2
     }
   ],
   "hacker_news": [
@@ -490,10 +562,10 @@
       "id": 47747017,
       "title": "Apple's accidental moat: How the \"AI Loser\" may end up winning",
       "url": "https://adlrocha.substack.com/p/adlrocha-how-the-ai-loser-may-end",
-      "score": 390,
+      "score": 391,
       "created_at": "2026-04-13T02:53:10Z",
       "comments_url": "https://news.ycombinator.com/item?id=47747017",
-      "summary_zh": "苹果被视为AI落后者，但其生态系统和用户基础可能成为意外的护城河，使其最终受益。"
+      "summary_zh": "苹果被视为AI落后者，但其生态系统和用户基础可能成为其意外的竞争壁垒，最终使其在AI竞赛中获胜。"
     },
     {
       "id": 47751032,
@@ -502,7 +574,7 @@
       "score": 174,
       "created_at": "2026-04-13T12:29:39Z",
       "comments_url": "https://news.ycombinator.com/item?id=47751032",
-      "summary_zh": "**人工智能或标志着数字浪潮的终结，而非下一波科技浪潮的开端。**"
+      "summary_zh": "**人工智能可能标志着数字时代的终结，而非下一波科技浪潮的开端。**"
     },
     {
       "id": 47753643,
@@ -517,10 +589,10 @@
       "id": 47758028,
       "title": "Stanford report highlights growing disconnect between AI insiders and everyone",
       "url": "https://techcrunch.com/2026/04/13/stanford-report-highlights-growing-disconnect-between-ai-insiders-and-everyone-else/",
-      "score": 122,
+      "score": 125,
       "created_at": "2026-04-13T21:25:38Z",
       "comments_url": "https://news.ycombinator.com/item?id=47758028",
-      "summary_zh": "斯坦福报告揭示，人工智能圈内人士与公众的认知差距正在扩大。"
+      "summary_zh": "斯坦福报告揭示，人工智能圈内人士与公众的认知差距日益扩大。"
     },
     {
       "id": 47752402,
@@ -529,7 +601,7 @@
       "score": 62,
       "created_at": "2026-04-13T14:21:29Z",
       "comments_url": "https://news.ycombinator.com/item?id=47752402",
-      "summary_zh": "扎克伯格正秘密开发一个AI“分身”，或将代他出席会议。"
+      "summary_zh": "扎克伯格正秘密开发一个AI“分身”，或将用于替代他出席会议。"
     },
     {
       "id": 47748123,
@@ -538,7 +610,7 @@
       "score": 58,
       "created_at": "2026-04-13T05:56:49Z",
       "comments_url": "https://news.ycombinator.com/item?id=47748123",
-      "summary_zh": "AI裁员潮来袭，技术进步与就业市场间的矛盾日益凸显。"
+      "summary_zh": "AI裁员潮来临，企业或因过度依赖技术而陷入困境。"
     }
   ],
   "jobs": [
@@ -549,7 +621,7 @@
       "posted_date": "",
       "source": "jobs.ac.uk Research",
       "deadline": "2026-05-11T00:00:00+00:00",
-      "requirements_zh": "以下是从职位描述中提取的信息：\n\n1. **截止日期：** 未提及\n2. **主要技术要求：** 需具备构建**in silico模型**的能力，用于模拟乳腺癌侵袭骨组织、研究运动影响及机械敏感性骨细胞的作用，并整合**细胞成像、micro-CT和空间转录组学**数据。",
+      "requirements_zh": "以下是从职位描述中提取的信息：\n\n1. **截止日期：** 未提及\n2. **主要技术要求：** 建立计算模型（in silico models）以模拟乳腺癌侵袭骨组织机制，涉及机械载荷、细胞成像、体内微CT和空间转录组学数据的整合与分析。",
       "relevance_score": 8.0,
       "institution": "Queen Mary University of London",
       "location": "London, England, United Kingdom",
@@ -566,7 +638,7 @@
       "posted_date": "",
       "source": "jobs.ac.uk Research",
       "deadline": "2026-04-30T00:00:00+00:00",
-      "requirements_zh": "以下是从职位描述中提取的信息：\n\n1. **截止日期：** 2024年4月30日 23:59 (伦敦，英国 BST)\n2. **主要技术要求：** 职位描述中未明确列出具体的技术要求（如编程语言、软件等），仅提及需要“数据科学和人工智能研究”的技能，并致力于“新兴技术”的研究。",
+      "requirements_zh": "以下是从职位描述中提取的信息：\n\n1. **截止日期：** 2024年4月30日 23:59 (伦敦，英国 BST)\n2. **主要技术要求：** 职位描述中未明确列出具体的技术要求（如编程语言、软件或特定技术栈）。",
       "relevance_score": 8.0,
       "institution": "The Alan Turing Institute",
       "location": "London, England, United Kingdom",
@@ -583,7 +655,7 @@
       "posted_date": "",
       "source": "jobs.ac.uk CS",
       "deadline": "2026-05-11T00:00:00+00:00",
-      "requirements_zh": "以下是从职位描述中提取的信息：\n\n1. **截止日期：** 未提及\n2. **主要技术要求：** 建立**in silico 模型**（模拟乳腺癌侵袭骨组织），涉及**机械载荷**、**细胞成像**、**体内微CT**和**空间转录组学**数据的整合与分析。",
+      "requirements_zh": "以下是从职位描述中提取的信息：\n\n1. **截止日期：** 未提及。\n2. **主要技术要求：** 建立**in silico 模型**来模拟乳腺癌侵袭骨组织、评估运动影响、研究机械敏感性骨细胞的作用，并整合**机械载荷、细胞成像、体内微CT和空间转录组学**数据。",
       "relevance_score": 8.0,
       "institution": "Queen Mary University of London",
       "location": "London, England, United Kingdom",
@@ -600,7 +672,7 @@
       "posted_date": "",
       "source": "jobs.ac.uk CS",
       "deadline": "2026-04-30T00:00:00+00:00",
-      "requirements_zh": "以下是从职位描述中提取的信息：\n\n1. **截止日期：** 2024年4月30日 23:59 (伦敦，英国 BST)\n2. **主要技术要求：** 描述中未明确列出具体的技术要求，但职位与**数据科学和人工智能研究**相关，旨在对**新兴技术**进行**开创性研究和洞察**，以加强英国安全。",
+      "requirements_zh": "以下是从职位描述中提取的信息：\n\n1. **截止日期：** 2024年4月30日 23:59 (伦敦，英国 BST)\n2. **主要技术要求：** 职位描述中未明确列出具体的技术要求（如编程语言、软件或特定技术栈）。",
       "relevance_score": 8.0,
       "institution": "The Alan Turing Institute",
       "location": "London, England, United Kingdom",
@@ -617,7 +689,7 @@
       "posted_date": "",
       "source": "jobs.ac.uk CS",
       "deadline": "2026-05-04T00:00:00+00:00",
-      "requirements_zh": "以下是从职位描述中提取的信息：\n\n1. **截止日期：** 未提及\n2. **主要技术要求：** 专注于深度学习在多相CT影像和生物标志物数据上的应用，以实现肝细胞癌复发的早期检测。要求具备深度学习的实践经验、强大的Python技能及相关框架的使用能力，并熟悉大型临床影像数据处理。",
+      "requirements_zh": "以下是从职位描述中提取的信息：\n\n1. **截止日期：** 未提及\n2. **主要技术要求：** 专注于深度学习在多相CT影像和生物标志物数据上的应用，以早期检测肝细胞癌复发。要求具备深度学习的实践经验、强大的Python技能及相关框架的使用能力，并熟悉大型临床影像数据处理。",
       "relevance_score": 10.0,
       "institution": "Queen Mary University of London",
       "location": "London, England, United Kingdom",
@@ -635,7 +707,7 @@
       "url": "https://github.com/forrestchang/andrej-karpathy-skills",
       "description": "A single CLAUDE.md file to improve Claude Code behavior, derived from Andrej Karpathy's observations on LLM coding pitfalls.",
       "stars_today": 5828,
-      "total_stars": 24578,
+      "total_stars": 24581,
       "language": "",
       "topics": [],
       "summary_zh": "该仓库提供一个Claude.md文件，借鉴Andrej Karpathy对大型语言模型编程缺陷的观察，旨在提升Claude的代码生成能力。"
@@ -645,60 +717,60 @@
       "url": "https://github.com/NousResearch/hermes-agent",
       "description": "The agent that grows with you",
       "stars_today": 11297,
-      "total_stars": 76625,
+      "total_stars": 76630,
       "language": "Python",
       "topics": [],
-      "summary_zh": "Hermes Agent 是一个可成长的智能体，旨在通过持续学习和演进来适应用户需求。"
+      "summary_zh": "Hermes Agent 是一个可成长的智能体，旨在通过持续学习和适应来增强用户能力。"
     },
     {
       "full_name": "shiyu-coder/Kronos",
       "url": "https://github.com/shiyu-coder/Kronos",
       "description": "Kronos: A Foundation Model for the Language of Financial Markets",
       "stars_today": 1552,
-      "total_stars": 16953,
+      "total_stars": 16955,
       "language": "Python",
       "topics": [],
-      "summary_zh": "**Kronos是一个专为金融市场语言设计的基石模型，旨在理解和处理金融领域的专业文本。**"
+      "summary_zh": "**Kronos是一个金融市场语言的基础模型，专注于理解和处理金融领域的文本数据。**"
     },
     {
       "full_name": "sponsors/thedotmack",
       "url": "https://github.com/sponsors/thedotmack",
       "description": "A Claude Code plugin that automatically captures everything Claude does during your coding sessions, compresses it with AI (using Claude's agent-sdk), and injects relevant context back into future sessions.",
       "stars_today": 3185,
-      "total_stars": 53061,
+      "total_stars": 53064,
       "language": "TypeScript",
       "topics": [],
-      "summary_zh": "该插件能自动捕获 Claude 编程会话的全部内容，利用 AI 压缩并注入相关上下文，以增强未来的编程体验。"
+      "summary_zh": "这个Claude代码插件能自动捕获编码过程，用AI压缩并注入相关上下文，优化未来的Claude会话。"
     },
     {
       "full_name": "microsoft/markitdown",
       "url": "https://github.com/microsoft/markitdown",
       "description": "Python tool for converting files and office documents to Markdown.",
       "stars_today": 2811,
-      "total_stars": 106830,
+      "total_stars": 106831,
       "language": "Python",
       "topics": [],
-      "summary_zh": "Markitdown是一个Python工具，能将各种文件和Office文档高效转换为Markdown格式。"
+      "summary_zh": "Markitdown是一个Python工具，能将各种文件和Office文档高效地转换为Markdown格式。"
     },
     {
       "full_name": "multica-ai/multica",
       "url": "https://github.com/multica-ai/multica",
       "description": "The open-source managed agents platform. Turn coding agents into real teammates — assign tasks, track progress, compound skills.",
       "stars_today": 1724,
-      "total_stars": 11012,
+      "total_stars": 11014,
       "language": "TypeScript",
       "topics": [],
-      "summary_zh": "这是一个开源的托管式智能体平台，能将编程智能体转化为团队成员，用于分配任务、跟踪进度和技能复合。"
+      "summary_zh": "这是一个开源的托管式智能体平台，能将编程智能体转化为团队成员，实现任务分配、进度追踪和技能复合。"
     },
     {
       "full_name": "coleam00/Archon",
       "url": "https://github.com/coleam00/Archon",
       "description": "The first open-source harness builder for AI coding. Make AI coding deterministic and repeatable.",
       "stars_today": 679,
-      "total_stars": 17579,
+      "total_stars": 17580,
       "language": "TypeScript",
       "topics": [],
-      "summary_zh": "**Archon是首个开源AI编程测试框架，旨在让AI编程结果可预测且可复现。**"
+      "summary_zh": "**Archon是首个开源AI编程测试框架，旨在实现AI代码生成的确定性和可复现性。**"
     },
     {
       "full_name": "snarktank/ralph",
@@ -708,17 +780,17 @@
       "total_stars": 16487,
       "language": "TypeScript",
       "topics": [],
-      "summary_zh": "Ralph是一个自主AI智能体循环，持续运行直至完成所有产品需求（PRD）项目。"
+      "summary_zh": "Ralph 是一个自主运行的 AI 代理循环，持续工作直到完成所有产品需求文档（PRD）中的任务。"
     },
     {
       "full_name": "virattt/ai-hedge-fund",
       "url": "https://github.com/virattt/ai-hedge-fund",
       "description": "An AI Hedge Fund Team",
       "stars_today": 782,
-      "total_stars": 52876,
+      "total_stars": 52878,
       "language": "Python",
       "topics": [],
-      "summary_zh": "该仓库是一个人工智能对冲基金团队的项目集合，旨在利用AI技术进行量化投资和策略开发。"
+      "summary_zh": "该仓库是一个**人工智能对冲基金团队**的项目集合，旨在利用AI技术进行量化投资和策略开发。"
     },
     {
       "full_name": "anthropics/claude-cookbooks",
@@ -728,17 +800,17 @@
       "total_stars": 39438,
       "language": "Jupyter Notebook",
       "topics": [],
-      "summary_zh": "该仓库提供Claude模型的实用食谱和示例笔记本，展示了有趣且高效的使用方法。"
+      "summary_zh": "该仓库提供了一系列实用的Jupyter Notebooks和“食谱”，展示了使用Claude模型的各种有趣且高效的技巧和应用方法。"
     },
     {
       "full_name": "shanraisshan/claude-code-best-practice",
       "url": "https://github.com/shanraisshan/claude-code-best-practice",
       "description": "practice made claude perfect",
       "stars_today": 2477,
-      "total_stars": 41518,
+      "total_stars": 41521,
       "language": "HTML",
       "topics": [],
-      "summary_zh": "该仓库旨在通过实践，总结和展示使用 Claude AI 进行代码开发的最佳实践和技巧。"
+      "summary_zh": "该仓库旨在通过实践，总结并展示使用 Claude 模型进行代码编写的最佳实践。"
     },
     {
       "full_name": "jamiepine/voicebox",
@@ -748,7 +820,7 @@
       "total_stars": 16238,
       "language": "TypeScript",
       "topics": [],
-      "summary_zh": "**一个开源的语音合成工作室，提供全面的声音制作和编辑功能。**"
+      "summary_zh": "这是一个开源的语音合成工作室，提供全面的声音制作和编辑功能。"
     },
     {
       "full_name": "sponsors/ahujasid",
@@ -758,7 +830,7 @@
       "total_stars": 19465,
       "language": "Python",
       "topics": [],
-      "summary_zh": "这个GitHub仓库似乎是一个**个人赞助者页面或项目**，核心功能是**展示和管理对特定贡献者的支持或赞助信息**。"
+      "summary_zh": "该仓库是 GitHub Sponsors 页面，展示了用户 ahujasid 的赞助信息和支持方式。"
     },
     {
       "full_name": "sponsors/hacksider",
@@ -775,10 +847,10 @@
       "url": "https://github.com/gsd-build/get-shit-done",
       "description": "A light-weight and powerful meta-prompting, context engineering and spec-driven development system for Claude Code by TÂCHES.",
       "stars_today": 630,
-      "total_stars": 52044,
+      "total_stars": 52045,
       "language": "JavaScript",
       "topics": [],
-      "summary_zh": "这是一个轻量级、强大的Claude代码元提示、上下文工程和规范驱动开发系统。"
+      "summary_zh": "这是一个轻量强大、基于规范驱动的Claude代码元提示和上下文工程系统。"
     }
   ],
   "meta": {
@@ -793,6 +865,6 @@
     "scoring_model": "google/gemini-2.5-flash-lite-preview-09-2025",
     "summarization_model": "google/gemini-2.5-flash-lite-preview-09-2025",
     "cost_usd": 0.0,
-    "duration_seconds": 81
+    "duration_seconds": 79
   }
 }
