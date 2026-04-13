@@ -60,6 +60,16 @@ date: {{ date }}
 *今日无新职位更新。*
 {% endif %}
 
+{% if github_trending %}
+## 🔥 GitHub 今日趋势（AI/ML 相关，{{ github_trending|length }} 个）
+
+| 仓库 | 语言 | Stars | 简介 |
+|------|------|-------|------|
+{% for r in github_trending %}
+| [{{ r.full_name }}]({{ r.url }}) | {{ r.language or '—' }} | {% if r.stars_today %}+{{ r.stars_today }}⭐ 今日{% else %}{{ r.total_stars }}⭐{% endif %} | {{ r.summary_zh }} |
+{% endfor %}
+{% endif %}
+
 {% if supervisor_updates %}
 ## 👨‍🏫 导师主页更新
 

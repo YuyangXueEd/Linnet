@@ -20,6 +20,7 @@ from pathlib import Path
 from openai import OpenAI
 
 from collectors.arxiv_collector import fetch_papers
+from collectors.github_trending_collector import fetch_github_trending
 from collectors.hn_collector import fetch_stories
 from collectors.jobs_collector import fetch_jobs
 from collectors.supervisor_watcher import fetch_supervisor_updates
@@ -28,6 +29,7 @@ from pipeline.scorer import score_papers, score_jobs
 from pipeline.summarizer import (
     summarize_papers, summarize_hn_stories,
     summarize_jobs, summarize_supervisor_update,
+    summarize_github_repos,
 )
 from pipeline.aggregator import build_weekly_payload, build_monthly_payload, load_daily_jsons
 from publishers.data_publisher import (
@@ -95,6 +97,15 @@ def run_daily(kw: dict, sources: dict, supervisors: list) -> None:
         raw_updates = fetch_supervisor_updates(supervisors)
         supervisor_updates = [summarize_supervisor_update(u, client, summary_model) for u in raw_updates]
 
+    # --- GitHub Trending ---
+    github_trending = []
+    if sources.get("github_trending", {}).get("enabled", False):
+        print("Fetching GitHub trending...")
+        max_repos = sources["github_trending"].get("max_repos", 15)
+        raw_trending = fetch_github_trending(max_repos=max_repos)
+        github_trending = summarize_github_repos(raw_trending, client, summary_model)
+        print(f"  GitHub trending: {len(github_trending)} repos")
+
     date_str = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     meta = {
         "papers_fetched": sources["arxiv"].get("max_papers_per_run", 500),
@@ -109,7 +120,8 @@ def run_daily(kw: dict, sources: dict, supervisors: list) -> None:
         "duration_seconds": round(time.time() - start),
     }
 
-    payload = build_daily_payload(date_str, papers, hn_stories, jobs, supervisor_updates, meta)
+    payload = build_daily_payload(date_str, papers, hn_stories, jobs, supervisor_updates, meta,
+                                   github_trending=github_trending)
     json_path = write_daily_json(payload)
     md_path = render_daily_page(payload)
     print(f"Written: {json_path}")
@@ -194,12 +206,14 @@ def check_today() -> None:
             jobs = data.get("jobs", [])
             hn = data.get("hacker_news", [])
             sup = data.get("supervisor_updates", [])
+            gh = data.get("github_trending", [])
             top_paper = papers[0]["title"][:50] + "..." if papers else "none"
             top_hn = hn[0]["title"][:50] + "..." if hn else "none"
             print(f"[Daily Digest {date_str}{label}]")
             print(f"Papers: {len(papers)} new (top: {top_paper})")
             print(f"Jobs: {len(jobs)} new")
             print(f"HN: {top_hn}")
+            print(f"GitHub trending: {len(gh)} repos")
             print(f"Supervisor updates: {len(sup)}")
             print("Run /daily-digest for full report.")
             return

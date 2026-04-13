@@ -106,6 +106,34 @@ def summarize_jobs(jobs: list[dict], client: Any, model: str) -> list[dict]:
     return results
 
 
+def _summarize_one_github_repo(repo: dict, client: Any, model: str) -> dict:
+    prompt = (
+        "用一句中文（不超过60字）总结这个GitHub仓库的核心功能和特点：\n\n"
+        f"仓库：{repo['full_name']}\n"
+        f"描述：{repo['description']}"
+    )
+    repo["summary_zh"] = _call(client, model, prompt, max_tokens=120)
+    return repo
+
+
+def summarize_github_repos(repos: list[dict], client: Any, model: str) -> list[dict]:
+    """Summarize GitHub trending repos concurrently."""
+    if not repos:
+        return []
+    results = [None] * len(repos)
+    with ThreadPoolExecutor(max_workers=min(10, len(repos))) as executor:
+        futures = {executor.submit(_summarize_one_github_repo, r, client, model): i
+                   for i, r in enumerate(repos)}
+        for future in as_completed(futures):
+            idx = futures[future]
+            try:
+                results[idx] = future.result()
+            except Exception as e:
+                repos[idx]["summary_zh"] = "摘要生成失败。"
+                results[idx] = repos[idx]
+    return results
+
+
 def summarize_supervisor_update(update: dict, client: Any, model: str) -> dict:
     prompt = (
         "以下是一位导师主页的最新内容，请用中文（不超过80字）总结是否有新的职位信息，"

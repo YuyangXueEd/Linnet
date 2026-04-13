@@ -11,9 +11,13 @@ jobs:
 supervisor_monitoring:
   enabled: true
 
+github_trending:
+  enabled: true
+  max_repos: 15
+
 llm:
   # Fast cheap model for scoring (just needs to output 0-10)
-  scoring_model: "google/gemini-flash-1.5"
+  scoring_model: "google/gemini-1.5-flash"
   # Quality model for Chinese summarization
   summarization_model: "deepseek/deepseek-chat"
   base_url: "https://openrouter.ai/api/v1"

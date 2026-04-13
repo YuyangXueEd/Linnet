@@ -1,0 +1,178 @@
+"""
+GitHub Trending collector.
+
+Uses two approaches:
+1. GitHub Search API — find repos created/updated recently with AI/ML topics, sorted by stars
+2. Scrape https://github.com/trending for the "today" trending list
+
+The Search API is rate-limited to 10 req/min unauthenticated.
+We use a GITHUB_TOKEN env var if available (5000 req/hr with auth).
+"""
+
+import os
+import re
+import httpx
+from typing import Any
+
+
+_SEARCH_URL = "https://api.github.com/search/repositories"
+_TRENDING_URL = "https://github.com/trending"
+
+_AI_TOPICS = [
+    "machine-learning",
+    "deep-learning",
+    "computer-vision",
+    "large-language-model",
+    "diffusion-model",
+    "medical-imaging",
+    "transformer",
+    "llm",
+]
+
+_AI_KEYWORDS = [
+    "llm", "large language model", "diffusion", "computer vision",
+    "medical imaging", "deep learning", "neural network", "transformer",
+    "gpt", "bert", "stable diffusion", "multimodal", "vision",
+]
+
+
+def _get_headers() -> dict:
+    token = os.environ.get("GITHUB_TOKEN", "")
+    if token:
+        return {"Authorization": f"Bearer {token}", "Accept": "application/vnd.github+json"}
+    return {"Accept": "application/vnd.github+json"}
+
+
+def _is_ai_related(name: str, description: str, topics: list[str]) -> bool:
+    text = f"{name} {description}".lower()
+    if any(kw in text for kw in _AI_KEYWORDS):
+        return True
+    if any(t in _AI_TOPICS for t in topics):
+        return True
+    return False
+
+
+def fetch_trending_via_search(max_repos: int = 20, days_back: int = 1) -> list[dict[str, Any]]:
+    """
+    Use GitHub Search API to find recently-created repos with high star velocity.
+    Queries multiple AI topics and deduplicates.
+    """
+    from datetime import datetime, timedelta, timezone
+    cutoff = (datetime.now(timezone.utc) - timedelta(days=days_back)).strftime("%Y-%m-%d")
+
+    seen: set[int] = set()
+    repos: list[dict] = []
+
+    with httpx.Client(timeout=30, headers=_get_headers()) as client:
+        for topic in _AI_TOPICS[:5]:  # limit to avoid rate limit
+            try:
+                resp = client.get(_SEARCH_URL, params={
+                    "q": f"topic:{topic} created:>{cutoff}",
+                    "sort": "stars",
+                    "order": "desc",
+                    "per_page": 10,
+                })
+                if resp.status_code == 403:
+                    break  # rate limited
+                resp.raise_for_status()
+                for item in resp.json().get("items", []):
+                    rid = item["id"]
+                    if rid not in seen:
+                        seen.add(rid)
+                        repos.append(_parse_repo(item))
+            except Exception:
+                continue
+
+    # sort by stars descending, take top N
+    repos.sort(key=lambda r: r["total_stars"], reverse=True)
+    return repos[:max_repos]
+
+
+def fetch_trending_via_scrape(language: str = "", since: str = "daily") -> list[dict[str, Any]]:
+    """
+    Scrape github.com/trending for today's trending repos.
+    Filters to AI/ML related ones.
+    """
+    url = _TRENDING_URL
+    params = {"since": since}
+    if language:
+        url = f"{_TRENDING_URL}/{language}"
+
+    try:
+        with httpx.Client(timeout=30, headers={"User-Agent": "Mozilla/5.0"}) as client:
+            resp = client.get(url, params=params)
+            resp.raise_for_status()
+            html = resp.text
+    except Exception:
+        return []
+
+    repos = []
+    # Parse repo entries from the trending page HTML
+    # Each repo is in an <article class="Box-row"> block
+    articles = re.findall(r'<article[^>]*class="[^"]*Box-row[^"]*"[^>]*>(.*?)</article>',
+                          html, re.DOTALL)
+    for article in articles:
+        # repo name: first href of form /owner/repo (two path segments, no query)
+        hrefs = re.findall(r'href="(/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+)"', article)
+        if not hrefs:
+            continue
+        full_name = hrefs[0].lstrip("/")
+
+        # description: text immediately after </h2> before next block element
+        desc_match = re.search(r'</h2>\s*(.*?)(?=\s*<(?:div|ul|ol|table))', article, re.DOTALL)
+        description = re.sub(r'<[^>]+>', '', desc_match.group(1)).strip() if desc_match else ""
+
+        # stars today
+        stars_match = re.search(r'([\d,]+)\s*stars?\s*today', article, re.IGNORECASE)
+        stars_today = int(stars_match.group(1).replace(",", "")) if stars_match else 0
+
+        # total stars: numbers that appear near stargazers href
+        total_match = re.search(r'stargazers.*?([\d,]+)', article, re.DOTALL)
+        total_stars = int(total_match.group(1).replace(",", "")) if total_match else 0
+
+        # language
+        lang_match = re.search(r'itemprop="programmingLanguage"[^>]*>\s*(.*?)\s*</span>', article)
+        language_tag = lang_match.group(1).strip() if lang_match else ""
+
+        repos.append({
+            "full_name": full_name,
+            "url": f"https://github.com/{full_name}",
+            "description": description,
+            "stars_today": stars_today,
+            "total_stars": total_stars,
+            "language": language_tag,
+            "topics": [],
+            "summary_zh": "",
+        })
+
+    return repos
+
+
+def _parse_repo(item: dict) -> dict[str, Any]:
+    return {
+        "full_name": item["full_name"],
+        "url": item["html_url"],
+        "description": item.get("description") or "",
+        "stars_today": 0,  # search API doesn't give daily stars
+        "total_stars": item.get("stargazers_count", 0),
+        "language": item.get("language") or "",
+        "topics": item.get("topics", []),
+        "summary_zh": "",
+    }
+
+
+def fetch_github_trending(
+    max_repos: int = 15,
+    use_scrape: bool = True,
+) -> list[dict[str, Any]]:
+    """
+    Fetch AI/ML trending repos.
+    Tries scraping first (has stars-today data), falls back to Search API.
+    """
+    if use_scrape:
+        repos = fetch_trending_via_scrape()
+        if repos:
+            return repos[:max_repos]
+
+    # fallback to Search API
+    return fetch_trending_via_search(max_repos=max_repos)

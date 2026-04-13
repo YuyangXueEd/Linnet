@@ -14,6 +14,7 @@ def build_daily_payload(
     jobs: list[dict],
     supervisor_updates: list[dict],
     meta: dict,
+    github_trending: list[dict] | None = None,
 ) -> dict[str, Any]:
     return {
         "date": date_str,
@@ -22,6 +23,7 @@ def build_daily_payload(
         "hacker_news": hn_stories,
         "jobs": jobs,
         "supervisor_updates": supervisor_updates,
+        "github_trending": github_trending or [],
         "meta": meta,
     }
 
