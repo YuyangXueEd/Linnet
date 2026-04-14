@@ -181,9 +181,13 @@ date: {{ date }}
 
 {% if j.salary %}
 **薪资：** {{ j.salary }}
-{% endif %}
 
-{{ j.requirements_zh }}
+{% endif %}
+{% for line in j.requirements_zh.split('\n') %}{% if line.strip() %}{% set parts = line.split('：', 1) %}{% if parts|length == 2 %}
+- **{{ parts[0] }}：** {{ parts[1] }}
+{% else %}
+- {{ line }}
+{% endif %}{% endif %}{% endfor %}
 
 ---
 {% endfor %}
