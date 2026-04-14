@@ -27,7 +27,7 @@ nav_exclude: true
 
 ## 📈 关键词热度（Top 10）
 
-{% for kw, count in keyword_frequency.items() | list | sort(attribute=1, reverse=True) | list[:10] %}
+{% for kw, count in (keyword_frequency.items() | list | sort(attribute=1, reverse=True))[:10] %}
 - **{{ kw }}**: {{ count }} 次
 {% endfor %}
 
