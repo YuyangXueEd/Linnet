@@ -55,12 +55,3 @@ sinks:
     max_hn: 3       # top HN stories to post
     max_github: 3   # top GitHub repos to post
 
-  notion:
-    enabled: false
-    # Credentials: NOTION_API_KEY, NOTION_DATABASE_ID  (GitHub secrets)
-    # How to get:  https://www.notion.so/my-integrations → New integration
-    #              Then share your database with the integration.
-    max_papers: 10  # papers to list in the page body
-    max_hn: 5       # HN stories to list
-    max_github: 5   # GitHub repos to list
-    max_jobs: 5     # jobs to list

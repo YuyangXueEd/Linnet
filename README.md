@@ -184,29 +184,7 @@ sinks:
     max_github: 3
 ```
 
-### Notion
-
-Creates a new page in a Notion database for each daily digest, with full paper list, HN stories, GitHub repos, and jobs as structured blocks.
-
-**Setup:**
-1. Go to [notion.so/my-integrations](https://www.notion.so/my-integrations) → New integration (Internal, Insert content capability)
-2. Copy the **Integration token** → GitHub secret: `NOTION_API_KEY`
-3. Open your target Notion database → `···` menu → **Add connections** → select your integration
-4. Copy the **database ID** from the URL (`notion.so/<workspace>/<DATABASE_ID>?v=...`) → GitHub secret: `NOTION_DATABASE_ID`
-5. Add these properties to your Notion database: `Date` (Date type), `Papers` (Number), `Jobs` (Number)
-6. Enable in `config/sources.yaml`:
-
-```yaml
-sinks:
-  notion:
-    enabled: true
-    max_papers: 10
-    max_hn: 5
-    max_github: 5
-    max_jobs: 5
-```
-
-> **Note:** The three sink-related secrets (`SLACK_WEBHOOK_URL`, `NOTION_API_KEY`, `NOTION_DATABASE_ID`) are optional. If a secret is not set, the corresponding sink is silently skipped — it will not cause the pipeline to fail.
+> **Note:** `SLACK_WEBHOOK_URL` is optional. If the secret is not set, the Slack sink is silently skipped — it will not cause the pipeline to fail.
 
 ### Adding a new sink
 

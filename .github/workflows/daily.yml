@@ -46,8 +46,6 @@ jobs:
           # Set these secrets in your repo to enable the corresponding sink.
           # Leave unset (or empty) to skip that sink gracefully.
           SLACK_WEBHOOK_URL:    ${{ secrets.SLACK_WEBHOOK_URL }}
-          NOTION_API_KEY:       ${{ secrets.NOTION_API_KEY }}
-          NOTION_DATABASE_ID:   ${{ secrets.NOTION_DATABASE_ID }}
 
       - name: Upload daily pipeline log
         if: always()

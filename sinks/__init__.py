@@ -14,13 +14,11 @@ To add a new sink:
 
 from sinks.base import BaseSink
 from sinks.slack import SlackSink
-from sinks.notion import NotionSink
 
 # Ordered list of all known sinks.
 # The orchestrator iterates this list; disabled sinks are skipped.
 SINK_REGISTRY: list[type[BaseSink]] = [
     SlackSink,
-    NotionSink,
 ]
 
 __all__ = ["BaseSink", "SINK_REGISTRY"]
