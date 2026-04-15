@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-main.py — CLI entry point for Research Daily Digest pipeline.
+main.py — CLI entry point for MyDailyUpdater pipeline.
 
 Usage:
     python main.py --mode daily       # full daily pipeline
@@ -244,7 +244,7 @@ def check_today() -> None:
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Research Daily Digest")
+    parser = argparse.ArgumentParser(description="MyDailyUpdater")
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument("--mode", choices=["daily", "weekly", "monthly"])
     group.add_argument("--check-today", action="store_true")

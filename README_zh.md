@@ -2,9 +2,9 @@
 
 [English](README.md)
 
-**每天早上自动送来一份个性化的科研摘要——不用你动手。**
+**你的个人 AI 早报——arXiv 新论文、HN 热帖、GitHub 趋势，过夜自动摘要，醒来就能读。**
 
-Fork 这个仓库，填入一个 API 密钥，然后发布你自己的站点：每天自动更新论文、AI 摘要，以及可选的通知渠道。
+Fork 这个仓库，填入一个 API 密钥，5 分钟内拥有属于你自己的可搜索摘要站点。无需服务器，无需订阅，无需手动筛选。
 
 **[在线示例 →](https://yuyangxueed.github.io/MyDailyUpdater)** · **[中文设置入口 →](https://yuyangxueed.github.io/MyDailyUpdater/setup/zh/)** · **[手动配置指南 →](docs/setup/manual-config.md)**
 

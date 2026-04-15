@@ -3,7 +3,7 @@ name: dailyreport-config-customization
 description: This skill should be used when helping someone use, configure, or customize MyDailyUpdater, especially for setup, source selection, language/model changes, prompt overrides, sink enablement, or workflow schedule changes.
 ---
 
-# DailyReport Config & Customization
+# MyDailyUpdater Config & Customization
 
 ## Overview
 

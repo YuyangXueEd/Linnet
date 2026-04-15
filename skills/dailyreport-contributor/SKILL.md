@@ -3,7 +3,7 @@ name: dailyreport-contributor
 description: This skill should be used when contributing code, docs, extensions, sinks, setup UX, or generated-site changes to the MyDailyUpdater repository, especially when an AI agent needs to learn repo conventions before editing files.
 ---
 
-# DailyReport Contributor
+# MyDailyUpdater Contributor
 
 ## Overview
 

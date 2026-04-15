@@ -5,13 +5,15 @@
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/downloads/)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/YuyangXueEd/MyDailyUpdater/pulls)
 
+[![Star History Chart](https://api.star-history.com/svg?repos=YuyangXueEd/MyDailyUpdater&type=Date)](https://star-history.com/#YuyangXueEd/MyDailyUpdater&Date)
+
 [中文文档](README_zh.md)
 
 ![MyDailyUpdater hero](assets/hero.png)
 
-**Get a personalised research digest every morning — without lifting a finger.**
+**Your personal AI morning briefing — arXiv papers, HN stories, and GitHub trends, summarised overnight and waiting when you wake up.**
 
-Fork this repo, add one API key, and publish your own site with daily research updates, AI summaries, and optional notifications.
+Fork this repo, drop in one API key, and get your own searchable digest site running in under 5 minutes. No server, no subscription, no manual reading.
 
 **[See a live example →](https://yuyangxueed.github.io/MyDailyUpdater)** · **[Setup Wizard →](https://yuyangxueed.github.io/MyDailyUpdater/setup/)** · **[Manual config guide →](docs/setup/manual-config.md)**
 

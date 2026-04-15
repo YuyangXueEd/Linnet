@@ -50,7 +50,7 @@ sinks:
 ## Message structure
 
 ```
-📰 Daily Digest — YYYY-MM-DD
+📰 MyDailyUpdater — YYYY-MM-DD
 N papers  •  N HN stories  •  N jobs  •  N trending repos
 ────────────────────────────────
 📄 Top arXiv Papers

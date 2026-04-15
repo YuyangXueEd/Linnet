@@ -55,7 +55,7 @@ class SlackSink(BaseSink):
         blocks.append(
             {
                 "type": "header",
-                "text": {"type": "plain_text", "text": f"📰 Daily Digest — {date}"},
+                "text": {"type": "plain_text", "text": f"📰 MyDailyUpdater — {date}"},
             }
         )
 
