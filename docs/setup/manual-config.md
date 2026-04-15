@@ -96,7 +96,7 @@ supervisor_updates:
   enabled: false         # professor/lab page monitor — turn on if you want these
 ```
 
-You can also switch AI models here, or cap how many papers get fetched per day.
+You can also switch AI models here, point `llm.base_url` at another OpenAI-compatible provider, or cap how many papers get fetched per day.
 
 ---
 
@@ -138,7 +138,7 @@ If you want a lighter notification path, especially for Chinese-language workflo
 
 1. Open [sct.ftqq.com/sendkey](https://sct.ftqq.com/sendkey)
 2. Copy your SendKey
-3. Add it as a secret: **Settings → Secrets → New secret**, name it `SERVERCHAN_SENDKEY`
+3. Add it as a secret: **Settings → Secrets and variables → Actions → New repository secret**, name it `SERVERCHAN_SENDKEY`
 4. Enable it in [config/sources.yaml](../../config/sources.yaml):
 
 ```yaml
@@ -163,7 +163,7 @@ In addition to the website, you can receive a daily Slack message:
 2. Left sidebar → **Features → Incoming Webhooks** → toggle **On**
 3. Scroll down → **Add New Webhook to Workspace** → choose your channel → **Allow**
 4. Copy the webhook URL (looks like `https://hooks.slack.com/services/T.../B.../...`)
-5. Add it as a secret: **Settings → Secrets → New secret**, name it `SLACK_WEBHOOK_URL`
+5. Add it as a secret: **Settings → Secrets and variables → Actions → New repository secret**, name it `SLACK_WEBHOOK_URL`
 6. Enable it in [config/sources.yaml](../../config/sources.yaml):
 
 ```yaml

@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Share a setup or ask a usage question
+    url: https://github.com/YuyangXueEd/MyDailyUpdater/discussions
+    about: Use Discussions for setup showcases, general Q&A, and workflow ideas.
+  - name: Read the manual config guide
+    url: https://yuyangxueed.github.io/MyDailyUpdater/setup/manual-config/
+    about: Check the manual configuration guide before opening a setup question.

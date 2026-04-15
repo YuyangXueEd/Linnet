@@ -4,9 +4,13 @@ about: Something is broken or not working as expected
 labels: bug
 ---
 
-## What happened
+## What were you trying to do?
 
-<!-- A clear description of the bug -->
+<!-- A short description of the task or goal -->
+
+## What happened?
+
+<!-- What broke, or what behaviour was unexpected? -->
 
 ## Steps to reproduce
 
@@ -14,22 +18,29 @@ labels: bug
 2.
 3.
 
-## Expected behaviour
+## Where did this happen?
 
-## Actual behaviour
+- [ ] Public setup wizard
+- [ ] Manual config flow
+- [ ] GitHub Actions run
+- [ ] Local run
+- [ ] Generated site output
+- [ ] Something else
 
-## Environment
+## Relevant config or files
 
-- Python version:
-- How are you running it? (GitHub Actions / locally)
-- Relevant config (redact any API keys):
+<!-- Redact all secrets before pasting -->
 
 ```yaml
-# paste relevant parts of sources.yaml / keywords.yaml
+# paste the relevant part of config/sources.yaml or config/extensions/*.yaml here
 ```
 
-## Logs / error output
+## Logs / screenshots / error output
 
 ```
-paste error or relevant log lines here
+paste the relevant output here
 ```
+
+## Extra context
+
+<!-- Anything else that would help reproduce or diagnose the issue -->

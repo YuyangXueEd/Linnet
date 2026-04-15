@@ -20,6 +20,7 @@ nav_order: 1
       <a class="landing-button primary" href="{{ '/setup/' | relative_url }}">Open Setup Wizard</a>
       <a class="landing-button secondary" href="{{ '/setup/zh/' | relative_url }}">中文设置入口</a>
       <a class="landing-button secondary" href="https://github.com/YuyangXueEd/MyDailyUpdater">Fork on GitHub</a>
+      <a class="landing-button secondary" href="{{ '/support/' | relative_url }}">Support the project</a>
     </div>
 
     <div class="landing-stat-grid">
@@ -71,6 +72,16 @@ nav_order: 1
         <span class="landing-chip">English setup → Slack-first guidance</span>
         <span class="landing-chip">中文入口 → Server酱-first guidance</span>
         <span class="landing-chip">Manual config remains available</span>
+      </div>
+    </article>
+
+    <article class="landing-card">
+      <h2>Support ongoing maintenance</h2>
+      <p>If this project helps your research workflow, you can support continued maintenance and polish.</p>
+      <div class="landing-actions">
+        <a class="landing-button secondary" href="{{ '/support/' | relative_url }}">Open support page</a>
+        <a class="landing-button secondary" href="https://github.com/sponsors/yuyangxueed">GitHub Sponsors</a>
+        <a class="landing-button secondary" href="https://ko-fi.com/guesswhat_moe">Ko-fi</a>
       </div>
     </article>
   </section>

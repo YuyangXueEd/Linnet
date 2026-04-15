@@ -4,199 +4,185 @@
 
 **每天早上自动送来一份个性化的科研摘要——不用你动手。**
 
-Fork 这个仓库，填入一个 API 密钥，然后每天早上就能收到一份按你的兴趣筛选、由 AI 摘要的 arXiv 论文、Hacker News 热文和 GitHub 趋势仓库，并发布为你专属的网站。
+Fork 这个仓库，填入一个 API 密钥，然后发布你自己的站点：每天自动更新论文、AI 摘要，以及可选的通知渠道。
 
-**[在线示例 →](https://yuyangxueed.github.io/MyDailyUpdater)** · **[中文设置入口 →](https://yuyangxueed.github.io/MyDailyUpdater/setup/zh/)** · **[Setup Wizard →](https://yuyangxueed.github.io/MyDailyUpdater/setup/)**
+**[在线示例 →](https://yuyangxueed.github.io/MyDailyUpdater)** · **[中文设置入口 →](https://yuyangxueed.github.io/MyDailyUpdater/setup/zh/)** · **[手动配置指南 →](docs/setup/manual-config.md)**
 
-> **费用：** 使用 `gemini-2.5-flash-lite` 通过 OpenRouter，每天约 $0.01–$0.05（有免费额度）。
+> **重要说明：**公开的 Setup Wizard 只是给你自己的 fork 生成配置，不会修改这个演示站点，也不会改动本仓库。当前仍然是“生成后复制粘贴”的模式，浏览器端一键部署还没有启用。
+>
+> **默认 LLM 路径：**最快的上手方式是 OpenRouter + `OPENROUTER_API_KEY`。如果你想进一步尝试别的 OpenAI-compatible gateway/provider，可以在 `config/sources.yaml` 里调整模型和 `llm.base_url`，再配合手动配置文档使用。
 
 ---
 
 ## 每天早上你会收到什么
 
-| 来源 | 内容 |
+| 核心来源 | 作用 |
 |---|---|
-| **arXiv** | 符合你关键词的新论文，每篇附 AI 摘要 |
-| **Hacker News** | 超过你设定分数线的 AI/ML 热门文章 |
-| **GitHub Trending** | 今天在你感兴趣领域最受关注的仓库 |
-| **天气** | 你所在城市的今日天气 |
-| **博士后职位** | 来自 jobs.ac.uk、FindAPostDoc、EURAXESS 的学术职位 |
-| **导师主页监控** | 你关注的教授或实验室主页有更新时提醒你 |
+| **arXiv** | 按你的关键词抓取新论文，并附 AI 摘要 |
+| **Hacker News** | 超过你设定分数线的 AI/ML 热门内容 |
+| **GitHub Trending** | 你关注方向的趋势仓库 |
+| **天气** | 你所在城市的天气 |
 
-所有内容通过 GitHub Actions 在 UTC 午夜自动运行，结果保存回仓库并发布为可搜索的静态网站。
+像博士后职位、导师主页监控这类来源，都属于扩展系统里的可选项；大多数用户并不需要默认启用它们。
 
-如果你想先看中文说明，再进入向导，建议从 **[中文设置入口](https://yuyangxueed.github.io/MyDailyUpdater/setup/zh/)** 开始。
+所有内容通过 GitHub Actions 自动运行，并发布到 GitHub Pages，形成你自己的可搜索站点。
 
 ---
 
-## 5 步完成配置
+## 5 步快速上手
 
-### 第 1 步 — 把这个仓库复制到你的账号下
+### 1. Fork 这个仓库
 
-点击页面顶部的 **Fork**，GitHub 会在你的账号下创建一份副本，自动化流程已全部包含在内。
+点击 GitHub 页面上的 **Fork**，这样生成出来的配置和站点都会属于你自己。
 
-### 第 2 步 — 添加 API 密钥
+### 2. 添加 API 密钥
 
-在你 Fork 后的仓库中，进入：**Settings → Secrets and variables → Actions → New repository secret**
+进入你 fork 后仓库的 **Settings → Secrets and variables → Actions → New repository secret**。
 
 | 名称 | 值 |
 |---|---|
-| `OPENROUTER_API_KEY` | 你在 [openrouter.ai/keys](https://openrouter.ai/keys) 获取的密钥，以 `sk-or-...` 开头，有免费额度 |
+| `OPENROUTER_API_KEY` | 你在 [openrouter.ai/keys](https://openrouter.ai/keys) 获取的密钥 |
 
-这是你唯一需要填的凭据。[OpenRouter](https://openrouter.ai) 让你用一个密钥调用多种 AI 模型（Gemini、GPT、Claude），随时可以切换。
+OpenRouter 是默认推荐路径，因为一个 key 就能切换多个模型。如果你后续想尝试别的 OpenAI-compatible gateway/provider，可以从[手动配置文档](docs/setup/manual-config.md)开始。
 
-### 第 3 步 — 开启你的网站
+### 3. 开启 GitHub Pages
 
-进入：**Settings → Pages → Source: Deploy from a branch → 分支选 `main`，文件夹选 `/docs`**
+进入 **Settings → Pages → Source: Deploy from a branch → `main` / `/docs`**。
 
-点击 **Save**，你的网站地址会出现在那里，格式类似 `https://你的用户名.github.io/MyDailyUpdater`。
+### 4. 打开 Wizard 生成配置
 
-### 第 4 步 — 选择你的研究方向
+推荐直接用 [Setup Wizard](https://yuyangxueed.github.io/MyDailyUpdater/setup/zh/)。它会帮你完成来源选择、顺序调整、sinks 选择，以及生成适用于**你自己 fork** 的配置文件。
 
-打开 [config/extensions/arxiv.yaml](config/extensions/arxiv.yaml)，里面有四个现成的配置方案，找到最接近你研究方向的那个，去掉行首的 `#` 来启用它，然后按需修改关键词：
+如果你更喜欢手动编辑，请直接看 [`docs/setup/manual-config.md`](docs/setup/manual-config.md)。
 
-```yaml
-# 方案 A：AI / ML / LLM（通用）
-# categories: [cs.AI, cs.LG, cs.CL, cs.CV, stat.ML]
-# must_include:
-#   - large language model
-#   - foundation model
-#   ...
+### 5. 运行第一次工作流
 
-# 方案 B：机器人 / 具身智能
-# 方案 C：医学 AI / 临床 NLP
-# 方案 D：NLP / 文本 / 推理
-```
+进入 **Actions → Daily Digest → Run workflow**。
 
-想用中文摘要？打开 [config/sources.yaml](config/sources.yaml)，把 `language: "en"` 改成 `"zh"` 即可。也支持 `"fr"`、`"de"`、`"ja"`、`"ko"`、`"es"` 等任意语言代码。
-
-### 第 5 步 — 触发第一次运行
-
-进入：**Actions → Daily Digest → Run workflow → Run workflow**
-
-约 5 分钟后网站即可访问。
+几分钟后，你的站点就会发布出来。
 
 ---
 
-## 开启或关闭各个来源
+## 一眼读懂配置
 
-打开 [config/sources.yaml](config/sources.yaml)，对每个来源设置 `enabled: true` 或 `enabled: false`：
+理解 `sources.yaml` 的最小例子通常就够了：
 
 ```yaml
-arxiv:
-  enabled: true          # arXiv 论文——主要来源
-
-hacker_news:
-  enabled: true          # Hacker News 热文
-
-github_trending:
-  enabled: true          # 今日 GitHub 趋势仓库
-  max_repos: 15
+display_order:
+  - weather
+  - arxiv
+  - github_trending
+  - hacker_news
 
 weather:
   enabled: true
-  city: "Edinburgh"      # 改成你的城市
+  city: "Edinburgh"
+  timezone: "auto"
 
-postdoc_jobs:
-  enabled: false         # 学术职位列表——需要的话改为 true
+arxiv:
+  enabled: true
 
-supervisor_updates:
-  enabled: false         # 导师主页监控——需要的话改为 true
+github_trending:
+  enabled: true
+  max_repos: 15
+
+hacker_news:
+  enabled: true
+
+language: "en"
+
+llm:
+  scoring_model: "google/gemini-2.5-flash-lite-preview-09-2025"
+  summarization_model: "google/gemini-2.5-flash-lite-preview-09-2025"
+  base_url: "https://openrouter.ai/api/v1"
 ```
 
-你也可以在这里切换 AI 模型，或限制每天抓取的论文数量。
+你只需要先记住两件事：
+
+- `enabled: true/false` 控制某个来源或 sink 是否启用
+- `display_order` 也会影响这些模块在最终页面里的显示顺序
+
+README 只负责给你一个整体心智模型。更细的参数说明，请看各自的 extension / sink 文档。
 
 ---
 
-## 把摘要发到 Slack
+## Extensions：把你自己的来源接进来
 
-除了网站，你还可以每天收到一条 Slack 消息。配置大约需要 2 分钟：
+这个项目的核心是扩展系统。
 
-1. 打开 [api.slack.com/apps](https://api.slack.com/apps) → **Create New App** → **From scratch**
-2. 左侧菜单 → **Features → Incoming Webhooks** → 开关拨到 **On**
-3. 页面下方 → **Add New Webhook to Workspace** → 选择频道 → **Allow**
-4. 复制 Webhook URL（格式类似 `https://hooks.slack.com/services/T.../B.../...`）
-5. 在仓库里添加 Secret：**Settings → Secrets → New secret**，名称填 `SLACK_WEBHOOK_URL`
-6. 在 [config/sources.yaml](config/sources.yaml) 中启用：
+- 内置示例都在 [`extensions/`](extensions/)
+- 统一约定写在 [`extensions/README.md`](extensions/README.md)
+- 每个 extension 自己的细节配置，写在各自目录下的 `README.md`
+- 新扩展可以直接复制 [`extensions/_template/`](extensions/_template/)
+
+所以你完全不需要启用所有内置来源。只用 papers、HN、GitHub Trending 和 weather，也是非常正常的用法。
+
+---
+
+## Sinks：可选的投递渠道
+
+网站是默认输出。Sinks 是额外的可选投递渠道。
+
+当前内置的 sinks 包括：
+
+- `slack`
+- `serverchan`
+
+关于 sink 的说明请看：
+
+- [`sinks/README.md`](sinks/README.md) —— 共享的 sink 设计和约定
+- `sinks/<name>/README.md` —— 每个 sink 自己的配置说明
+
+现在的 sinks 已经是标准化的模式：
+
+- 非敏感配置放在 `sources.yaml`
+- 凭据放在 GitHub Secrets 或环境变量里
+- 新 sink 可以通过复制 [`sinks/_template/`](sinks/_template/) 开始
+
+例如：
 
 ```yaml
 sinks:
   slack:
     enabled: true
-    max_papers: 5    # 推送几篇论文
-    max_hn: 3        # 推送几条 HN 热文
-    max_github: 3    # 推送几个 GitHub 趋势仓库
+    max_papers: 5
+    max_hn: 3
+    max_github: 3
 ```
 
-不配置 Slack 也完全没问题，网站照常更新。
+和 extensions 一样，后续也欢迎继续增加更多 sinks。
 
 ---
 
-## 自动运行计划
+## 定时任务和时区
 
-| 时间 | 内容 |
-|---|---|
-| 每天 UTC 00:00 | 完整摘要——论文、HN、GitHub 趋势、天气，以及你启用的其他来源 |
-| 每周一 UTC 01:00 | 上周趋势汇总 |
-| 每月 1 日 UTC 02:00 | 月度全景概述 |
+默认的自动运行计划写在：
 
-也可以随时手动触发：**Actions → [工作流名称] → Run workflow**。
+- [`.github/workflows/daily.yml`](.github/workflows/daily.yml)
+- [`.github/workflows/weekly.yml`](.github/workflows/weekly.yml)
+- [`.github/workflows/monthly.yml`](.github/workflows/monthly.yml)
 
----
+GitHub Actions 的 cron 使用的是 **UTC**。如果你想改执行时间，直接在你自己的 fork 里编辑这些 cron 表达式即可。
 
-## 添加你自己的数据来源
-
-每个来源都是 `extensions/` 目录下一个独立的文件夹。添加新来源的步骤：
-
-**1. 复制模板：**
-```bash
-cp -r extensions/_template extensions/my_source
-```
-
-**2. 填入三个函数**，在 `extensions/my_source/__init__.py` 中：
-- `fetch()` — 从任何地方抓取原始数据（网站、API、文件）
-- `process()` — 可选：用内置 AI 客户端过滤或摘要
-- `render()` — 把结果格式化为摘要中的一个板块
-
-**3. 注册**，在 `extensions/__init__.py` 中：
-```python
-from extensions.my_source import MySourceExtension
-
-REGISTRY = [..., MySourceExtension]
-```
-
-**4. 添加开关**，在 `config/sources.yaml` 中：
-```yaml
-my_source:
-  enabled: true
-```
-
-完整指南和示例：[extensions/README.md](extensions/README.md)
+像 weather 这种来源本身的时区设置，则在 `config/sources.yaml` 里配置。
 
 ---
 
 ## 在本地运行
 
 ```bash
-# 安装依赖
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 
-# 设置 API 密钥
 export OPENROUTER_API_KEY=sk-or-...
-
-# 运行完整摘要
 python main.py --mode daily
-
-# 只抓取数据，不调用 AI（免费，用来测试配置是否正常）
 python main.py --dry-run
-
-# 周报或月报
 python main.py --mode weekly
 python main.py --mode monthly
 ```
 
 运行测试：
+
 ```bash
 PYTHONPATH=. pytest tests/ -q
 ```
@@ -205,41 +191,79 @@ PYTHONPATH=. pytest tests/ -q
 
 ## 项目结构
 
-```
+```text
 MyDailyUpdater/
-├── extensions/             # 每个数据来源一个文件夹
-│   ├── _template/          # 复制这个来新建数据来源
-│   ├── arxiv/              # arXiv 论文
-│   ├── github_trending/    # GitHub 趋势仓库
-│   ├── hacker_news/        # Hacker News 热文
-│   ├── postdoc_jobs/       # 学术职位列表
-│   ├── supervisor_updates/ # 导师主页监控
-│   ├── weather/            # 天气预报
-│   └── base.py             # 所有来源共用的基类
-├── sinks/                  # 推送渠道（如 Slack）
-│   └── slack/
-├── pipeline/               # 评分、摘要、组装摘要
-├── publishers/             # 把结果写入 docs/ 网站文件
-├── templates/              # 日报/周报/月报页面模板
-├── config/
-│   ├── sources.yaml        # 来源开关、输出语言、AI 模型
-│   └── extensions/
-│       ├── arxiv.yaml      # 你的研究关键词和 arXiv 分类
-│       ├── hacker_news.yaml
-│       ├── postdoc_jobs.yaml
-│       └── supervisor_updates.yaml
-├── docs/                   # 生成的网站（由 GitHub Pages 发布）
-├── tests/
-└── main.py                 # 入口
+├── extensions/   # 数据来源插件
+├── sinks/        # 可选投递渠道
+├── config/       # sources.yaml 和各 extension 配置
+├── templates/    # 日报 / 周报 / 月报页面模板
+├── publishers/   # 写入 docs/ 页面和 JSON 输出
+├── docs/         # GitHub Pages 公开站点
+├── skills/       # 面向贡献者和用户的公开 prompt / skill 文件
+├── dev_docs/     # 面向维护者的文档
+└── main.py       # CLI 入口
 ```
 
 ---
 
-## 分享你的配置
+## 用 AI coding agents 参与贡献和配置
 
-做了什么有趣的配置，或者用这个工具追踪了一个冷门领域？欢迎在 [Discussions](https://github.com/YuyangXueEd/MyDailyUpdater/discussions) 里分享——有类似研究兴趣的人会很感激你。
+这个项目欢迎大家用 AI agent 来扩展 extensions、增加 sinks，或者帮自己做配置与定制。
 
-发现 bug 或想添加新的来源？[提一个 issue](https://github.com/YuyangXueEd/MyDailyUpdater/issues)。
+打包好的 skill 目录现在放在 [`skills/`](skills/) 里：
+
+- [`skills/dailyreport-contributor/SKILL.md`](skills/dailyreport-contributor/SKILL.md)
+- [`skills/dailyreport-config-customization/SKILL.md`](skills/dailyreport-config-customization/SKILL.md)
+
+同时也保留了轻量 prompt 版本：
+
+- [`skills/dailyreport-contributor.md`](skills/dailyreport-contributor.md)
+- [`skills/dailyreport-config-customization.md`](skills/dailyreport-config-customization.md)
+
+在让 AI agent 动手之前，建议先让它读这些仓库说明：
+
+- [`llms.txt`](llms.txt)
+- [`extensions/llms.txt`](extensions/llms.txt)
+- [`sinks/llms.txt`](sinks/llms.txt)
+- [`extensions/README.md`](extensions/README.md)
+- [`sinks/README.md`](sinks/README.md)
+- [`skills/`](skills/) 里对应的打包 skill
+
+推荐提示词：
+
+```text
+Please read llms.txt, extensions/llms.txt, sinks/llms.txt, extensions/README.md,
+sinks/README.md, and the relevant SKILL.md under skills/ before making changes or suggesting configuration edits.
+```
+
+---
+
+## 分享你的配置和想法
+
+如果你做出了一个有趣的 setup，欢迎发到 [Discussions](https://github.com/YuyangXueEd/MyDailyUpdater/discussions) 里。
+
+如果你遇到实现问题、配置问题，或者想提 extension / sink 请求，可以直接使用仓库里的 issue templates。
+
+---
+
+## 支持这个项目
+
+如果这个仓库帮你节省了时间、帮助你持续跟踪研究方向，或者给了你一个很好的个人科研仪表盘起点，可以在这里支持项目：
+
+- [GitHub Sponsors](https://github.com/sponsors/yuyangxueed)
+- [Ko-fi](https://ko-fi.com/guesswhat_moe)
+
+赞助完全是自愿的。我当然很感谢捐助，但相比金钱，我更看重贡献代码、修复问题、提出想法和补充新集成。
+
+---
+
+## 致谢
+
+特别感谢 [Just the Docs](https://just-the-docs.com/) 和 [Jekyll](https://jekyllrb.com/)，为这个项目的公开站点提供了基础。
+
+同时，也感谢许多开源仓库、维护者和贡献者；这个项目在设计思路、实现方式和结构组织上，都受到了他们的启发。
+
+如果你发现某个项目或仓库值得被更明确地致谢，欢迎提 issue 或 PR，我会很乐意补上。
 
 ---
 

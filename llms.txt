@@ -88,6 +88,12 @@ docs/                Generated site (served by GitHub Pages)
   data/weekly/       Weekly JSON payloads
   data/monthly/      Monthly JSON payloads
 
+skills/              Public AI-assistant guidance and packaged skills
+  dailyreport-contributor.md                    Lightweight contributor prompt
+  dailyreport-contributor/                      Packaged contributor skill
+  dailyreport-config-customization.md           Lightweight setup/customization prompt
+  dailyreport-config-customization/             Packaged setup/customization skill
+
 tests/               Pytest suite (61 tests, no live network or LLM calls)
 ```
 

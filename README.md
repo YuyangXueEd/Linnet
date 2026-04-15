@@ -11,119 +11,187 @@
 
 **Get a personalised research digest every morning — without lifting a finger.**
 
-Fork this repo, add one API key, and wake up to a fresh digest of arXiv papers, Hacker News stories, and trending GitHub repos — automatically filtered for your interests, summarised by AI, and published as your own website.
+Fork this repo, add one API key, and publish your own site with daily research updates, AI summaries, and optional notifications.
 
-**[See a live example →](https://yuyangxueed.github.io/MyDailyUpdater)** · **[Setup Wizard →](https://yuyangxueed.github.io/MyDailyUpdater/setup/)**
+**[See a live example →](https://yuyangxueed.github.io/MyDailyUpdater)** · **[Setup Wizard →](https://yuyangxueed.github.io/MyDailyUpdater/setup/)** · **[Manual config guide →](docs/setup/manual-config.md)**
 
-> **Cost:** about $0.01–$0.05 per day using `gemini-2.5-flash-lite` via OpenRouter (free tier available).
+> **Important:** the public wizard is a generator for your own fork. It does **not** modify this demo site or this repository. Today it generates config for copy-paste; browser-side one-click deploy is not enabled yet.
+>
+> **Default LLM path:** the quick-start flow uses OpenRouter with `OPENROUTER_API_KEY`. Advanced users can also edit models and `llm.base_url` in `config/sources.yaml`.
 
 ---
 
 ## What you get every morning
 
-| Source | What it fetches |
+| Core source | What it gives you |
 |---|---|
-| **arXiv** | New papers matching your keywords — each with an AI-written summary |
-| **Hacker News** | Top AI/ML stories above a score you set |
-| **GitHub Trending** | Today's most-starred repos in your area |
+| **arXiv** | New papers matching your keywords, with AI summaries |
+| **Hacker News** | High-signal AI/ML stories above your score threshold |
+| **GitHub Trending** | Trending repos in your area |
 | **Weather** | Today's forecast for your city |
-| **Postdoc jobs** | Research job listings from jobs.ac.uk, FindAPostDoc, and EURAXESS |
-| **Supervisor monitor** | Alerts when a professor's or lab's webpage changes |
 
-Find out more in `extensions` ...
+Optional sources such as postdoc jobs and supervisor-page monitoring are available through the extension system, but they are not required for most users.
 
-Everything runs automatically at midnight UTC via GitHub Actions. Results are saved back to your repo and published as a searchable website.
+Everything runs on GitHub Actions and publishes to GitHub Pages as your own searchable site.
 
 ![Pipeline workflow](assets/workflow.png)
 
 ---
 
-## Get started
+## Get started in 5 simple steps
 
-**Option A — Setup Wizard (recommended):** [Open the wizard →](https://yuyangxueed.github.io/MyDailyUpdater/setup/)
-Fork the repo, open the wizard, answer 5 questions, paste the generated config. Done in under 5 minutes.
+### 1. Fork this repo
 
-**Option B — Manual configuration:** [Step-by-step guide →](docs/setup/manual-config.md)
-Edit the YAML files directly. Full reference for every option including LLM prompt customisation and Slack setup.
+Click **Fork** on GitHub so the generated config and published site belong to you.
 
----
+### 2. Add your API key
 
-## Documentation layout
+Go to **Settings → Secrets and variables → Actions → New repository secret** in your fork.
 
-This repo uses two documentation spaces on purpose:
-
-- `docs/` contains public site content deployed to GitHub Pages, including the setup wizard, manual setup guide, and generated digest pages
-- `dev_docs/` is reserved for official developer and maintainer documentation
-
-Code-local docs still live next to the code they explain, such as `extensions/README.md` and `sinks/README.md`.
-
----
-
-## What runs automatically
-
-| When | What happens |
+| Name | Value |
 |---|---|
-| Every day at midnight UTC | Full digest — papers, HN, GitHub trending, weather, any extras you enabled |
-| Every Monday at 1 AM UTC | Weekly summary of the past week |
-| 1st of every month at 2 AM UTC | Monthly overview |
+| `OPENROUTER_API_KEY` | Your key from [openrouter.ai/keys](https://openrouter.ai/keys) |
 
-Trigger any of these by hand: **Actions → [workflow name] → Run workflow**.
+OpenRouter is the default fast path because one key can access many models. If you want to experiment with other OpenAI-compatible gateways later, start from the [manual config guide](docs/setup/manual-config.md).
+
+### 3. Enable GitHub Pages
+
+Go to **Settings → Pages → Source: Deploy from a branch → `main` / `/docs`**.
+
+### 4. Open the wizard and generate config
+
+Use the [Setup Wizard](https://yuyangxueed.github.io/MyDailyUpdater/setup/) for the fast path. It walks through source selection, ordering, sink choices, and generated files for **your fork**.
+
+If you prefer to edit everything yourself, use [`docs/setup/manual-config.md`](docs/setup/manual-config.md) instead.
+
+### 5. Run the first workflow
+
+Go to **Actions → Daily Digest → Run workflow**.
+
+Your site should be live in a few minutes.
 
 ---
 
-## Add your own data source
+## Read the config at a glance
 
-Every source is a self-contained folder inside `extensions/`. To add a new one:
+A small `sources.yaml` example is usually enough to understand the shape:
 
-**1. Copy the template:**
-```bash
-cp -r extensions/_template extensions/my_source
-```
-
-**2. Fill in three functions** in `extensions/my_source/__init__.py`:
-- `fetch()` — grab raw data from anywhere (a website, an API, a file)
-- `process()` — optional: filter or summarise using the built-in AI client
-- `render()` — format the results for the digest
-
-**3. Register it** in `extensions/__init__.py`:
-```python
-from extensions.my_source import MySourceExtension
-
-REGISTRY = [..., MySourceExtension]
-```
-
-**4. Add an on/off switch** in `config/sources.yaml`:
 ```yaml
-my_source:
+display_order:
+  - weather
+  - arxiv
+  - github_trending
+  - hacker_news
+
+weather:
   enabled: true
+  city: "Edinburgh"
+  timezone: "auto"
+
+arxiv:
+  enabled: true
+
+github_trending:
+  enabled: true
+  max_repos: 15
+
+hacker_news:
+  enabled: true
+
+language: "en"
+
+llm:
+  scoring_model: "google/gemini-2.5-flash-lite-preview-09-2025"
+  summarization_model: "google/gemini-2.5-flash-lite-preview-09-2025"
+  base_url: "https://openrouter.ai/api/v1"
 ```
 
-Full guide with a worked example: [extensions/README.md](extensions/README.md)
+Two key ideas:
+
+- `enabled: true/false` turns each source or sink on and off
+- `display_order` also controls the order those sections appear in the rendered digest
+
+Keep the README mental model simple. Use the per-extension and per-sink docs for detailed options.
 
 ---
 
-## Running on your own computer
+## Extensions: bring your own sources
+
+This project is built around an extension system.
+
+- Built-in examples live in [`extensions/`](extensions/)
+- Detailed conventions live in [`extensions/README.md`](extensions/README.md)
+- Extension-specific options belong in each extension's own `README.md`
+- New extensions can be created by copying [`extensions/_template/`](extensions/_template/)
+
+That means you do **not** need every built-in source. If you only want papers, HN, GitHub Trending, and weather, that is a perfectly normal setup.
+
+---
+
+## Sinks: optional delivery channels
+
+The website is the default output. Sinks are optional extra delivery channels.
+
+Current built-in sinks include:
+
+- `slack`
+- `serverchan`
+
+Sink-specific setup belongs in:
+
+- [`sinks/README.md`](sinks/README.md) for the shared sink model
+- `sinks/<name>/README.md` for each sink's own setup details
+
+Sinks are already standardized around the same pattern:
+
+- configure non-secret options in `sources.yaml`
+- keep credentials in GitHub Secrets or environment variables
+- add new sinks by copying [`sinks/_template/`](sinks/_template/)
+
+Example:
+
+```yaml
+sinks:
+  slack:
+    enabled: true
+    max_papers: 5
+    max_hn: 3
+    max_github: 3
+```
+
+More sinks are welcome, just like more extensions.
+
+---
+
+## Schedules and timezones
+
+The default schedules live in:
+
+- [`.github/workflows/daily.yml`](.github/workflows/daily.yml)
+- [`.github/workflows/weekly.yml`](.github/workflows/weekly.yml)
+- [`.github/workflows/monthly.yml`](.github/workflows/monthly.yml)
+
+GitHub Actions cron uses **UTC**. If you want different times, edit those cron lines directly in your fork.
+
+Source-specific time settings, such as the weather timezone, live in `config/sources.yaml`.
+
+---
+
+## Run locally
 
 ```bash
-# Install
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 
-# Set your API key
 export OPENROUTER_API_KEY=sk-or-...
-
-# Run a full digest
 python main.py --mode daily
-
-# Test without any AI calls (free — good for checking your config works)
 python main.py --dry-run
-
-# Weekly or monthly summary
 python main.py --mode weekly
 python main.py --mode monthly
 ```
 
-Run the test suite:
+Run tests:
+
 ```bash
 PYTHONPATH=. pytest tests/ -q
 ```
@@ -132,61 +200,79 @@ PYTHONPATH=. pytest tests/ -q
 
 ## Project layout
 
-```
+```text
 MyDailyUpdater/
-├── extensions/             # one folder per data source
-│   ├── _template/          # copy this to build your own source
-│   ├── arxiv/              # arXiv papers
-│   ├── github_trending/    # GitHub trending repos
-│   ├── hacker_news/        # Hacker News stories
-│   ├── postdoc_jobs/       # academic job listings
-│   ├── supervisor_updates/ # professor/lab page monitor
-│   ├── weather/            # weather forecast
-│   └── base.py             # shared base class all extensions inherit from
-├── sinks/                  # delivery channels (e.g. Slack)
-│   └── slack/
-├── pipeline/               # scoring, summarising, assembling the digest
-├── publishers/             # writes the website files to docs/
-├── templates/              # daily / weekly / monthly page layouts
-├── dev_docs/               # official developer / maintainer documentation
-├── config/
-│   ├── sources.yaml        # turn sources on/off, set language & AI models
-│   └── extensions/
-│       ├── arxiv.yaml      # your research keywords & categories
-│       ├── hacker_news.yaml
-│       ├── postdoc_jobs.yaml
-│       └── supervisor_updates.yaml
-├── docs/                   # public site content deployed by GitHub Pages
-├── tests/
-└── main.py                 # entry point
+├── extensions/   # data-source plugins
+├── sinks/        # optional delivery channels
+├── config/       # sources.yaml + per-extension config
+├── templates/    # daily / weekly / monthly page templates
+├── publishers/   # writes docs/ pages and JSON outputs
+├── docs/         # public GitHub Pages site
+├── skills/       # public prompt/skill files for contributors and users
+├── dev_docs/     # maintainer-focused docs
+└── main.py       # CLI entry point
 ```
 
 ---
 
-## Contributing with AI coding agents
+## Using AI coding agents for contribution and setup
 
-This project is designed to be extended — and AI coding assistants are first-class contributors here.
+This project actively encourages both contributors and end users to use AI agents for new extensions, sinks, and repo customization.
 
-Two `llms.txt` files are maintained specifically so AI agents can orient quickly:
+Packaged skill folders now live in [`skills/`](skills/):
 
-- **[llms.txt](llms.txt)** — full project overview: architecture, pipeline, config reference, directory map
-- **[extensions/llms.txt](extensions/llms.txt)** — extension development guide: `BaseExtension` contract, `FeedSection` schema, copy-paste checklist for new extensions
+- [`skills/dailyreport-contributor/SKILL.md`](skills/dailyreport-contributor/SKILL.md)
+- [`skills/dailyreport-config-customization/SKILL.md`](skills/dailyreport-config-customization/SKILL.md)
 
-If you're using **Claude Code**, **Cursor**, **GitHub Copilot**, or any other AI assistant, start your session with:
+Lightweight prompt versions are also available:
 
+- [`skills/dailyreport-contributor.md`](skills/dailyreport-contributor.md)
+- [`skills/dailyreport-config-customization.md`](skills/dailyreport-config-customization.md)
+
+Before asking an AI agent to make changes, point it at the repo guidance first:
+
+- [`llms.txt`](llms.txt)
+- [`extensions/llms.txt`](extensions/llms.txt)
+- [`sinks/llms.txt`](sinks/llms.txt)
+- [`extensions/README.md`](extensions/README.md)
+- [`sinks/README.md`](sinks/README.md)
+- the relevant packaged skill under [`skills/`](skills/)
+
+Suggested prompt:
+
+```text
+Please read llms.txt, extensions/llms.txt, sinks/llms.txt, extensions/README.md,
+sinks/README.md, and the relevant SKILL.md under skills/ before making changes or suggesting configuration edits.
 ```
-Please read llms.txt and extensions/llms.txt before making changes to this repo.
-```
-
-The [`extensions/_template/`](extensions/_template/) package is also written as a full developer guide — every method includes its contract, every config key is documented, and [`extensions/_template/README.md`](extensions/_template/README.md) ends with a 10-item PR checklist. When adding a new extension, point your AI agent at that file first.
 
 ---
 
-## Share your setup
+## Share setups and ask for help
 
-Using this for an unusual research area? Set up a particularly useful config? Post it in [Discussions](https://github.com/YuyangXueEd/MyDailyUpdater/discussions) — others with similar interests will find it.
+If you build an interesting setup, please share it in [Discussions](https://github.com/YuyangXueEd/MyDailyUpdater/discussions).
 
-Have a bug or want a new source added? [Open an issue](https://github.com/YuyangXueEd/MyDailyUpdater/issues).
+For implementation problems, config help, extension ideas, or sink requests, use the issue templates in this repo.
+
+---
+
+## Support the project
+
+If this repo saves you time, helps you track your field, or gives you a good starting point for your own research dashboard, you can support it here:
+
+- [GitHub Sponsors](https://github.com/sponsors/yuyangxueed)
+- [Ko-fi](https://ko-fi.com/guesswhat_moe)
+
+Support is optional. I appreciate donations, but I value contributions, fixes, ideas, and new integrations even more.
+
+---
+
+## Acknowledgements
+
+Special thanks to [Just the Docs](https://just-the-docs.com/) and [Jekyll](https://jekyllrb.com/) for the public-site foundation behind this project.
+
+More broadly, I’m also grateful to the many open-source repositories, maintainers, and contributors whose ideas, patterns, and examples helped shape this repo.
+
+If you notice a project or repository that should be credited more explicitly, please open an issue or PR and I’ll gladly add it.
 
 ---
 

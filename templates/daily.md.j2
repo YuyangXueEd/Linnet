@@ -6,115 +6,67 @@ nav_exclude: true
 date: {{ date }}
 ---
 
-# {{ date }} Daily Digest
-
 {% set scoring_model = meta.get('scoring_model') %}
 {% set summarization_model = meta.get('summarization_model') %}
 
-{% if scoring_model and summarization_model and scoring_model != summarization_model %}
-> Generated on {{ generated_at[:10] }} | Scoring model: {{ scoring_model }} | Summary model: {{ summarization_model }}
-{% else %}
-> Generated on {{ generated_at[:10] }} | Model: {{ meta.llm_model }}
-{% endif %}
+<div class="report-shell">
+  <section class="report-hero">
+    <div class="landing-kicker">Daily issue</div>
+    <h1>{{ date }} Daily Digest</h1>
+    <p>
+      Your latest auto-published briefing across the sources enabled in
+      <code>config/sources.yaml</code>.
+    </p>
 
----
+    {% if scoring_model and summarization_model and scoring_model != summarization_model %}
+    <div class="report-note">
+      <strong>Generated on {{ generated_at[:10] }}</strong>
+      Scoring model: {{ scoring_model }} · Summary model: {{ summarization_model }}
+    </div>
+    {% else %}
+    <div class="report-note">
+      <strong>Generated on {{ generated_at[:10] }}</strong>
+      Model: <code>{{ meta.llm_model }}</code>
+    </div>
+    {% endif %}
+
+    <div class="report-stat-grid">
+      <div class="report-stat">
+        <strong>{{ papers|length }}</strong>
+        <span>Papers</span>
+      </div>
+      <div class="report-stat">
+        <strong>{{ hacker_news|length }}</strong>
+        <span>HN stories</span>
+      </div>
+      <div class="report-stat">
+        <strong>{{ github_trending|length }}</strong>
+        <span>Trending repos</span>
+      </div>
+      <div class="report-stat">
+        <strong>{{ jobs|length + supervisor_updates|length + weather|length }}</strong>
+        <span>Other sections</span>
+      </div>
+    </div>
+
+    {% if meta.get('papers_after_keyword_filter') is not none %}
+    <div class="report-note">
+      {{ meta.get('papers_after_keyword_filter') }} candidates passed keyword filtering
+    </div>
+    {% endif %}
+
+    <div class="report-link-row">
+      <a class="landing-button secondary" href="/">Home</a>
+      <a class="landing-button secondary" href="/daily/">Daily archive</a>
+      <a class="landing-button secondary" href="/weekly/">Weekly rollup</a>
+      <a class="landing-button secondary" href="/monthly/">Monthly overview</a>
+    </div>
+  </section>
+</div>
 
 {% for sec in sections_ordered %}
 {% include "extensions/" + sec.key + "/head.html.j2" ignore missing %}
 {% endfor %}
-
-<style>
-/* ── Quick nav panel (desktop, fixed) ───────────────────────────── */
-.daily-nav-panel {
-  width: 200px;
-  padding: 1rem 1.1rem;
-  border: 1px solid #21262d;
-  border-radius: 10px;
-  position: fixed;
-  right: 1.5rem;
-  top: 8rem;
-  z-index: 30;
-  max-height: 70vh;
-  overflow: auto;
-  background: #161b22;
-  font-size: 0.78rem;
-  scrollbar-width: thin;
-}
-
-.daily-nav-title {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.65rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #58a6ff;
-  margin-bottom: 0.75rem;
-}
-
-.daily-nav-panel ul {
-  margin: 0.25rem 0 0 0.75rem;
-  list-style: none;
-  padding: 0;
-}
-
-.daily-nav-panel > ul {
-  margin-left: 0;
-}
-
-.daily-nav-panel a {
-  color: #8b949e;
-  text-decoration: none;
-  display: block;
-  padding: 0.15rem 0;
-  transition: color 0.15s;
-}
-
-.daily-nav-panel a:hover {
-  color: #58a6ff;
-}
-
-/* ── Mobile nav (collapsible) ────────────────────────────────────── */
-.daily-nav-mobile {
-  display: none;
-  margin-bottom: 1.5rem;
-  border: 1px solid #21262d;
-  border-radius: 8px;
-  background: #161b22;
-  font-size: 0.83rem;
-}
-
-.daily-nav-mobile summary {
-  padding: 0.6rem 0.9rem;
-  cursor: pointer;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: #58a6ff;
-  list-style: none;
-}
-
-.daily-nav-mobile ul {
-  margin: 0 0 0.5rem 1.25rem;
-  padding: 0 0 0.5rem 0;
-  list-style: none;
-}
-
-.daily-nav-mobile a {
-  color: #8b949e;
-  text-decoration: none;
-  display: block;
-  padding: 0.15rem 0;
-}
-
-.daily-nav-mobile a:hover { color: #58a6ff; }
-
-@media (max-width: 1100px) {
-  .daily-nav-panel { display: none; }
-  .daily-nav-mobile { display: block; }
-}
-</style>
 
 <aside class="daily-nav-panel" aria-label="Page navigation">
   <div class="daily-nav-title">Quick Nav</div>
@@ -140,11 +92,12 @@ date: {{ date }}
   </ul>
 </details>
 
----
-
 {% for sec in sections_ordered %}
 {% include "extensions/" + sec.key + "/template.md.j2" ignore missing %}
 {% endfor %}
 
----
-*[Home](/) | [Weekly](/weekly/) | [Monthly](/monthly/)*
+<div class="report-link-row report-link-row--footer">
+  <a class="landing-button secondary" href="/">Home</a>
+  <a class="landing-button secondary" href="/weekly/">Weekly</a>
+  <a class="landing-button secondary" href="/monthly/">Monthly</a>
+</div>
