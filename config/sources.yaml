@@ -48,7 +48,7 @@ pages:
 #   3. Add a config block here under sinks:
 sinks:
   slack:
-    enabled: true
+    enabled: false
     # Credential: SLACK_WEBHOOK_URL  (GitHub secret)
     # How to get: Slack workspace settings → Apps → Incoming Webhooks → Add New Webhook
     max_papers: 5   # top papers to post
