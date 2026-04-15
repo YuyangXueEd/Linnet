@@ -153,6 +153,72 @@ my_source:
 
 ---
 
+## 投递 Sink
+
+每日 payload 构建完成后，流水线可以将内容推送到外部服务。所有 sink **默认关闭**——在 `config/sources.yaml` 中启用，并将所需凭据添加为 GitHub Secret。
+
+### Slack
+
+通过 Incoming Webhook 向 Slack 频道发送 Block Kit 消息，包含顶级论文、HN 热文、热门仓库和职位摘要。
+
+**配置步骤：**
+1. 前往 [api.slack.com/apps](https://api.slack.com/apps) → 创建 App → From scratch
+2. 启用 **Incoming Webhooks** → Add New Webhook to Workspace → 复制 Webhook URL
+3. 添加为 GitHub Secret：**Settings → Secrets → `SLACK_WEBHOOK_URL`**
+4. 在 `config/sources.yaml` 中启用：
+
+```yaml
+sinks:
+  slack:
+    enabled: true
+    max_papers: 5
+    max_hn: 3
+    max_github: 3
+```
+
+### Notion
+
+为每次每日摘要在 Notion 数据库中创建一个新页面，包含论文列表、HN 文章、GitHub 热门仓库和职位信息。
+
+**配置步骤：**
+1. 前往 [notion.so/my-integrations](https://www.notion.so/my-integrations) → New integration（Internal，需要 Insert content 权限）
+2. 复制 **Integration token** → GitHub Secret：`NOTION_API_KEY`
+3. 打开你的 Notion 数据库 → `···` 菜单 → **Add connections** → 选择你的 integration
+4. 从 URL 中复制 **database ID**（`notion.so/<workspace>/<DATABASE_ID>?v=...`）→ GitHub Secret：`NOTION_DATABASE_ID`
+5. 在 Notion 数据库中添加以下属性：`Date`（日期类型）、`Papers`（数字类型）、`Jobs`（数字类型）
+6. 在 `config/sources.yaml` 中启用：
+
+```yaml
+sinks:
+  notion:
+    enabled: true
+    max_papers: 10
+    max_hn: 5
+    max_github: 5
+    max_jobs: 5
+```
+
+> **提示：** 三个 sink 相关的 Secret（`SLACK_WEBHOOK_URL`、`NOTION_API_KEY`、`NOTION_DATABASE_ID`）均为可选。如果某个 Secret 未设置，对应的 sink 会静默跳过，不会导致流水线失败。
+
+### 添加新的 Sink
+
+```python
+# sinks/my_sink.py
+from sinks.base import BaseSink
+
+class MySink(BaseSink):
+    key = "my_sink"   # 对应 sources.yaml 中的 sinks.my_sink
+
+    def deliver(self, payload: dict) -> None:
+        # payload 包含：date, papers, hacker_news, jobs, github_trending, meta
+        api_key = os.environ.get("MY_SINK_API_KEY", "")
+        ...
+```
+
+在 `sinks/__init__.py` 中注册，并在 `sources.yaml` 的 `sinks:` 下添加配置块。
+
+---
+
 ## 本地运行
 
 ```bash

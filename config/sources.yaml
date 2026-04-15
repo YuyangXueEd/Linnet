@@ -36,3 +36,31 @@ llm:
 
 pages:
   base_url: ""
+
+# ── Delivery sinks (all disabled by default) ──────────────────────────────
+#
+# Credentials are read from environment variables / GitHub secrets — never
+# put API keys in this file.
+#
+# To add a new sink:
+#   1. Create sinks/my_sink.py subclassing BaseSink (key = "my_sink")
+#   2. Add it to SINK_REGISTRY in sinks/__init__.py
+#   3. Add a config block here under sinks:
+sinks:
+  slack:
+    enabled: false
+    # Credential: SLACK_WEBHOOK_URL  (GitHub secret)
+    # How to get: Slack workspace settings → Apps → Incoming Webhooks → Add New Webhook
+    max_papers: 5   # top papers to post
+    max_hn: 3       # top HN stories to post
+    max_github: 3   # top GitHub repos to post
+
+  notion:
+    enabled: false
+    # Credentials: NOTION_API_KEY, NOTION_DATABASE_ID  (GitHub secrets)
+    # How to get:  https://www.notion.so/my-integrations → New integration
+    #              Then share your database with the integration.
+    max_papers: 10  # papers to list in the page body
+    max_hn: 5       # HN stories to list
+    max_github: 5   # GitHub repos to list
+    max_jobs: 5     # jobs to list

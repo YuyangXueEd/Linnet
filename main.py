@@ -21,6 +21,7 @@ from typing import Any
 from openai import OpenAI
 
 from extensions import REGISTRY, FeedSection
+from sinks import SINK_REGISTRY
 from pipeline.config_loader import load_keywords, load_sources, load_supervisors
 from pipeline.summarizer import lang_instruction
 from pipeline.aggregator import build_weekly_payload, build_monthly_payload, load_daily_jsons
@@ -137,6 +138,19 @@ def run_daily(kw: dict, sources: dict, supervisors: list) -> None:
     md_path = render_daily_page(payload)
     print(f"Written: {json_path}")
     print(f"Written: {md_path}")
+
+    # ── Deliver to enabled sinks ─────────────────────────────────────
+    sinks_cfg = sources.get("sinks", {})
+    for sink_class in SINK_REGISTRY:
+        cfg = sinks_cfg.get(sink_class.key, {})
+        sink = sink_class(cfg)
+        if sink.enabled:
+            print(f"Delivering to {sink_class.key}...")
+            try:
+                sink.deliver(payload)
+                print(f"  {sink_class.key}: OK")
+            except Exception as e:
+                print(f"  {sink_class.key}: FAILED — {e}")
 
 
 def run_weekly() -> None:
