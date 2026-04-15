@@ -13,12 +13,14 @@ To add a new sink:
 """
 
 from sinks.base import BaseSink
+from sinks.serverchan import ServerChanSink
 from sinks.slack import SlackSink
 
 # Ordered list of all known sinks.
 # The orchestrator iterates this list; disabled sinks are skipped.
 SINK_REGISTRY: list[type[BaseSink]] = [
     SlackSink,
+    ServerChanSink,
 ]
 
 __all__ = ["BaseSink", "SINK_REGISTRY"]

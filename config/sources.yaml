@@ -113,3 +113,12 @@ sinks:
     max_papers: 5   # top papers to post
     max_hn: 3       # top HN stories to post
     max_github: 3   # top GitHub repos to post
+  serverchan:
+    enabled: false
+    # Credential: SERVERCHAN_SENDKEY  (GitHub secret)
+    # Docs: https://sct.ftqq.com/sendkey
+    # Optional referral link: https://sct.ftqq.com/r/21449
+    max_papers: 5
+    max_hn: 3
+    max_github: 3
+    max_jobs: 3

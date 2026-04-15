@@ -7,6 +7,7 @@ After the daily payload is built, the orchestrator calls every **enabled** sink.
 | Sink | Key | Status | Description |
 |---|---|---|---|
 | [slack/](slack/) | `slack` | active | Block Kit message via Incoming Webhook |
+| [serverchan/](serverchan/) | `serverchan` | active | Daily digest sent to Server酱 via SendKey / AppKey |
 
 ## Quickstart — add a new sink
 
@@ -40,6 +41,10 @@ llms.txt         Machine-readable context for LLMs
 
 slack/
   __init__.py    SlackSink — Block Kit via Incoming Webhook
+  README.md      Setup guide, config options, message structure
+
+serverchan/
+  __init__.py    ServerChanSink — Markdown message via SendKey / AppKey
   README.md      Setup guide, config options, message structure
 
 _template/
@@ -84,10 +89,12 @@ Set credentials as GitHub Actions secrets or in your local `.env` file.
 ```python
 # sinks/__init__.py
 from sinks.base import BaseSink
+from sinks.serverchan import ServerChanSink
 from sinks.slack import SlackSink
 
 SINK_REGISTRY: list[type[BaseSink]] = [
     SlackSink,
+    ServerChanSink,
     # MySink,   ← add here
 ]
 ```

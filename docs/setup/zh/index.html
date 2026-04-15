@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MyDailyUpdater - Setup Wizard</title>
+  <title>MyDailyUpdater - 中文设置向导</title>
   <style>
     :root {
       color-scheme: light;
@@ -93,7 +93,7 @@
     body {
       margin: 0;
       min-height: 100vh;
-      font-family: "Avenir Next", "Segoe UI", sans-serif;
+      font-family: "Avenir Next", "PingFang SC", "Noto Sans SC", "Microsoft YaHei", "Segoe UI", sans-serif;
       color: var(--text);
       background:
         radial-gradient(circle at top left, rgba(21, 101, 192, 0.12), transparent 32%),
@@ -852,46 +852,44 @@
   <div class="shell">
     <section class="hero">
       <div class="hero-main">
-        <div class="eyebrow">MyDailyUpdater setup flow</div>
-        <h1>Build your digest in five guided steps.</h1>
+        <div class="eyebrow">MyDailyUpdater 中文设置</div>
+        <h1>用五个步骤，把你的摘要站慢慢配好。</h1>
         <p class="lead">
-          Pick your feeds, tune the filters, choose weekly and monthly rollups,
-          connect notifications, and leave with ready-to-paste YAML files.
+          选择你想看的信息源，调整过滤条件，设置周报和月报，再决定通知方式，最后拿到可以直接粘贴回仓库的 YAML 文件。
         </p>
         <div class="hero-actions">
-          <a class="button button-primary" href="#wizard-root">Start the wizard</a>
-          <a class="button button-secondary" href="manual-config.md">Prefer manual setup?</a>
-          <a class="button button-secondary" href="zh/">中文设置入口</a>
+          <a class="button button-primary" href="#wizard-root">开始配置</a>
+          <a class="button button-secondary" href="../manual-config.md">更想手动配置？</a>
+          <a class="button button-secondary" href="../">English Setup</a>
         </div>
       </div>
 
       <aside class="hero-side">
         <button class="theme-toggle" id="theme-toggle" type="button" aria-live="polite">
-          Switch theme
+          切换主题
         </button>
 
         <div class="stat-grid">
           <div class="stat-card">
             <strong>6</strong>
-            <span>Built-in feed sources that can be mixed and ordered.</span>
+            <span>内置的信息源可以自由组合，也可以调整顺序。</span>
           </div>
           <div class="stat-card">
             <strong>5</strong>
-            <span>Wizard steps from source picking to final copy blocks.</span>
+            <span>从选择信息源到复制配置文件，一共五步。</span>
           </div>
           <div class="stat-card">
             <strong>0</strong>
-            <span>Secrets written to YAML. Webhooks stay out of generated files.</span>
+            <span>不会把密钥写进 YAML，生成结果里只保留非敏感设置。</span>
           </div>
           <div class="stat-card">
             <strong>1</strong>
-            <span>Single place to preview the final repo configuration.</span>
+            <span>在同一个页面里预览最终会写进仓库的配置。</span>
           </div>
         </div>
 
         <p class="note">
-          This page runs entirely in your browser. It generates file contents for
-          your repo without sending your choices anywhere else.
+          这个页面完全在浏览器里运行。它只帮你生成配置内容，不会把你的选择上传到别的地方。
         </p>
       </aside>
     </section>
@@ -902,46 +900,44 @@
 
         <div class="step-header">
           <div>
-            <h2 id="wizard-heading">Setup Wizard</h2>
+            <h2 id="wizard-heading">中文设置向导</h2>
             <p id="step-description"></p>
           </div>
-          <div class="step-pill" id="step-pill">Step 1 of 5</div>
+          <div class="step-pill" id="step-pill">第 1 步，共 5 步</div>
         </div>
 
         <div id="step-errors" aria-live="polite"></div>
         <div id="step-panel"></div>
 
         <div class="step-nav">
-          <button class="step-button" id="back-button" type="button">Back</button>
-          <button class="step-button primary" id="next-button" type="button">Next</button>
+          <button class="step-button" id="back-button" type="button">上一步</button>
+          <button class="step-button primary" id="next-button" type="button">下一步</button>
         </div>
       </section>
 
       <aside class="preview" aria-labelledby="preview-heading">
-        <h2 id="preview-heading">Live summary</h2>
+        <h2 id="preview-heading">实时摘要</h2>
         <p>
-          The sidebar updates as you move through the wizard so you can see the
-          selected feeds, expected files, and deployment reminders before copying
-          anything into your repo.
+          右侧会随着你的选择实时更新。你可以边配置边看到信息源顺序、即将生成的文件，以及需要提前准备的 Secret。
         </p>
 
         <div class="preview-block">
-          <strong>Selected feed order</strong>
+          <strong>信息源顺序</strong>
           <ol class="preview-list" id="preview-order"></ol>
         </div>
 
         <div class="preview-block">
-          <strong>Files that will be generated</strong>
+          <strong>将生成的文件</strong>
           <ul class="preview-list" id="preview-files"></ul>
         </div>
 
         <div class="preview-block">
-          <strong>Notifications</strong>
+          <strong>通知方式</strong>
           <div id="preview-notifications" class="status-note"></div>
         </div>
 
         <div class="preview-block">
-          <strong>Current step focus</strong>
+          <strong>当前步骤说明</strong>
           <div id="preview-focus" class="status-note"></div>
         </div>
       </aside>
@@ -951,68 +947,68 @@
   <script>
     const STEP_META = [
       {
-        title: "Choose your feeds",
-        blurb: "Select the sources you want in your digest and order how they appear on the final page.",
+        title: "选择信息源",
+        blurb: "选择想放进摘要里的信息源，并决定它们在最终页面中的展示顺序。",
       },
       {
-        title: "Configure each feed",
-        blurb: "Only the feeds you selected show up here, each with its own configuration card.",
+        title: "配置每个信息源",
+        blurb: "这里只会显示你上一步选中的信息源，每个信息源都有自己的配置卡片。",
       },
       {
-        title: "Weekly and monthly rollups",
-        blurb: "Decide which selected sections should show up in weekly and monthly summaries.",
+        title: "周报与月报",
+        blurb: "决定哪些已选内容要进入周报和月报，以及各自保留多少条。",
       },
       {
-        title: "Notifications",
-        blurb: "Enable sinks like Slack without putting secrets into YAML.",
+        title: "通知设置",
+        blurb: "配置通知渠道，同时把密钥留在 Secret 里，不写进 YAML。",
       },
       {
-        title: "Generate and copy",
-        blurb: "Review the generated files, copy them into your repo, then trigger your first workflow.",
+        title: "生成并复制",
+        blurb: "检查生成结果，把内容粘贴回仓库，然后触发第一次 workflow。",
       },
     ];
 
     const SOURCE_DEFS = {
       weather: {
         key: "weather",
-        title: "Weather",
-        desc: "A one-glance local forecast at the top of your digest.",
-        category: "Daily context",
+        title: "天气",
+        desc: "把天气放在摘要开头，先看今天的城市情况。",
+        category: "日常信息",
         output: "sources.yaml",
       },
       arxiv: {
         key: "arxiv",
         title: "arXiv",
-        desc: "Fresh papers filtered by your own research interests and summarized by AI.",
-        category: "Research",
+        desc: "按你的研究兴趣筛选 arXiv 新论文，并自动生成摘要。",
+        category: "研究",
         output: "sources.yaml + config/extensions/arxiv.yaml",
       },
       github_trending: {
         key: "github_trending",
         title: "GitHub Trending",
-        desc: "The repos attracting the most stars today, condensed into one list.",
-        category: "Builders",
+        desc: "把今天最受关注的 GitHub 仓库整理成一页。",
+        category: "开发者",
         output: "sources.yaml",
       },
       hacker_news: {
         key: "hacker_news",
         title: "Hacker News",
-        desc: "High-signal AI and engineering stories filtered by score.",
-        category: "News",
+        desc: "按分数筛选更值得看的 AI / 工程类 Hacker News 文章。",
+        category: "资讯",
         output: "sources.yaml + config/extensions/hacker_news.yaml",
       },
       postdoc_jobs: {
         key: "postdoc_jobs",
-        title: "Postdoc Jobs",
-        desc: "Research vacancies stitched together from jobs boards and search pages.",
-        category: "Career",
+        title: "博士后职位",
+        desc: "把多个学术职位来源拼在一起，方便集中浏览。",
+        category: "求职",
         output: "sources.yaml + config/extensions/postdoc_jobs.yaml",
       },
       supervisor_updates: {
         key: "supervisor_updates",
-        title: "Supervisor Updates",
-        desc: "Watch professor or lab pages and summarize what changed.",
-        category: "Monitoring",
+        title: "导师主页更新",
+        desc: "监控导师或实验室主页，一旦有变化就整理出来。",
+        category: "监控",
         output: "sources.yaml + config/extensions/supervisor_updates.yaml",
       },
     };
@@ -1031,7 +1027,7 @@
     const ARXIV_PROFILES = {
       ai: {
         label: "AI / ML",
-        summary: "Foundation models, agents, multimodal systems, and general machine learning.",
+        summary: "适合大模型、多模态、agent 和通用机器学习方向。",
         categories: ["cs.AI", "cs.LG", "cs.CL", "cs.CV", "stat.ML"],
         must_include: [
           "large language model",
@@ -1045,7 +1041,7 @@
       },
       robotics: {
         label: "Robotics",
-        summary: "Robot learning, navigation, embodied agents, and sim-to-real transfer.",
+        summary: "适合机器人学习、导航、具身智能和 sim-to-real。",
         categories: ["cs.RO", "cs.AI", "cs.LG", "cs.CV"],
         must_include: [
           "robot learning",
@@ -1058,7 +1054,7 @@
       },
       medical: {
         label: "Medical AI",
-        summary: "Medical imaging, clinical AI, radiology, pathology, and health records.",
+        summary: "适合医学影像、临床 AI、放射学和病理方向。",
         categories: ["cs.CV", "cs.AI", "cs.LG", "eess.IV", "q-bio.QM"],
         must_include: [
           "medical imaging",
@@ -1071,7 +1067,7 @@
       },
       nlp: {
         label: "NLP",
-        summary: "Language models, reasoning, summarization, and text-focused evaluation.",
+        summary: "适合语言模型、推理、文本摘要和评测方向。",
         categories: ["cs.CL", "cs.AI", "cs.LG"],
         must_include: [
           "language model",
@@ -1084,7 +1080,7 @@
       },
       cv: {
         label: "Computer Vision",
-        summary: "Detection, segmentation, visual representations, and multimodal perception.",
+        summary: "适合检测、分割、视觉表示学习和多模态感知。",
         categories: ["cs.CV", "cs.AI", "cs.LG"],
         must_include: [
           "object detection",
@@ -1109,7 +1105,7 @@
     ];
 
     const TIMEZONE_OPTIONS = [
-      ["auto", "Auto detect"],
+      ["auto", "自动识别"],
       ["UTC", "UTC"],
       ["Europe/London", "Europe/London"],
       ["Europe/Paris", "Europe/Paris"],
@@ -1142,7 +1138,7 @@
         enabled: DEFAULT_ENABLED.has(key),
       })),
       global: {
-        language: "en",
+        language: "zh",
       },
       arxiv: {
         presets: ["ai"],
@@ -1218,9 +1214,9 @@
     function updateThemeButton() {
       const activeTheme = document.body.dataset.theme || "system";
       const labels = {
-        system: "Theme: system",
-        light: "Theme: light",
-        dark: "Theme: dark",
+        system: "主题：跟随系统",
+        light: "主题：浅色",
+        dark: "主题：深色",
       };
       themeToggleEl.textContent = labels[activeTheme];
     }
@@ -1480,7 +1476,7 @@
       ensureScheduleState();
       const order = selectedSourceKeys();
       const lines = [
-        "# Generated by the Setup Wizard",
+        "# 由设置向导生成",
         "",
         "display_order:",
         ...order.map((key) => `  - ${key}`),
@@ -1517,8 +1513,8 @@
         "pages:",
         '  base_url: ""',
         "",
-        "# Future-ready rollup preferences. Safe to keep even before the backend",
-        "# starts using them directly.",
+        "# 为后续周报月报预留的设置字段，即使后端暂时还没完全接入也可以先保留。",
+        "# 这些字段先写进配置里不会有问题。",
         "weekly:",
       ];
 
@@ -1542,14 +1538,14 @@
       lines.push("sinks:");
       lines.push("  slack:");
       lines.push(`    enabled: ${yamlScalar(state.sinks.slack.enabled)}`);
-      lines.push("    # Add SLACK_WEBHOOK_URL as a GitHub Actions secret");
+      lines.push("    # 把 SLACK_WEBHOOK_URL 加进 GitHub Actions Secrets");
       lines.push(`    max_papers: ${yamlScalar(state.sinks.slack.max_papers)}`);
       lines.push(`    max_hn: ${yamlScalar(state.sinks.slack.max_hn)}`);
       lines.push(`    max_github: ${yamlScalar(state.sinks.slack.max_github)}`);
       lines.push("  serverchan:");
       lines.push(`    enabled: ${yamlScalar(state.sinks.serverchan.enabled)}`);
-      lines.push("    # Add SERVERCHAN_SENDKEY as a GitHub Actions secret");
-      lines.push("    # Docs: https://sct.ftqq.com/sendkey");
+      lines.push("    # 把 SERVERCHAN_SENDKEY 加进 GitHub Actions Secrets");
+      lines.push("    # 文档： https://sct.ftqq.com/sendkey");
       lines.push(`    max_papers: ${yamlScalar(state.sinks.serverchan.max_papers)}`);
       lines.push(`    max_hn: ${yamlScalar(state.sinks.serverchan.max_hn)}`);
       lines.push(`    max_github: ${yamlScalar(state.sinks.serverchan.max_github)}`);
@@ -1559,7 +1555,7 @@
 
     function buildArxivYaml() {
       const profile = getCombinedArxivProfile();
-      const lines = ["# Generated by the Setup Wizard", ""];
+      const lines = ["# 由设置向导生成", ""];
       pushYamlList(lines, "categories", profile.categories);
       lines.push("");
       pushYamlList(lines, "must_include", profile.must_include);
@@ -1571,7 +1567,7 @@
     }
 
     function buildHackerNewsYaml() {
-      const lines = ["# Generated by the Setup Wizard", ""];
+      const lines = ["# 由设置向导生成", ""];
       lines.push(`min_score: ${yamlScalar(state.hacker_news.min_score)}`);
       lines.push(`max_items: ${yamlScalar(state.hacker_news.max_items)}`);
       lines.push("");
@@ -1581,7 +1577,7 @@
 
     function buildPostdocYaml() {
       const { rssSources, jinaSources } = buildJobSources();
-      const lines = ["# Generated by the Setup Wizard", ""];
+      const lines = ["# 由设置向导生成", ""];
       lines.push("rss_sources:");
       for (const source of rssSources) {
         lines.push(`  - url: ${yamlScalar(source.url)}`);
@@ -1605,7 +1601,7 @@
 
     function buildSupervisorYaml() {
       const entries = buildSupervisorEntries();
-      const lines = ["# Generated by the Setup Wizard", ""];
+      const lines = ["# 由设置向导生成", ""];
       if (!entries.length) {
         lines.push("supervisors: []");
         return lines.join("\n");
@@ -1625,7 +1621,7 @@
         {
           path: "config/sources.yaml",
           body: buildSourcesYaml(),
-          description: "Main switches, display order, language, rollup preferences, and sink config.",
+          description: "主开关、展示顺序、语言、周报月报偏好，以及 sink 配置。",
         },
       ];
       const keys = selectedSourceKeys();
@@ -1633,28 +1629,28 @@
         outputs.push({
           path: "config/extensions/arxiv.yaml",
           body: buildArxivYaml(),
-          description: "arXiv profile presets, custom keywords, categories, and score threshold.",
+          description: "arXiv 的预设、关键词、自定义分类和评分阈值。",
         });
       }
       if (keys.includes("hacker_news")) {
         outputs.push({
           path: "config/extensions/hacker_news.yaml",
           body: buildHackerNewsYaml(),
-          description: "Hacker News score threshold, max stories, and keyword filter list.",
+          description: "Hacker News 的分数阈值、数量上限和关键词列表。",
         });
       }
       if (keys.includes("postdoc_jobs")) {
         outputs.push({
           path: "config/extensions/postdoc_jobs.yaml",
           body: buildPostdocYaml(),
-          description: "Job board sources, generated search routes, and relevance filters.",
+          description: "职位来源、自动生成的搜索链接，以及相关度过滤项。",
         });
       }
       if (keys.includes("supervisor_updates")) {
         outputs.push({
           path: "config/extensions/supervisor_updates.yaml",
           body: buildSupervisorYaml(),
-          description: "The URLs you want to monitor for lab or supervisor updates.",
+          description: "你想监控的导师或实验室主页网址。",
         });
       }
       return outputs;
@@ -1692,7 +1688,7 @@
 
       stepErrorsEl.innerHTML = `
         <div class="notice warning">
-          <strong>Please fix this before moving on:</strong>
+          <strong>继续之前，请先处理下面这些问题：</strong>
           <ul class="preview-list">
             ${errors.map((error) => `<li>${error}</li>`).join("")}
           </ul>
@@ -1703,15 +1699,15 @@
     function validateStep(stepNumber) {
       const errors = [];
       if (stepNumber === 1 && !selectedSources().length) {
-        errors.push("Choose at least one feed source before continuing.");
+        errors.push("请至少选择一个信息源。");
       }
 
       if (stepNumber === 2) {
         if (selectedSourceKeys().includes("weather") && !state.weather.city.trim()) {
-          errors.push("Add a city for the weather source or turn the weather source off.");
+          errors.push("如果启用了天气，请填写城市；否则可以把天气关掉。");
         }
         if (selectedSourceKeys().includes("postdoc_jobs") && !getJobSearchTerms().length) {
-          errors.push("Add at least one postdoc search term.");
+          errors.push("请至少填写一个职位搜索关键词。");
         }
       }
 
@@ -1729,7 +1725,7 @@
         }
         return `
           <div class="${classes.join(" ")}" aria-current="${stepNumber === state.currentStep ? "step" : "false"}">
-            <div class="step-number">Step ${stepNumber}</div>
+            <div class="step-number">第 ${stepNumber} 步</div>
             <strong>${step.title}</strong>
             <span>${step.blurb}</span>
           </div>
@@ -1741,22 +1737,22 @@
       const order = selectedSources();
       previewOrderEl.innerHTML = order.length
         ? order.map((source) => `<li>${getSourceDef(source.key).title}</li>`).join("")
-        : "<li>No feeds selected yet.</li>";
+        : "<li>还没有选择任何信息源。</li>";
 
       previewFilesEl.innerHTML = getGeneratedFiles().map((file) => `<li>${file}</li>`).join("");
 
       if (state.sinks.slack.enabled && state.sinks.serverchan.enabled) {
-        previewNotificationsEl.textContent = "Slack and ServerChan are both enabled. Keep both secrets in GitHub Actions, and remember neither credential is written into YAML.";
+        previewNotificationsEl.textContent = "Slack 和 Server酱都已启用。记得把两个凭据都放进 GitHub Actions Secrets，它们都不会写进 YAML。";
       } else if (state.sinks.serverchan.enabled) {
         previewNotificationsEl.textContent = state.sinks.serverchan.sendkey.trim()
-          ? "ServerChan is enabled. Store the SendKey as a GitHub secret instead of pasting it into YAML."
-          : "ServerChan is enabled. You still need to add SERVERCHAN_SENDKEY as a repository secret.";
+          ? "Server酱已启用。请把 SendKey 存到 GitHub Secret，不要写进 YAML。"
+          : "Server酱已启用，但你还需要补上 `SERVERCHAN_SENDKEY` 这个仓库 Secret。";
       } else if (state.sinks.slack.enabled) {
         previewNotificationsEl.textContent = state.sinks.slack.webhook.trim()
-          ? "Slack is enabled. Remember to store the webhook as a GitHub secret instead of pasting it into YAML."
-          : "Slack is enabled. You still need to add SLACK_WEBHOOK_URL as a repository secret.";
+          ? "Slack 已启用。请把 webhook 存到 GitHub Secret，不要写进 YAML。"
+          : "Slack 已启用，但你还需要补上 `SLACK_WEBHOOK_URL` 这个仓库 Secret。";
       } else {
-        previewNotificationsEl.textContent = "No notification sink enabled yet. The website output will still work normally.";
+        previewNotificationsEl.textContent = "目前还没启用通知渠道，不过网站输出照样可以正常使用。";
       }
 
       previewFocusEl.textContent = STEP_META[state.currentStep - 1].blurb;
@@ -1767,7 +1763,7 @@
       stepPanelEl.innerHTML = `
         <div class="stack">
           <div>
-            <h3 class="section-title">Pick the sources to include</h3>
+            <h3 class="section-title">选择要放进摘要的信息源</h3>
             <div class="card-grid">
               ${state.sources.map(({ key, enabled }) => {
                 const def = getSourceDef(key);
@@ -1780,7 +1776,7 @@
                     </div>
                     <p>${def.desc}</p>
                     <div class="meta">
-                      <span class="pill">${enabled ? "Selected" : "Optional"}</span>
+                      <span class="pill">${enabled ? "已选择" : "可选"}</span>
                       <span class="pill">${def.output}</span>
                     </div>
                   </button>
@@ -1790,11 +1786,9 @@
           </div>
 
           <div class="info-card">
-            <h3>Order the selected feeds</h3>
+            <h3>调整已选信息源的顺序</h3>
             <p>
-              This order maps directly to <code>display_order</code> in
-              <code>config/sources.yaml</code>. Drag rows, or use the move buttons if you
-              prefer the keyboard.
+              这里的顺序会直接写进 <code>config/sources.yaml</code> 里的 <code>display_order</code>。你可以拖拽，也可以直接点上下移动按钮。
             </p>
 
             ${selectedSources().length ? `
@@ -1807,15 +1801,15 @@
                       <p>${getSourceDef(key).desc}</p>
                     </div>
                     <div class="move-controls">
-                      <button class="move-button" type="button" data-move-up="${key}">Move up</button>
-                      <button class="move-button" type="button" data-move-down="${key}">Move down</button>
+                      <button class="move-button" type="button" data-move-up="${key}">上移</button>
+                      <button class="move-button" type="button" data-move-down="${key}">下移</button>
                     </div>
                   </li>
                 `).join("")}
               </ul>
             ` : `
               <div class="placeholder">
-                Turn on at least one feed. Unselected feeds will be skipped in later steps.
+                请至少开启一个信息源。没选中的内容会在后续步骤里自动跳过。
               </div>
             `}
           </div>
@@ -1868,11 +1862,11 @@
                   </button>
                 </span>
               `).join("")
-              : '<span class="helper-text">No custom entries added yet.</span>'}
+              : '<span class="helper-text">还没有添加自定义内容。</span>'}
           </div>
           <div class="inline-action">
             <input type="text" data-tag-input="${path}" placeholder="${placeholder}" />
-            <button class="small-button" type="button" data-add-tag="${path}">Add</button>
+            <button class="small-button" type="button" data-add-tag="${path}">添加</button>
           </div>
         </div>
       `;
@@ -1884,11 +1878,11 @@
       stepPanelEl.innerHTML = keys.length ? `
         <div class="stack">
           <div class="config-card">
-            <h3>Global language</h3>
-            <p>This language is applied across summaries, rollups, and sinks.</p>
+            <h3>全局语言</h3>
+            <p>这个语言会应用到摘要、周报月报，以及通知内容里。</p>
             <div class="field-grid">
               <div class="field">
-                <label for="language-select">Summary language</label>
+                <label for="language-select">摘要语言</label>
                 <select id="language-select" data-path="global.language">
                   ${LANGUAGE_OPTIONS.map(([value, label]) => `
                     <option value="${value}" ${state.global.language === value ? "selected" : ""}>${label}</option>
@@ -1901,7 +1895,7 @@
           ${keys.includes("arxiv") ? `
             <div class="config-card">
               <h3>arXiv</h3>
-              <p>Mix one or more preset research profiles, then add any custom categories or keywords you care about.</p>
+              <p>先选一个或多个研究方向预设，再补上你自己关心的分类或关键词，这样会更贴近你的实际需求。</p>
               <div class="preset-grid">
                 ${Object.entries(ARXIV_PROFILES).map(([key, preset]) => `
                   <div class="preset">
@@ -1920,7 +1914,7 @@
 
               <div class="field-grid">
                 <div class="field">
-                  <label for="arxiv-max-papers">Max papers fetched per run</label>
+                  <label for="arxiv-max-papers">每次最多抓取多少篇论文</label>
                   <input
                     id="arxiv-max-papers"
                     type="number"
@@ -1932,7 +1926,7 @@
                   />
                 </div>
                 <div class="field">
-                  <label for="arxiv-threshold">LLM score threshold</label>
+                  <label for="arxiv-threshold">LLM 评分阈值</label>
                   <div class="range-row">
                     <input
                       id="arxiv-threshold"
@@ -1956,40 +1950,40 @@
               </div>
 
               ${renderTagEditor(
-                "Custom keywords",
+                "自定义关键词",
                 "arxiv.customKeywords",
                 state.arxiv.customKeywords,
-                "Add a keyword such as agentic or world model",
-                "These are merged with the selected presets and become extra must_include terms."
+                "添加关键词，例如 agentic 或 world model",
+                "这些词会和你勾选的预设一起合并，作为额外的 must_include 项。"
               )}
 
               ${renderTagEditor(
-                "Custom arXiv categories",
+                "自定义 arXiv 分类",
                 "arxiv.customCategories",
                 state.arxiv.customCategories,
-                "Add a category such as cs.CY",
-                "Use these if your work spans categories not covered by the preset profiles."
+                "添加分类，例如 cs.CY",
+                "如果你的方向跨了多个分类，或者预设没覆盖到，可以在这里补充。"
               )}
 
               <div class="notice success">
-                <strong>Current merged profile preview</strong>
-                <div class="helper-text">Categories: ${profile.categories.join(", ")}</div>
-                <div class="helper-text">Required keywords: ${profile.must_include.slice(0, 10).join(", ")}${profile.must_include.length > 10 ? ", ..." : ""}</div>
+                <strong>当前合并后的预览</strong>
+                <div class="helper-text">分类： ${profile.categories.join(", ")}</div>
+                <div class="helper-text">关键词： ${profile.must_include.slice(0, 10).join(", ")}${profile.must_include.length > 10 ? ", ..." : ""}</div>
               </div>
             </div>
           ` : ""}
 
           ${keys.includes("weather") ? `
             <div class="config-card">
-              <h3>Weather</h3>
-              <p>The current backend expects one city, so the wizard writes a single weather location for now.</p>
+              <h3>天气</h3>
+              <p>当前后端只支持一个城市，所以这里先写入一个天气位置。</p>
               <div class="field-grid">
                 <div class="field">
-                  <label for="weather-city">City</label>
+                  <label for="weather-city">城市</label>
                   <input id="weather-city" type="text" value="${state.weather.city}" data-path="weather.city" placeholder="Edinburgh" />
                 </div>
                 <div class="field">
-                  <label for="weather-timezone">Timezone</label>
+                  <label for="weather-timezone">时区</label>
                   <select id="weather-timezone" data-path="weather.timezone">
                     ${TIMEZONE_OPTIONS.map(([value, label]) => `
                       <option value="${value}" ${state.weather.timezone === value ? "selected" : ""}>${label}</option>
@@ -2003,23 +1997,23 @@
           ${keys.includes("hacker_news") ? `
             <div class="config-card">
               <h3>Hacker News</h3>
-              <p>Set the score floor and the maximum number of stories to pull in each day.</p>
+              <p>设置分数下限，以及每天最多抓取多少条 HN 内容。</p>
               <div class="field-grid">
                 <div class="field">
-                  <label for="hn-score">Score threshold</label>
+                  <label for="hn-score">分数阈值</label>
                   <div class="range-row">
                     <input id="hn-score" type="range" min="10" max="200" step="5" value="${state.hacker_news.min_score}" data-path="hacker_news.min_score" />
                     <input type="number" min="10" max="200" step="5" value="${state.hacker_news.min_score}" data-path="hacker_news.min_score" />
                   </div>
                 </div>
                 <div class="field">
-                  <label for="hn-max">Max stories</label>
+                  <label for="hn-max">最多文章数</label>
                   <input id="hn-max" type="number" min="1" max="50" step="1" value="${state.hacker_news.max_items}" data-path="hacker_news.max_items" />
                 </div>
               </div>
               <div class="notice">
-                <strong>Keyword strategy</strong>
-                <div class="helper-text">The wizard will derive the HN keyword list from your arXiv interests plus a default tech-news baseline.</div>
+                <strong>关键词策略</strong>
+                <div class="helper-text">HN 的关键词会参考你的 arXiv 方向，再叠加一组默认的技术新闻关键词。</div>
               </div>
             </div>
           ` : ""}
@@ -2027,10 +2021,10 @@
           ${keys.includes("github_trending") ? `
             <div class="config-card">
               <h3>GitHub Trending</h3>
-              <p>Keep this small if you want the digest to stay tight and highly scannable.</p>
+              <p>如果你希望摘要更紧凑、读起来更快，这里的数量可以保持小一点。</p>
               <div class="field-grid">
                 <div class="field">
-                  <label for="github-max">Max repos</label>
+                  <label for="github-max">最多仓库数</label>
                   <input id="github-max" type="number" min="1" max="50" step="1" value="${state.github_trending.max_repos}" data-path="github_trending.max_repos" />
                 </div>
               </div>
@@ -2039,11 +2033,11 @@
 
           ${keys.includes("postdoc_jobs") ? `
             <div class="config-card">
-              <h3>Postdoc Jobs</h3>
-              <p>Search terms are used to generate job-board routes and relevance keywords for the jobs extension config file.</p>
+              <h3>博士后职位</h3>
+              <p>这里的搜索词会用来生成职位来源链接，也会参与职位相关度过滤。</p>
               <div class="field-grid">
                 <div class="field">
-                  <label for="jobs-threshold">LLM score threshold</label>
+                  <label for="jobs-threshold">LLM 评分阈值</label>
                   <div class="range-row">
                     <input id="jobs-threshold" type="range" min="0" max="10" step="1" value="${state.postdoc_jobs.threshold}" data-path="postdoc_jobs.threshold" />
                     <input type="number" min="0" max="10" step="1" value="${state.postdoc_jobs.threshold}" data-path="postdoc_jobs.threshold" />
@@ -2052,32 +2046,32 @@
               </div>
 
               ${renderTagEditor(
-                "Search terms",
+                "搜索关键词",
                 "postdoc_jobs.search_terms",
                 state.postdoc_jobs.search_terms,
-                "Add a subject such as multimodal learning",
-                "The first few terms become generated search routes for FindAPostDoc and AcademicPositions."
+                "添加关键词，例如 multimodal learning",
+                "前几个关键词会被用来生成 FindAPostDoc 和 AcademicPositions 的搜索链接。"
               )}
             </div>
           ` : ""}
 
           ${keys.includes("supervisor_updates") ? `
             <div class="config-card">
-              <h3>Supervisor Updates</h3>
-              <p>Add the URLs you want the monitor to watch. Each URL becomes an entry in <code>supervisor_updates.yaml</code>.</p>
+              <h3>导师主页更新</h3>
+              <p>把想监控的网址填进来。每个网址都会写成 <code>supervisor_updates.yaml</code> 里的一项。</p>
               ${renderTagEditor(
-                "URLs to monitor",
+                "要监控的网址",
                 "supervisor_updates.urls",
                 state.supervisor_updates.urls,
-                "Add a lab or professor URL",
-                "You can keep this empty for now and fill it in later if you only want the rest of the wizard output today."
+                "添加实验室或导师主页网址",
+                "如果你今天只是先把其他配置跑通，这里也可以先留空，之后再补。"
               )}
             </div>
           ` : ""}
         </div>
       ` : `
         <div class="placeholder">
-          Step 2 is empty because no feed sources are selected yet. Go back to Step 1 and turn at least one source on.
+          因为你还没有选择信息源，所以这里暂时没有内容。回到上一步先开启至少一个信息源即可。
         </div>
       `;
 
@@ -2156,9 +2150,9 @@
         <div class="stack">
           ${["weekly", "monthly"].map((period) => `
             <div class="config-card">
-              <h3>${period === "weekly" ? "Weekly summary" : "Monthly summary"}</h3>
+              <h3>${period === "weekly" ? "周报" : "月报"}</h3>
               <p>
-                These preferences only include feeds selected in Step 1. The generated YAML is future-ready even before the rollup backend starts consuming every field.
+                这里只会显示你在第一步选中的内容。即使后端还没完全用到这些字段，现在生成到 YAML 里也没有问题。
               </p>
               <div class="stack">
                 ${keys.map((key) => `
@@ -2175,11 +2169,11 @@
                             data-path="schedule.${period}.${key}.enabled"
                             ${state.schedule[period][key].enabled ? "checked" : ""}
                           />
-                          Include
+                          包含在内
                         </label>
                       </div>
                       <div class="field">
-                        <label>Top N</label>
+                        <label>保留条数</label>
                         <input
                           type="number"
                           min="1"
@@ -2198,7 +2192,7 @@
         </div>
       ` : `
         <div class="placeholder">
-          Weekly and monthly preferences appear here once you select at least one feed source.
+          只要你在第一步选了内容，这里就会显示对应的周报和月报设置。
         </div>
       `;
 
@@ -2215,44 +2209,43 @@
       stepPanelEl.innerHTML = `
         <div class="stack">
           <div class="config-card">
-            <h3>ServerChan</h3>
+            <h3>Server酱</h3>
             <p>
-              Use ServerChan if you want a lightweight notification path that fits Chinese-language onboarding better.
-              The page only writes display settings into YAML and keeps your SendKey out of version control.
+              如果你更希望走一条对中文用户更顺手的通知路径，可以启用 Server酱。页面只会把显示相关的设置写进 YAML，SendKey 不会进入版本库。
             </p>
 
             <div class="checkbox-row">
               <div>
-                <strong>Enable ServerChan sink</strong>
-                <div class="helper-text">Good default if you want a simple GitHub Actions to phone notification flow.</div>
+                <strong>启用 Server酱通知</strong>
+                <div class="helper-text">如果你想要一条更轻、更省配置的 GitHub Actions 通知路径，这是一个很合适的默认选择。</div>
               </div>
               <label>
                 <input type="checkbox" data-path="sinks.serverchan.enabled" ${state.sinks.serverchan.enabled ? "checked" : ""} />
-                <span class="sr-only">Enable ServerChan</span>
+                <span class="sr-only">启用 Server酱</span>
               </label>
             </div>
 
             <div class="field-grid">
               <div class="field">
-                <label for="serverchan-max-papers">Max papers</label>
+                <label for="serverchan-max-papers">最多论文数</label>
                 <input id="serverchan-max-papers" type="number" min="1" max="20" step="1" value="${state.sinks.serverchan.max_papers}" data-path="sinks.serverchan.max_papers" />
               </div>
               <div class="field">
-                <label for="serverchan-max-hn">Max HN stories</label>
+                <label for="serverchan-max-hn">最多 HN 条目</label>
                 <input id="serverchan-max-hn" type="number" min="1" max="20" step="1" value="${state.sinks.serverchan.max_hn}" data-path="sinks.serverchan.max_hn" />
               </div>
               <div class="field">
-                <label for="serverchan-max-github">Max GitHub repos</label>
+                <label for="serverchan-max-github">最多 GitHub 仓库</label>
                 <input id="serverchan-max-github" type="number" min="1" max="20" step="1" value="${state.sinks.serverchan.max_github}" data-path="sinks.serverchan.max_github" />
               </div>
               <div class="field">
-                <label for="serverchan-max-jobs">Max jobs</label>
+                <label for="serverchan-max-jobs">最多职位数</label>
                 <input id="serverchan-max-jobs" type="number" min="1" max="20" step="1" value="${state.sinks.serverchan.max_jobs}" data-path="sinks.serverchan.max_jobs" />
               </div>
             </div>
 
             <div class="field-full">
-              <label for="serverchan-sendkey">ServerChan SendKey <span class="hint">(stored locally only, never written to YAML)</span></label>
+              <label for="serverchan-sendkey">Server酱 SendKey <span class="hint">（只保留在本地，不会写进 YAML）</span></label>
               <input
                 id="serverchan-sendkey"
                 type="text"
@@ -2263,10 +2256,9 @@
             </div>
 
             <div class="notice warning">
-              <strong>Secret handling</strong>
+              <strong>Secret 处理方式</strong>
               <div class="helper-text">
-                In copy-paste mode, add your key as a GitHub Actions secret named <code>SERVERCHAN_SENDKEY</code>.
-                The official docs page starts here: <a href="https://sct.ftqq.com/sendkey">sct.ftqq.com/sendkey</a>.
+                如果你是手动复制配置的方式，请把密钥添加为 GitHub Actions Secret，名称用 <code>SERVERCHAN_SENDKEY</code>。官方文档入口在 <a href="https://sct.ftqq.com/sendkey">sct.ftqq.com/sendkey</a>。
               </div>
             </div>
           </div>
@@ -2274,38 +2266,38 @@
           <div class="config-card">
             <h3>Slack</h3>
             <p>
-              Enable Slack if you want a compact message in addition to the published site.
-              Webhook URLs stay out of YAML and should be stored as repo secrets.
+              如果你除了网站之外，也想额外收到一条更紧凑的通知，可以启用 Slack。
+              Webhook 不会写进 YAML，而是应该放在仓库 Secret 里。
             </p>
 
             <div class="checkbox-row">
               <div>
-                <strong>Enable Slack sink</strong>
-                <div class="helper-text">This writes only the non-secret sink settings into <code>config/sources.yaml</code>.</div>
+                <strong>启用 Slack 通知</strong>
+                <div class="helper-text">这里只会把不涉及密钥的 Slack 设置写进 <code>config/sources.yaml</code>。</div>
               </div>
               <label>
                 <input type="checkbox" data-path="sinks.slack.enabled" ${state.sinks.slack.enabled ? "checked" : ""} />
-                <span class="sr-only">Enable Slack</span>
+                <span class="sr-only">启用 Slack</span>
               </label>
             </div>
 
             <div class="field-grid">
               <div class="field">
-                <label for="slack-max-papers">Max papers</label>
+                <label for="slack-max-papers">最多论文数</label>
                 <input id="slack-max-papers" type="number" min="1" max="20" step="1" value="${state.sinks.slack.max_papers}" data-path="sinks.slack.max_papers" />
               </div>
               <div class="field">
-                <label for="slack-max-hn">Max HN stories</label>
+                <label for="slack-max-hn">最多 HN 条目</label>
                 <input id="slack-max-hn" type="number" min="1" max="20" step="1" value="${state.sinks.slack.max_hn}" data-path="sinks.slack.max_hn" />
               </div>
               <div class="field">
-                <label for="slack-max-github">Max GitHub repos</label>
+                <label for="slack-max-github">最多 GitHub 仓库</label>
                 <input id="slack-max-github" type="number" min="1" max="20" step="1" value="${state.sinks.slack.max_github}" data-path="sinks.slack.max_github" />
               </div>
             </div>
 
             <div class="field-full">
-              <label for="slack-webhook">Slack webhook URL <span class="hint">(stored locally only, never written to YAML)</span></label>
+              <label for="slack-webhook">Slack webhook URL <span class="hint">（只保留在本地，不会写进 YAML）</span></label>
               <input
                 id="slack-webhook"
                 type="url"
@@ -2316,10 +2308,9 @@
             </div>
 
             <div class="notice warning">
-              <strong>Secret handling</strong>
+              <strong>Secret 处理方式</strong>
               <div class="helper-text">
-                In copy-paste mode, add your webhook as a GitHub Actions secret named <code>SLACK_WEBHOOK_URL</code>.
-                The generated YAML keeps only non-secret Slack settings.
+                如果你是手动复制配置的方式，请把 webhook 添加为 GitHub Actions Secret，名称用 <code>SLACK_WEBHOOK_URL</code>。生成出来的 YAML 只会保留不涉及密钥的 Slack 设置。
               </div>
             </div>
           </div>
@@ -2328,16 +2319,16 @@
             <div class="mini-panel toggle-card is-disabled">
               <div>
                 <h3>Discord</h3>
-                <p>Planned as a future sink with the same content controls as Slack.</p>
+                <p>后续可能加入的 sink，会沿用和 Slack 类似的内容控制方式。</p>
               </div>
-              <span class="pill">Coming soon</span>
+              <span class="pill">后续补充</span>
             </div>
             <div class="mini-panel toggle-card is-disabled">
               <div>
                 <h3>Email</h3>
-                <p>Placeholder for a future SMTP or SendGrid based delivery path.</p>
+                <p>这里先作为预留位，后续可以接 SMTP 或 SendGrid。</p>
               </div>
-              <span class="pill">Coming soon</span>
+              <span class="pill">后续补充</span>
             </div>
           </div>
         </div>
@@ -2364,7 +2355,7 @@
                   <h3>${output.path}</h3>
                   <p>${output.description}</p>
                 </div>
-                <button class="copy-button" type="button" data-copy-output="${index}">Copy</button>
+                <button class="copy-button" type="button" data-copy-output="${index}">复制</button>
               </div>
               <pre class="code-preview" id="output-${index}">${escapeHtml(output.body)}</pre>
             </div>
@@ -2372,48 +2363,47 @@
 
           ${state.sinks.serverchan.enabled ? `
             <div class="notice warning">
-              <strong>Before your first run</strong>
+              <strong>第一次运行前记得</strong>
               <div class="helper-text">
-                Add <code>SERVERCHAN_SENDKEY</code> as a GitHub Actions secret.
+                把 <code>SERVERCHAN_SENDKEY</code> 添加到 GitHub Actions Secrets。
                 ${state.sinks.serverchan.sendkey.trim()
-                  ? "You already typed a key here, so you can paste that value into the secret form."
-                  : "You have not entered a key here yet, so remember to grab it from ServerChan before enabling the sink in production."}
+                  ? "你已经在这里填了 key，可以直接复制到 GitHub Secret 里。"
+                  : "你还没有在这里填 key，正式启用前记得先去 Server酱拿到 SendKey。"}
               </div>
             </div>
           ` : ""}
 
           ${state.sinks.slack.enabled ? `
             <div class="notice warning">
-              <strong>Before your first run</strong>
+              <strong>第一次运行前记得</strong>
               <div class="helper-text">
-                Add <code>SLACK_WEBHOOK_URL</code> as a GitHub Actions secret.
+                把 <code>SLACK_WEBHOOK_URL</code> 添加到 GitHub Actions Secrets。
                 ${state.sinks.slack.webhook.trim()
-                  ? "You already typed a webhook here, so you can paste that value into the secret form."
-                  : "You have not entered a webhook URL here yet, so remember to grab it before enabling Slack in production."}
+                  ? "你已经在这里填了 webhook，可以直接复制到 GitHub Secret 里。"
+                  : "你还没有在这里填 webhook，正式启用前记得先去 Slack 拿到它。"}
               </div>
             </div>
           ` : ""}
 
           <div class="mini-panel">
-            <h3>Optional one-click deploy</h3>
+            <h3>一键部署（预留）</h3>
             <p>
-              The roadmap includes a future browser-only deploy flow using the GitHub Contents
-              API and Secrets API. This panel is intentionally a placeholder for that next phase.
+              roadmap 里已经规划了后续的一键部署能力：直接在浏览器里调用 GitHub Contents API 和 Secrets API。这里先把位置留出来，下一阶段再接上。
             </p>
             <div class="notice">
-              <strong>Planned scope</strong>
-              <div class="helper-text">Commit generated config files to <code>main</code>, write secrets securely, then remind the user to revoke the PAT.</div>
+              <strong>计划包含</strong>
+              <div class="helper-text">把生成好的配置直接提交到 <code>main</code>，安全写入 Secret，然后提醒用户及时撤销 PAT。</div>
             </div>
           </div>
 
           <div class="notice success">
-            <strong>Suggested next steps</strong>
+            <strong>建议下一步这样做</strong>
             <ol class="preview-list">
-              <li>Copy each generated block into the matching file in your fork.</li>
-              <li>Add <code>OPENROUTER_API_KEY</code> as a GitHub Actions secret.</li>
-              <li>If ServerChan is enabled, add <code>SERVERCHAN_SENDKEY</code> too.</li>
-              <li>If Slack is enabled, add <code>SLACK_WEBHOOK_URL</code> too.</li>
-              <li>Go to Actions and run <strong>Daily Digest</strong> once to confirm the setup.</li>
+              <li>把每个生成结果复制到你 fork 后仓库里对应的文件中。</li>
+              <li>把 <code>OPENROUTER_API_KEY</code> 加进 GitHub Actions Secrets。</li>
+              <li>如果启用了 Server酱，再补上 <code>SERVERCHAN_SENDKEY</code>。</li>
+              <li>如果启用了 Slack，再补上 <code>SLACK_WEBHOOK_URL</code>。</li>
+              <li>去 Actions 页面手动运行一次 <strong>Daily Digest</strong>，确认配置没问题。</li>
             </ol>
           </div>
         </div>
@@ -2425,7 +2415,7 @@
           const output = outputs[index];
           await navigator.clipboard.writeText(output.body);
           const previous = button.textContent;
-          button.textContent = "Copied";
+          button.textContent = "已复制";
           setTimeout(() => {
             button.textContent = previous;
           }, 1800);
@@ -2442,7 +2432,7 @@
 
     function updateNav() {
       backButtonEl.disabled = state.currentStep === 1;
-      nextButtonEl.textContent = state.currentStep === 5 ? "Start over" : "Next";
+      nextButtonEl.textContent = state.currentStep === 5 ? "重新开始" : "下一步";
     }
 
     function renderCurrentStep() {
@@ -2465,7 +2455,7 @@
       renderProgress();
       renderPreview();
       stepDescriptionEl.textContent = STEP_META[state.currentStep - 1].blurb;
-      stepPillEl.textContent = `Step ${state.currentStep} of 5`;
+      stepPillEl.textContent = `第 ${state.currentStep} / 5 步`;
       updateNav();
       renderCurrentStep();
     }
