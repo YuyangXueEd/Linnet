@@ -1,0 +1,208 @@
+# extensions/ — LLM context file
+
+This directory contains all data source extensions for MyDailyUpdater.
+Each extension is a self-contained unit: fetch → process → render → FeedSection.
+
+See also: extensions/README.md (human guide), extensions/_template.py (starter)
+
+---
+
+## File map
+
+```
+base.py          BaseExtension ABC + FeedSection dataclass  ← read this first
+__init__.py      REGISTRY list — all active extensions registered here
+_template.py     Fully commented starter for new extensions
+arxiv.py         arXiv papers (fetch + LLM score + summarise + figure enrichment)
+hacker_news.py   Hacker News top stories (fetch + LLM summarise)
+github_trending.py  GitHub trending repos (fetch + LLM summarise)
+README.md        Human-readable guide (quickstart, checklist, testing)
+llms.txt         This file
+```
+
+Offline (not in REGISTRY, kept as .bak):
+```
+jobs.py.bak          Academic job listings (jobs.ac.uk, FindAPostDoc, EURAXESS)
+supervisor.py.bak    Lab/advisor page change detection
+```
+
+---
+
+## BaseExtension contract
+
+```python
+class BaseExtension(ABC):
+    key:   str = ""    # unique snake_case — must match config/sources.yaml key
+    title: str = ""    # display name used in rendered output
+
+    def __init__(self, config: dict, llm_client: Any = None): ...
+
+    @property
+    def enabled(self) -> bool:
+        return self.config.get("enabled", True)
+
+    @abstractmethod
+    def fetch(self) -> list[dict]: ...      # no LLM; return raw items
+
+    def process(self, items: list[dict]) -> list[dict]:
+        return items                         # override for scoring/summarising
+
+    @abstractmethod
+    def render(self, items: list[dict]) -> FeedSection: ...  # no network
+
+    def run(self) -> FeedSection:
+        # called by orchestrator
+        # returns empty FeedSection if not self.enabled
+        if not self.enabled:
+            return FeedSection(key=self.key, title=self.title)
+        items = self.fetch()
+        items = self.process(items)
+        return self.render(items)
+```
+
+---
+
+## FeedSection
+
+```python
+@dataclass
+class FeedSection:
+    key:   str             # snake_case identifier
+    title: str             # section heading
+    items: list[dict]      # processed items; schema is extension-specific
+    meta:  dict            # stats (counts, durations, etc.)
+```
+
+---
+
+## self.config — injected keys
+
+The orchestrator builds the config dict by merging sources.yaml + keywords.yaml
+and injecting these keys into every extension's config:
+
+| Key | Type | Source |
+|---|---|---|
+| `enabled` | bool | sources.yaml |
+| `language` | str | sources.yaml — BCP-47 code, e.g. "en", "zh" |
+| `llm_scoring_model` | str | sources.yaml llm.scoring_model |
+| `llm_summarization_model` | str | sources.yaml llm.summarization_model |
+| `dry_run` | bool | set when `--dry-run` CLI flag is used |
+
+Extension-specific keys (example for arxiv):
+| Key | Source |
+|---|---|
+| `categories` | keywords.yaml arxiv.categories |
+| `must_include` | keywords.yaml arxiv.must_include |
+| `boost_keywords` | keywords.yaml arxiv.boost_keywords |
+| `llm_score_threshold` | keywords.yaml arxiv.llm_score_threshold |
+| `max_papers_per_run` | sources.yaml arxiv.max_papers_per_run |
+
+---
+
+## self.llm — LLM client
+
+OpenAI-compatible client (OpenRouter). Standard usage:
+
+```python
+resp = self.llm.chat.completions.create(
+    model=self.config["llm_summarization_model"],
+    messages=[{"role": "user", "content": prompt}],
+    max_tokens=120,
+)
+result = resp.choices[0].message.content.strip()
+```
+
+Always guard with dry_run:
+
+```python
+def process(self, items):
+    if self.config.get("dry_run"):
+        return items          # skip all LLM calls
+    ...
+```
+
+---
+
+## Item field conventions
+
+Use these field names so templates render correctly without changes:
+
+### Papers (produced by arxiv.py)
+```
+id, title, authors, affiliations, categories, primary_category,
+primary_category_anchor, url, score, abstract, keywords_matched,
+figure_url, figure_caption
+```
+
+### HN stories (produced by hacker_news.py)
+```
+id, title, url, score, comments_url, summary
+```
+
+### GitHub repos (produced by github_trending.py)
+```
+full_name, url, description, language, stars_today, total_stars, summary
+```
+
+### Jobs (produced by offline jobs extension)
+```
+title, url, institution, location, deadline, salary, source,
+relevance_score, requirements
+```
+
+### Supervisor updates (produced by offline supervisor extension)
+```
+name, institution, url, change_summary
+```
+
+---
+
+## How to add an extension (quick reference)
+
+1. `cp extensions/_template.py extensions/my_source.py`
+2. Set `key` and `title`; implement `fetch()`, optionally `process()`, `render()`
+3. Add to `REGISTRY` in `extensions/__init__.py`
+4. Add config block in `config/sources.yaml`
+5. Add `"my_source": {**sources.get("my_source", {}), **llm}` in `main.py _build_extension_configs()`
+6. Write tests in `tests/test_my_source.py`
+7. `PYTHONPATH=. pytest tests/ -q` — all must pass
+
+Full guide: extensions/README.md
+
+---
+
+## Registering in __init__.py
+
+```python
+from extensions.base import BaseExtension, FeedSection
+from extensions.arxiv import ArxivExtension
+from extensions.hacker_news import HackerNewsExtension
+from extensions.github_trending import GitHubTrendingExtension
+# from extensions.my_source import MySourceExtension  ← add here
+
+REGISTRY: list[type[BaseExtension]] = [
+    ArxivExtension,
+    HackerNewsExtension,
+    GitHubTrendingExtension,
+    # MySourceExtension,   ← add here
+]
+```
+
+---
+
+## Testing extensions
+
+```bash
+# Run all tests (no network, no LLM)
+PYTHONPATH=. pytest tests/ -q
+
+# Run tests for one extension's collector
+PYTHONPATH=. pytest tests/test_hn_collector.py -v
+
+# Smoke test with live data, zero LLM cost
+python main.py --dry-run
+```
+
+Write tests in `tests/` targeting the collector functions (`collectors/*.py`),
+not the extension class directly. Use inline fixture data — no live API calls.
+See `tests/conftest.py` for shared fixtures (sample_paper, sample_job, etc.).

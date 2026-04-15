@@ -1,0 +1,243 @@
+# MyDailyUpdater — LLM context file
+
+Self-hosted daily research digest pipeline. Runs via GitHub Actions, outputs a
+Jekyll static site (GitHub Pages) and optional Slack messages.
+
+Source: https://github.com/YuyangXueEd/MyDailyUpdater
+License: MIT
+
+---
+
+## Architecture overview
+
+```
+main.py  ──►  extensions/  ──►  pipeline/  ──►  publishers/  ──►  docs/
+              (fetch+process    (score,          (JSON + Markdown
+               +render)         summarise)        templates)
+                                                       │
+                                                  sinks/  ──►  Slack
+```
+
+Entry point: `main.py`
+- `--mode daily`   — full pipeline, commits output to docs/
+- `--mode weekly`  — weekly rollup summary
+- `--mode monthly` — monthly rollup summary
+- `--dry-run`      — fetch only, zero LLM calls (for testing)
+- `--check-today`  — print compact status (used by Claude Code session hook)
+
+---
+
+## Directory map
+
+```
+extensions/          Pluggable data source extensions (one file = one source)
+  base.py            BaseExtension ABC + FeedSection dataclass
+  arxiv.py           arXiv papers: fetch → score → summarise → enrich figures
+  hacker_news.py     HN stories above score threshold
+  github_trending.py GitHub trending repos
+  _template.py       Starter template for new extensions
+  README.md          Full extension guide
+
+collectors/          Low-level fetch/parse functions (used by extensions)
+  arxiv_collector.py      fetch_papers(), enrich_papers_with_figures()
+  hn_collector.py         fetch_stories()
+  github_trending_collector.py  fetch_github_trending()
+  jobs_collector.py       fetch_jobs() — used by offline jobs extension
+  supervisor_watcher.py   detect_changes() — used by offline supervisor extension
+
+pipeline/            Shared processing utilities
+  config_loader.py   load_sources(), load_keywords(), load_supervisors(),
+                     validate_sources(), validate_keywords()
+  scorer.py          score_papers() — LLM batch scoring, returns filtered list
+  summarizer.py      summarize_papers/hn_stories/github_repos/jobs/supervisor_update()
+                     lang_instruction(lang) — builds language directive for prompts
+  aggregator.py      build_weekly_payload(), build_monthly_payload(),
+                     load_daily_jsons(), compute_keyword_frequency()
+
+publishers/
+  data_publisher.py  build_daily_payload(), write_daily/weekly/monthly_json()
+  pages_publisher.py render_daily/weekly/monthly_page() via Jinja2 templates
+
+templates/           Jinja2 templates → Markdown
+  daily.md.j2        Daily digest page
+  weekly.md.j2       Weekly rollup page
+  monthly.md.j2      Monthly overview page
+
+sinks/               Delivery layer (all disabled by default)
+  base.py            BaseSink ABC — enabled defaults False (opt-in)
+  slack.py           SlackSink — Block Kit via Incoming Webhook
+  __init__.py        SINK_REGISTRY list
+
+config/
+  sources.yaml       Enable/disable extensions, language, LLM models, sink config
+  keywords.yaml      arXiv categories/keywords, HN keywords, score thresholds
+  supervisors.yaml   Lab/advisor pages to monitor
+
+docs/                Generated site (served by GitHub Pages)
+  daily/             Rendered Markdown pages
+  data/daily/        Raw JSON payloads (YYYY-MM-DD.json)
+  data/weekly/       Weekly JSON payloads
+  data/monthly/      Monthly JSON payloads
+
+tests/               Pytest suite (53 tests, no live network or LLM calls)
+```
+
+---
+
+## Key data schemas
+
+### Daily payload (built by data_publisher.build_daily_payload)
+```python
+{
+  "date": "2026-04-15",
+  "generated_at": "2026-04-15T00:03:00+00:00",
+  "papers": [...],           # list of paper dicts (see below)
+  "hacker_news": [...],      # list of story dicts
+  "jobs": [...],             # list of job dicts
+  "supervisor_updates": [...],
+  "github_trending": [...],  # list of repo dicts
+  "meta": {
+    "papers_fetched": int,
+    "papers_after_keyword_filter": int,
+    "papers_after_llm_filter": int,
+    "llm_model": str,
+    "scoring_model": str,
+    "summarization_model": str,
+    "cost_usd": float,
+    "duration_seconds": int,
+  }
+}
+```
+
+### Paper dict (after full pipeline)
+```python
+{
+  "id": "2604.12345",
+  "title": str,
+  "authors": list[str],
+  "affiliations": list[str],
+  "categories": list[str],          # e.g. ["cs.CV", "eess.IV"]
+  "primary_category": str,
+  "primary_category_anchor": str,   # URL-safe slug
+  "url": str,                       # https://arxiv.org/abs/...
+  "score": float,                   # LLM relevance score 0–10
+  "abstract": str,                  # LLM-generated summary (in configured language)
+  "keywords_matched": list[str],
+  "figure_url": str | None,
+  "figure_caption": str | None,
+}
+```
+
+### HN story dict
+```python
+{
+  "id": int, "title": str, "url": str,
+  "score": int,           # HN points
+  "comments_url": str,
+  "summary": str,         # LLM one-liner
+}
+```
+
+### GitHub repo dict
+```python
+{
+  "full_name": str,        # "owner/repo"
+  "url": str,
+  "description": str,
+  "language": str,
+  "stars_today": int,
+  "total_stars": int,
+  "summary": str,          # LLM one-liner
+}
+```
+
+---
+
+## Extension contract
+
+Every extension subclasses `BaseExtension` and implements:
+
+```python
+class MyExtension(BaseExtension):
+    key   = "my_source"   # matches config/sources.yaml key
+    title = "My Source"
+
+    def fetch(self) -> list[dict]: ...          # no LLM
+    def process(self, items) -> list[dict]: ... # LLM ok; check self.config.get("dry_run")
+    def render(self, items) -> FeedSection: ... # no network
+```
+
+`self.config` keys injected by orchestrator:
+- `enabled` — bool
+- `language` — BCP-47 code, e.g. "en"
+- `llm_scoring_model` — model name string
+- `llm_summarization_model` — model name string
+- `dry_run` — bool; when True skip all LLM calls
+
+`self.llm` — OpenAI-compatible client (OpenRouter); use for chat completions.
+
+---
+
+## Sink contract
+
+```python
+class MySink(BaseSink):
+    key = "my_sink"   # matches sinks.my_sink in sources.yaml
+
+    def deliver(self, payload: dict) -> None: ...
+```
+
+`enabled` defaults to `False` (opt-in). Credentials via `os.environ` only.
+Sink exceptions are caught by orchestrator — they do not abort the pipeline.
+
+---
+
+## Config reference
+
+### sources.yaml top-level keys
+| Key | Type | Notes |
+|---|---|---|
+| `language` | str | BCP-47; LLM outputs in this language |
+| `arxiv.enabled` | bool | |
+| `arxiv.max_papers_per_run` | int | Papers fetched before keyword filter |
+| `hacker_news.enabled` | bool | |
+| `github_trending.enabled` | bool | |
+| `github_trending.max_repos` | int | |
+| `llm.scoring_model` | str | OpenRouter model ID |
+| `llm.summarization_model` | str | OpenRouter model ID |
+| `llm.base_url` | str | Default: https://openrouter.ai/api/v1 |
+| `sinks.slack.enabled` | bool | Requires SLACK_WEBHOOK_URL env var |
+
+### keywords.yaml top-level keys
+| Key | Notes |
+|---|---|
+| `arxiv.categories` | arXiv category codes, e.g. cs.CV |
+| `arxiv.must_include` | At least one keyword must match title/abstract |
+| `arxiv.boost_keywords` | Raise score if matched |
+| `arxiv.llm_score_threshold` | Papers below this score (0–10) are dropped |
+| `hacker_news.min_score` | Minimum HN points |
+| `hacker_news.keywords` | At least one must appear in title |
+
+---
+
+## LLM usage patterns
+
+All LLM calls use `self.llm.chat.completions.create(model=..., messages=[...])`.
+Language is injected via `lang_instruction(lang)` from `pipeline/summarizer.py`:
+- Returns `"in English"` for `lang="en"`
+- Returns `"in Chinese (Simplified)"` for `lang="zh"`, etc.
+
+Scoring uses batch prompts (multiple papers per request) for efficiency.
+Summarisation is per-item.
+
+---
+
+## Testing
+
+```bash
+PYTHONPATH=. pytest tests/ -q          # 53 tests, ~1s, no network/LLM
+python main.py --dry-run               # live fetch, zero LLM cost
+```
+
+Tests use fixtures from `tests/conftest.py`. No mocking of external APIs —
+tests cover parsing/filtering logic with inline fixture data only.
