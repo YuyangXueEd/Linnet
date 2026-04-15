@@ -1,25 +1,25 @@
 ---
 layout: default
-title: "{{ period }} 周报"
+title: "{{ period }} Weekly Rollup"
 parent: Weekly Rollup
 nav_exclude: true
 ---
 
-# {{ period }} 周报
+# {{ period }} Weekly Rollup
 
-> 覆盖 {{ daily_refs[0] }} 至 {{ daily_refs[-1] }}，共 {{ daily_refs|length }} 天
-
----
-
-## 📊 本周总览
-
-- **论文总数：** {{ top_papers|length }} 篇精选
-- **职位更新：** {{ new_jobs|length }} 个
-- **高频关键词：** {{ trending_keywords[:5] | join('、') }}
+> Covering {{ daily_refs[0] }} to {{ daily_refs[-1] }} — {{ daily_refs|length }} days
 
 ---
 
-## 🏆 本周最佳论文
+## 📊 This Week
+
+- **Papers:** {{ top_papers|length }} selected
+- **Jobs:** {{ new_jobs|length }}
+- **Top keywords:** {{ trending_keywords[:5] | join(', ') }}
+
+---
+
+## 🏆 Top Papers This Week
 
 {% for p in top_papers[:10] %}
 {{ loop.index }}. **[{{ p.title }}]({{ p.url }})** ({{ "%.1f"|format(p.score) }}/10) — {{ p.abstract_zh }}
@@ -27,17 +27,20 @@ nav_exclude: true
 
 ---
 
-## 📈 本周趋势分析
+## 📈 Weekly Trend Analysis
 
 {{ summary_zh }}
 
 ---
 
-## 💼 本周职位汇总
+{% if new_jobs %}
+## 💼 Jobs This Week
 
 {% for j in new_jobs %}
-- **[{{ j.title }}]({{ j.url }})** — {{ j.institution or '' }} | 截止：{{ j.deadline or '未注明' }}
+- **[{{ j.title }}]({{ j.url }})** — {{ j.institution or '' }} | Deadline: {{ j.deadline or 'N/A' }}
 {% endfor %}
 
 ---
-*[返回首页](/) | [日报](/daily/) | [月报](/monthly/)*
+{% endif %}
+
+*[Home](/) | [Daily](/daily/) | [Monthly](/monthly/)*

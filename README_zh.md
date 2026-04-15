@@ -1,5 +1,7 @@
 # MyDailyUpdater
 
+[English](README.md)
+
 自托管、可扩展的每日摘要流水线。每天自动从多个来源抓取论文、新闻、职位和热门仓库，通过 LLM 评分和摘要，最终发布为可搜索的静态网站（GitHub Pages）。
 
 **[在线演示 →](https://yuyangxueed.github.io/MyDailyUpdater)**

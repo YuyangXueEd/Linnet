@@ -1,5 +1,7 @@
 # MyDailyUpdater
 
+[中文文档](README_zh.md)
+
 A self-hosted, extensible daily digest pipeline. Every day it fetches papers, news, jobs, and trending repos from multiple sources, scores and summarises them with an LLM, and publishes a searchable static site via GitHub Pages.
 
 **[Live demo →](https://yuyangxueed.github.io/MyDailyUpdater)**

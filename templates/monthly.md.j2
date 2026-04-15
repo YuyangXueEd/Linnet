@@ -1,23 +1,23 @@
 ---
 layout: default
-title: "{{ period }} 月报"
+title: "{{ period }} Monthly Overview"
 parent: Monthly Overview
 nav_exclude: true
 ---
 
-# {{ period }} 月报
+# {{ period }} Monthly Overview
 
-> 覆盖 {{ daily_refs|length }} 天的科研动态
+> Covering {{ daily_refs|length }} days
 
 ---
 
-## 📊 本月总览
+## 📊 This Month
 
 {{ summary_zh }}
 
 ---
 
-## 🏆 本月最高分论文 Top 20
+## 🏆 Top 20 Papers This Month
 
 {% for p in top_papers[:20] %}
 {{ loop.index }}. **[{{ p.title }}]({{ p.url }})** ({{ "%.1f"|format(p.score) }}/10) — {{ p.abstract_zh }}
@@ -25,19 +25,22 @@ nav_exclude: true
 
 ---
 
-## 📈 关键词热度（Top 10）
+## 📈 Top Keywords
 
 {% for kw, count in (keyword_frequency.items() | list | sort(attribute=1, reverse=True))[:10] %}
-- **{{ kw }}**: {{ count }} 次
+- **{{ kw }}**: {{ count }} occurrences
 {% endfor %}
 
 ---
 
-## 💼 本月职位汇总（{{ new_jobs|length }} 个）
+{% if new_jobs %}
+## 💼 Jobs This Month ({{ new_jobs|length }})
 
 {% for j in new_jobs %}
 - **[{{ j.title }}]({{ j.url }})** — {{ j.institution or '' }}
 {% endfor %}
 
 ---
-*[返回首页](/) | [日报](/daily/) | [周报](/weekly/)*
+{% endif %}
+
+*[Home](/) | [Daily](/daily/) | [Weekly](/weekly/)*
