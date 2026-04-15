@@ -85,9 +85,9 @@ class SlackSink(BaseSink):
             blocks.append(_header_section("🔥 Hacker News"))
             lines = []
             for s in hn[:max_hn]:
-                title = s.get("title", "")
+                title = _truncate(s.get("title", ""), 80)
                 url = s.get("url", "") or s.get("comments_url", "")
-                summary = s.get("summary_zh", "")
+                summary = _truncate(s.get("summary_zh", ""), 200)
                 score = s.get("score", "")
                 link = f"<{url}|{_escape(title)}>" if url else _escape(title)
                 lines.append(f"• {link}  `{score} pts`\n  {_escape(summary)}")
@@ -104,7 +104,7 @@ class SlackSink(BaseSink):
             for r in github[:max_github]:
                 name = r.get("full_name", "")
                 url = r.get("url", "")
-                summary = r.get("summary_zh", "")
+                summary = _truncate(r.get("summary_zh", ""), 200)
                 stars_today = r.get("stars_today", 0)
                 lang = r.get("language", "")
                 meta_str = "  ".join(filter(None, [
@@ -124,8 +124,8 @@ class SlackSink(BaseSink):
             blocks.append(_header_section("💼 Academic Jobs"))
             lines = []
             for j in jobs[:3]:
-                title = j.get("title", "")
-                inst = j.get("institution", "")
+                title = _truncate(j.get("title", ""), 80)
+                inst = _truncate(j.get("institution", ""), 60)
                 url = j.get("url", "")
                 link = f"<{url}|{_escape(title)}>" if url else _escape(title)
                 lines.append(f"• {link}  —  {_escape(inst)}")
@@ -133,7 +133,7 @@ class SlackSink(BaseSink):
                 lines.append(f"_…and {len(jobs) - 3} more_")
             blocks.append({
                 "type": "section",
-                "text": {"type": "mrkdwn", "text": "\n".join(lines)},
+                "text": {"type": "mrkdwn", "text": "\n".join(lines)[:3000]},
             })
 
         # ── Footer ───────────────────────────────────────────────────────
@@ -154,3 +154,9 @@ def _header_section(text: str) -> dict:
 def _escape(text: str) -> str:
     """Escape Slack mrkdwn special characters."""
     return str(text).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+
+
+def _truncate(text: str, max_len: int) -> str:
+    """Truncate text to max_len characters, appending ellipsis if cut."""
+    text = str(text)
+    return text if len(text) <= max_len else text[:max_len - 1] + "…"
