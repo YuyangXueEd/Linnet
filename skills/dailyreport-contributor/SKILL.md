@@ -1,13 +1,13 @@
 ---
-name: dailyreport-contributor
-description: This skill should be used when contributing code, docs, extensions, sinks, setup UX, or generated-site changes to the MyDailyUpdater repository, especially when an AI agent needs to learn repo conventions before editing files.
+name: linnet-contributor
+description: This skill should be used when contributing code, docs, extensions, sinks, setup UX, or generated-site changes to the Linnet repository, especially when an AI agent needs to learn repo conventions before editing files.
 ---
 
-# MyDailyUpdater Contributor
+# Linnet Contributor
 
 ## Overview
 
-Follow this skill when working on `MyDailyUpdater` as a contributor. Build context from the repo's canonical guidance first, then make minimal edits that preserve the plugin-based architecture, secret-handling rules, and generated-site workflow.
+Follow this skill when working on `Linnet` as a contributor. Build context from the repo's canonical guidance first, then make minimal edits that preserve the plugin-based architecture, secret-handling rules, and generated-site workflow.
 
 ## Quick start
 

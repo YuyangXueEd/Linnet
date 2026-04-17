@@ -184,14 +184,14 @@ def _coerce_salary(base_salary: Any) -> str:
     return ""
 
 
-def enrich_job_details(job: dict[str, Any]) -> dict[str, Any]:
+def enrich_job_details(job: dict[str, Any], request_timeout: float = 20.0) -> dict[str, Any]:
     url = job.get("url", "")
     if not url:
         return job
 
     try:
         response = httpx.get(
-            url, timeout=20, follow_redirects=True, headers={"User-Agent": "MyDailyUpdater/1.0"}
+            url, timeout=request_timeout, follow_redirects=True, headers={"User-Agent": "Linnet/1.0"}
         )
         response.raise_for_status()
     except Exception:
@@ -434,7 +434,7 @@ def _parse_academicpositions_markdown(md: str, source_name: str) -> list[dict[st
     return jobs
 
 
-def fetch_jina_source(source: dict[str, Any]) -> list[dict[str, Any]]:
+def fetch_jina_source(source: dict[str, Any], jina_timeout: float = 30.0) -> list[dict[str, Any]]:
     """Fetch a job listing page via r.jina.ai and parse the returned markdown."""
     url = source["url"]
     name = source["name"]
@@ -444,7 +444,7 @@ def fetch_jina_source(source: dict[str, Any]) -> list[dict[str, Any]]:
         resp = httpx.get(
             jina_url,
             headers={"Accept": "text/markdown", "X-Return-Format": "markdown"},
-            timeout=30,
+            timeout=jina_timeout,
             follow_redirects=True,
         )
         resp.raise_for_status()
@@ -466,6 +466,8 @@ def fetch_jobs(
     filter_keywords: list[str],
     exclude_keywords: list[str],
     jina_sources: list[dict] | None = None,
+    request_timeout: float = 20.0,
+    jina_timeout: float = 30.0,
 ) -> list[dict[str, Any]]:
     """Parse all RSS and Jina sources, filter for relevant jobs."""
     jobs = []
@@ -474,9 +476,9 @@ def fetch_jobs(
         for entry in feed.entries:
             job = parse_feed_entry(entry, source_name=source["name"])
             if filter_job(job, filter_keywords, exclude_keywords):
-                jobs.append(enrich_job_details(job))
+                jobs.append(enrich_job_details(job, request_timeout=request_timeout))
     for source in jina_sources or []:
-        for job in fetch_jina_source(source):
+        for job in fetch_jina_source(source, jina_timeout=jina_timeout):
             if filter_job(job, filter_keywords, exclude_keywords):
                 jobs.append(job)
     return dedupe_jobs(jobs)

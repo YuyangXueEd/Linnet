@@ -13,7 +13,7 @@ If you'd rather use the interactive wizard, go to the [Setup Wizard](index.html)
 
 ## Step 1 — Fork this repo
 
-Click **Fork** at the top of the [GitHub page](https://github.com/YuyangXueEd/MyDailyUpdater).
+Click **Fork** at the top of the [GitHub page](https://github.com/YuyangXueEd/linnet).
 GitHub will create your own copy with all the automation included.
 
 ---
@@ -35,7 +35,7 @@ This is the only required credential. [OpenRouter](https://openrouter.ai) lets y
 
 Go to: **Settings → Pages → Source: Deploy from a branch → Branch: `main`, folder: `/docs`**
 
-Click **Save**. Your site URL will appear there — it looks like `https://YOUR-USERNAME.github.io/MyDailyUpdater`.
+Click **Save**. Your site URL will appear there — it looks like `https://YOUR-USERNAME.github.io/Linnet`.
 
 ---
 
@@ -51,9 +51,9 @@ uncomment the one closest to your work and edit the keywords freely:
 #   - large language model
 #   - foundation model
 
-# PROFILE B: Robotics / Embodied AI
-# PROFILE C: Medical AI / Clinical NLP
-# PROFILE D: NLP / Text / Reasoning
+# PROFILE B: Astrophysics / Space Science
+# PROFILE C: Chemistry / Materials Science
+# PROFILE D: Computational Biology / Bioinformatics
 ```
 
 Want summaries in a different language? Open [config/sources.yaml](../../config/sources.yaml) and

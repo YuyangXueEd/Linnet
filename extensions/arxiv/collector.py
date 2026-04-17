@@ -92,17 +92,20 @@ def _parse_author_affiliations(html: str) -> list[str]:
     return deduped
 
 
-def enrich_paper_with_figure(paper: dict[str, Any]) -> dict[str, Any]:
+def enrich_paper_with_figure(
+    paper: dict[str, Any],
+    request_timeout: float = 20.0,
+) -> dict[str, Any]:
     """Best-effort fetch of Figure 1 and author affiliations from arXiv pages."""
     paper_id = paper.get("id", "")
     if not paper_id:
         return paper
 
-    headers = {"User-Agent": "MyDailyUpdater/1.0"}
+    headers = {"User-Agent": "Linnet/1.0"}
 
     html_url = f"https://arxiv.org/html/{paper_id}"
     try:
-        response = httpx.get(html_url, timeout=20, headers=headers)
+        response = httpx.get(html_url, timeout=request_timeout, headers=headers)
         response.raise_for_status()
         figure = _parse_first_figure(response.text, html_url)
         if figure:
@@ -112,7 +115,7 @@ def enrich_paper_with_figure(paper: dict[str, Any]) -> dict[str, Any]:
 
     abs_url = f"https://arxiv.org/abs/{paper_id}"
     try:
-        abs_response = httpx.get(abs_url, timeout=20, headers=headers)
+        abs_response = httpx.get(abs_url, timeout=request_timeout, headers=headers)
         abs_response.raise_for_status()
         affiliations = _parse_author_affiliations(abs_response.text)
         if affiliations:
@@ -123,14 +126,20 @@ def enrich_paper_with_figure(paper: dict[str, Any]) -> dict[str, Any]:
     return paper
 
 
-def enrich_papers_with_figures(papers: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    return [enrich_paper_with_figure(paper) for paper in papers]
+def enrich_papers_with_figures(
+    papers: list[dict[str, Any]],
+    request_timeout: float = 20.0,
+) -> list[dict[str, Any]]:
+    return [enrich_paper_with_figure(paper, request_timeout=request_timeout) for paper in papers]
 
 
 def fetch_papers(
     categories: list[str],
     must_include: list[str],
-    max_results: int = 500,
+    max_results: int = 100,
+    max_authors: int = 5,
+    api_retries: int = 5,
+    api_delay: float = 10.0,
 ) -> list[dict[str, Any]]:
     """
     Fetch recent papers from arxiv for given categories,
@@ -141,7 +150,7 @@ def fetch_papers(
         return []
 
     query = " OR ".join(f"cat:{cat}" for cat in categories)
-    client = arxiv.Client()
+    client = arxiv.Client(num_retries=api_retries, delay_seconds=api_delay)
     search = arxiv.Search(
         query=query,
         max_results=max_results,
@@ -157,7 +166,7 @@ def fetch_papers(
             {
                 "id": result.entry_id.split("/abs/")[-1],
                 "title": result.title,
-                "authors": [a.name for a in result.authors[:5]],
+                "authors": [a.name for a in result.authors[:max_authors]],
                 "categories": list(result.categories),
                 "abstract": result.summary,
                 "url": result.entry_id,

@@ -1,0 +1,8 @@
+# extensions/weather/weather.yaml.example
+#
+# Reference template for config/extensions/weather.yaml.
+# Copy this file to config/extensions/weather.yaml and edit to get started.
+
+city: "Edinburgh"    # city name resolved via Open-Meteo geocoding
+timezone: "auto"     # "auto" detects from coordinates; or use e.g. "Europe/London"
+request_timeout: 10.0

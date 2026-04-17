@@ -48,13 +48,18 @@ def _location_label(result: dict) -> str:
     return ", ".join(part for part in parts if part)
 
 
-def fetch_today_weather(city: str, timezone: str = "auto", language: str = "en") -> list[dict]:
+def fetch_today_weather(
+    city: str,
+    timezone: str = "auto",
+    language: str = "en",
+    request_timeout: float = 10.0,
+) -> list[dict]:
     """Resolve a city name and fetch today's forecast from Open-Meteo."""
     if not city:
         return []
 
     try:
-        with httpx.Client(timeout=10.0, follow_redirects=True) as client:
+        with httpx.Client(timeout=request_timeout, follow_redirects=True) as client:
             geo_resp = client.get(
                 GEOCODING_URL,
                 params={

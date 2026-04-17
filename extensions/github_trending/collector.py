@@ -55,11 +55,19 @@ def _get_headers() -> dict:
     return {"Accept": "application/vnd.github+json"}
 
 
-def _is_ai_related(name: str, description: str, topics: list[str]) -> bool:
+def _is_ai_related(
+    name: str,
+    description: str,
+    topics: list[str],
+    ai_keywords: list[str] | None = None,
+    ai_topics: list[str] | None = None,
+) -> bool:
+    kws = ai_keywords if ai_keywords is not None else _AI_KEYWORDS
+    topic_set = ai_topics if ai_topics is not None else _AI_TOPICS
     text = f"{name} {description}".lower()
-    if any(kw in text for kw in _AI_KEYWORDS):
+    if any(kw in text for kw in kws):
         return True
-    if any(t in _AI_TOPICS for t in topics):
+    if any(t in topic_set for t in topics):
         return True
     return False
 
@@ -108,20 +116,28 @@ def _parse_trending_article(article: str) -> dict[str, Any] | None:
     }
 
 
-def fetch_trending_via_search(max_repos: int = 20, days_back: int = 1) -> list[dict[str, Any]]:
+def fetch_trending_via_search(
+    max_repos: int = 20,
+    days_back: int = 1,
+    ai_topics: list[str] | None = None,
+    ai_keywords: list[str] | None = None,
+    max_topics: int = 5,
+    request_timeout: float = 30.0,
+) -> list[dict[str, Any]]:
     """
     Use GitHub Search API to find recently-created repos with high star velocity.
     Queries multiple AI topics and deduplicates.
     """
     from datetime import datetime, timedelta
 
+    topics = ai_topics if ai_topics is not None else _AI_TOPICS
     cutoff = (datetime.now(UTC) - timedelta(days=days_back)).strftime("%Y-%m-%d")
 
     seen: set[int] = set()
     repos: list[dict] = []
 
-    with httpx.Client(timeout=30, headers=_get_headers()) as client:
-        for topic in _AI_TOPICS[:5]:  # limit to avoid rate limit
+    with httpx.Client(timeout=request_timeout, headers=_get_headers()) as client:
+        for topic in topics[:max_topics]:  # limit to avoid rate limit
             try:
                 resp = client.get(
                     _SEARCH_URL,
@@ -148,7 +164,11 @@ def fetch_trending_via_search(max_repos: int = 20, days_back: int = 1) -> list[d
     return repos[:max_repos]
 
 
-def fetch_trending_via_scrape(language: str = "", since: str = "daily") -> list[dict[str, Any]]:
+def fetch_trending_via_scrape(
+    language: str = "",
+    since: str = "daily",
+    request_timeout: float = 30.0,
+) -> list[dict[str, Any]]:
     """
     Scrape github.com/trending for today's trending repos.
     Filters to AI/ML related ones.
@@ -159,7 +179,7 @@ def fetch_trending_via_scrape(language: str = "", since: str = "daily") -> list[
         url = f"{_TRENDING_URL}/{language}"
 
     try:
-        with httpx.Client(timeout=30, headers={"User-Agent": "Mozilla/5.0"}) as client:
+        with httpx.Client(timeout=request_timeout, headers={"User-Agent": "Mozilla/5.0"}) as client:
             resp = client.get(url, params=params)
             resp.raise_for_status()
             html = resp.text
@@ -197,15 +217,24 @@ def _parse_repo(item: dict) -> dict[str, Any]:
 def fetch_github_trending(
     max_repos: int = 15,
     use_scrape: bool = True,
+    ai_topics: list[str] | None = None,
+    ai_keywords: list[str] | None = None,
+    max_topics: int = 5,
+    request_timeout: float = 30.0,
 ) -> list[dict[str, Any]]:
     """
     Fetch AI/ML trending repos.
     Tries scraping first (has stars-today data), falls back to Search API.
     """
     if use_scrape:
-        repos = fetch_trending_via_scrape()
+        repos = fetch_trending_via_scrape(request_timeout=request_timeout)
         if repos:
             return repos[:max_repos]
 
-    # fallback to Search API
-    return fetch_trending_via_search(max_repos=max_repos)
+    return fetch_trending_via_search(
+        max_repos=max_repos,
+        ai_topics=ai_topics,
+        ai_keywords=ai_keywords,
+        max_topics=max_topics,
+        request_timeout=request_timeout,
+    )

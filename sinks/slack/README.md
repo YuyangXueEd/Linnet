@@ -50,7 +50,7 @@ sinks:
 ## Message structure
 
 ```
-📰 MyDailyUpdater — YYYY-MM-DD
+📰 Linnet — YYYY-MM-DD
 N papers  •  N HN stories  •  N jobs  •  N trending repos
 ────────────────────────────────
 📄 Top arXiv Papers

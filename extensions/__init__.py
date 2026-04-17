@@ -1,5 +1,5 @@
 """
-extensions/ — pluggable extension system for MyDailyUpdater.
+extensions/ — pluggable extension system for Linnet.
 
 Each extension is a self-contained unit that:
   1. fetch()   — pulls raw data from a source

@@ -1,9 +1,9 @@
-# MyDailyUpdater — LLM context file
+# Linnet — LLM context file
 
 Self-hosted daily research digest pipeline. Runs via GitHub Actions, outputs a
 Jekyll static site (GitHub Pages) and optional delivery sinks such as Slack and ServerChan.
 
-Source: https://github.com/YuyangXueEd/MyDailyUpdater
+Source: https://github.com/YuyangXueEd/linnet
 License: MIT
 
 ---
@@ -89,10 +89,10 @@ docs/                Generated site (served by GitHub Pages)
   data/monthly/      Monthly JSON payloads
 
 skills/              Public AI-assistant guidance and packaged skills
-  dailyreport-contributor.md                    Lightweight contributor prompt
-  dailyreport-contributor/                      Packaged contributor skill
-  dailyreport-config-customization.md           Lightweight setup/customization prompt
-  dailyreport-config-customization/             Packaged setup/customization skill
+  linnet-contributor.md                    Lightweight contributor prompt
+  linnet-contributor/                      Packaged contributor skill
+  linnet-config-customization.md           Lightweight setup/customization prompt
+  linnet-config-customization/             Packaged setup/customization skill
 
 tests/               Pytest suite (61 tests, no live network or LLM calls)
 ```

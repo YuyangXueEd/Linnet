@@ -1,5 +1,5 @@
 """
-_template.py — starter template for a new MyDailyUpdater extension.
+_template.py — starter template for a new Linnet extension.
 
 Copy this file to extensions/my_source.py and fill in the three methods.
 Then follow the steps in extensions/README.md to register and configure it.

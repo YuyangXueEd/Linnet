@@ -15,16 +15,28 @@ process()  — LLM batch scoring → drops papers below threshold
 render()   — sorts by category rank then score, wraps in FeedSection
 ```
 
-## Config (`config/sources.yaml` + `config/extensions/arxiv.yaml`)
+## Config
 
-| Key | Where | Default | Notes |
-|---|---|---|---|
-| `enabled` | sources.yaml | `true` | |
-| `max_papers_per_run` | sources.yaml | `300` | Papers fetched before any filtering |
-| `categories` | extensions/arxiv.yaml | `[]` | arXiv category codes, e.g. `cs.CV`, `cs.LG` |
-| `must_include` | extensions/arxiv.yaml | `[]` | At least one term must appear in title or abstract |
-| `boost_keywords` | extensions/arxiv.yaml | `[]` | Increase LLM score if matched |
-| `llm_score_threshold` | extensions/arxiv.yaml | `7` | Papers scoring below this (0–10) are dropped |
+`config/sources.yaml` — toggle only:
+
+| Key | Default | Notes |
+|---|---|---|
+| `enabled` | `true` | |
+
+`config/extensions/arxiv.yaml` — all other settings (see [`arxiv.yaml.example`](arxiv.yaml.example) to restore defaults):
+
+| Key | Default | Notes |
+|---|---|---|
+| `categories` | `[]` | arXiv category codes, e.g. `cs.CV`, `cs.LG` |
+| `must_include` | `[]` | At least one term must appear in title or abstract |
+| `boost_keywords` | `[]` | Increase LLM score if matched |
+| `llm_score_threshold` | `7` | Papers scoring below this (0–10) are dropped |
+| `max_papers_per_run` | `100` | Papers fetched from arXiv before any filtering |
+| `max_papers_to_show` | `20` | Top papers included in the digest |
+| `max_authors` | `5` | Authors listed per paper |
+| `api_retries` | `5` | Retry attempts on arXiv API 429/errors |
+| `api_delay` | `10.0` | Seconds between arXiv API requests |
+| `request_timeout` | `20.0` | Seconds for figure/affiliation HTTP fetches |
 
 ## Output item schema
 

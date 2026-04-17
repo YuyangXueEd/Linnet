@@ -1,6 +1,6 @@
 # _template extension
 
-Starter template for building a new MyDailyUpdater extension.
+Starter template for building a new Linnet extension.
 
 ## How to use this template
 

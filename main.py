@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-main.py — CLI entry point for MyDailyUpdater pipeline.
+main.py — CLI entry point for Linnet pipeline.
 
 Usage:
     python main.py --mode daily       # full daily pipeline
@@ -52,8 +52,8 @@ def get_openrouter_client(sources_cfg: dict) -> OpenAI:
         api_key=api_key,
         base_url=sources_cfg["llm"]["base_url"],
         default_headers={
-            "HTTP-Referer": "https://github.com/YuyangXueEd/MyDailyUpdater",
-            "X-OpenRouter-Title": "MyDailyUpdater",
+            "HTTP-Referer": "https://github.com/YuyangXueEd/linnet",
+            "X-OpenRouter-Title": "Linnet",
         },
     )
 
@@ -244,7 +244,7 @@ def check_today() -> None:
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="MyDailyUpdater")
+    parser = argparse.ArgumentParser(description="Linnet")
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument("--mode", choices=["daily", "weekly", "monthly"])
     group.add_argument("--check-today", action="store_true")

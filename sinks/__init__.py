@@ -1,5 +1,5 @@
 """
-sinks/ — delivery layer for the MyDailyUpdater pipeline.
+sinks/ — delivery layer for the Linnet pipeline.
 
 After the daily payload is built, the orchestrator calls every enabled sink.
 Each sink formats and delivers the payload to an external service (Slack,

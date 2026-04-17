@@ -1,0 +1,5 @@
+# config/extensions/weather.yaml — Weather config
+
+city: "Edinburgh"
+timezone: "auto"
+request_timeout: 10.0

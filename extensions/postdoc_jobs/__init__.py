@@ -19,6 +19,8 @@ class PostdocJobsExtension(BaseExtension):
             filter_keywords=self.config.get("filter_keywords", []),
             exclude_keywords=self.config.get("exclude_keywords", []),
             jina_sources=self.config.get("jina_sources", []),
+            request_timeout=self.config.get("request_timeout", 20.0),
+            jina_timeout=self.config.get("jina_timeout", 30.0),
         )
         return jobs
 

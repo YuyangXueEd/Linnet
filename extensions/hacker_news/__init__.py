@@ -16,6 +16,10 @@ class HackerNewsExtension(BaseExtension):
             keywords=self.config.get("keywords", []),
             min_score=self.config.get("min_score", 50),
             max_items=self.config.get("max_items", 20),
+            hours_back=self.config.get("hours_back", 24),
+            search_terms=self.config.get("search_terms"),
+            request_timeout=self.config.get("request_timeout", 30.0),
+            hits_per_page=self.config.get("hits_per_page", 50),
         )
         print(f"  HN stories: {len(stories)}")
         return stories

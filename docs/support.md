@@ -7,7 +7,7 @@ nav_order: 5
 <div class="archive-shell">
   <section class="archive-hero">
     <div class="landing-kicker">Support</div>
-    <h1>Thanks for supporting MyDailyUpdater</h1>
+    <h1>Thanks for supporting Linnet</h1>
     <p>
       If this project is useful to you, thank you. Financial support is appreciated,
       but contributions, bug reports, docs improvements, and new integrations matter even more.

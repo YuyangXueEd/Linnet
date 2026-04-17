@@ -12,8 +12,13 @@ class GitHubTrendingExtension(BaseExtension):
 
     def fetch(self) -> list[dict]:
         print("Fetching GitHub trending...")
-        max_repos = self.config.get("max_repos", 15)
-        repos = fetch_github_trending(max_repos=max_repos)
+        repos = fetch_github_trending(
+            max_repos=self.config.get("max_repos", 15),
+            ai_topics=self.config.get("ai_topics"),
+            ai_keywords=self.config.get("ai_keywords"),
+            max_topics=self.config.get("max_topics", 5),
+            request_timeout=self.config.get("request_timeout", 30.0),
+        )
         print(f"  GitHub trending: {len(repos)} repos")
         return repos
 

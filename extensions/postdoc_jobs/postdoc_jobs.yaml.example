@@ -1,0 +1,62 @@
+# extensions/postdoc_jobs/postdoc_jobs.yaml.example
+#
+# Reference template for config/extensions/postdoc_jobs.yaml.
+# Copy this file to config/extensions/postdoc_jobs.yaml and edit to get started.
+
+request_timeout: 20.0  # seconds for job detail HTTP fetches
+jina_timeout: 30.0     # seconds for Jina.ai scrape requests
+
+rss_sources:
+  - url: "https://www.jobs.ac.uk/jobs/academic-or-research/?format=rss"
+    name: "jobs.ac.uk Research"
+  - url: "https://www.jobs.ac.uk/jobs/computer-science/?format=rss"
+    name: "jobs.ac.uk CS"
+  - url: "https://www.jobs.ac.uk/jobs/artificial-intelligence/?format=rss"
+    name: "jobs.ac.uk AI"
+  - url: "https://www.jobs.ac.uk/jobs/mathematics/?format=rss"
+    name: "jobs.ac.uk Mathematics"
+
+jina_sources:
+  - url: "https://www.findapostdoc.com/search/?Keywords=machine+learning"
+    name: "FindAPostDoc ML"
+    type: "findapostdoc"
+  - url: "https://www.findapostdoc.com/search/?Keywords=computer+vision"
+    name: "FindAPostDoc CV"
+    type: "findapostdoc"
+  - url: "https://www.findapostdoc.com/search/?Keywords=medical+imaging"
+    name: "FindAPostDoc Medical"
+    type: "findapostdoc"
+  - url: "https://academicpositions.com/find-jobs?keywords=machine+learning"
+    name: "AcademicPositions ML"
+    type: "academicpositions"
+  - url: "https://academicpositions.com/find-jobs?keywords=computer+vision"
+    name: "AcademicPositions CV"
+    type: "academicpositions"
+  - url: "https://academicpositions.com/find-jobs?keywords=medical+imaging"
+    name: "AcademicPositions Medical"
+    type: "academicpositions"
+  - url: "https://euraxess.ec.europa.eu/jobs/search?f%5B0%5D=job_country%3A771&f%5B1%5D=offer_type%3Ajob_offer&f%5B2%5D=positions%3Apostdoc_positions"
+    name: "EURAXESS UK Postdoc"
+    type: "euraxess"
+
+filter_keywords:
+  - computer vision
+  - medical imaging
+  - machine learning
+  - artificial intelligence
+  - deep learning
+  - LLM
+  - VLM
+  - postdoc
+  - research associate
+  - fellowship
+  - agent
+  - agentic
+
+exclude_keywords:
+  - chemistry
+  - economics
+  - social science
+  - humanities
+
+llm_score_threshold: 7

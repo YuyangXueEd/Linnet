@@ -54,10 +54,10 @@ class ServerChanSink(BaseSink):
         max_github = self.config.get("max_github", 3)
         max_jobs = self.config.get("max_jobs", 3)
 
-        title = f"MyDailyUpdater | {date}"
+        title = f"Linnet | {date}"
 
         lines = [
-            f"# MyDailyUpdater · {date}",
+            f"# Linnet · {date}",
             "",
             (
                 f"- 论文：{len(papers)}"

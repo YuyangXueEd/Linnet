@@ -1,4 +1,4 @@
-# MyDailyUpdater repo map
+# Linnet repo map
 
 Use this reference when the task touches onboarding, extensions, sinks, or the generated site.
 

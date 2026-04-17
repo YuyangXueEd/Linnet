@@ -1,13 +1,13 @@
 ---
-name: dailyreport-config-customization
-description: This skill should be used when helping someone use, configure, or customize MyDailyUpdater, especially for setup, source selection, language/model changes, prompt overrides, sink enablement, or workflow schedule changes.
+name: linnet-config-customization
+description: This skill should be used when helping someone use, configure, or customize Linnet, especially for setup, source selection, language/model changes, prompt overrides, sink enablement, or workflow schedule changes.
 ---
 
 # DailyReport Config & Customization
 
 ## Overview
 
-Guide setup, configuration, and customization work for `MyDailyUpdater`. Build context from the repo's own setup and config docs first. Prefer minimal edits to existing config and documentation instead of inventing new conventions.
+Guide setup, configuration, and customization work for `Linnet`. Build context from the repo's own setup and config docs first. Prefer minimal edits to existing config and documentation instead of inventing new conventions.
 
 ## Quick start
 

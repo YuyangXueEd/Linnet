@@ -1,0 +1,104 @@
+# extensions/arxiv/arxiv.yaml.example
+#
+# Reference template for config/extensions/arxiv.yaml.
+# Copy this file to config/extensions/arxiv.yaml and edit to get started.
+#
+# Preset profiles — uncomment the one closest to your research area,
+# then customise freely.
+#
+# PROFILE A: AI / ML / LLM (general)
+# categories: [cs.AI, cs.LG, cs.CL, cs.CV, stat.ML]
+# must_include:
+#   - large language model
+#   - foundation model
+#   - diffusion model
+#   - agent
+#   - multimodal
+#   - RLHF
+#   - alignment
+# boost_keywords: [GPT, LLaMA, Gemini, Claude, LoRA, RAG, chain-of-thought]
+#
+# PROFILE B: Astrophysics / Space Science
+# categories: [astro-ph.GA, astro-ph.HE, astro-ph.SR, astro-ph.CO, astro-ph.EP]
+# must_include:
+#   - galaxy
+#   - black hole
+#   - dark matter
+#   - gravitational wave
+#   - exoplanet
+#   - stellar
+#   - cosmology
+# boost_keywords: [JWST, Hubble, Chandra, redshift, nebula, supernova, CMB]
+#
+# PROFILE C: Chemistry / Materials Science
+# categories: [cond-mat.mtrl-sci, physics.chem-ph, cond-mat.soft, q-bio.BM]
+# must_include:
+#   - molecular dynamics
+#   - density functional theory
+#   - catalyst
+#   - synthesis
+#   - polymer
+#   - nanostructure
+#   - reaction mechanism
+# boost_keywords: [DFT, MD simulation, force field, spectroscopy, crystallography, zeolite]
+#
+# PROFILE D: Computational Biology / Bioinformatics
+# categories: [q-bio.GN, q-bio.QM, q-bio.MN, cs.LG, stat.ML]
+# must_include:
+#   - genomics
+#   - protein structure
+#   - single-cell
+#   - gene expression
+#   - sequence alignment
+#   - phylogenetics
+# boost_keywords: [AlphaFold, CRISPR, RNA-seq, variant calling, GWAS, metagenomics]
+#
+# ── Active config (edit this section) ────────────────────────────────────────
+
+categories:
+  - cs.CV
+  - cs.AI
+  - cs.LG
+  - eess.IV
+  - cs.MA
+
+must_include:
+  - computer vision
+  - large language model
+  - vision language model
+  - diffusion model
+  - foundation model
+  - agent
+  - orchestration
+  - agentic
+  - multimodal
+  - hallucination
+  - medical imaging
+  - chest X-ray
+  - report generation
+  - world model
+
+boost_keywords:
+  - VLM
+  - SAM
+  - ViT
+  - CLIP
+  - zero-shot
+  - few-shot
+  - medical image
+  - MRI
+  - CT scan
+  - radiology
+  - histology
+
+llm_score_threshold: 7
+
+# ── Fetch & display limits ────────────────────────────────────────────────────
+max_papers_per_run: 100    # papers fetched from arXiv before any filtering
+max_papers_to_show: 20     # top papers included in the digest
+max_authors: 5             # authors listed per paper
+
+# ── API reliability ───────────────────────────────────────────────────────────
+api_retries: 5             # retry attempts on arXiv API 429/errors
+api_delay: 10.0            # seconds between arXiv API requests
+request_timeout: 20.0      # seconds for figure/affiliation HTTP fetches

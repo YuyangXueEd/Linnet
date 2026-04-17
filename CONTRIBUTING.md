@@ -1,4 +1,4 @@
-# Contributing to MyDailyUpdater
+# Contributing to Linnet
 
 Contributions welcome — bug fixes, new extensions, new sinks, and documentation improvements.
 

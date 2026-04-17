@@ -1,4 +1,4 @@
-Use this prompt/skill when helping someone fork, use, configure, or customise `MyDailyUpdater`.
+Use this prompt/skill when helping someone fork, use, configure, or customise `Linnet`.
 
 ## Read first
 
@@ -38,7 +38,7 @@ Use this prompt/skill when helping someone fork, use, configure, or customise `M
 
 ```text
 Please read README.md, docs/setup/manual-config.md, config/sources.yaml,
-skills/dailyreport-config-customization/SKILL.md, and any related sink docs before helping me customise this repo.
+skills/linnet-config-customization/SKILL.md, and any related sink docs before helping me customise this repo.
 ```
 
-If the agent supports packaged local skills, use `skills/dailyreport-config-customization/` directly.
+If the agent supports packaged local skills, use `skills/linnet-config-customization/` directly.

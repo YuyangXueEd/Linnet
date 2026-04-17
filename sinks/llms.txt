@@ -1,6 +1,6 @@
 # sinks/ — LLM context file
 
-This directory contains all delivery sinks for MyDailyUpdater.
+This directory contains all delivery sinks for Linnet.
 Each sink receives the fully-built daily payload and delivers it to an external service.
 
 See also: sinks/README.md (human guide), sinks/_template/ (starter)

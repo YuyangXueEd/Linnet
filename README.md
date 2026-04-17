@@ -1,21 +1,21 @@
-![MyDailyUpdater](assets/logo-wide.png)
+![Linnet](assets/logo-wide.png)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Daily Digest](https://github.com/YuyangXueEd/MyDailyUpdater/actions/workflows/daily.yml/badge.svg)](https://github.com/YuyangXueEd/MyDailyUpdater/actions/workflows/daily.yml)
+[![Daily Digest](https://github.com/YuyangXueEd/linnet/actions/workflows/daily.yml/badge.svg)](https://github.com/YuyangXueEd/linnet/actions/workflows/daily.yml)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/downloads/)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/YuyangXueEd/MyDailyUpdater/pulls)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/YuyangXueEd/linnet/pulls)
 
-[![Star History Chart](https://api.star-history.com/svg?repos=YuyangXueEd/MyDailyUpdater&type=Date)](https://star-history.com/#YuyangXueEd/MyDailyUpdater&Date)
+
 
 [中文文档](README_zh.md)
 
-![MyDailyUpdater hero](assets/hero.png)
+![Linnet hero](assets/hero.png)
 
 **Your personal AI morning briefing — arXiv papers, HN stories, and GitHub trends, summarised overnight and waiting when you wake up.**
 
 Fork this repo, drop in one API key, and get your own searchable digest site running in under 5 minutes. No server, no subscription, no manual reading.
 
-**[See a live example →](https://yuyangxueed.github.io/MyDailyUpdater)** · **[Setup Wizard →](https://yuyangxueed.github.io/MyDailyUpdater/setup/)** · **[Manual config guide →](docs/setup/manual-config.md)**
+**[See a live example →](https://yuyangxueed.github.io/linnet)** · **[Setup Wizard →](https://yuyangxueed.github.io/linnet/setup/)** · **[Manual config guide →](docs/setup/manual-config.md)**
 
 > **Important:** the public wizard is a generator for your own fork. It does **not** modify this demo site or this repository. Today it generates config for copy-paste; browser-side one-click deploy is not enabled yet.
 >
@@ -62,7 +62,7 @@ Go to **Settings → Pages → Source: Deploy from a branch → `main` / `/docs`
 
 ### 4. Open the wizard and generate config
 
-Use the [Setup Wizard](https://yuyangxueed.github.io/MyDailyUpdater/setup/) for the fast path. It walks through source selection, ordering, sink choices, and generated files for **your fork**.
+Use the [Setup Wizard](https://yuyangxueed.github.io/linnet/setup/) for the fast path. It walks through source selection, ordering, sink choices, and generated files for **your fork**.
 
 If you prefer to edit everything yourself, use [`docs/setup/manual-config.md`](docs/setup/manual-config.md) instead.
 
@@ -203,7 +203,7 @@ PYTHONPATH=. pytest tests/ -q
 ## Project layout
 
 ```text
-MyDailyUpdater/
+Linnet/
 ├── extensions/   # data-source plugins
 ├── sinks/        # optional delivery channels
 ├── config/       # sources.yaml + per-extension config
@@ -223,13 +223,13 @@ This project actively encourages both contributors and end users to use AI agent
 
 Packaged skill folders now live in [`skills/`](skills/):
 
-- [`skills/dailyreport-contributor/SKILL.md`](skills/dailyreport-contributor/SKILL.md)
-- [`skills/dailyreport-config-customization/SKILL.md`](skills/dailyreport-config-customization/SKILL.md)
+- [`skills/linnet-contributor/SKILL.md`](skills/linnet-contributor/SKILL.md)
+- [`skills/linnet-config-customization/SKILL.md`](skills/linnet-config-customization/SKILL.md)
 
 Lightweight prompt versions are also available:
 
-- [`skills/dailyreport-contributor.md`](skills/dailyreport-contributor.md)
-- [`skills/dailyreport-config-customization.md`](skills/dailyreport-config-customization.md)
+- [`skills/linnet-contributor.md`](skills/linnet-contributor.md)
+- [`skills/linnet-config-customization.md`](skills/linnet-config-customization.md)
 
 Before asking an AI agent to make changes, point it at the repo guidance first:
 
@@ -251,7 +251,7 @@ sinks/README.md, and the relevant SKILL.md under skills/ before making changes o
 
 ## Share setups and ask for help
 
-If you build an interesting setup, please share it in [Discussions](https://github.com/YuyangXueEd/MyDailyUpdater/discussions).
+If you build an interesting setup, please share it in [Discussions](https://github.com/YuyangXueEd/linnet/discussions).
 
 For implementation problems, config help, extension ideas, or sink requests, use the issue templates in this repo.
 
@@ -275,6 +275,8 @@ Special thanks to [Just the Docs](https://just-the-docs.com/) and [Jekyll](https
 More broadly, I’m also grateful to the many open-source repositories, maintainers, and contributors whose ideas, patterns, and examples helped shape this repo.
 
 If you notice a project or repository that should be credited more explicitly, please open an issue or PR and I’ll gladly add it.
+
+[![Star History Chart](https://api.star-history.com/svg?repos=YuyangXueEd/linnet&type=Date)](https://star-history.com/#YuyangXueEd/linnet&Date)
 
 ---
 

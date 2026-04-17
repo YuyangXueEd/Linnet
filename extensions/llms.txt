@@ -1,6 +1,6 @@
 # extensions/ — LLM context file
 
-This directory contains all data source extensions for MyDailyUpdater.
+This directory contains all data source extensions for Linnet.
 Each extension is a self-contained unit: fetch → process → render → FeedSection.
 
 See also: extensions/README.md (human guide), extensions/_template.py (starter)

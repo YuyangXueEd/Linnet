@@ -1,0 +1,36 @@
+# extensions/github_trending/github_trending.yaml.example
+#
+# Reference template for config/extensions/github_trending.yaml.
+# Copy this file to config/extensions/github_trending.yaml and edit to get started.
+
+max_repos: 15          # maximum repos to fetch and display
+request_timeout: 30.0  # seconds for HTTP requests
+max_topics: 5          # topics queried via GitHub Search API (keep low to avoid rate limits)
+
+# Uncomment and edit to override the built-in AI topic/keyword lists.
+# These are used when the scrape fallback path (GitHub Search API) is triggered.
+#
+# ai_topics:
+#   - machine-learning
+#   - deep-learning
+#   - computer-vision
+#   - large-language-model
+#   - diffusion-model
+#   - medical-imaging
+#   - transformer
+#   - llm
+#
+# ai_keywords:
+#   - llm
+#   - large language model
+#   - diffusion
+#   - computer vision
+#   - medical imaging
+#   - deep learning
+#   - neural network
+#   - transformer
+#   - gpt
+#   - bert
+#   - stable diffusion
+#   - multimodal
+#   - vision

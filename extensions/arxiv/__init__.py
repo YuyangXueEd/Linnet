@@ -64,7 +64,10 @@ class ArxivExtension(BaseExtension):
         papers = fetch_papers(
             categories=self.config.get("categories", []),
             must_include=self.config.get("must_include", []),
-            max_results=self.config.get("max_papers_per_run", 500),
+            max_results=self.config.get("max_papers_per_run", 100),
+            max_authors=self.config.get("max_authors", 5),
+            api_retries=self.config.get("api_retries", 5),
+            api_delay=self.config.get("api_delay", 10.0),
         )
         self._raw_count = len(papers)
         print(f"  After keyword filter: {self._raw_count}")
@@ -102,16 +105,21 @@ class ArxivExtension(BaseExtension):
 
         if summarised:
             print("Fetching arXiv figure previews...")
-            summarised = enrich_papers_with_figures(summarised)
+            summarised = enrich_papers_with_figures(
+                summarised,
+                request_timeout=self.config.get("request_timeout", 20.0),
+            )
 
         return summarised
 
     def render(self, items: list[dict]) -> FeedSection:
         prepared = _prepare_papers(items, self.config.get("categories", []))
+        top_n = self.config.get("max_papers_to_show", 20)
+        prepared = prepared[:top_n]
         return self.build_section(
             items=prepared,
             meta={
-                "papers_fetched": self.config.get("max_papers_per_run", 500),
+                "papers_fetched": self.config.get("max_papers_per_run", 100),
                 "papers_after_keyword_filter": self._raw_count,
                 "papers_after_llm_filter": self._scored_count,
                 "count": len(prepared),

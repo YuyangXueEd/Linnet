@@ -1,4 +1,4 @@
-Use this prompt/skill when contributing code, docs, extensions, sinks, setup UX, or public-site changes in `MyDailyUpdater`.
+Use this prompt/skill when contributing code, docs, extensions, sinks, setup UX, or public-site changes in `Linnet`.
 
 ## Read first
 
@@ -29,7 +29,7 @@ Use this prompt/skill when contributing code, docs, extensions, sinks, setup UX,
 
 ```text
 Please read llms.txt, extensions/llms.txt, sinks/llms.txt, extensions/README.md,
-sinks/README.md, and skills/dailyreport-contributor/SKILL.md before making changes.
+sinks/README.md, and skills/linnet-contributor/SKILL.md before making changes.
 ```
 
-If the agent supports packaged local skills, use `skills/dailyreport-contributor/` directly.
+If the agent supports packaged local skills, use `skills/linnet-contributor/` directly.

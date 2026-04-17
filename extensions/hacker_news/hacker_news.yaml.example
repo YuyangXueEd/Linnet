@@ -1,0 +1,34 @@
+# extensions/hacker_news/hacker_news.yaml.example
+#
+# Reference template for config/extensions/hacker_news.yaml.
+# Copy this file to config/extensions/hacker_news.yaml and edit to get started.
+
+min_score: 50      # minimum HN points to include a story
+max_items: 20      # maximum stories in the digest
+hours_back: 24     # how far back to look for stories (hours)
+request_timeout: 30.0
+hits_per_page: 50  # results per Algolia API query
+
+# Keywords: at least one must appear in the story title.
+keywords:
+  - AI
+  - LLM
+  - machine learning
+  - computer vision
+  - GPU
+  - open source model
+  - research
+  - benchmark
+  - agent
+  - agentic
+
+# Uncomment to override the search terms sent to the Algolia API.
+# These are different from keywords above — they drive the query,
+# while keywords filter the returned results.
+#
+# search_terms:
+#   - AI
+#   - LLM
+#   - machine learning
+#   - computer vision
+#   - deep learning

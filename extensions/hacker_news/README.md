@@ -10,14 +10,25 @@ process()  — LLM one-sentence summary per story
 render()   — wraps in FeedSection
 ```
 
-## Config (`config/sources.yaml` + `config/extensions/hacker_news.yaml`)
+## Config
 
-| Key | Where | Default | Notes |
-|---|---|---|---|
-| `enabled` | sources.yaml | `true` | |
-| `min_score` | extensions/hacker_news.yaml | `50` | Minimum HN points to include |
-| `max_items` | extensions/hacker_news.yaml | `20` | Maximum stories to fetch |
-| `keywords` | extensions/hacker_news.yaml | `[]` | At least one must appear in the story title |
+`config/sources.yaml` — toggle only:
+
+| Key | Default | Notes |
+|---|---|---|
+| `enabled` | `true` | |
+
+`config/extensions/hacker_news.yaml` — all other settings (see [`hacker_news.yaml.example`](hacker_news.yaml.example) to restore defaults):
+
+| Key | Default | Notes |
+|---|---|---|
+| `min_score` | `50` | Minimum HN points to include |
+| `max_items` | `20` | Maximum stories in the digest |
+| `keywords` | `[]` | At least one must appear in the story title |
+| `hours_back` | `24` | How far back to look for stories (hours) |
+| `search_terms` | *(built-in list)* | Terms sent to Algolia API to drive the search |
+| `hits_per_page` | `50` | Results per Algolia API query |
+| `request_timeout` | `30.0` | Seconds for HTTP requests |
 
 ## Output item schema
 

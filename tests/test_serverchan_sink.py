@@ -59,7 +59,7 @@ def test_serverchan_build_message_uses_limits():
 
     title, body = sink._build_message(payload)
 
-    assert title == "MyDailyUpdater | 2026-04-15"
+    assert title == "Linnet | 2026-04-15"
     assert body.count("## 今日论文") == 1
     assert "Paper A" in body
     assert "Paper B" not in body

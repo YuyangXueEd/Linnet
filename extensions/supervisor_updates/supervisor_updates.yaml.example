@@ -1,0 +1,11 @@
+# extensions/supervisor_updates/supervisor_updates.yaml.example
+#
+# Reference template for config/extensions/supervisor_updates.yaml.
+# Copy this file to config/extensions/supervisor_updates.yaml and edit to get started.
+
+# Add target supervisor/lab homepages here.
+supervisors:
+  - name: "Prof. Example"
+    url: "https://example.ac.uk/openings"
+    institution: "University of Example"
+    notes: "Focus: cardiac imaging"

@@ -15,36 +15,40 @@
 #   - alignment
 # boost_keywords: [GPT, LLaMA, Gemini, Claude, LoRA, RAG, chain-of-thought]
 #
-# PROFILE B: Robotics / Embodied AI
-# categories: [cs.RO, cs.AI, cs.LG, cs.CV]
+# PROFILE B: Astrophysics / Space Science
+# categories: [astro-ph.GA, astro-ph.HE, astro-ph.SR, astro-ph.CO, astro-ph.EP]
 # must_include:
-#   - robot learning
-#   - reinforcement learning
-#   - sim-to-real
-#   - manipulation
-#   - navigation
-#   - embodied
-# boost_keywords: [MuJoCo, IsaacGym, imitation learning, world model]
+#   - galaxy
+#   - black hole
+#   - dark matter
+#   - gravitational wave
+#   - exoplanet
+#   - stellar
+#   - cosmology
+# boost_keywords: [JWST, Hubble, Chandra, redshift, nebula, supernova, CMB]
 #
-# PROFILE C: Medical AI / Clinical NLP
-# categories: [cs.CV, cs.AI, cs.LG, eess.IV, q-bio.QM]
+# PROFILE C: Chemistry / Materials Science
+# categories: [cond-mat.mtrl-sci, physics.chem-ph, cond-mat.soft, q-bio.BM]
 # must_include:
-#   - medical imaging
-#   - clinical
-#   - radiology
-#   - pathology
-#   - electronic health record
-# boost_keywords: [CT, MRI, X-ray, histology, MIMIC, segmentation]
+#   - molecular dynamics
+#   - density functional theory
+#   - catalyst
+#   - synthesis
+#   - polymer
+#   - nanostructure
+#   - reaction mechanism
+# boost_keywords: [DFT, MD simulation, force field, spectroscopy, crystallography, zeolite]
 #
-# PROFILE D: NLP / Text / Reasoning
-# categories: [cs.CL, cs.AI, cs.LG]
+# PROFILE D: Computational Biology / Bioinformatics
+# categories: [q-bio.GN, q-bio.QM, q-bio.MN, cs.LG, stat.ML]
 # must_include:
-#   - language model
-#   - reasoning
-#   - question answering
-#   - summarisation
-#   - machine translation
-# boost_keywords: [BERT, T5, instruction tuning, benchmark, hallucination]
+#   - genomics
+#   - protein structure
+#   - single-cell
+#   - gene expression
+#   - sequence alignment
+#   - phylogenetics
+# boost_keywords: [AlphaFold, CRISPR, RNA-seq, variant calling, GWAS, metagenomics]
 #
 # ── Active config (edit this section) ────────────────────────────────────────
 
@@ -85,3 +89,9 @@ boost_keywords:
   - histology
 
 llm_score_threshold: 7
+
+max_papers_per_run: 100
+max_papers_to_show: 20
+api_retries: 5
+api_delay: 10.0
+request_timeout: 20.0

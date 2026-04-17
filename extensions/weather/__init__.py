@@ -17,7 +17,12 @@ class WeatherExtension(BaseExtension):
             print("Weather skipped: no city configured")
             return []
         print(f"Fetching weather for {city}...")
-        items = fetch_today_weather(city=city, timezone=timezone, language=lang)
+        items = fetch_today_weather(
+            city=city,
+            timezone=timezone,
+            language=lang,
+            request_timeout=self.config.get("request_timeout", 10.0),
+        )
         print(f"  Weather items: {len(items)}")
         return items
 

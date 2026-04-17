@@ -1,12 +1,15 @@
-# sources.yaml — enable/disable extensions and set source-level options.
+# sources.yaml — enable/disable extensions and global settings only.
 #
-# Each top-level key corresponds to an extension registered in extensions/__init__.py.
+# This file controls WHICH extensions run and global options (language, llm, sinks).
+# All per-extension settings (limits, timeouts, keywords, etc.) live in
+# config/extensions/<name>.yaml — edit those files to tune each extension.
+#
 # To add a new extension:
 #   1. Create extensions/my_source/ subclassing BaseExtension (key = "my_source")
 #   2. Add it to REGISTRY in extensions/__init__.py
 #   3. Add "- my_source" to display_order below
-#   4. Add an enabled: true/false block here for the on/off toggle
-#   5. For filter/keyword config, create config/extensions/my_source.yaml
+#   4. Add an "enabled: true/false" block here
+#   5. Create config/extensions/my_source.yaml for all other settings
 
 display_order:
   - weather
@@ -18,7 +21,6 @@ display_order:
 
 arxiv:
   enabled: true
-  max_papers_per_run: 300
 
 hacker_news:
   enabled: true
@@ -31,12 +33,9 @@ supervisor_updates:
 
 github_trending:
   enabled: true
-  max_repos: 15
 
 weather:
   enabled: true
-  city: "Edinburgh"
-  timezone: "auto"
 
 # Output language for all summaries.
 # Default: "en" (English, no translation needed).

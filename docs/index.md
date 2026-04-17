@@ -9,7 +9,7 @@ nav_order: 1
     <div class="landing-kicker">Live digest demo</div>
     <h1>One research briefing, refreshed every day.</h1>
     <p>
-      This site is a live example of what your own <strong>MyDailyUpdater</strong>
+      This site is a live example of what your own <strong>Linnet</strong>
       digest looks like after forking the repo, adding one API key, and letting
       GitHub Actions do the rest. New papers, tech stories, trending repos, and
       optional extras are collected, filtered, summarized, and published here
@@ -19,7 +19,7 @@ nav_order: 1
     <div class="landing-actions">
       <a class="landing-button primary" href="{{ '/setup/' | relative_url }}">Open Setup Wizard</a>
       <a class="landing-button secondary" href="{{ '/setup/zh/' | relative_url }}">中文设置入口</a>
-      <a class="landing-button secondary" href="https://github.com/YuyangXueEd/MyDailyUpdater">Fork on GitHub</a>
+      <a class="landing-button secondary" href="https://github.com/YuyangXueEd/linnet">Fork on GitHub</a>
       <a class="landing-button secondary" href="{{ '/support/' | relative_url }}">Support the project</a>
     </div>
 
@@ -125,7 +125,7 @@ nav_order: 1
     </p>
     <div class="landing-actions">
       <a class="landing-button primary" href="{{ '/setup/' | relative_url }}">Start setup</a>
-      <a class="landing-button secondary" href="https://github.com/YuyangXueEd/MyDailyUpdater">Open repository</a>
+      <a class="landing-button secondary" href="https://github.com/YuyangXueEd/linnet">Open repository</a>
     </div>
   </section>
 </div>

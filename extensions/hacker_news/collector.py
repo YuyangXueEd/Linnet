@@ -36,27 +36,33 @@ def parse_story(raw: dict) -> dict[str, Any]:
     }
 
 
+_DEFAULT_SEARCH_TERMS = ["AI", "LLM", "machine learning", "computer vision", "deep learning"]
+
+
 def fetch_stories(
     keywords: list[str],
     min_score: int,
     max_items: int,
     hours_back: int = 24,
+    search_terms: list[str] | None = None,
+    request_timeout: float = 30.0,
+    hits_per_page: int = 50,
 ) -> list[dict[str, Any]]:
     """Fetch top HN stories from Algolia API, filter by score and keywords."""
     cutoff = int((datetime.now(UTC) - timedelta(hours=hours_back)).timestamp())
+    terms = search_terms if search_terms is not None else _DEFAULT_SEARCH_TERMS
     seen_ids: set[str] = set()
     all_stories: list[dict] = []
 
-    search_terms = ["AI", "LLM", "machine learning", "computer vision", "deep learning"]
-    with httpx.Client(timeout=30) as client:
-        for term in search_terms:
+    with httpx.Client(timeout=request_timeout) as client:
+        for term in terms:
             resp = client.get(
                 _ALGOLIA_URL,
                 params={
                     "query": term,
                     "tags": "story",
                     "numericFilters": f"created_at_i>{cutoff},points>{min_score}",
-                    "hitsPerPage": 50,
+                    "hitsPerPage": hits_per_page,
                 },
             )
             resp.raise_for_status()

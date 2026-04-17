@@ -12,16 +12,25 @@ process()  — LLM relevance scoring → drops jobs below threshold
 render()   — wraps in FeedSection
 ```
 
-## Config (`config/sources.yaml` + `config/extensions/postdoc_jobs.yaml`)
+## Config
 
-| Key | Where | Default | Notes |
-|---|---|---|---|
-| `enabled` | sources.yaml | `false` | Set to `true` to activate |
-| `rss_sources` | extensions/postdoc_jobs.yaml | `[]` | List of `{url, name}` RSS feed dicts |
-| `jina_sources` | extensions/postdoc_jobs.yaml | `[]` | List of `{url, name, type}` scraped sources |
-| `filter_keywords` | extensions/postdoc_jobs.yaml | `[]` | At least one must match title or description |
-| `exclude_keywords` | extensions/postdoc_jobs.yaml | `[]` | Jobs matching any of these are dropped |
-| `llm_score_threshold` | extensions/postdoc_jobs.yaml | `7` | Jobs scoring below this (0–10) are dropped |
+`config/sources.yaml` — toggle only:
+
+| Key | Default | Notes |
+|---|---|---|
+| `enabled` | `false` | Set to `true` to activate |
+
+`config/extensions/postdoc_jobs.yaml` — all other settings (see [`postdoc_jobs.yaml.example`](postdoc_jobs.yaml.example) to restore defaults):
+
+| Key | Default | Notes |
+|---|---|---|
+| `rss_sources` | `[]` | List of `{url, name}` RSS feed dicts |
+| `jina_sources` | `[]` | List of `{url, name, type}` scraped sources |
+| `filter_keywords` | `[]` | At least one must match title or description |
+| `exclude_keywords` | `[]` | Jobs matching any of these are dropped |
+| `llm_score_threshold` | `7` | Jobs scoring below this (0–10) are dropped |
+| `request_timeout` | `20.0` | Seconds for job detail HTTP fetches |
+| `jina_timeout` | `30.0` | Seconds for Jina.ai scrape requests |
 
 ## Output item schema
 
