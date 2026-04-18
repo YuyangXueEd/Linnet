@@ -1,0 +1,33 @@
+---
+import Base from '@/layouts/Base.astro';
+import { loadSetupWizard } from '@/utils/setupWizard';
+
+const { bodyHtml, css, script } = loadSetupWizard('zh');
+---
+<Base
+  title="中文设置向导"
+  description="通过交互式设置向导，用五个步骤配置你的 Linnet 摘要站。"
+  lang="zh-CN"
+>
+  <div class="setup-page setup-page--zh">
+    <Fragment set:html={bodyHtml} />
+  </div>
+  <style is:inline set:html={css}></style>
+  <script is:inline set:html={script}></script>
+</Base>
+
+<style>
+.setup-page {
+  padding: 2rem 1rem 3rem;
+}
+
+.setup-page--zh {
+  font-family: "Avenir Next", "PingFang SC", "Noto Sans SC", "Microsoft YaHei", "Segoe UI", sans-serif;
+}
+
+@media (max-width: 720px) {
+  .setup-page {
+    padding: 1.5rem 0.75rem 2.5rem;
+  }
+}
+</style>

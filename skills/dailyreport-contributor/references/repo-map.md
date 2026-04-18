@@ -23,10 +23,10 @@ Use this reference when the task touches onboarding, extensions, sinks, or the g
 ## Astro site files
 
 - `astro/src/pages/` — route pages (index, daily/[date], weekly/[week], monthly/[month])
+- `astro/src/pages/setup/` — setup wizard Astro routes
 - `astro/src/components/` — card components (PaperCard, HNCard, RepoCard, …)
 - `astro/src/layouts/Base.astro` — HTML shell with NavBar and theme toggle
 - `astro/src/styles/global.css` — CSS design tokens
-- `astro/public/setup/` — setup wizard HTML
 - `astro/astro.config.mjs` — site base path and `__DATA_ROOT__` vite define
 
 ## Validation reminders

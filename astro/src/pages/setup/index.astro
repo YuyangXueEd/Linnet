@@ -1,0 +1,28 @@
+---
+import Base from '@/layouts/Base.astro';
+import { loadSetupWizard } from '@/utils/setupWizard';
+
+const { bodyHtml, css, script } = loadSetupWizard('en');
+---
+<Base
+  title="Setup Wizard"
+  description="Build your Linnet digest in five guided steps with the interactive setup wizard."
+>
+  <div class="setup-page">
+    <Fragment set:html={bodyHtml} />
+  </div>
+  <style is:inline set:html={css}></style>
+  <script is:inline set:html={script}></script>
+</Base>
+
+<style>
+.setup-page {
+  padding: 2rem 1rem 3rem;
+}
+
+@media (max-width: 720px) {
+  .setup-page {
+    padding: 1.5rem 0.75rem 2.5rem;
+  }
+}
+</style>

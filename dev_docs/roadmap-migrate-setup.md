@@ -110,9 +110,9 @@ Astro pages are confirmed to build and render correctly. `manual-config.md` stay
 
 ## Definition of done
 
-- [ ] Both setup pages are `.astro` files under `src/pages/setup/`
-- [ ] No standalone `<style>` CSS token block remains in either page
+- [x] Both setup pages are `.astro` files under `src/pages/setup/`
+- [x] No standalone `<style>` CSS token block remains in either page
 - [ ] Theme toggle in the navbar works on all four pages (index, daily, setup EN, setup ZH)
-- [ ] Old `public/setup/*.html` files deleted
-- [ ] Build passes, pre-commit passes
+- [x] Old `public/setup/*.html` files deleted
+- [x] Build passes, pre-commit passes
 - [ ] Deployed to `https://yuyangxueed.github.io/Linnet/setup/` and verified visually

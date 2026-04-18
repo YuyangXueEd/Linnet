@@ -82,10 +82,11 @@ docs/                Data store (NOT the served site)
 
 astro/               Astro v5 static site (served via GitHub Pages)
   src/pages/         Route pages (index, daily/[date], weekly/[week], monthly/[month])
+  src/pages/setup/   Setup wizard routes (English + Chinese)
   src/components/    Astro components (PaperCard, HNCard, RepoCard, WeatherBlock, …)
   src/layouts/       Base layout with NavBar and theme toggle
   src/styles/        global.css with design tokens (CSS variables)
-  public/            Static assets (favicon, setup wizard HTML)
+  public/            Static assets (favicon, manual setup guide)
   astro.config.mjs   Astro config — base: /Linnet, __DATA_ROOT__ vite define
   dist/              Build output → deployed to GitHub Pages (git-ignored)
 
