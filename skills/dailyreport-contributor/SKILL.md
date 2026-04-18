@@ -27,7 +27,7 @@ Use this skill for tasks such as:
 - adding or modifying a sink in `sinks/`
 - changing `config/sources.yaml` conventions or docs
 - updating `README.md`, `README_zh.md`, or setup documentation
-- changing generated-site templates in `templates/` or `publishers/`
+- changing Astro site components in `astro/src/` or `publishers/`
 - reviewing PR scope for extension, sink, setup, or public-site work
 
 ## Workflow
@@ -60,10 +60,10 @@ Sink work:
 
 Public-site work:
 
-- `docs/_config.yml`
-- `docs/_includes/head_custom.html`
-- `templates/*.md.j2`
-- `publishers/pages_publisher.py`
+- `astro/src/pages/` — route pages
+- `astro/src/components/` — card and layout components
+- `astro/src/styles/global.css` — design tokens
+- `astro/astro.config.mjs` — site base path and build config
 
 ### 2. Preserve the repo's architecture
 

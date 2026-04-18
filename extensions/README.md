@@ -80,21 +80,9 @@ REGISTRY = [
 ]
 ```
 
-### 4. Add a template and config block
+### 4. Add a config block
 
-Create `extensions/my_source/template.md.j2`. This file owns the section's markdown rendering and receives the current section as `sec`.
-
-```jinja2
-{% if sec["items"] %}
-<h2 id="{{ sec.key }}">{{ sec.icon }} {{ sec.title }} ({{ sec["items"]|length }})</h2>
-
-{% for item in sec["items"] %}
-- {{ item }}
-{% endfor %}
-{% endif %}
-```
-
-Then add it to `config/sources.yaml`:
+Add it to `config/sources.yaml`:
 
 ```yaml
 display_order:
@@ -142,12 +130,9 @@ python main.py --dry-run
 
 ## Built-in extensions
 
-Each extension is a package (`extensions/<name>/`) containing `__init__.py` (the extension class), `template.md.j2` (its section template), and usually `README.md` (docs specific to that extension).
+Each extension is a package (`extensions/<name>/`) containing `__init__.py` (the extension class) and usually `README.md` (docs specific to that extension).
 
-An extension may also provide optional page assets:
-
-- `head.html.j2` — CSS/JS tags injected into the rendered page when that section is present
-- `nav.md.j2` — extra navigation links for that section
+If your extension needs a custom card layout in the Astro site, add a component under `astro/src/components/` and register it in `SectionBlock.astro`. The default `GenericCard.astro` handles any unknown key automatically.
 
 | Package | Key | What it does |
 |---|---|---|
