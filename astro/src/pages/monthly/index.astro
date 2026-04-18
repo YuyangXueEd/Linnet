@@ -7,16 +7,18 @@ declare const __DATA_ROOT__: string;
 const DATA_DIR = resolve(__DATA_ROOT__, 'monthly');
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
+interface Entry { month: string; papers: number; days: number }
+
 const files = await readdir(DATA_DIR);
-const entries = await Promise.all(
+const entries: Entry[] = await Promise.all(
   files
-    .filter(f => /^\d{4}-\d{2}\.json$/.test(f))
+    .filter((f: string) => /^\d{4}-\d{2}\.json$/.test(f))
     .sort().reverse()
-    .map(async f => {
+    .map(async (f: string): Promise<Entry> => {
       const month = f.replace('.json', '');
       try {
-        const raw = await readFile(resolve(DATA_DIR, f), 'utf-8');
-        const d = JSON.parse(raw);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const d: any = JSON.parse(await readFile(resolve(DATA_DIR, f), 'utf-8'));
         return { month, papers: (d.top_papers ?? []).length, days: (d.daily_refs ?? []).length };
       } catch {
         return { month, papers: 0, days: 0 };
@@ -44,19 +46,8 @@ const entries = await Promise.all(
 </Base>
 
 <style>
-.archive-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 1rem;
-}
-.archive-card {
-  padding: 1.1rem 1.25rem;
-  text-decoration: none !important;
-  display: flex;
-  flex-direction: column;
-  gap: .35rem;
-  transition: box-shadow .15s, transform .15s;
-}
+.archive-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+.archive-card { padding: 1.1rem 1.25rem; text-decoration: none !important; display: flex; flex-direction: column; gap: .35rem; transition: box-shadow .15s, transform .15s; }
 .archive-card:hover { transform: translateY(-2px); }
 .archive-card__count { font-size: 1.4rem; font-weight: 800; color: var(--site-brand); line-height: 1; }
 .archive-card__sources { font-size: .76rem; color: var(--site-text-muted); font-family: "JetBrains Mono", monospace; }

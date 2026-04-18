@@ -8,33 +8,37 @@ declare const __DATA_ROOT__: string;
 const DATA_DIR = resolve(__DATA_ROOT__, 'daily');
 
 export async function getStaticPaths() {
-  declare const __DATA_ROOT__: string;
   const dir = resolve(__DATA_ROOT__, 'daily');
   const files = await readdir(dir);
   return files
-    .filter(f => /^\d{4}-\d{2}-\d{2}\.json$/.test(f))
-    .map(f => ({ params: { date: f.replace('.json', '') } }));
+    .filter((f: string) => /^\d{4}-\d{2}-\d{2}\.json$/.test(f))
+    .map((f: string) => ({ params: { date: f.replace('.json', '') } }));
 }
 
 const { date } = Astro.params;
-const raw = await readFile(resolve(DATA_DIR, `${date}.json`), 'utf-8');
-const data = JSON.parse(raw);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const data: any = JSON.parse(await readFile(resolve(DATA_DIR, `${date}.json`), 'utf-8'));
 
-const sections: Array<{key:string;payload_key?:string;title:string;icon?:string;items:Record<string,unknown>[];meta?:Record<string,unknown>}> =
-  data.sections_ordered ?? [];
+interface Section {
+  key: string;
+  payload_key?: string;
+  title: string;
+  icon?: string;
+  items: Record<string, unknown>[];
+  meta?: Record<string, unknown>;
+}
 
-const meta = data.meta ?? {};
-const generatedAt = data.generated_at
-  ? new Date(data.generated_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
-  : '';
+const sections: Section[] = data.sections_ordered ?? [];
+const meta: Record<string, unknown> = data.meta ?? {};
+const generatedAt: string = String(data.generated_at ?? '').slice(0, 10);
 
 const totalItems = sections.reduce((n, s) => n + (s.items?.length ?? 0), 0);
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 const allFiles = await readdir(DATA_DIR);
 const allDates = allFiles
-  .filter(f => /^\d{4}-\d{2}-\d{2}\.json$/.test(f))
-  .map(f => f.replace('.json', ''))
+  .filter((f: string) => /^\d{4}-\d{2}-\d{2}\.json$/.test(f))
+  .map((f: string) => f.replace('.json', ''))
   .sort();
 const idx = allDates.indexOf(date as string);
 const prevDate = idx > 0 ? allDates[idx - 1] : null;
@@ -42,7 +46,6 @@ const nextDate = idx < allDates.length - 1 ? allDates[idx + 1] : null;
 ---
 <Base title={`${date} Daily Digest`} description={`Linnet daily research digest for ${date}`}>
   <div class="page-wrap">
-    <!-- Hero -->
     <header class="digest-hero panel" style="margin-top:1.5rem;padding:1.5rem;">
       <div class="kicker">Daily issue</div>
       <h1 style="font-size:clamp(1.6rem,3vw,2.4rem);font-weight:800;letter-spacing:-0.03em;line-height:1.1;margin-bottom:.5rem;">
@@ -50,7 +53,7 @@ const nextDate = idx < allDates.length - 1 ? allDates[idx + 1] : null;
       </h1>
       <p style="color:var(--site-text-muted);font-size:.9rem;">
         {generatedAt && `Generated ${generatedAt}`}
-        {meta.llm_model && ` · ${meta.llm_model}`}
+        {meta.llm_model && ` · ${String(meta.llm_model)}`}
       </p>
       <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1rem;">
         <span class="chip chip--accent">{totalItems} items</span>
@@ -58,7 +61,6 @@ const nextDate = idx < allDates.length - 1 ? allDates[idx + 1] : null;
       </div>
     </header>
 
-    <!-- Mobile section nav -->
     <details class="section-nav-mobile panel" style="margin-top:1rem;padding:.75rem 1rem;">
       <summary style="cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--site-brand);">
         Jump to section
@@ -75,14 +77,12 @@ const nextDate = idx < allDates.length - 1 ? allDates[idx + 1] : null;
       </ul>
     </details>
 
-    <!-- Sections -->
     <div class="digest-body" style="margin-top:1.5rem;">
       {sections.map(section => (
         <SectionBlock section={section} />
       ))}
     </div>
 
-    <!-- Prev / Next -->
     <nav class="digest-nav panel" style="display:flex;justify-content:space-between;align-items:center;padding:1rem 1.25rem;margin:2rem 0 3rem;">
       {prevDate ? (
         <a href={`${base}/daily/${prevDate}/`} class="btn btn--secondary">← {prevDate}</a>
@@ -94,7 +94,6 @@ const nextDate = idx < allDates.length - 1 ? allDates[idx + 1] : null;
     </nav>
   </div>
 
-  <!-- Desktop floating section nav -->
   <aside class="section-nav-desktop panel" aria-label="Page sections">
     <p class="kicker" style="margin-bottom:.5rem;">Sections</p>
     <ul>
@@ -122,12 +121,10 @@ const nextDate = idx < allDates.length - 1 ? allDates[idx + 1] : null;
   scrollbar-width: thin;
   z-index: 30;
 }
-
 .section-nav-desktop ul { list-style: none; margin: 0; padding: 0; }
 .section-nav-desktop li { margin: .2rem 0; }
 .section-nav-desktop a { color: var(--site-text-muted); text-decoration: none; display: block; padding: .15rem 0; }
 .section-nav-desktop a:hover { color: var(--site-brand); }
-
 .section-nav-mobile { display: none; }
 
 @media (max-width: 1140px) {

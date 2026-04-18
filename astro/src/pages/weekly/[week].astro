@@ -9,17 +9,16 @@ declare const __DATA_ROOT__: string;
 const DATA_DIR = resolve(__DATA_ROOT__, 'weekly');
 
 export async function getStaticPaths() {
-  declare const __DATA_ROOT__: string;
   const dir = resolve(__DATA_ROOT__, 'weekly');
   const files = await readdir(dir);
   return files
-    .filter(f => /^\d{4}-W\d{2}\.json$/.test(f))
-    .map(f => ({ params: { week: f.replace('.json', '') } }));
+    .filter((f: string) => /^\d{4}-W\d{2}\.json$/.test(f))
+    .map((f: string) => ({ params: { week: f.replace('.json', '') } }));
 }
 
 const { week } = Astro.params;
-const raw = await readFile(resolve(DATA_DIR, `${week}.json`), 'utf-8');
-const data = JSON.parse(raw);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const data: any = JSON.parse(await readFile(resolve(DATA_DIR, `${week}.json`), 'utf-8'));
 
 const topPapers: unknown[] = data.top_papers ?? [];
 const newJobs: unknown[] = data.new_jobs ?? [];
@@ -29,7 +28,10 @@ const summaryZh: string = data.summary_zh ?? '';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 const allFiles = await readdir(DATA_DIR);
-const allWeeks = allFiles.filter(f => /^\d{4}-W\d{2}\.json$/.test(f)).map(f => f.replace('.json','')).sort();
+const allWeeks = allFiles
+  .filter((f: string) => /^\d{4}-W\d{2}\.json$/.test(f))
+  .map((f: string) => f.replace('.json', ''))
+  .sort();
 const idx = allWeeks.indexOf(week as string);
 const prevWeek = idx > 0 ? allWeeks[idx - 1] : null;
 const nextWeek = idx < allWeeks.length - 1 ? allWeeks[idx + 1] : null;
@@ -38,9 +40,7 @@ const nextWeek = idx < allWeeks.length - 1 ? allWeeks[idx + 1] : null;
   <div class="page-wrap" style="padding-top:1.5rem;padding-bottom:3rem;">
     <header class="panel" style="padding:1.5rem;margin-bottom:2rem;">
       <div class="kicker">Weekly issue</div>
-      <h1 style="font-size:clamp(1.6rem,3vw,2.4rem);font-weight:800;letter-spacing:-.03em;line-height:1.1;">
-        {week}
-      </h1>
+      <h1 style="font-size:clamp(1.6rem,3vw,2.4rem);font-weight:800;letter-spacing:-.03em;line-height:1.1;">{week}</h1>
       <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1rem;">
         <span class="chip chip--accent">{topPapers.length} papers</span>
         {newJobs.length > 0 && <span class="chip chip--warm">{newJobs.length} jobs</span>}
@@ -61,7 +61,7 @@ const nextWeek = idx < allWeeks.length - 1 ? allWeeks[idx + 1] : null;
       <section style="margin-bottom:2rem;">
         <div class="section-header"><span class="section-icon">🔥</span><h2>Trending Keywords</h2></div>
         <div style="display:flex;flex-wrap:wrap;gap:.5rem;">
-          {keywords.map(k => <span class="chip">{k}</span>)}
+          {keywords.map((k: string) => <span class="chip">{k}</span>)}
         </div>
       </section>
     )}
@@ -92,7 +92,7 @@ const nextWeek = idx < allWeeks.length - 1 ? allWeeks[idx + 1] : null;
       <section style="margin-bottom:2rem;">
         <div class="section-header"><span class="section-icon">📅</span><h2>Daily Issues This Week</h2></div>
         <div style="display:flex;flex-wrap:wrap;gap:.5rem;">
-          {dailyRefs.map(d => (
+          {dailyRefs.map((d: string) => (
             <a href={`${base}/daily/${d}/`} class="btn btn--secondary">{d}</a>
           ))}
         </div>
