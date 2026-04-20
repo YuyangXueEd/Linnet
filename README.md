@@ -5,84 +5,107 @@
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/downloads/)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/YuyangXueEd/linnet/pulls)
 
-
-
 [中文文档](README_zh.md)
 
-![Linnet hero](assets/hero.png)
+**Your personal AI morning briefing.** arXiv papers, Hacker News stories, GitHub trends, weather, and optional extras are collected overnight, summarised for you, and published as your own searchable digest site.
 
-**Your personal AI morning briefing — arXiv papers, HN stories, and GitHub trends, summarised overnight and waiting when you wake up.**
+Fork the repo, add one API key, and run it on GitHub Actions. No server, no subscription, no dashboard lock-in.
 
-Fork this repo, drop in one API key, and get your own searchable digest site running in under 5 minutes. No server, no subscription, no manual reading.
+**[Live example](https://yuyangxueed.github.io/Linnet)** · **[Setup Wizard (EN)](https://yuyangxueed.github.io/Linnet/setup/)** · **[设置向导 (中文)](https://yuyangxueed.github.io/Linnet/setup/zh/)** · **[Manual config guide](dev_docs/manual-config.md)**
 
-**[See a live example →](https://yuyangxueed.github.io/Linnet)** · **[Setup Wizard (EN) →](https://yuyangxueed.github.io/Linnet/setup/)** · **[设置向导 (中文) →](https://yuyangxueed.github.io/Linnet/setup/zh/)** · **[Manual config guide →](astro/public/setup/manual-config.md)**
+---
+
+## See the product first
+
+### Homepage
+
+![Linnet homepage screenshot](assets/homepage_screenshot.png)
+
+### Daily digest page
+
+![Linnet daily digest example](assets/daily.gif)
 
 ---
 
 ## What you get every morning
 
-| Core source | What it gives you |
+| Source | What it gives you |
 |---|---|
 | **arXiv** | New papers matching your keywords, with AI summaries |
 | **Hacker News** | High-signal AI/ML stories above your score threshold |
 | **GitHub Trending** | Trending repos in your area |
 | **Weather** | Today's forecast for your city |
 
-Optional sources such as postdoc jobs and supervisor-page monitoring are available through the extension system, but they are not required for most users.
+Optional sources such as postdoc jobs and supervisor-page monitoring live behind the extension system, but most users do not need them on day one.
 
-The setup wizard also offers locale-specific tagline extensions: **一言** (hitokoto.cn, Chinese briefings, no key) and **Quote of the Day** (API Ninjas, English briefings, requires `API_NINJAS_KEY`). The wizard shows only the one that matches your language.
+The setup wizard also exposes language-specific tagline extensions:
 
-Everything runs on GitHub Actions and publishes to GitHub Pages as your own searchable site.
+- `hitokoto` for Chinese briefings, no key required
+- `quote_of_day` for English briefings, requires `API_NINJAS_KEY`
 
-![Pipeline workflow](assets/workflow.png)
+Everything runs on GitHub Actions and publishes to GitHub Pages as your own site.
 
 ---
 
-## Get started in 5 simple steps
+## Fastest path to your own digest
 
-### 1. Create your copy of this repo
+### 1. Create your own repo from this template
 
-Click **Use this template → Create a new repository** on GitHub. This is the recommended path — your new repo has GitHub Actions enabled by default.
+Use **Use this template → Create a new repository** on GitHub.
 
-> **Forking instead?** Actions are disabled on forks by default. After forking, go to the **Actions** tab in your new repo and click **"I understand my workflows, go ahead and enable them"** before continuing. Without this step, nothing will run.
+If you fork instead, GitHub disables Actions by default. Open the **Actions** tab in your new repo and click **"I understand my workflows, go ahead and enable them"** before you continue.
 
-### 2. Add your API key
+### 2. Pick an LLM provider and add its secret
 
-If you prefer the manual path, go to **Settings → Secrets and variables → Actions → New repository secret** in your fork.
+If you use the wizard's manual path, add the secret in **Settings → Secrets and variables → Actions**.
 
-| Name | Value |
-|---|---|
-| `OPENROUTER_API_KEY` | Your key from [openrouter.ai/keys](https://openrouter.ai/keys) |
+| Provider preset | Default secret name | Notes |
+|---|---|---|
+| `OpenRouter` | `OPENROUTER_API_KEY` | Recommended fast path, one key for many models |
+| `OpenAI` | `OPENAI_API_KEY` | Direct OpenAI endpoint |
+| `Anthropic compat` | `ANTHROPIC_API_KEY` | OpenAI-compatible endpoint |
+| `Gemini compat` | `GEMINI_API_KEY` | OpenAI-compatible endpoint |
+| `Custom` | `LLM_API_KEY` | Any OpenAI-compatible gateway |
 
-If you use the wizard's GitHub one-click deploy in Step 6, you can paste the same key there instead of creating the secret manually.
-
-OpenRouter is the default fast path because one key can access many models. If you want to experiment with other OpenAI-compatible gateways later, start from the [manual config guide](astro/public/setup/manual-config.md).
+Step 3 of the wizard lets you change the secret name if you want a different convention. Step 6 will then use that same name for both the manual checklist and one-click deploy.
 
 ### 3. Enable GitHub Pages
 
-Go to **Settings → Pages → Source: GitHub Actions** (not "Deploy from a branch").
+Go to **Settings → Pages → Source: GitHub Actions**.
 
-### 4. Open the wizard and generate config
+### 4. Open the setup wizard
 
-Use the [Setup Wizard](https://yuyangxueed.github.io/Linnet/setup/) for the fast path. It walks through source selection, ordering, sink choices, and generated files for **your fork**. You can either stay on `Advanced manual config`, or choose `Connect GitHub` for one-click deploy in Step 6 to write files and secrets directly to your repository from the browser.
+Use the [Setup Wizard](https://yuyangxueed.github.io/Linnet/setup/) for the shortest path.
 
-If you want the browser-side `Connect GitHub` path, configure `PUBLIC_GITHUB_APP_CLIENT_ID` and `PUBLIC_GITHUB_APP_CLIENT_SECRET` for the Astro site first. The app will expose those values to the browser, so this path is intentionally marked experimental and includes a leakage warning in the UI.
+It handles:
 
-The quick-start flow uses OpenRouter with `OPENROUTER_API_KEY`. Advanced users can also edit models and `llm.base_url` in `config/sources.yaml`.
+- source selection and ordering
+- LLM provider, API key, and model choices in Step 3
+- theme and palette choices
+- optional sinks
+- generated files for your own fork
+- optional `Connect GitHub` one-click deploy in Step 6
 
-If you prefer to edit everything yourself, use [`astro/public/setup/manual-config.md`](astro/public/setup/manual-config.md) instead.
+If you want the browser-side `Connect GitHub` path, configure `PUBLIC_GITHUB_APP_CLIENT_ID` and `PUBLIC_GITHUB_APP_CLIENT_SECRET` for the Astro site first. That path remains intentionally marked experimental because those values are exposed to the browser.
 
 ### 5. Run the first workflow
 
-Go to **Actions → Daily Digest → Run workflow**.
+Open **Actions → Daily Digest → Run workflow**.
 
-Your site should be live in a few minutes.
+Your site should be live a few minutes later.
 
 ---
 
-## Read the config at a glance
+## Config mental model
 
-A small `sources.yaml` example is usually enough to understand the shape:
+The repo stays simple if you remember four things:
+
+1. `enabled: true/false` turns each source or sink on and off.
+2. `display_order` controls the section order in the final digest.
+3. `llm.provider`, `llm.base_url`, `llm.api_key_env`, and the two model IDs define how LLM calls are made.
+4. Detailed per-source settings live in `config/extensions/<name>.yaml`.
+
+Minimal example:
 
 ```yaml
 display_order:
@@ -106,55 +129,31 @@ hacker_news:
 language: "en"
 
 llm:
+  provider: "openrouter"
   scoring_model: "google/gemini-2.5-flash-lite-preview-09-2025"
   summarization_model: "google/gemini-2.5-flash-lite-preview-09-2025"
   base_url: "https://openrouter.ai/api/v1"
+  api_key_env: "OPENROUTER_API_KEY"
 ```
 
-Two key ideas:
-
-- `enabled: true/false` turns each source or sink on and off
-- `display_order` also controls the order those sections appear in the rendered digest
-
-Extension-specific settings such as weather city, arXiv filters, or GitHub Trending limits live in `config/extensions/<name>.yaml`.
-
-Keep the README mental model simple. Use the per-extension and per-sink docs for detailed options.
+If you want to hand-edit everything, start from [`dev_docs/manual-config.md`](dev_docs/manual-config.md).
 
 ---
 
-## Extensions: bring your own sources
+## Need more than the default setup?
 
-This project is built around an extension system.
+### Extensions
 
-- Built-in examples live in [`extensions/`](extensions/)
-- Detailed conventions live in [`extensions/README.md`](extensions/README.md)
-- Each extension's Astro-side metadata now lives in `extensions/<name>/meta.json`
-- Extension-specific options belong in each extension's own `README.md`
-- New extensions can be created by copying [`extensions/_template/`](extensions/_template/)
+- Built-in source plugins live in [`extensions/`](extensions/)
+- Shared conventions live in [`extensions/README.md`](extensions/README.md)
+- New extensions can start from [`extensions/_template/`](extensions/_template/)
 
-That means you do **not** need every built-in source. If you only want papers, HN, GitHub Trending, and weather, that is a perfectly normal setup.
+### Sinks
 
----
-
-## Sinks: optional delivery channels
-
-The website is the default output. Sinks are optional extra delivery channels.
-
-Current built-in sinks include:
-
-- `slack`
-- `serverchan`
-
-Sink-specific setup belongs in:
-
-- [`sinks/README.md`](sinks/README.md) for the shared sink model
-- `sinks/<name>/README.md` for each sink's own setup details
-
-Sinks are already standardized around the same pattern:
-
-- configure non-secret options in `sources.yaml`
-- keep credentials in GitHub Secrets or environment variables
-- add new sinks by copying [`sinks/_template/`](sinks/_template/)
+- The website is the default output
+- Optional delivery channels live in [`sinks/`](sinks/)
+- Shared sink conventions live in [`sinks/README.md`](sinks/README.md)
+- Secrets stay in GitHub Secrets or environment variables, not committed YAML
 
 Example:
 
@@ -167,21 +166,13 @@ sinks:
     max_github: 3
 ```
 
-More sinks are welcome, just like more extensions.
-
----
-
-## Schedules and timezones
-
-The default schedules live in:
+### Schedules and timezones
 
 - [`.github/workflows/daily.yml`](.github/workflows/daily.yml)
 - [`.github/workflows/weekly.yml`](.github/workflows/weekly.yml)
 - [`.github/workflows/monthly.yml`](.github/workflows/monthly.yml)
 
-GitHub Actions cron uses **UTC**. If you want different times, edit those cron lines directly in your fork.
-
-Source-specific time settings, such as the weather timezone, live in `config/sources.yaml`.
+GitHub Actions cron uses UTC. Edit those cron lines directly in your fork if you want different times.
 
 ---
 
@@ -191,7 +182,7 @@ Source-specific time settings, such as the weather timezone, live in `config/sou
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 
-export OPENROUTER_API_KEY=sk-or-...
+export OPENROUTER_API_KEY=sk-or-...   # or another env name that matches llm.api_key_env
 python main.py --mode daily
 python main.py --dry-run
 python main.py --mode weekly
@@ -206,79 +197,26 @@ PYTHONPATH=. pytest tests/ -q
 
 ---
 
-## Architecture
+## Contributing or using AI agents
 
-```text
-GitHub Actions (schedule)
-    │
-    ▼
-main.py  ──────────────────────────────────────────────────────────────
-    │
-    ├─► pipeline/config_loader.py   (loads sources.yaml + extension configs)
-    │
-    ├─► extensions/*/               (one per enabled source)
-    │       collector.py            fetch raw items  (no LLM)
-    │       summarizer.py           LLM summarisation
-    │       __init__.py             fetch → process → render → FeedSection
-    │
-    ├─► publishers/data_publisher.py
-    │       writes docs/data/daily/<date>.json
-    │              docs/data/weekly/<week>.json
-    │              docs/data/monthly/<month>.json
-    │
-    ├─► astro/  (Astro v5 static site, built by pages.yml)
-    │       src/pages/daily/[date].astro    reads JSON → HTML
-    │       src/pages/weekly/[week].astro
-    │       src/pages/monthly/[month].astro
-    │       src/components/                 PaperCard, HNCard, RepoCard, …
-    │       dist/                           deployed to GitHub Pages
-    │
-    └─► sinks/*/  (optional delivery channels, run after publish)
-            slack/__init__.py
-            serverchan/__init__.py
-```
+This repo is friendly to both human contributors and AI coding agents.
 
-## Project layout
-
-```text
-Linnet/
-├── extensions/   # data-source plugins (collector + summarizer + __init__)
-├── sinks/        # optional delivery channels
-├── config/       # sources.yaml + per-extension config examples
-├── pipeline/     # aggregator, config_loader, utils
-├── publishers/   # writes JSON to docs/data/
-├── docs/data/    # JSON written by pipeline (not the served site)
-├── astro/        # Astro v5 static site → GitHub Pages
-├── skills/       # packaged AI-assistant skills for contributors and users
-├── dev_docs/     # maintainer-focused docs
-└── main.py       # CLI entry point
-```
-
----
-
-## Using AI coding agents for contribution and setup
-
-This project actively encourages both contributors and end users to use AI agents for new extensions, sinks, and repo customization.
-
-Packaged skill folders now live in [`skills/`](skills/):
-
-- [`skills/linnet-contributor/SKILL.md`](skills/linnet-contributor/SKILL.md)
-- [`skills/linnet-config-customization/SKILL.md`](skills/linnet-config-customization/SKILL.md)
-
-Before asking an AI agent to make changes, point it at the repo guidance first:
+If you are modifying repo code or docs, start with:
 
 - [`llms.txt`](llms.txt)
 - [`extensions/llms.txt`](extensions/llms.txt)
 - [`sinks/llms.txt`](sinks/llms.txt)
-- [`extensions/README.md`](extensions/README.md)
-- [`sinks/README.md`](sinks/README.md)
-- the relevant packaged skill under [`skills/`](skills/)
+- [`skills/linnet-contributor/SKILL.md`](skills/linnet-contributor/SKILL.md)
 
-Suggested prompt:
+If you are mostly helping someone configure their own fork, start with:
+
+- [`dev_docs/manual-config.md`](dev_docs/manual-config.md)
+- [`skills/linnet-config-customization/SKILL.md`](skills/linnet-config-customization/SKILL.md)
+
+Suggested prompt for agents:
 
 ```text
-Please read llms.txt, extensions/llms.txt, sinks/llms.txt, extensions/README.md,
-sinks/README.md, and the relevant SKILL.md under skills/ before making changes or suggesting configuration edits.
+Please read llms.txt, extensions/llms.txt, sinks/llms.txt, and the relevant SKILL.md under skills/ before making changes or suggesting configuration edits.
 ```
 
 ---
@@ -287,28 +225,26 @@ sinks/README.md, and the relevant SKILL.md under skills/ before making changes o
 
 If you build an interesting setup, please share it in [Discussions](https://github.com/YuyangXueEd/linnet/discussions).
 
-For implementation problems, config help, extension ideas, or sink requests, use the issue templates in this repo.
+For implementation problems, config help, extension ideas, or sink requests, use the repo's issue templates.
 
 ---
 
 ## Support the project
 
-If this repo saves you time, helps you track your field, or gives you a good starting point for your own research dashboard, you can support it here:
+If this repo saves you time, helps you track your field, or gives you a strong starting point for your own briefing workflow, you can support it here:
 
 - [GitHub Sponsors](https://github.com/sponsors/yuyangxueed)
 - [Ko-fi](https://ko-fi.com/guesswhat_moe)
 
-Support is optional. I appreciate donations, but I value contributions, fixes, ideas, and new integrations even more.
+Support is optional. Contributions, fixes, ideas, and new integrations are just as valuable.
 
 ---
 
 ## Acknowledgements
 
-The public site is built with [Astro](https://astro.build/) — fast, modern static site generator with excellent GitHub Pages support.
+The public site is built with [Astro](https://astro.build/), which makes the GitHub Pages flow pleasantly simple.
 
-More broadly, I’m also grateful to the many open-source repositories, maintainers, and contributors whose ideas, patterns, and examples helped shape this repo.
-
-If you notice a project or repository that should be credited more explicitly, please open an issue or PR and I’ll gladly add it.
+This project also benefited from many open-source repositories, maintainers, and examples. If you notice a project that should be credited more explicitly, open an issue or PR and I will gladly add it.
 
 [![Star History Chart](https://api.star-history.com/svg?repos=YuyangXueEd/linnet&type=Date)](https://star-history.com/#YuyangXueEd/linnet&Date)
 

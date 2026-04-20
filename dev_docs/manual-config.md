@@ -20,8 +20,25 @@ In your forked repo go to: **Settings → Secrets and variables → Actions → 
 |---|---|
 | `OPENROUTER_API_KEY` | Your key from [openrouter.ai/keys](https://openrouter.ai/keys) — free tier works, starts with `sk-or-...` |
 
-This is the only required credential. [OpenRouter](https://openrouter.ai) lets you call many AI models
+This is the default fast-path credential. [OpenRouter](https://openrouter.ai) lets you call many AI models
 (Gemini, GPT, Claude) with one key and switch between them any time.
+
+If you prefer a different OpenAI-compatible provider, set these fields in [`config/sources.yaml`](../config/sources.yaml):
+
+```yaml
+llm:
+  provider: "openai"
+  base_url: "https://api.openai.com/v1"
+  api_key_env: "OPENAI_API_KEY"
+  scoring_model: "gpt-5-mini"
+  summarization_model: "gpt-5-mini"
+```
+
+Then export or store the matching secret name instead:
+
+```bash
+export OPENAI_API_KEY=sk-...
+```
 
 ---
 
@@ -96,7 +113,7 @@ hitokoto:
   enabled: false         # 一言 daily quote as briefing tagline (Chinese, no key needed)
 ```
 
-You can also switch AI models here, point `llm.base_url` at another OpenAI-compatible provider, or cap how many papers get fetched per day.
+You can also switch AI models here, set `llm.provider`, point `llm.base_url` at another OpenAI-compatible provider, change `llm.api_key_env`, or cap how many papers get fetched per day.
 
 ---
 

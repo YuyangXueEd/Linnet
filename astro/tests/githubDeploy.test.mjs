@@ -47,6 +47,20 @@ test('buildGitHubCallPreview includes contents and secrets endpoints', () => {
   ]);
 });
 
+test('buildGitHubCallPreview supports non-OpenRouter secret names', () => {
+  const preview = buildGitHubCallPreview({
+    owner: 'openai',
+    repo: 'linnet',
+    files: [{ path: 'config/sources.yaml', body: 'hello' }],
+    secrets: [{ name: 'OPENAI_API_KEY', value: 'secret' }],
+  });
+
+  assert.equal(
+    preview.at(-1),
+    'PUT /repos/openai/linnet/actions/secrets/OPENAI_API_KEY',
+  );
+});
+
 test('deployGeneratedConfig updates files and secrets serially', async () => {
   const calls = [];
   const responses = [

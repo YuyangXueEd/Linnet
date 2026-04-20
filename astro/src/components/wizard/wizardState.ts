@@ -7,6 +7,13 @@ export interface WizardState {
   currentStep: number;
   selectedKeys: string[];
   config: Record<string, Record<string, unknown>>;
+  llm: {
+    provider: string;
+    baseUrl: string;
+    apiKeyEnv: string;
+    scoringModel: string;
+    summarizationModel: string;
+  };
   arxiv: {
     presets: string[];
     customCategories: string[];
@@ -68,6 +75,13 @@ export function createInitialState(): WizardState {
     currentStep: 1,
     selectedKeys: ['weather', 'arxiv', 'hacker_news', 'github_trending'],
     config: {},
+    llm: {
+      provider: 'openrouter',
+      baseUrl: 'https://openrouter.ai/api/v1',
+      apiKeyEnv: 'OPENROUTER_API_KEY',
+      scoringModel: 'google/gemini-2.5-flash-lite-preview-09-2025',
+      summarizationModel: 'google/gemini-2.5-flash-lite-preview-09-2025',
+    },
     arxiv: {
       presets: ['ai_ml'],
       customCategories: [],
@@ -88,7 +102,7 @@ export function createInitialState(): WizardState {
     theme: {
       bgPreset: 'press',     customBg: '',
       accentPreset: 'robin', customAccent: '',
-      customDark: false,
+      customDark: true,
       darkBgPreset: 'ink',   customDarkBg: '',
       darkAccentPreset: 'robin', customDarkAccent: '',
     },

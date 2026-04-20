@@ -22,7 +22,7 @@ const STEP_BLURBS = locale === 'zh'
   ? [
       '选择应出现在你早间简报中的信息来源，并设定初始阅读顺序。',
       '只显示你选择的来源，方便逐一调整细节。',
-      '选择哪些内容应汇入每周和每月回顾摘要。',
+      '先确认 LLM provider / model，再决定哪些内容应汇入每周和每月回顾摘要。',
       '在不将密钥写入 YAML 的情况下启用推送通知。',
       '为摘要站点选择配色方案，保存于 sources.yaml 并在构建时应用。',
       '审查生成的文件、密钥提醒和后续操作，然后完成 GitHub 配置。',
@@ -30,7 +30,7 @@ const STEP_BLURBS = locale === 'zh'
   : [
       'Pick the sources that deserve space in your morning briefing and set the reading order.',
       'Only your chosen sources appear here, so you can tune each one without clutter.',
-      'Choose what should roll up into weekly and monthly summaries for slower review.',
+      'Set the LLM endpoint and then choose what should roll up into weekly and monthly summaries.',
       'Enable notifications without ever pasting secrets into YAML.',
       'Pick a colour palette for your digest site. Saved in sources.yaml and applied at build time.',
       'Review generated files, secret reminders, and next actions before the GitHub handoff.',
@@ -60,6 +60,9 @@ const patHint = locale === 'zh'
   : 'Fine-grained PAT with contents:write, metadata:read, actions:write, secrets:write — or a classic PAT with repo + workflow.';
 const patCreateLink = 'https://github.com/settings/personal-access-tokens/new';
 const patCreateLabel = locale === 'zh' ? '在 GitHub 创建 Token →' : 'Create token on GitHub →';
+const patInstructionLabel = locale === 'zh' ? '填写说明' : 'Instructions';
+const patInstructionTitle = locale === 'zh' ? '如何创建 GitHub PAT' : 'How to create a GitHub PAT';
+const patInstructionClose = locale === 'zh' ? '关闭' : 'Close';
 const connectStatusIdle = locale === 'zh'
   ? '尚未连接 GitHub。建议先连接，再开始填写向导。'
   : 'GitHub is not connected yet. Connect first if you want the one-click path.';
@@ -117,6 +120,7 @@ const connectSummaryIdle = locale === 'zh'
         <div class="wz-field__hint">
           {patHint}
           {' '}<a href={patCreateLink} target="_blank" rel="noopener">{patCreateLabel}</a>
+          {' · '}<button type="button" class="wz-hint-link" data-pat-instruction-btn>{patInstructionLabel}</button>
         </div>
       </div>
       <div class="wz-auth-actions">
@@ -197,9 +201,91 @@ const connectSummaryIdle = locale === 'zh'
 
 </div>
 
+<!-- ── PAT instruction dialog ─────────────────────────────── -->
+<dialog class="wz-dialog" id="wz-pat-dialog" aria-label={patInstructionTitle}>
+  <div class="wz-dialog__inner">
+    <div class="wz-dialog__header">
+      <h2 class="wz-dialog__title">{patInstructionTitle}</h2>
+      <button type="button" class="wz-dialog__close" data-pat-instruction-close aria-label={patInstructionClose}>✕</button>
+    </div>
+    <div class="wz-dialog__body">
+      {locale === 'zh' ? (
+        <>
+          <p class="wz-dialog__lead">前往 <a href={patCreateLink} target="_blank" rel="noopener">GitHub → Settings → Developer settings → Personal access tokens</a> 新建 Token，按以下步骤填写：</p>
+
+          <h3 class="wz-dialog__section-title">Fine-grained PAT（推荐）</h3>
+          <ol class="wz-dialog__steps">
+            <li><strong>Token name</strong>：填写一个描述性名称，例如 <code>linnet-deploy</code></li>
+            <li><strong>Expiration</strong>：建议选 90 天或更长</li>
+            <li><strong>Resource owner</strong>：选择你的账号（或 Org）</li>
+            <li><strong>Repository access</strong>：选 <em>Only select repositories</em>，然后勾选你的 Linnet fork</li>
+            <li><strong>Permissions</strong>（展开 Repository permissions）：
+              <ul class="wz-dialog__perms">
+                <li><code>Contents</code> → <strong>Read and write</strong></li>
+                <li><code>Metadata</code> → <strong>Read</strong>（强制自动勾选）</li>
+                <li><code>Actions</code> → <strong>Read and write</strong></li>
+                <li><code>Secrets</code> → <strong>Read and write</strong></li>
+              </ul>
+            </li>
+            <li>点击 <strong>Generate token</strong>，立即复制（仅显示一次）</li>
+          </ol>
+
+          <h3 class="wz-dialog__section-title">Classic PAT（操作更简单，权限范围更广）</h3>
+          <ol class="wz-dialog__steps">
+            <li><strong>Token name</strong>：例如 <code>linnet-deploy</code></li>
+            <li><strong>Expiration</strong>：自选</li>
+            <li><strong>Scopes</strong>：勾选 <code>repo</code>（全部子项）和 <code>workflow</code></li>
+            <li>点击 <strong>Generate token</strong>，立即复制（仅显示一次）</li>
+          </ol>
+        </>
+      ) : (
+        <>
+          <p class="wz-dialog__lead">Go to <a href={patCreateLink} target="_blank" rel="noopener">GitHub → Settings → Developer settings → Personal access tokens</a> and create a new token:</p>
+
+          <h3 class="wz-dialog__section-title">Fine-grained PAT (recommended)</h3>
+          <ol class="wz-dialog__steps">
+            <li><strong>Token name</strong> — something descriptive, e.g. <code>linnet-deploy</code></li>
+            <li><strong>Expiration</strong> — 90 days or longer recommended</li>
+            <li><strong>Resource owner</strong> — your account or org</li>
+            <li><strong>Repository access</strong> — choose <em>Only select repositories</em>, then pick your Linnet fork</li>
+            <li><strong>Permissions</strong> — expand <em>Repository permissions</em> and set:
+              <ul class="wz-dialog__perms">
+                <li><code>Contents</code> → <strong>Read and write</strong></li>
+                <li><code>Metadata</code> → <strong>Read</strong> (auto-selected, required)</li>
+                <li><code>Actions</code> → <strong>Read and write</strong></li>
+                <li><code>Secrets</code> → <strong>Read and write</strong></li>
+              </ul>
+            </li>
+            <li>Click <strong>Generate token</strong> and copy it immediately — it is shown only once</li>
+          </ol>
+
+          <h3 class="wz-dialog__section-title">Classic PAT (simpler, broader access)</h3>
+          <ol class="wz-dialog__steps">
+            <li><strong>Token name</strong> — e.g. <code>linnet-deploy</code></li>
+            <li><strong>Expiration</strong> — pick a duration</li>
+            <li><strong>Scopes</strong> — check <code>repo</code> (all sub-scopes) and <code>workflow</code></li>
+            <li>Click <strong>Generate token</strong> and copy immediately — shown only once</li>
+          </ol>
+        </>
+      )}
+    </div>
+  </div>
+</dialog>
+
 <script>
   import { initWizard } from './wizardController';
   initWizard();
+
+  const dialog = document.getElementById('wz-pat-dialog') as HTMLDialogElement | null;
+  document.querySelector('[data-pat-instruction-btn]')?.addEventListener('click', () => {
+    dialog?.showModal();
+  });
+  document.querySelector('[data-pat-instruction-close]')?.addEventListener('click', () => {
+    dialog?.close();
+  });
+  dialog?.addEventListener('click', (e) => {
+    if (e.target === dialog) dialog.close();
+  });
 </script>
 
 <style is:global>
@@ -1208,6 +1294,39 @@ const connectSummaryIdle = locale === 'zh'
 .wz-sink-fields { display: flex; flex-direction: column; gap: 16px; margin-top: 16px; }
 
 /* ── Theme presets ──────────────────────────────────────────── */
+.wz-theme-columns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  align-items: start;
+}
+
+.wz-theme-col {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  min-width: 0;
+}
+
+.wz-theme-col__label,
+.wz-theme-section__label {
+  font-family: var(--font-mono);
+  font-size: 0.63rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  font-weight: 700;
+}
+
+.wz-theme-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 20px;
+  border: 1px solid var(--rule);
+  background: var(--paper);
+}
+
 .wz-preset-row {
   display: flex;
   flex-wrap: wrap;
@@ -1250,6 +1369,8 @@ const connectSummaryIdle = locale === 'zh'
   border: 1px solid var(--preview-rule);
   padding: 18px;
   min-height: 240px;
+  display: flex;
+  flex-direction: column;
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
 }
 
@@ -1259,6 +1380,10 @@ const connectSummaryIdle = locale === 'zh'
   align-items: center;
   justify-content: space-between;
   gap: 10px;
+}
+
+.wz-theme-preview__footer {
+  margin-top: auto;
 }
 
 .wz-theme-preview__brand,
@@ -1500,6 +1625,127 @@ const connectSummaryIdle = locale === 'zh'
   font-style: italic;
 }
 
+/* ── Hint inline link/button ────────────────────────────────── */
+.wz-hint-link {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  font-size: 0.8125rem;
+  color: var(--accent);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  font-style: italic;
+}
+.wz-hint-link:hover { opacity: 0.75; }
+
+/* ── PAT instruction dialog ─────────────────────────────────── */
+.wz-dialog {
+  border: 1px solid var(--rule);
+  background: var(--paper);
+  color: var(--ink);
+  padding: 0;
+  max-width: 560px;
+  width: calc(100vw - 32px);
+  max-height: 80vh;
+  overflow: hidden;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.18);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+}
+.wz-dialog[open] {
+  display: flex;
+  flex-direction: column;
+}
+.wz-dialog::backdrop {
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(2px);
+}
+.wz-dialog__inner {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  height: 100%;
+}
+.wz-dialog__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid var(--rule);
+  flex-shrink: 0;
+}
+.wz-dialog__title {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin: 0;
+}
+.wz-dialog__close {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  color: var(--ink-muted);
+  cursor: pointer;
+  padding: 4px 8px;
+  line-height: 1;
+}
+.wz-dialog__close:hover { color: var(--ink); }
+.wz-dialog__body {
+  padding: 20px 24px 24px;
+  overflow-y: auto;
+  flex: 1;
+}
+.wz-dialog__lead {
+  font-size: 0.875rem;
+  color: var(--ink-soft);
+  line-height: 1.65;
+  margin: 0 0 20px;
+}
+.wz-dialog__lead a { color: var(--accent); }
+.wz-dialog__section-title {
+  font-family: var(--font-display);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 20px 0 10px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--rule-soft);
+}
+.wz-dialog__section-title:first-of-type { margin-top: 0; }
+.wz-dialog__steps {
+  margin: 0;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 0.875rem;
+  color: var(--ink-soft);
+  line-height: 1.6;
+}
+.wz-dialog__steps strong { color: var(--ink); }
+.wz-dialog__steps code {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  background: var(--bg-deep);
+  padding: 1px 5px;
+  border: 1px solid var(--rule);
+}
+.wz-dialog__perms {
+  margin: 8px 0 0;
+  padding-left: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  list-style: disc;
+}
+
 /* ── Responsive ─────────────────────────────────────────────── */
 @media (max-width: 768px) {
   .wz-entry__bar {
@@ -1513,6 +1759,7 @@ const connectSummaryIdle = locale === 'zh'
   .wz-auth-actions { flex-direction: column; align-items: stretch; }
   .wz-step1-layout { grid-template-columns: 1fr; }
   .wz-step1-order { position: static; }
+  .wz-theme-columns { grid-template-columns: 1fr; }
   .wz-theme-preview-grid { grid-template-columns: 1fr; }
   .wz-schedule-table__head,
   .wz-schedule-row { grid-template-columns: 1fr; }

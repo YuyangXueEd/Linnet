@@ -1,271 +1,226 @@
 # Linnet — LLM context file
 
-Self-hosted daily research digest pipeline. Runs via GitHub Actions, outputs an
-Astro static site (GitHub Pages) and optional delivery sinks such as Slack and ServerChan.
+Self-hosted daily briefing pipeline. Runs on GitHub Actions, publishes an Astro static site to GitHub Pages, and can optionally push the digest through delivery sinks such as Slack and ServerChan.
 
 Source: https://github.com/YuyangXueEd/linnet
 License: MIT
 
 ---
 
-## Architecture overview
+## Fast path for agents
 
-```
-main.py  ──►  extensions/  ──►  pipeline/  ──►  publishers/  ──►  docs/data/
-              (fetch+process    (score,          (JSON payloads)      │
-               +render)         summarise)                       astro/  ──►  GitHub Pages
-                                                  sinks/  ──►  Slack / ServerChan
-```
+Pick the smallest relevant read order before editing:
 
-Entry point: `main.py`
-- `--mode daily`   — full pipeline, commits output to docs/
-- `--mode weekly`  — weekly rollup summary
-- `--mode monthly` — monthly rollup summary
-- `--dry-run`      — fetch only, zero LLM calls (for testing)
-- `--check-today`  — print compact status (used by Claude Code session hook)
+### If you are changing setup, onboarding, or docs
+1. `README.md` or `README_zh.md`
+2. `dev_docs/manual-config.md`
+3. `astro/src/pages/setup/index.astro` or `astro/src/pages/setup/zh/index.astro`
+4. `astro/src/components/wizard/`
+5. `skills/linnet-contributor/SKILL.md` or `skills/linnet-config-customization/SKILL.md`
 
----
+### If you are changing extensions
+1. `extensions/llms.txt`
+2. `extensions/README.md`
+3. `extensions/_template/`
+4. the target extension's `README.md` and code
 
-## Directory map
+### If you are changing sinks
+1. `sinks/llms.txt`
+2. `sinks/README.md`
+3. `sinks/_template/`
+4. the target sink's `README.md` and code
 
-```
-extensions/          Pluggable data source extensions (one package = one source)
-  base.py            BaseExtension ABC + FeedSection dataclass
-  __init__.py        REGISTRY list
-  README.md          Full extension guide
-  */meta.json        Astro-facing extension metadata for setup wizard + section registry
-  arxiv/             arXiv papers: fetch → score → summarise → enrich figures
-  hacker_news/       HN stories above score threshold
-  github_trending/   GitHub trending repos
-  weather/           Local weather via open-meteo
-  hitokoto/          Chinese daily quote from hitokoto.cn (locale: zh, no key needed)
-  quote_of_day/      English daily quote from API Ninjas (locale: en, requires API_NINJAS_KEY)
-  _template/         Starter template for new extensions
-  Each package contains __init__.py (extension class) + README.md (docs)
+### If you are changing pipeline/runtime behaviour
+1. `main.py`
+2. `pipeline/config_loader.py`
+3. `publishers/data_publisher.py`
+4. the affected extension or sink
+5. `tests/`
 
-collectors/          Low-level fetch/parse functions (used by extensions)
-  arxiv_collector.py      fetch_papers(), enrich_papers_with_figures()
-  hn_collector.py         fetch_stories()
-  github_trending_collector.py  fetch_github_trending()
-  jobs_collector.py       fetch_jobs() — used by offline jobs extension
-  supervisor_watcher.py   detect_changes() — used by offline supervisor extension
-
-pipeline/            Shared processing utilities
-  config_loader.py   load_sources(), load_keywords(), load_supervisors(),
-                     validate_sources(), validate_keywords()
-  scorer.py          score_papers() — LLM batch scoring, returns filtered list
-  summarizer.py      summarize_papers/hn_stories/github_repos/jobs/supervisor_update()
-                     lang_instruction(lang) — builds language directive for prompts
-  aggregator.py      build_weekly_payload(), build_monthly_payload(),
-                     load_daily_jsons(), compute_keyword_frequency()
-
-publishers/
-  data_publisher.py  build_daily_payload(), write_daily/weekly/monthly_json()
-
-sinks/               Delivery layer (all disabled by default)
-  base.py            BaseSink ABC — enabled defaults False (opt-in)
-  __init__.py        SINK_REGISTRY list
-  README.md          Full sink guide
-  slack/             SlackSink — Block Kit via Incoming Webhook
-  serverchan/        ServerChanSink — Markdown digest via SendKey
-  _template/         Starter template for new sinks
-  Each package contains __init__.py (sink class) + README.md (docs)
-
-config/
-  sources.yaml       Enable/disable extensions, language, LLM models, sink config
-  extensions/
-    arxiv.yaml             arXiv categories/keywords/threshold
-    hacker_news.yaml       HN keywords and score thresholds
-    hitokoto.yaml          Hitokoto sentence type (locale: zh)
-    quote_of_day.yaml      API Ninjas quote category (locale: en)
-    postdoc_jobs.yaml      Job search routes and filters
-    supervisor_updates.yaml URLs to monitor
-
-docs/                Data store (NOT the served site)
-  data/daily/        Raw JSON payloads (YYYY-MM-DD.json)  ← pipeline writes here
-  data/weekly/       Weekly JSON payloads
-  data/monthly/      Monthly JSON payloads
-
-astro/               Astro v5 static site (served via GitHub Pages)
-  src/pages/         Route pages (index, daily/[date]/index, daily/[date]/arxiv, weekly, monthly)
-  src/pages/setup/   Setup wizard routes — index.astro (en), zh/index.astro (zh)
-  src/components/    Astro components (PaperCard, HNCard, RepoCard, WeatherBlock, Icon, …)
-  src/layouts/       Base layout with NavBar and theme toggle
-  src/styles/        global.css with design tokens (Fraunces/Source Serif/Inter, warm tan palette)
-  src/lib/registry.ts  Extension registry types + helpers, backed by generated metadata
-  src/lib/generatedExtensionRegistry.ts  Generated from extensions/*/meta.json
-  scripts/sync-extension-meta.mjs        Build-time generator for the Astro registry
-  Setup wizard GitHub auth envs: PUBLIC_GITHUB_APP_CLIENT_ID, PUBLIC_GITHUB_APP_CLIENT_SECRET
-  public/            Static assets (favicon, logo, manual setup guide)
-  astro.config.mjs   Astro config — base: /Linnet, __DATA_ROOT__ vite define
-  dist/              Build output → deployed to GitHub Pages (git-ignored)
-
-skills/              Public AI-assistant guidance and packaged skills
-  linnet-contributor/                      Packaged contributor skill (SKILL.md + references/)
-  linnet-config-customization/             Packaged setup/customization skill (SKILL.md + references/)
-
-tests/               Pytest suite (no live network or LLM calls)
-```
+Read `skills/linnet-contributor/SKILL.md` when editing the repo itself. Read `skills/linnet-config-customization/SKILL.md` when helping someone configure their fork.
 
 ---
 
-## Key data schemas
+## Product mental model
 
-### Daily payload (built by data_publisher.build_daily_payload)
-```python
-{
-  "date": "2026-04-15",
-  "generated_at": "2026-04-15T00:03:00+00:00",
-  "papers": [...],           # list of paper dicts (see below)
-  "hacker_news": [...],      # list of story dicts
-  "jobs": [...],             # list of job dicts
-  "supervisor_updates": [...],
-  "github_trending": [...],  # list of repo dicts
-  "meta": {
-    "papers_fetched": int,
-    "papers_after_keyword_filter": int,
-    "papers_after_llm_filter": int,
-    "llm_model": str,
-    "scoring_model": str,
-    "summarization_model": str,
-    "cost_usd": float,
-    "duration_seconds": int,
-  }
-}
-```
+- Primary product framing: `your personal AI morning briefing`
+- Main public entry point: the Astro setup wizard under `astro/src/pages/setup/`
+- Default output: a searchable digest site on GitHub Pages
+- Optional extras: delivery sinks, extra extensions, advanced prompt/model customization
+- Default LLM path: OpenRouter, but runtime supports any OpenAI-compatible endpoint through `llm.base_url` + `llm.api_key_env`
 
-### Paper dict (after full pipeline)
-```python
-{
-  "id": "2604.12345",
-  "title": str,
-  "authors": list[str],
-  "affiliations": list[str],
-  "categories": list[str],          # e.g. ["cs.CV", "eess.IV"]
-  "primary_category": str,
-  "primary_category_anchor": str,   # URL-safe slug
-  "url": str,                       # https://arxiv.org/abs/...
-  "score": float,                   # LLM relevance score 0–10
-  "abstract": str,                  # LLM-generated summary (in configured language)
-  "keywords_matched": list[str],
-  "figure_url": str | None,
-  "figure_caption": str | None,
-}
-```
-
-### HN story dict
-```python
-{
-  "id": int, "title": str, "url": str,
-  "score": int,           # HN points
-  "comments_url": str,
-  "summary": str,         # LLM one-liner
-}
-```
-
-### GitHub repo dict
-```python
-{
-  "full_name": str,        # "owner/repo"
-  "url": str,
-  "description": str,
-  "language": str,
-  "stars_today": int,
-  "total_stars": int,
-  "summary": str,          # LLM one-liner
-}
-```
+Keep the main user story simple. Advanced flexibility should stay available without dominating the first-run experience.
 
 ---
 
-## Extension contract
+## Core flow
 
-Every extension subclasses `BaseExtension` and implements:
-
-```python
-class MyExtension(BaseExtension):
-    key   = "my_source"   # matches config/sources.yaml key
-    title = "My Source"
-
-    def fetch(self) -> list[dict]: ...          # no LLM
-    def process(self, items) -> list[dict]: ... # LLM ok; check self.config.get("dry_run")
-    def render(self, items) -> FeedSection: ... # no network
+```text
+GitHub Actions schedule
+    │
+    ▼
+main.py
+    │
+    ├─► pipeline/config_loader.py      loads config/sources.yaml + extension config
+    ├─► extensions/*                   fetch -> process -> render per enabled source
+    ├─► publishers/data_publisher.py   writes JSON to docs/data/
+    ├─► astro/                         renders the site from JSON
+    └─► sinks/*                        optional post-publish delivery
 ```
 
-`self.config` keys injected by orchestrator:
-- `enabled` — bool
-- `language` — BCP-47 code, e.g. "en"
-- `llm_scoring_model` — model name string
-- `llm_summarization_model` — model name string
-- `dry_run` — bool; when True skip all LLM calls
+Important separation:
 
-`self.llm` — OpenAI-compatible client (OpenRouter); use for chat completions.
+- `fetch()` should not call LLMs
+- `process()` may score/summarize with the configured LLM
+- `render()` should package output for publishing, not fetch new data
 
 ---
 
-## Sink contract
+## Repo map
 
-```python
-class MySink(BaseSink):
-    key = "my_sink"   # matches sinks.my_sink in sources.yaml
+### Runtime and config
 
-    def deliver(self, payload: dict) -> None: ...
-```
+- `main.py` — CLI entry point, provider-aware OpenAI-compatible client setup
+- `config/sources.yaml` — top-level source toggles, language, LLM, sinks
+- `config/extensions/*.yaml` — per-source detail config
+- `pipeline/config_loader.py` — loads and validates config
+- `pipeline/summarizer.py` — shared summary/scoring prompt helpers
+- `pipeline/aggregator.py` — weekly/monthly rollups
 
-`enabled` defaults to `False` (opt-in). Credentials via `os.environ` only.
-Sink exceptions are caught by orchestrator — they do not abort the pipeline.
+### Extensions
 
----
+- `extensions/` — source plugins
+- `extensions/__init__.py` — extension registry
+- `extensions/*/meta.json` — Astro-facing setup metadata
+- `extensions/_template/` — starter template for new sources
 
-## Config reference
+### Sinks
 
-### sources.yaml top-level keys
-| Key | Type | Notes |
-|---|---|---|
-| `language` | str | BCP-47; LLM outputs in this language |
-| `arxiv.enabled` | bool | |
-| `arxiv.max_papers_per_run` | int | Papers fetched before keyword filter |
-| `hacker_news.enabled` | bool | |
-| `github_trending.enabled` | bool | |
-| `github_trending.max_repos` | int | |
-| `llm.scoring_model` | str | OpenRouter model ID |
-| `llm.summarization_model` | str | OpenRouter model ID |
-| `llm.base_url` | str | Default: https://openrouter.ai/api/v1 |
-| `sinks.slack.enabled` | bool | Requires `SLACK_WEBHOOK_URL` env var |
-| `sinks.serverchan.enabled` | bool | Requires `SERVERCHAN_SENDKEY` env var |
-| `hitokoto.enabled` | bool | Chinese daily quote; locale: zh; no key required |
-| `quote_of_day.enabled` | bool | English daily quote; locale: en; requires `API_NINJAS_KEY` env var |
+- `sinks/` — optional delivery channels
+- `sinks/__init__.py` — sink registry
+- `sinks/_template/` — starter template for new sinks
 
-### keywords.yaml top-level keys
-| Key | Notes |
-|---|---|
-| `arxiv.categories` | arXiv category codes, e.g. cs.CV |
-| `arxiv.must_include` | At least one keyword must match title/abstract |
-| `arxiv.boost_keywords` | Raise score if matched |
-| `arxiv.llm_score_threshold` | Papers below this score (0–10) are dropped |
-| `hacker_news.min_score` | Minimum HN points |
-| `hacker_news.keywords` | At least one must appear in title |
+### Publishing and site
+
+- `publishers/data_publisher.py` — writes daily/weekly/monthly JSON payloads
+- `docs/data/` — generated JSON data store
+- `astro/src/pages/` — route pages
+- `astro/src/components/` — public UI components
+- `astro/src/components/wizard/` — live setup wizard UI and controller
+- `astro/src/lib/generatedExtensionRegistry.ts` — generated extension metadata for the site
+
+### Docs and agent guidance
+
+- `README.md` / `README_zh.md` — user-facing setup story
+- `dev_docs/manual-config.md` — manual setup path
+- `skills/` — packaged public skills for contributors and configurators
+- `superpowers/roadmap.md` — remaining product and engineering TODOs
 
 ---
 
-## LLM usage patterns
+## Config rules that matter
 
-All LLM calls use `self.llm.chat.completions.create(model=..., messages=[...])`.
-Language is injected via `lang_instruction(lang)` from `pipeline/summarizer.py`:
-- Returns `"in English"` for `lang="en"`
-- Returns `"in Chinese (Simplified)"` for `lang="zh"`, etc.
+### `sources.yaml`
 
-Scoring uses batch prompts (multiple papers per request) for efficiency.
-Summarisation is per-item.
+- `display_order` controls rendered section order
+- each source block uses `enabled`
+- `language` controls summary language
+- `llm.provider` is a label used by setup/docs
+- `llm.base_url` is the OpenAI-compatible API base URL
+- `llm.api_key_env` is the environment variable that stores the LLM API key
+- `llm.scoring_model` and `llm.summarization_model` are separate on purpose
+- `sinks.*` holds non-secret delivery config
+
+### Secrets
+
+- Keep API keys, tokens, and webhooks in environment variables or GitHub Actions secrets only
+- Do not commit secrets into YAML or example configs
+- Step 3 of the setup wizard owns provider choice, model choice, and secret naming
+- Step 6 should reflect the resolved `llm.api_key_env`, not a hard-coded provider name
+
+### Provider support
+
+- OpenRouter is the default fast path
+- OpenAI is directly supported
+- Anthropic and Gemini currently go through their OpenAI-compatible endpoints, not native SDK adapters
+- Custom OpenAI-compatible gateways should work as long as `base_url`, secret name, and model IDs are valid
 
 ---
 
-## Testing
+## Edit surfaces by task
+
+### Setup wizard or onboarding copy
+
+- `astro/src/pages/setup/index.astro`
+- `astro/src/pages/setup/zh/index.astro`
+- `astro/src/components/wizard/WizardShell.astro`
+- `astro/src/components/wizard/WizardStep*.astro`
+- `astro/src/components/wizard/wizardController.ts`
+- `astro/src/components/wizard/wizardState.ts`
+
+### Public-site design
+
+- `astro/src/components/`
+- `astro/src/layouts/`
+- `astro/src/styles/global.css`
+- `assets/`
+
+### Extension work
+
+- `extensions/<name>/`
+- `config/extensions/<name>.yaml`
+- `tests/`
+
+### Sink work
+
+- `sinks/<name>/`
+- `config/sources.yaml`
+- `tests/`
+
+### Docs work
+
+- `README.md`
+- `README_zh.md`
+- `dev_docs/manual-config.md`
+- `llms.txt`
+- `skills/`
+- `superpowers/roadmap.md`
+
+---
+
+## Validation
+
+Use the smallest useful check for the change:
+
+### Python/runtime
 
 ```bash
-PYTHONPATH=. pytest tests/ -q          # 54 tests, ~1s, no network/LLM
-python main.py --dry-run               # live fetch, zero LLM cost
+PYTHONPATH=. pytest tests/ -q
+python -m py_compile main.py
 ```
 
-Tests use fixtures from `tests/conftest.py`. No mocking of external APIs —
-tests cover parsing/filtering logic with inline fixture data only.
+### Astro/site
+
+```bash
+cd astro
+npm run check
+npm run build
+node --test tests/githubDeploy.test.mjs tests/githubAuth.test.mjs
+```
+
+### Quick hygiene
+
+```bash
+git diff --check
+rg -n "old_text|obsolete_path" .
+```
+
+---
+
+## Current important constraints
+
+- The setup wizard is now the real product entry point; keep it polished and aligned with the README story
+- The live setup flow is Astro component based; avoid reintroducing raw HTML wizard sources
+- Weekly/monthly rollups still deserve caution when changing extension-aware behaviour
+- Keep docs synchronized when setup, LLM, sink, or secret-handling behaviour changes
+- Prefer focused edits over broad refactors unless the task explicitly calls for restructuring

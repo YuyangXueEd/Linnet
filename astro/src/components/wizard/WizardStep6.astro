@@ -3,12 +3,12 @@ interface Props {
   locale: 'en' | 'zh';
 }
 const { locale } = Astro.props;
+const revokeLink = 'https://github.com/settings/tokens';
 
 const t = {
   nextHead:   locale === 'zh' ? '接下来的步骤' : 'Suggested next steps',
   manualHead: locale === 'zh' ? '手动配置清单' : 'Manual handoff checklist',
   manual1:    locale === 'zh' ? '将每个生成的代码块复制到你 fork 中对应的文件。' : 'Copy each generated block into the matching file in your fork.',
-  manual2:    locale === 'zh' ? '将 OPENROUTER_API_KEY 作为 GitHub Actions Secret 添加。' : 'Add OPENROUTER_API_KEY as a GitHub Actions secret.',
   manual3sc:  locale === 'zh' ? '如果启用了 Server酱，同时添加 SERVERCHAN_SENDKEY。' : 'If ServerChan is enabled, add SERVERCHAN_SENDKEY too.',
   manual3sl:  locale === 'zh' ? '如果启用了 Slack，同时添加 SLACK_WEBHOOK_URL。' : 'If Slack is enabled, add SLACK_WEBHOOK_URL too.',
   manual4:    locale === 'zh' ? '前往 Actions，运行一次 Daily Digest 以确认配置正常。' : 'Go to Actions and run Daily Digest once to confirm the setup.',
@@ -17,36 +17,19 @@ const t = {
   connectNeed: locale === 'zh' ? '当前还没有 GitHub 连接。请回到页面顶部，先选择 “Connect GitHub 一键部署” 并完成授权。' : 'GitHub is not connected yet. Go back to the top of the page, choose the Connect GitHub path, and finish authorization first.',
   connectedUsing: locale === 'zh' ? '当前正在使用已连接的 GitHub 会话。' : 'This deploy uses your connected GitHub session.',
   repoLabel:  locale === 'zh' ? '目标仓库' : 'Target repository',
-  repoHint:   locale === 'zh' ? '填写 owner/repo，或直接粘贴 GitHub 仓库 URL。已连接账号可在下拉建议里直接选。' : 'Use owner/repo, or paste the GitHub repository URL. If GitHub is connected, you can pick from the suggestions.',
-  openrouter: locale === 'zh' ? 'OPENROUTER_API_KEY' : 'OPENROUTER_API_KEY',
+  repoHint:   locale === 'zh'
+    ? '默认会优先选当前这个站点所在的仓库；你也可以手动填写 owner/repo，或直接粘贴 GitHub 仓库 URL。'
+    : 'By default this prefers the repository for the current site, but you can still enter owner/repo or paste a GitHub repository URL.',
   apiNinjas:  locale === 'zh' ? 'API_NINJAS_KEY' : 'API_NINJAS_KEY',
-  slack:      'SLACK_WEBHOOK_URL',
-  serverchan: 'SERVERCHAN_SENDKEY',
   previewHead: locale === 'zh' ? '将调用的 GitHub API' : 'GitHub API calls',
   deployBtn:  locale === 'zh' ? '部署到 GitHub' : 'Deploy to GitHub',
-  revoke:     locale === 'zh' ? '部署完成后，这个连接 token 仍会保留在当前浏览器会话中；如果是共享设备，记得断开连接。' : 'After deploy, the connected token stays in this browser session only. Disconnect it if you are on a shared device.',
+  revoke:     locale === 'zh' ? '部署完成后，这个连接 token 仍会保留在当前浏览器会话中；如果是共享设备，记得断开连接。也可以现在直接去 GitHub 撤销它：' : 'After deploy, the connected token stays in this browser session only. Disconnect it if you are on a shared device. You can also revoke it on GitHub now:',
+  revokeLinkLabel: locale === 'zh' ? '打开 token 设置' : 'Open token settings',
 };
 ---
 
 <div class="wz-step" data-step="6" aria-hidden="true">
-
-  <!-- Output blocks (populated by wizardController) -->
-  <div class="wz-stack" data-output-list>
-    {/* Rendered by wizardController.renderOutputs() */}
-  </div>
-
-  <!-- Sink secret reminders (shown by controller when sinks enabled) -->
-  <div data-sink-reminder-sc hidden class="wz-notice wz-notice--warn" style="margin-top:16px">
-    <strong>{locale === 'zh' ? '运行前请确认' : 'Before your first run'}</strong>
-    <div>{locale === 'zh' ? '将 SERVERCHAN_SENDKEY 作为 GitHub Actions Secret 添加。' : 'Add SERVERCHAN_SENDKEY as a GitHub Actions secret.'}</div>
-  </div>
-  <div data-sink-reminder-slack hidden class="wz-notice wz-notice--warn" style="margin-top:16px">
-    <strong>{locale === 'zh' ? '运行前请确认' : 'Before your first run'}</strong>
-    <div>{locale === 'zh' ? '将 SLACK_WEBHOOK_URL 作为 GitHub Actions Secret 添加。' : 'Add SLACK_WEBHOOK_URL as a GitHub Actions secret.'}</div>
-  </div>
-
-  <!-- One-click deploy -->
-  <div class="wz-card" style="margin-top:24px" data-connect-deploy-card>
+  <div class="wz-card" data-connect-deploy-card>
     <h3>{t.connectHead}</h3>
     <p class="wz-card__desc">{t.connectDesc}</p>
     <div class="wz-notice wz-notice--warn" data-github-connect-required hidden>
@@ -67,21 +50,9 @@ const t = {
     </div>
 
     <div class="wz-field-row" style="margin-top:8px">
-      <div class="wz-field">
-        <label for="deploy-openrouter">{t.openrouter}</label>
-        <input id="deploy-openrouter" type="password" data-deploy-secret="OPENROUTER_API_KEY" placeholder="sk-or-..." />
-      </div>
       <div class="wz-field" data-deploy-secret-row="API_NINJAS_KEY" hidden>
         <label for="deploy-api-ninjas">{t.apiNinjas}</label>
         <input id="deploy-api-ninjas" type="password" data-deploy-secret="API_NINJAS_KEY" placeholder="..." />
-      </div>
-      <div class="wz-field" data-deploy-secret-row="SLACK_WEBHOOK_URL" hidden>
-        <label for="deploy-slack">{t.slack}</label>
-        <input id="deploy-slack" type="password" data-deploy-secret="SLACK_WEBHOOK_URL" placeholder="https://hooks.slack.com/services/..." />
-      </div>
-      <div class="wz-field" data-deploy-secret-row="SERVERCHAN_SENDKEY" hidden>
-        <label for="deploy-serverchan">{t.serverchan}</label>
-        <input id="deploy-serverchan" type="password" data-deploy-secret="SERVERCHAN_SENDKEY" placeholder="SCT..." />
       </div>
     </div>
 
@@ -97,8 +68,26 @@ const t = {
     <div data-deploy-status hidden class="wz-notice wz-notice--info" style="margin-top:16px"></div>
     <div data-deploy-success hidden class="wz-notice wz-notice--success" style="margin-top:16px">
       <strong>{locale === 'zh' ? '部署已完成' : 'Deploy completed'}</strong>
-      <div>{t.revoke}</div>
+      <div>
+        {t.revoke}{' '}
+        <a href={revokeLink} target="_blank" rel="noopener">{t.revokeLinkLabel}</a>
+      </div>
     </div>
+  </div>
+
+  <!-- Output blocks (populated by wizardController) -->
+  <div class="wz-stack" data-output-list>
+    {/* Rendered by wizardController.renderOutputs() */}
+  </div>
+
+  <!-- Sink secret reminders (shown by controller when sinks enabled) -->
+  <div data-sink-reminder-sc hidden class="wz-notice wz-notice--warn" style="margin-top:16px">
+    <strong>{locale === 'zh' ? '运行前请确认' : 'Before your first run'}</strong>
+    <div>{locale === 'zh' ? '将 SERVERCHAN_SENDKEY 作为 GitHub Actions Secret 添加。' : 'Add SERVERCHAN_SENDKEY as a GitHub Actions secret.'}</div>
+  </div>
+  <div data-sink-reminder-slack hidden class="wz-notice wz-notice--warn" style="margin-top:16px">
+    <strong>{locale === 'zh' ? '运行前请确认' : 'Before your first run'}</strong>
+    <div>{locale === 'zh' ? '将 SLACK_WEBHOOK_URL 作为 GitHub Actions Secret 添加。' : 'Add SLACK_WEBHOOK_URL as a GitHub Actions secret.'}</div>
   </div>
 
   <!-- Next steps checklist -->
@@ -115,7 +104,11 @@ const t = {
     <strong>{t.manualHead}</strong>
     <ol class="wz-checklist">
       <li>{t.manual1}</li>
-      <li>{t.manual2}</li>
+      <li>
+        {locale === 'zh' ? '将 ' : 'Add '}
+        <code data-manual-llm-secret-name>OPENROUTER_API_KEY</code>
+        {locale === 'zh' ? ' 作为 GitHub Actions Secret 添加。' : ' as a GitHub Actions secret.'}
+      </li>
       <li>{t.manual3sc}</li>
       <li>{t.manual3sl}</li>
       <li>{t.manual4}</li>

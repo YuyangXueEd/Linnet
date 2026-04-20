@@ -5,122 +5,81 @@ description: This skill should be used when contributing code, docs, extensions,
 
 # Linnet Contributor
 
-## Overview
+Use this skill when you are editing the Linnet repository itself.
 
-Follow this skill when working on `Linnet` as a contributor. Build context from the repo's canonical guidance first, then make minimal edits that preserve the plugin-based architecture, secret-handling rules, and generated-site workflow.
+Do not use it as the main guide for "help me configure my fork" requests. For that, prefer `skills/linnet-config-customization/SKILL.md`.
 
-## Quick start
+## Quick routing
 
-1. Read `llms.txt` for the repo overview.
-2. Read `README.md` or `README_zh.md` for the user-facing setup story.
-3. If touching extensions, read `extensions/llms.txt` and `extensions/README.md`.
-4. If touching sinks, read `sinks/llms.txt`, `sinks/README.md`, and the sink-specific `README.md`.
-5. If touching setup/onboarding, read `docs/setup/manual-config.md` and the relevant setup page.
-6. Keep secrets in environment variables or GitHub Actions secrets, never in committed YAML.
-7. Read `references/repo-map.md` when a compact repo map is useful.
+Read the smallest relevant set before editing:
 
-## When to use this skill
+### Repo-wide or docs changes
+1. `llms.txt`
+2. `README.md` or `README_zh.md`
+3. `superpowers/roadmap.md` if the change might close tracked debt
 
-Use this skill for tasks such as:
+### Setup wizard or public-site changes
+1. `dev_docs/manual-config.md`
+2. `astro/src/pages/setup/index.astro` or `astro/src/pages/setup/zh/index.astro`
+3. `astro/src/components/wizard/`
 
-- adding or modifying an extension in `extensions/`
-- adding or modifying a sink in `sinks/`
-- changing `config/sources.yaml` conventions or docs
-- updating `README.md`, `README_zh.md`, or setup documentation
-- changing Astro site components in `astro/src/` or `publishers/`
-- reviewing PR scope for extension, sink, setup, or public-site work
+### Extension work
+1. `extensions/llms.txt`
+2. `extensions/README.md`
+3. `extensions/_template/`
+4. the target extension's code and `README.md`
 
-## Workflow
+### Sink work
+1. `sinks/llms.txt`
+2. `sinks/README.md`
+3. `sinks/_template/`
+4. the target sink's code and `README.md`
 
-### 1. Build repo context first
+Read `references/repo-map.md` when you want a compact map instead of opening many files.
 
-Read the smallest set of canonical files that fully explains the task. Prefer the repo's own docs over assumptions.
+## Repo rules to preserve
 
-Core entry points:
+- Keep extensions as self-contained source plugins
+- Keep sinks as optional delivery channels
+- Keep secrets in environment variables or GitHub Actions secrets, never in committed YAML
+- Keep the README focused on the user's mental model
+- Put deeper implementation detail in docs that live near the relevant code
 
-- `llms.txt`
-- `README.md`
-- `README_zh.md`
-- `main.py`
-- `config/sources.yaml`
+## Editing checklist
 
-Extension work:
+### If you change extensions
 
-- `extensions/llms.txt`
-- `extensions/README.md`
-- `extensions/_template/`
-- the target extension's own `README.md`
+1. Keep `fetch()` free of LLM calls
+2. Keep `process()` responsible for scoring, filtering, or summarisation
+3. Keep `render()` focused on packaging data into a `FeedSection`
+4. Register the extension in `extensions/__init__.py`
+5. Update tests and the extension's own docs
 
-Sink work:
+### If you change sinks
 
-- `sinks/llms.txt`
-- `sinks/README.md`
-- `sinks/_template/`
-- the target sink's own `README.md`
+1. Keep credentials in environment variables or GitHub Actions secrets
+2. Keep non-secret behaviour under `sinks:` in `config/sources.yaml`
+3. Register the sink in `sinks/__init__.py`
+4. Update tests and sink-specific docs
 
-Public-site work:
+### If you change setup or docs
 
-- `astro/src/pages/` — route pages
-- `astro/src/components/` — card and layout components
-- `astro/src/styles/global.css` — design tokens
-- `astro/astro.config.mjs` — site base path and build config
+1. Keep the setup wizard and README aligned
+2. Reflect current provider/secret behaviour accurately
+3. Update `llms.txt` or skills if the agent guidance changed
+4. Remove obsolete references when a migration is complete
 
-### 2. Preserve the repo's architecture
+## Validation
 
-Keep these rules intact:
+Run the smallest useful validation for the touched surface:
 
-- Treat extensions as self-contained source plugins.
-- Treat sinks as optional delivery channels.
-- Keep source/sink secrets out of YAML.
-- Keep README focused on user mental model, not exhaustive implementation detail.
-- Put detailed setup and implementation details in the relevant docs near the code.
+- Python/runtime: `PYTHONPATH=. pytest tests/ -q`, `python -m py_compile main.py`
+- Astro/site: `cd astro && npm run check`, `npm run build`, `node --test tests/githubDeploy.test.mjs tests/githubAuth.test.mjs`
+- Hygiene: `git diff --check`
 
-### 3. Follow extension conventions
+## Done means
 
-When building or updating an extension:
-
-1. Start from `extensions/_template/` when possible.
-2. Keep `fetch()` free of LLM calls.
-3. Keep `process()` responsible for scoring/filtering/summarisation.
-4. Keep `render()` focused on packaging output into a `FeedSection`.
-5. Register the extension in `extensions/__init__.py`.
-6. Add or update tests under `tests/`.
-7. Document extension-specific config in that extension's own `README.md`.
-
-### 4. Follow sink conventions
-
-When building or updating a sink:
-
-1. Start from `sinks/_template/` when possible.
-2. Keep credentials in environment variables or GitHub Actions secrets.
-3. Keep non-secret behaviour under `sinks:` in `config/sources.yaml`.
-4. Register the sink in `sinks/__init__.py`.
-5. Document setup in the sink's own `README.md`.
-
-### 5. Keep docs in sync
-
-When behaviour changes, update the closest user-facing or developer-facing docs in the same pass.
-
-Typical sync targets:
-
-- `README.md` / `README_zh.md`
-- `docs/setup/manual-config.md`
-- `extensions/README.md`
-- `sinks/README.md`
-- extension- or sink-specific `README.md`
-- `superpowers/roadmap.md` for tracked follow-up work
-
-### 6. Validate before finishing
-
-Run the smallest useful validation available for the change:
-
-- targeted lint checks for edited files
-- `PYTHONPATH=. pytest tests/ -q` when code paths changed
-- manual sanity checks for generated docs/templates when public-site output changed
-
-## Repo-specific reminders
-
-- `display_order` in `config/sources.yaml` affects rendered section order.
-- The public setup wizard is a generator for the visitor's own fork; treat demo-site safety and wording as important.
-- Weekly/monthly rollups still have extension-awareness debt; avoid assuming they are fully registry-driven.
-- Prefer focused edits to existing files over broad rewrites unless the task explicitly calls for restructuring.
+- the code or docs match current behaviour
+- nearby user-facing docs are updated in the same pass
+- no obsolete paths, files, or instructions remain because of your change
+- the relevant checks pass, or you explicitly state what could not be verified

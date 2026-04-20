@@ -39,18 +39,29 @@ from publishers.data_publisher import (
 from sinks import SINK_REGISTRY
 
 
-def get_openrouter_client(sources_cfg: dict) -> OpenAI:
-    api_key = os.environ.get("OPENROUTER_API_KEY", "")
+def get_llm_client(sources_cfg: dict) -> OpenAI:
+    llm_cfg = sources_cfg.get("llm", {})
+    api_key_env = llm_cfg.get("api_key_env", "OPENROUTER_API_KEY")
+    api_key = os.environ.get(api_key_env, "")
     if not api_key:
-        print("WARNING: OPENROUTER_API_KEY not set", file=sys.stderr)
-    return OpenAI(
-        api_key=api_key,
-        base_url=sources_cfg["llm"]["base_url"],
-        default_headers={
+        print(f"WARNING: {api_key_env} not set", file=sys.stderr)
+
+    base_url = llm_cfg["base_url"]
+    provider = llm_cfg.get("provider", "")
+    default_headers: dict[str, str] = {}
+    if provider == "openrouter" or "openrouter.ai" in base_url:
+        default_headers = {
             "HTTP-Referer": "https://github.com/YuyangXueEd/linnet",
             "X-OpenRouter-Title": "Linnet",
-        },
-    )
+        }
+
+    kwargs: dict[str, Any] = {
+        "api_key": api_key,
+        "base_url": base_url,
+    }
+    if default_headers:
+        kwargs["default_headers"] = default_headers
+    return OpenAI(**kwargs)
 
 
 def _build_extension_configs(sources: dict) -> dict[str, dict]:
@@ -91,7 +102,7 @@ def run_daily(sources: dict, dry_run: bool = False) -> None:
     if dry_run:
         print("DRY RUN — fetching data only, skipping all LLM calls.")
     start = time.time()
-    client = get_openrouter_client(sources)
+    client = get_llm_client(sources)
     configs = _build_extension_configs(sources)
     if dry_run:
         for cfg in configs.values():
@@ -146,7 +157,7 @@ def run_weekly() -> None:
     period = today.strftime("%Y-W%V")
 
     sources = load_sources()
-    client = get_openrouter_client(sources)
+    client = get_llm_client(sources)
     data_dir = str(Path(__file__).parent / "docs" / "data" / "daily")
 
     lang = sources.get("language", "en")
@@ -177,7 +188,7 @@ def run_monthly() -> None:
     period = today.strftime("%Y-%m")
 
     sources = load_sources()
-    client = get_openrouter_client(sources)
+    client = get_llm_client(sources)
     data_dir = str(Path(__file__).parent / "docs" / "data" / "daily")
 
     lang = sources.get("language", "en")

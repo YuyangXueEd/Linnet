@@ -5,7 +5,7 @@ Use this reference when helping with setup or customization.
 ## Main files
 
 - `README.md` / `README_zh.md` — high-level setup story and product framing
-- `astro/public/setup/manual-config.md` — step-by-step manual setup flow
+- `dev_docs/manual-config.md` — step-by-step manual setup flow
 - `config/sources.yaml` — source toggles, display order, language, models, prompt overrides, pages, sinks
 - `config/extensions/arxiv.yaml` — topic filters for arXiv
 - `config/extensions/hitokoto.yaml` — sentence type for Chinese daily quote (locale: zh)
@@ -24,8 +24,10 @@ Use this reference when helping with setup or customization.
 - `language` — output language (`en`, `zh`, etc. — also controls which locale the setup wizard shows)
 - `hitokoto.enabled` — locale: zh; no key required
 - `quote_of_day.enabled` — locale: en; requires `API_NINJAS_KEY` secret
+- `llm.provider` — setup-facing provider label
 - `llm.scoring_model` / `llm.summarization_model` — model selection
 - `llm.base_url` — OpenAI-compatible provider endpoint
+- `llm.api_key_env` — environment variable name for the provider key
 - `llm.prompts.*` — prompt overrides with documented placeholders only
 - `sinks.*` — optional delivery channel settings
 

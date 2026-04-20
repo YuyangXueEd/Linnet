@@ -5,79 +5,78 @@ description: This skill should be used when helping someone use, configure, or c
 
 # Linnet Config & Customization
 
-## Overview
+Use this skill when the task is mainly about helping someone set up or customize their own Linnet fork.
 
-Guide setup, configuration, and customization work for `Linnet`. Build context from the repo's own setup and config docs first. Prefer minimal edits to existing config and documentation instead of inventing new conventions.
+Do not use it as the main guide for contributor-facing repo edits. For implementation work inside the repo, prefer `skills/linnet-contributor/SKILL.md`.
 
-## Quick start
+## Read order
 
-1. Read `README.md` or `README_zh.md` for the user-facing setup story.
-2. Read `docs/setup/manual-config.md` for the step-by-step setup path.
-3. Read `config/sources.yaml` for global toggles, models, prompts, pages, and sinks.
-4. Read `config/extensions/*.yaml` for source-specific filters or keywords.
-5. Read `sinks/README.md` and the target sink's `README.md` if delivery changes are requested.
-6. Read `.github/workflows/daily.yml`, `weekly.yml`, and `monthly.yml` if schedule changes are requested.
-7. Read `references/config-map.md` when a compact map of the editable surfaces is needed.
+Start with the user-facing setup path first:
 
-## When to use this skill
+1. `README.md` or `README_zh.md`
+2. `dev_docs/manual-config.md`
+3. `config/sources.yaml`
+4. `config/extensions/*.yaml` for the relevant source
+5. `sinks/README.md` plus the relevant sink `README.md` if delivery changes are involved
+6. `.github/workflows/daily.yml`, `weekly.yml`, or `monthly.yml` if schedule changes are requested
 
-Use this skill for tasks such as:
+Read `references/config-map.md` when you want a compact config map.
 
-- helping someone fork and configure the repo for first use
-- enabling or disabling data sources
-- changing language, model IDs, or OpenAI-compatible `base_url`
-- editing `llm.prompts` overrides
-- changing topic filters under `config/extensions/`
-- enabling Slack or ServerChan delivery
-- adjusting workflow schedules or clarifying UTC timing
-- explaining what each major config block means
+## Explain the config in this order
 
-## Workflow
+1. `display_order` controls the rendered section order
+2. each source block uses `enabled`
+3. `language` controls the output language
+4. `llm.*` controls provider label, API base URL, secret name, model IDs, and prompt overrides
+5. `sinks.*` controls optional delivery channels
+6. workflow files control automation timing and all cron expressions are UTC
 
-### 1. Build the user's mental model first
+## Rules to preserve
 
-Explain the config in this order:
+- Keep secrets in environment variables or GitHub Actions secrets only
+- Do not move credentials into committed YAML
+- Keep optional features clearly optional
+- Prefer editing existing config keys over inventing new top-level config
+- Keep setup docs and wizard wording aligned with the actual generated config
 
-1. `display_order` controls rendered section order.
-2. Each top-level source block uses `enabled` to opt in or out.
-3. `language` controls summary language.
-4. `llm.*` controls provider endpoint, model choice, and optional prompt overrides.
-5. `sinks.*` controls optional delivery channels.
-6. `.github/workflows/*.yml` controls automation timing.
+## Common tasks
 
-### 2. Prefer safe, minimal changes
+### LLM changes
 
-Make focused edits to existing YAML or docs. Avoid introducing new top-level config keys unless the repository architecture truly requires them.
+- provider presets live in the setup wizard
+- `llm.base_url` and `llm.api_key_env` already support OpenAI-compatible endpoints
+- the chosen secret name must match the environment variable that actually exists
+- Step 6 deploy instructions should reflect the resolved provider config, not assume OpenRouter
 
-### 3. Preserve secret-handling rules
+### Source changes
 
-Keep API keys, webhook URLs, and tokens in environment variables or GitHub Actions secrets only. Do not move secrets into committed config files.
+- enable or disable sources in `config/sources.yaml`
+- adjust detail config in `config/extensions/<name>.yaml`
+- keep the default user story simple unless the user explicitly wants advanced customization
 
-### 4. Keep optional features clearly optional
+### Sink changes
 
-Present `postdoc_jobs`, `supervisor_updates`, and sinks as opt-in features. Keep the default user story centered on the core daily digest setup.
+- enable sinks under `sinks:`
+- keep webhook URLs and tokens out of the repo
+- check the sink-specific README for required env var names
 
-### 5. Keep docs in sync
+### Schedule changes
 
-When setup or config behaviour changes, update the nearest docs in the same pass. Typical sync targets:
+- edit the GitHub Actions workflow cron lines directly
+- explain UTC clearly when discussing run times
 
-- `README.md` / `README_zh.md`
-- `docs/setup/manual-config.md`
-- `sinks/README.md`
-- sink-specific `README.md`
-- `superpowers/roadmap.md` if the change closes a tracked follow-up
+## Validation
 
-### 6. Validate before finishing
+Use the smallest useful check for the scope:
 
-Run the smallest useful validation for the scope of the change:
+- review YAML structure and indentation
+- run targeted tests or diagnostics when behaviour changed
+- run `cd astro && npm run check` if setup copy or generated wizard content changed
+- mention anything you could not verify
 
-- targeted lint or diagnostics for edited files
-- manual sanity check of YAML structure and indentation
-- manual review of any workflow cron comment or timezone wording that changed
+## Done means
 
-## Repo-specific reminders
-
-- The public setup wizard is a generator for the visitor's own fork; treat wording and safety as important product behaviour.
-- `llm.base_url` already supports OpenAI-compatible endpoints; naming and docs should still stay clear for users.
-- `display_order` affects the final rendered page order.
-- Sinks are optional delivery channels and should not be required for the site to work.
+- the user can see which file or wizard step they need to touch
+- secret handling remains safe
+- docs match the real current setup flow
+- advanced options stay discoverable without complicating the default path

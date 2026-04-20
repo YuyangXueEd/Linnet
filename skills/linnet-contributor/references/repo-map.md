@@ -5,7 +5,7 @@ Use this reference when the task touches onboarding, extensions, sinks, or the g
 ## Canonical onboarding files
 
 - `README.md` / `README_zh.md` — user-facing story and setup path
-- `astro/public/setup/manual-config.md` — advanced manual configuration path
+- `dev_docs/manual-config.md` — advanced manual configuration path
 - `config/sources.yaml` — top-level source, sink, language, and model config
 
 ## Extension files
