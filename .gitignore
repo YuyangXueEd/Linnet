@@ -38,6 +38,7 @@ docs/monthly/
 skills-lock.json
 AGENTS.md
 .playwright/
+.playwright-cli/
 
 superpowers/
 

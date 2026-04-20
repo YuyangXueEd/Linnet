@@ -3,12 +3,9 @@ import { ARXIV_PROFILES } from '@/lib/arxivProfiles';
 import { createInitialState, DEFAULT_TOP_N, type WizardState } from './wizardState';
 import { buildGitHubCallPreview, deployGeneratedConfig, parseRepoInput } from './githubDeploy.js';
 import {
-  buildGitHubAppAuthorizeUrl,
-  createPkceChallenge,
-  createRandomVerifier,
-  exchangeGitHubAppCode,
   listAccessibleRepositories,
   getCurrentUser,
+  looksLikePat,
 } from './githubAuth.js';
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
@@ -89,8 +86,6 @@ interface GitHubRepoOption {
 
 interface GitHubSession {
   token: string;
-  expiresAt: number | null;
-  refreshToken?: string;
   repositories: GitHubRepoOption[];
   selectedRepo: string;
   user?: {
@@ -100,16 +95,9 @@ interface GitHubSession {
   };
 }
 
-interface PendingGitHubAuth {
-  state: string;
-  codeVerifier: string;
-  redirectUri: string;
-}
-
 type SetupMode = 'connect' | 'manual';
 
 const GITHUB_AUTH_SESSION_KEY = 'linnet-github-auth-v1';
-const GITHUB_AUTH_PENDING_KEY = 'linnet-github-auth-pending-v1';
 const WIZARD_SETUP_MODE_KEY = 'linnet-setup-mode-v1';
 
 const DEFAULT_POSTDOC_TERMS = ['machine learning', 'computer vision', 'medical imaging'];
@@ -648,10 +636,6 @@ export function initWizard(): void {
   const locale = (shell.dataset['locale'] ?? 'en') as 'en' | 'zh';
   const state  = createInitialState();
   if (locale === 'zh') state.global.language = 'zh';
-  const githubClientId = shell.dataset['githubClientId'] ?? '';
-  const githubClientSecret = shell.dataset['githubClientSecret'] ?? '';
-  const githubAuthConfigured = shell.dataset['githubAuthConfigured'] === 'true';
-
   const TOTAL_STEPS = 6;
 
   const blurbsRaw = shell.dataset['stepBlurbs'] ?? '[]';
@@ -679,6 +663,7 @@ export function initWizard(): void {
   const modePanels = qsa<HTMLElement>('[data-setup-mode-panel]', shell);
   const connectBtn = qs<HTMLButtonElement>('[data-github-connect-btn]', shell);
   const disconnectBtn = qs<HTMLButtonElement>('[data-github-disconnect-btn]', shell);
+  const patInput = qs<HTMLInputElement>('[data-github-pat-input]', shell);
   const authStatusEl = qs<HTMLElement>('[data-github-auth-status]', shell);
   const authSummaryEl = qs<HTMLElement>('[data-github-auth-summary]', shell);
   const repoOptionsEl = qs<HTMLDataListElement>('[data-deploy-repo-options]', shell);
@@ -688,12 +673,8 @@ export function initWizard(): void {
   const manualNextStepsEl = qs<HTMLElement>('[data-manual-next-steps]', shell);
   const connectNextStepsEl = qs<HTMLElement>('[data-connect-next-steps]', shell);
   let latestOutputs: OutputBlock[] = [];
-  let setupMode: SetupMode = loadJson<SetupMode>(WIZARD_SETUP_MODE_KEY) ?? (githubAuthConfigured ? 'connect' : 'manual');
+  let setupMode: SetupMode = loadJson<SetupMode>(WIZARD_SETUP_MODE_KEY) ?? 'connect';
   let githubSession = loadJson<GitHubSession>(GITHUB_AUTH_SESSION_KEY);
-  if (githubSession?.expiresAt && githubSession.expiresAt <= Date.now()) {
-    githubSession = null;
-    removeJson(GITHUB_AUTH_SESSION_KEY);
-  }
 
   // ── Navigation ──────────────────────────────────────────────
 
@@ -842,13 +823,9 @@ export function initWizard(): void {
         : 'You can still complete the wizard without connecting, but you will commit files and secrets yourself.';
       setAuthStatus(
         'info',
-        githubAuthConfigured
-          ? (locale === 'zh'
-              ? '尚未连接 GitHub。建议先连接，再开始填写向导。'
-              : 'GitHub is not connected yet. Connect first if you want the one-click path.')
-          : (locale === 'zh'
-              ? '当前站点尚未配置 GitHub App，因此这里只能使用手动模式。'
-              : 'This deployment does not have a GitHub App configured yet, so manual mode is the only option.'),
+        locale === 'zh'
+          ? '粘贴一个 fine-grained Personal Access Token 即可启用一键部署。Token 只保存在当前浏览器标签的 sessionStorage 中。'
+          : 'Paste a fine-grained Personal Access Token to enable one-click deploy. The token is kept only in this tab\u2019s sessionStorage.',
       );
     }
 
@@ -856,153 +833,46 @@ export function initWizard(): void {
     renderDeployPreview();
   }
 
-  async function beginGitHubConnect(): Promise<void> {
-    if (!githubAuthConfigured) {
+  async function connectWithPat(token: string): Promise<void> {
+    const trimmed = token.trim();
+    if (!trimmed) {
       setAuthStatus(
         'warn',
-        locale === 'zh'
-          ? '当前站点尚未配置 GitHub App，因此这里不能使用 Connect GitHub 一键部署。'
-          : 'This deployment does not have a GitHub App configured yet, so Connect GitHub is unavailable here.',
+        locale === 'zh' ? '请先粘贴 Personal Access Token。' : 'Please paste a Personal Access Token first.',
       );
       return;
     }
-
-    const stateToken = createRandomVerifier(48);
-    const codeVerifier = createRandomVerifier(64);
-    const codeChallenge = await createPkceChallenge(codeVerifier);
-    const redirectUri = `${window.location.origin}${window.location.pathname}`;
-    const pendingAuth: PendingGitHubAuth = {
-      state: stateToken,
-      codeVerifier,
-      redirectUri,
-    };
-    saveJson(GITHUB_AUTH_PENDING_KEY, pendingAuth);
+    if (!looksLikePat(trimmed)) {
+      setAuthStatus(
+        'warn',
+        locale === 'zh'
+          ? 'Token 格式不像 GitHub PAT（应以 github_pat_ 或 ghp_ 开头）。'
+          : 'Token does not look like a GitHub PAT (should start with github_pat_ or ghp_).',
+      );
+      return;
+    }
     setAuthStatus(
       'info',
-      locale === 'zh' ? '即将跳转到 GitHub 完成授权...' : 'Redirecting to GitHub for authorization...',
+      locale === 'zh' ? '正在校验 token 并读取仓库列表…' : 'Verifying token and loading repositories…',
     );
-    const authUrl = buildGitHubAppAuthorizeUrl({
-      clientId: githubClientId,
-      redirectUri,
-      state: stateToken,
-      codeChallenge,
-    });
-
-    // Open in popup
-    const width = 600;
-    const height = 750;
-    const left = window.screen.width / 2 - width / 2;
-    const top = window.screen.height / 2 - height / 2;
-    window.open(
-      authUrl,
-      'github-auth',
-      `width=${width},height=${height},left=${left},top=${top},status=no,resizable=yes,scrollbars=yes`
-    );
-
-    // Listen for success message from popup
-    const onMessage = (event: MessageEvent) => {
-      if (event.origin !== window.location.origin) return;
-      if (event.data === 'github-auth-success') {
-        window.removeEventListener('message', onMessage);
-        githubSession = loadJson<GitHubSession>(GITHUB_AUTH_SESSION_KEY);
-        renderGitHubSession();
-      }
-    };
-    window.addEventListener('message', onMessage);
-  }
-
-  async function finishGitHubConnectFromCallback(): Promise<void> {
-    const isPopup = window.opener && window.name === 'github-auth';
-
-    const params = new URLSearchParams(window.location.search);
-    const error = params.get('error');
-    const code = params.get('code');
-    const stateParam = params.get('state');
-    if (!error && !code) return;
-
-    const clearUrl = () => {
-      const cleanUrl = `${window.location.pathname}${window.location.hash}`;
-      if (!isPopup) {
-        window.history.replaceState({}, document.title, cleanUrl);
-      }
-    };
-
-    if (error) {
-      if (isPopup) {
-        window.close();
-      } else {
-        setAuthStatus(
-          'warn',
-          params.get('error_description')
-            ?? (locale === 'zh' ? 'GitHub 授权被取消。' : 'GitHub authorization was cancelled.'),
-        );
-      }
-      clearUrl();
-      removeJson(GITHUB_AUTH_PENDING_KEY);
-      return;
-    }
-
-    const pending = loadJson<PendingGitHubAuth>(GITHUB_AUTH_PENDING_KEY);
-    if (!pending || !code || !stateParam || pending.state !== stateParam) {
-      if (isPopup) {
-        window.close();
-      } else {
-        setAuthStatus(
-          'warn',
-          locale === 'zh'
-            ? 'GitHub 回跳状态校验失败，请重新发起连接。'
-            : 'GitHub callback state verification failed. Please start the connection again.',
-        );
-      }
-      clearUrl();
-      removeJson(GITHUB_AUTH_PENDING_KEY);
-      return;
-    }
-
     try {
-      if (!isPopup) {
-        setAuthStatus(
-          'info',
-          locale === 'zh' ? '正在交换 GitHub token 并读取可访问仓库...' : 'Exchanging the GitHub token and loading accessible repositories...',
-        );
-      }
-      const tokenResponse = await exchangeGitHubAppCode({
-        clientId: githubClientId,
-        clientSecret: githubClientSecret,
-        code,
-        redirectUri: pending.redirectUri,
-        codeVerifier: pending.codeVerifier,
-      });
-      const repositories = await listAccessibleRepositories({ token: tokenResponse.accessToken });
-      const user = await getCurrentUser({ token: tokenResponse.accessToken });
-
+      const user = await getCurrentUser({ token: trimmed });
+      const repositories = await listAccessibleRepositories({ token: trimmed });
       saveGitHubSession({
-        token: tokenResponse.accessToken,
-        expiresAt: tokenResponse.expiresIn ? Date.now() + (tokenResponse.expiresIn * 1000) : null,
-        refreshToken: tokenResponse.refreshToken,
+        token: trimmed,
         repositories,
         selectedRepo: repositories[0]?.fullName ?? '',
         user,
       });
-      clearUrl();
-      removeJson(GITHUB_AUTH_PENDING_KEY);
-
-      if (isPopup) {
-        window.opener.postMessage('github-auth-success', window.location.origin);
-        window.close();
-      } else {
-        renderGitHubSession();
-      }
+      if (patInput) patInput.value = '';
+      renderGitHubSession();
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error);
-      if (!isPopup) setAuthStatus('warn', message);
-      clearUrl();
-      removeJson(GITHUB_AUTH_PENDING_KEY);
-      if (isPopup) {
-        window.close();
-      } else {
-        saveGitHubSession(null);
-      }
+      setAuthStatus(
+        'warn',
+        (locale === 'zh' ? 'Token 校验失败：' : 'Token verification failed: ') + message,
+      );
+      saveGitHubSession(null);
     }
   }
 
@@ -1051,7 +921,14 @@ export function initWizard(): void {
   });
 
   connectBtn?.addEventListener('click', async () => {
-    await beginGitHubConnect();
+    await connectWithPat(patInput?.value ?? '');
+  });
+
+  patInput?.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      void connectWithPat(patInput.value);
+    }
   });
 
   disconnectBtn?.addEventListener('click', () => {
@@ -1532,7 +1409,7 @@ export function initWizard(): void {
   renderSetupMode();
   syncDeploySecretRows();
   renderGitHubSession();
-  void finishGitHubConnectFromCallback();
+  // PAT flow: no OAuth callback to process
   renderDeployPreview();
   showStep(1);
 }

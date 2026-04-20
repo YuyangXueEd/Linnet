@@ -2,8 +2,6 @@
 import Base from '@/layouts/Base.astro';
 import WizardShell from '@/components/wizard/WizardShell.astro';
 
-const githubClientId = import.meta.env.PUBLIC_GITHUB_APP_CLIENT_ID ?? '';
-const githubClientSecret = import.meta.env.PUBLIC_GITHUB_APP_CLIENT_SECRET ?? '';
 ---
 
 <Base
@@ -23,8 +21,6 @@ const githubClientSecret = import.meta.env.PUBLIC_GITHUB_APP_CLIENT_SECRET ?? ''
     <div class="setup-body">
       <WizardShell
         locale="en"
-        githubClientId={githubClientId}
-        githubClientSecret={githubClientSecret}
       />
     </div>
 

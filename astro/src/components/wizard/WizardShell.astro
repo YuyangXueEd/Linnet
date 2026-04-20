@@ -9,17 +9,10 @@ import WizardStep6 from './WizardStep6.astro';
 
 interface Props {
   locale: 'en' | 'zh';
-  githubClientId?: string;
-  githubClientSecret?: string;
 }
-const {
-  locale,
-  githubClientId = '',
-  githubClientSecret = '',
-} = Astro.props;
+const { locale } = Astro.props;
 
 const extensions = getExtensionsForLocale(locale);
-const githubAuthConfigured = Boolean(githubClientId && githubClientSecret);
 
 const STEPS = locale === 'zh'
   ? ['来源', '配置', '计划', '推送', '主题', '导出']
@@ -59,22 +52,20 @@ const manualModeMeta = locale === 'zh' ? '复制 YAML + 手动加 secrets' : 'Co
 const manualModeDesc = locale === 'zh'
   ? '继续使用生成的 YAML 和 secret 清单，手动提交到自己的仓库。'
   : 'Export YAML blocks and the secret checklist, then commit everything yourself.';
-const connectButtonLabel = locale === 'zh' ? '连接 GitHub（实验）' : 'Connect GitHub (experimental)';
+const connectButtonLabel = locale === 'zh' ? '连接' : 'Connect';
 const disconnectButtonLabel = locale === 'zh' ? '断开连接' : 'Disconnect';
-const connectUnavailable = locale === 'zh'
-  ? '当前站点尚未配置 GitHub App，因此这里只能使用手动模式。'
-  : 'This deployment does not have a GitHub App configured yet, so manual mode is the only option.';
-const connectTestHint = locale === 'zh'
-  ? '本地测试 Connect GitHub：在 astro/.env 中设置 PUBLIC_GITHUB_APP_CLIENT_ID 和 PUBLIC_GITHUB_APP_CLIENT_SECRET，然后重启 dev server。'
-  : 'To test Connect GitHub locally, set PUBLIC_GITHUB_APP_CLIENT_ID and PUBLIC_GITHUB_APP_CLIENT_SECRET in astro/.env and restart the dev server.';
+const patPlaceholder = locale === 'zh' ? '粘贴 Personal Access Token…' : 'Paste Personal Access Token…';
+const patHint = locale === 'zh'
+  ? '需要 contents:write、metadata:read、actions:write、secrets:write 权限的 Fine-grained PAT 或含 repo + workflow 的 Classic PAT。'
+  : 'Fine-grained PAT with contents:write, metadata:read, actions:write, secrets:write — or a classic PAT with repo + workflow.';
+const patCreateLink = 'https://github.com/settings/personal-access-tokens/new';
+const patCreateLabel = locale === 'zh' ? '在 GitHub 创建 Token →' : 'Create token on GitHub →';
 const connectStatusIdle = locale === 'zh'
   ? '尚未连接 GitHub。建议先连接，再开始填写向导。'
   : 'GitHub is not connected yet. Connect first if you want the one-click path.';
 const connectSummaryIdle = locale === 'zh'
   ? '未连接时，你仍然可以完成向导并导出配置，但需要自己提交文件和 secrets。'
   : 'You can still complete the wizard without connecting, but you will commit files and secrets yourself.';
-const leakageWarningLabel = locale === 'zh' ? '查看前端授权泄露风险说明' : 'Read the browser-side leakage warning';
-const leakageWarningHref = 'https://docs.github.com/en/enterprise-cloud@latest/apps/oauth-apps/building-oauth-apps/best-practices-for-creating-an-oauth-app';
 ---
 
 <div
@@ -82,9 +73,6 @@ const leakageWarningHref = 'https://docs.github.com/en/enterprise-cloud@latest/a
   data-locale={locale}
   data-wizard
   data-step-blurbs={JSON.stringify(STEP_BLURBS)}
-  data-github-client-id={githubClientId}
-  data-github-client-secret={githubClientSecret}
-  data-github-auth-configured={String(githubAuthConfigured)}
 >
 
   <section class="wz-entry">
@@ -98,7 +86,7 @@ const leakageWarningHref = 'https://docs.github.com/en/enterprise-cloud@latest/a
           type="button"
           class="wz-entry-chip"
           data-setup-mode-btn="connect"
-          aria-pressed={githubAuthConfigured ? 'true' : 'false'}
+          aria-pressed="true"
         >
           <span class="wz-entry-chip__title">{connectModeTitle}</span>
           <span class="wz-entry-chip__meta">{connectModeMeta}</span>
@@ -107,30 +95,29 @@ const leakageWarningHref = 'https://docs.github.com/en/enterprise-cloud@latest/a
           type="button"
           class="wz-entry-chip"
           data-setup-mode-btn="manual"
-          aria-pressed={githubAuthConfigured ? 'false' : 'true'}
+          aria-pressed="false"
         >
           <span class="wz-entry-chip__title">{manualModeTitle}</span>
           <span class="wz-entry-chip__meta">{manualModeMeta}</span>
         </button>
       </div>
     </div>
-    <div class="wz-card" data-setup-mode-panel="connect" hidden={!githubAuthConfigured}>
+    <div class="wz-card" data-setup-mode-panel="connect" hidden={false}>
       <h3>{connectModeTitle}</h3>
       <p class="wz-card__desc">{connectModeDesc}</p>
-      {!githubAuthConfigured && (
-        <div class="wz-notice wz-notice--warn">
-          <strong>{locale === 'zh' ? '本地测试前先配置环境变量' : 'Configure env vars before local testing'}</strong>
-          <div>{connectTestHint}</div>
+      <div class="wz-field">
+        <input
+          type="password"
+          class="wz-input"
+          data-github-pat-input
+          placeholder={patPlaceholder}
+          autocomplete="off"
+          spellcheck={false}
+        />
+        <div class="wz-field__hint">
+          {patHint}
+          {' '}<a href={patCreateLink} target="_blank" rel="noopener">{patCreateLabel}</a>
         </div>
-      )}
-      <div class="wz-notice wz-notice--warn">
-        <strong>{locale === 'zh' ? '泄露风险提醒' : 'Leakage warning'}</strong>
-        <div>
-          {locale === 'zh'
-            ? '这个实验版会在前端执行 GitHub 授权流程，因此 GitHub App 凭据不能像服务端那样安全保密。'
-            : 'This experimental path performs GitHub auth in the browser, so the GitHub App credentials cannot be protected like a server-side integration.'}
-        </div>
-        <a href={leakageWarningHref} target="_blank" rel="noopener">{leakageWarningLabel}</a>
       </div>
       <div class="wz-auth-actions">
         <button type="button" class="wz-btn wz-btn--primary" data-github-connect-btn>
@@ -140,11 +127,13 @@ const leakageWarningHref = 'https://docs.github.com/en/enterprise-cloud@latest/a
           {disconnectButtonLabel}
         </button>
       </div>
-      <div class="wz-notice wz-notice--info" data-github-auth-status>{connectStatusIdle}</div>
+      <div class="wz-notice wz-notice--info" data-github-auth-status>
+        {connectStatusIdle}
+      </div>
       <div class="wz-auth-summary" data-github-auth-summary>{connectSummaryIdle}</div>
     </div>
 
-    <div class="wz-card" data-setup-mode-panel="manual" hidden={githubAuthConfigured}>
+    <div class="wz-card" data-setup-mode-panel="manual" hidden={true}>
       <h3>{manualModeTitle}</h3>
       <p class="wz-card__desc">{manualModeDesc}</p>
       <div class="wz-notice wz-notice--info">
@@ -155,9 +144,6 @@ const leakageWarningHref = 'https://docs.github.com/en/enterprise-cloud@latest/a
             : 'You want to keep the original fork-and-run model and avoid keeping GitHub auth state in the browser.'}
         </div>
       </div>
-      {!githubAuthConfigured && (
-        <div class="wz-field__hint" style="margin-top:12px">{connectUnavailable}</div>
-      )}
     </div>
   </section>
 
