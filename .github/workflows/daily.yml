@@ -41,6 +41,7 @@ jobs:
           python -u main.py --mode daily 2>&1 | tee daily-pipeline.log
         env:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          API_NINJAS_KEY:     ${{ secrets.API_NINJAS_KEY }}
           PYTHONUNBUFFERED: "1"
           # ── Optional delivery sinks ──────────────────────────────────
           # Set these secrets in your repo to enable the corresponding sink.

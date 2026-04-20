@@ -39,6 +39,7 @@ jobs:
         run: python main.py --mode monthly
         env:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          API_NINJAS_KEY:     ${{ secrets.API_NINJAS_KEY }}
 
       - name: Commit and push monthly report
         run: |
