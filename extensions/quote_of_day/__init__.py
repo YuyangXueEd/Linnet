@@ -6,8 +6,7 @@ Falls back gracefully (empty items) when key is not set.
 """
 
 import os
-
-import requests
+import httpx
 
 from extensions.base import BaseExtension, FeedSection
 
@@ -28,23 +27,23 @@ class QuoteOfDayExtension(BaseExtension):
             params["category"] = category
 
         try:
-            resp = requests.get(
-                "https://api.api-ninjas.com/v1/quotes",
-                headers={"X-Api-Key": api_key},
-                params=params,
-                timeout=10,
-            )
-            resp.raise_for_status()
-            data = resp.json()
-            if isinstance(data, list) and data:
-                q = data[0]
-                return [
-                    {
-                        "quote": q.get("quote", ""),
-                        "author": q.get("author", ""),
-                        "category": q.get("category", ""),
-                    }
-                ]
+            with httpx.Client(timeout=10.0) as client:
+                resp = client.get(
+                    "https://api.api-ninjas.com/v1/quotes",
+                    headers={"X-Api-Key": api_key},
+                    params=params,
+                )
+                resp.raise_for_status()
+                data = resp.json()
+                if isinstance(data, list) and data:
+                    q = data[0]
+                    return [
+                        {
+                            "quote": q.get("quote", ""),
+                            "author": q.get("author", ""),
+                            "category": q.get("category", ""),
+                        }
+                    ]
         except Exception as exc:
             print(f"  {self.title}: fetch failed — {exc}")
         return []
