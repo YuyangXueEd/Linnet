@@ -5,7 +5,6 @@ categories:
   - eess.IV
 
 must_include:
-  - medical imaging
   - computer vision
   - vision language model
   - multimodal
