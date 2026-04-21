@@ -1,21 +1,15 @@
 {
   "date": "2026-04-21",
-  "generated_at": "2026-04-21T02:12:12.783255+00:00",
+  "generated_at": "2026-04-21T06:15:06.454626+00:00",
   "sections_ordered": [
     {
       "key": "quote_of_day",
       "payload_key": "quote_of_day",
       "title": "Words for the Morning",
       "icon": "✦",
-      "items": [
-        {
-          "quote": "When I was in college, I was debating to try my hand at show business, or to become a professor. I just thought of the risk of not going into show business and always wondering if I would've had a chance. Because that's where my real heart was.",
-          "author": "Steve Martin",
-          "category": "business"
-        }
-      ],
+      "items": [],
       "meta": {
-        "count": 1
+        "count": 0
       }
     },
     {
@@ -34,16 +28,16 @@
           "longitude": -0.12574,
           "timezone": "Europe/London",
           "forecast_date": "2026-04-21",
-          "condition": "Partly cloudy",
-          "weather_code": 2,
-          "temperature_c": 7.5,
-          "apparent_temperature_c": 4.0,
-          "temp_max_c": 13.5,
-          "temp_min_c": 7.4,
+          "condition": "Mainly clear",
+          "weather_code": 1,
+          "temperature_c": 7.4,
+          "apparent_temperature_c": 3.7,
+          "temp_max_c": 13.1,
+          "temp_min_c": 6.6,
           "humidity_pct": 77,
-          "wind_speed_kmh": 14.4,
+          "wind_speed_kmh": 15.5,
           "precipitation_probability_pct": 0,
-          "is_day": false,
+          "is_day": true,
           "sunrise": "2026-04-21T05:51",
           "sunset": "2026-04-21T20:06",
           "source": "Open-Meteo",
@@ -60,170 +54,12 @@
       "payload_key": "papers",
       "title": "arXiv Papers",
       "icon": "📄",
-      "items": [
-        {
-          "id": "2604.17937v1",
-          "title": "ContraPrompt: Contrastive Prompt Optimization via Dyadic Reasoning Trace Analysis",
-          "authors": [
-            "Rishav Rishav",
-            "Pushpak Pujari",
-            "Pushpendre Rastogi"
-          ],
-          "categories": [
-            "cs.AI"
-          ],
-          "abstract": "ContraPrompt optimizes prompts by analyzing the difference between a model's failed and successful chain-of-thought traces for the same input, a process termed dyadic reasoning trace analysis. This method captures optimization signals based on contrasting the complete intermediate reasoning processes, which prior methods miss by analyzing traces in isolation. The core contribution is an automated, agentic retry loop that generates this contrastive data without human labeling to extract effective reasoning rules.",
-          "url": "http://arxiv.org/abs/2604.17937v1",
-          "pdf_url": "https://arxiv.org/pdf/2604.17937v1",
-          "score": 7.0,
-          "figure_url": "https://arxiv.org/html/2604.17937v1/x1.png",
-          "figure_caption": "Monadic vs. dyadic trace analysis. Left : Prior methods consume one failed trace and produce a generic diagnosis with no positive target. Right: ContraPrompt consumes a trace pair ( τ − \\( \\tau^{-} \\) , τ + \\( \\tau^{+} \\) ) produced by the same model on the same input, identifying the inserted reasoning steps that carry the success (highlighted, steps 1’–3’). The extracted rule targets that specific step, not generic thoroughness.",
-          "primary_category": "cs.AI",
-          "primary_category_anchor": "cs-ai",
-          "primary_category_rank": 0
-        },
-        {
-          "id": "2604.18038v1",
-          "title": "First, Do No Harm (With LLMs): Mitigating Racial Bias via Agentic Workflows",
-          "authors": [
-            "Sihao Xing",
-            "Zaur Gouliev"
-          ],
-          "categories": [
-            "cs.AI",
-            "cs.CY"
-          ],
-          "abstract": "This paper investigates racial bias in five major LLMs across synthetic patient case generation and differential diagnosis ranking, using the EU AI Act as a governance framework. The core method involves structured prompting and evaluation against race-stratified epidemiological data and expert diagnoses. The contribution is demonstrating bias across models and showing that agentic workflows can mitigate this harm, with GPT-4.1 and DeepSeek V3 showing relative strengths in the respective tasks.",
-          "url": "http://arxiv.org/abs/2604.18038v1",
-          "pdf_url": "https://arxiv.org/pdf/2604.18038v1",
-          "score": 7.0,
-          "figure_url": "https://arxiv.org/html/2604.18038v1/figures/pipline.png",
-          "figure_caption": "Experimental Pipeline",
-          "primary_category": "cs.AI",
-          "primary_category_anchor": "cs-ai",
-          "primary_category_rank": 0
-        },
-        {
-          "id": "2604.17920v1",
-          "title": "Prompting Foundation Models for Zero-Shot Ship Instance Segmentation in SAR Imagery",
-          "authors": [
-            "Islam Mansour",
-            "Francescopaolo Sica",
-            "Michael Schmitt"
-          ],
-          "categories": [
-            "cs.AI",
-            "cs.LG",
-            "cs.CV"
-          ],
-          "abstract": "This paper introduces a zero-shot method for ship instance segmentation in SAR imagery by leveraging a pre-trained YOLOv11 detector to generate bounding boxes that prompt the Segment Anything Model 2 (SAM2). The core contribution is demonstrating that spatial constraints from a SAR-trained detector alone can effectively regularize SAM2's predictions, bridging the optical-SAR domain gap without requiring any mask annotations or fine-tuning of the foundation model.",
-          "url": "http://arxiv.org/abs/2604.17920v1",
-          "pdf_url": "https://arxiv.org/pdf/2604.17920v1",
-          "score": 7.0,
-          "figure_url": "https://arxiv.org/html/2604.17920v1/figures/workflow.drawio.png",
-          "figure_caption": "Two-stage detect-and-prompt framework. Stage 1: YOLOv11 detects ship instances and generates bounding box prompts. Stage 2: SAM2 produces zero-shot segmentation masks from these prompts.",
-          "primary_category": "cs.AI",
-          "primary_category_anchor": "cs-ai",
-          "primary_category_rank": 0
-        },
-        {
-          "id": "2604.17838v1",
-          "title": "Efficient Diffusion Models under Nonconvex Equality and Inequality constraints via Landing",
-          "authors": [
-            "Kijung Jeon",
-            "Michael Muehlebach",
-            "Molei Tao"
-          ],
-          "categories": [
-            "cs.LG",
-            "stat.ML",
-            "stat.CO"
-          ],
-          "abstract": "This paper introduces a unified framework for constrained diffusion models that efficiently handles nonconvex equality and inequality constraints throughout the sampling process. The core innovation is a computationally efficient \"landing mechanism\" that ensures feasibility without relying on costly projections or iterative solvers. This method, leveraging both overdamped and underdamped dynamics, significantly reduces simulation costs and improves mixing toward the prior distribution.",
-          "url": "http://arxiv.org/abs/2604.17838v1",
-          "pdf_url": "https://arxiv.org/pdf/2604.17838v1",
-          "score": 7.0,
-          "figure_url": "https://arxiv.org/html/2604.17838v1/x1.png",
-          "figure_caption": "Mean JSD on S 2 S^{2} flood versus trajectory length N N under the fixed T T . Cross mark ( × ) (\\( \\times \\)) indicates the smallest N N values after which projection failures no longer occur during the forward process.",
-          "primary_category": "cs.LG",
-          "primary_category_anchor": "cs-lg",
-          "primary_category_rank": 1
-        },
-        {
-          "id": "2604.17751v1",
-          "title": "HiP-LoRA: Budgeted Spectral Plasticity for Robust Low-Rank Adaptation",
-          "authors": [
-            "Lixian Chen",
-            "Jianhong Tan"
-          ],
-          "categories": [
-            "cs.LG",
-            "cs.CL"
-          ],
-          "abstract": "HiP-LoRA addresses LoRA's spectral interference by decomposing low-rank updates into a principal channel within the dominant singular subspace and a residual channel. It uses a singular-value-weighted budget on the principal channel to balance preserving pretrained knowledge with task adaptation. This spectrum-aware approach significantly reduces pretraining degradation and improves robustness compared to standard LoRA.",
-          "url": "http://arxiv.org/abs/2604.17751v1",
-          "pdf_url": "https://arxiv.org/pdf/2604.17751v1",
-          "score": 7.0,
-          "figure_url": "https://arxiv.org/html/2604.17751v1/x1.png",
-          "figure_caption": "Motivation of HiP-LoRA. Although LoRA updates are low-rank, their drift can still concentrate on dominant singular directions of the frozen pretrained weight, which may harm pretrained capabilities and reduce robustness under continual adaptation and adapter merging. HiP-LoRA addresses this by decomposing each update into a principal component regulated by a singular-value–weighted stability budget and a residual component that preserves adaptation capacity.",
-          "primary_category": "cs.LG",
-          "primary_category_anchor": "cs-lg",
-          "primary_category_rank": 1
-        },
-        {
-          "id": "2604.17862v1",
-          "title": "M100: An Orchestrated Dataflow Architecture Powering General AI Computing",
-          "authors": [
-            "Yan Xie",
-            "Changkui Mao",
-            "Changsong Wu",
-            "Chao Lu",
-            "Chao Suo"
-          ],
-          "categories": [
-            "cs.LG",
-            "cs.AR"
-          ],
-          "abstract": "The M100 is an orchestrated dataflow architecture designed by Li Auto to provide a performant and cost-effective solution for diverse AI inference tasks like Autonomous Driving and LLMs. Its core method involves a dataflow parallel design where compiler-architecture co-design critically manages data movement across time and space, not just computation. This approach contributes to improved system performance and reduced hardware complexity compared to traditional GPGPU or rigid DSA solutions.",
-          "url": "http://arxiv.org/abs/2604.17862v1",
-          "pdf_url": "https://arxiv.org/pdf/2604.17862v1",
-          "score": 7.0,
-          "figure_url": "https://arxiv.org/html/2604.17862v1/x1.png",
-          "figure_caption": "Computing blocks in M100, each composed of three computing elements.",
-          "primary_category": "cs.LG",
-          "primary_category_anchor": "cs-lg",
-          "primary_category_rank": 1
-        },
-        {
-          "id": "2604.18034v1",
-          "title": "SignDPO: Multi-level Direct Preference Optimisation for Skeleton-based Gloss-free Sign Language Translation",
-          "authors": [
-            "Muxin Pu",
-            "Xiao-Ming Wu",
-            "Mei Kuan Lim",
-            "Chun Yong Chong",
-            "Wei Li"
-          ],
-          "categories": [
-            "cs.CL",
-            "cs.CV"
-          ],
-          "abstract": "SignDPO introduces a novel multi-level Direct Preference Optimisation (DPO) framework for skeleton-based Sign Language Translation, moving beyond imitation-based methods. It addresses semantic drift by aligning the model based on structured preferences across spatial, temporal, and linguistic dimensions. This is achieved via hierarchical perturbation to generate non-preferred samples and a self-guiding mechanism that targets semantically salient skeletal regions for improved fine-grained alignment.",
-          "url": "http://arxiv.org/abs/2604.18034v1",
-          "pdf_url": "https://arxiv.org/pdf/2604.18034v1",
-          "score": 7.0,
-          "figure_url": "https://arxiv.org/html/2604.18034v1/x1.png",
-          "figure_caption": "Figure 1 . Challenges in capturing the multi-dimensional semantics of sign language. SLT requires modelling fine-grained spatial and temporal semantics, yet existing methods often overlook these cues, leading to lexically correct but semantically deficient translations.",
-          "primary_category": "cs.CL",
-          "primary_category_anchor": "cs-cl",
-          "primary_category_rank": 2
-        }
-      ],
+      "items": [],
       "meta": {
         "papers_fetched": 100,
-        "papers_after_keyword_filter": 57,
-        "papers_after_llm_filter": 7,
-        "count": 7
+        "papers_after_keyword_filter": 43,
+        "papers_after_llm_filter": 0,
+        "count": 0
       }
     },
     {
@@ -236,68 +72,77 @@
           "id": 47831621,
           "title": "GitHub's fake star economy",
           "url": "https://awesomeagents.ai/news/github-fake-stars-investigation/",
-          "score": 740,
+          "score": 760,
           "created_at": "2026-04-20T08:26:52Z",
           "comments_url": "https://news.ycombinator.com/item?id=47831621",
-          "summary": "GitHub is investigating a surge in fake stars used to artificially inflate project popularity, revealing a hidden economy of paid engagement."
+          "summary": "Story: summary generation failed."
         },
         {
           "id": 47834565,
           "title": "Qwen3.6-Max-Preview: Smarter, Sharper, Still Evolving",
           "url": "https://qwen.ai/blog?id=qwen3.6-max-preview",
-          "score": 545,
+          "score": 591,
           "created_at": "2026-04-20T14:05:34Z",
           "comments_url": "https://news.ycombinator.com/item?id=47834565",
-          "summary": "Alibaba Cloud has previewed Qwen3.6-Max, an updated large language model that demonstrates improved intelligence and performance while remaining under active development."
+          "summary": "Story: summary generation failed."
         },
         {
           "id": 47833247,
           "title": "Atlassian enables default data collection to train AI",
           "url": "https://letsdatascience.com/news/atlassian-enables-default-data-collection-to-train-ai-f71343d8",
-          "score": 504,
+          "score": 547,
           "created_at": "2026-04-20T12:23:39Z",
           "comments_url": "https://news.ycombinator.com/item?id=47833247",
-          "summary": "Atlassian has enabled the default collection of customer data to train its artificial intelligence models, prompting a change in user settings."
+          "summary": "Story: summary generation failed."
         },
         {
           "id": 47839951,
           "title": "AI Resistance: some recent anti-AI stuff that’s worth discussing",
           "url": "https://stephvee.ca/blog/artificial%20intelligence/ai-resistance-is-growing/",
-          "score": 319,
+          "score": 346,
           "created_at": "2026-04-20T20:19:13Z",
           "comments_url": "https://news.ycombinator.com/item?id=47839951",
-          "summary": "The tech news story discusses the growing resistance and various forms of pushback against artificial intelligence development and deployment."
+          "summary": "Story: summary generation failed."
         },
         {
           "id": 47835928,
           "title": "Deezer says 44% of songs uploaded to its platform daily are AI-generated",
           "url": "https://techcrunch.com/2026/04/20/deezer-says-44-of-songs-uploaded-to-its-platform-daily-are-ai-generated/",
-          "score": 301,
+          "score": 333,
           "created_at": "2026-04-20T15:41:02Z",
           "comments_url": "https://news.ycombinator.com/item?id=47835928",
-          "summary": "Deezer reports that nearly half of the music uploaded to its platform each day is now being generated by artificial intelligence."
+          "summary": "Story: summary generation failed."
         },
         {
           "id": 47831437,
           "title": "OpenClaw isn't fooling me. I remember MS-DOS",
           "url": "https://www.flyingpenguin.com/build-an-openclaw-free-secure-always-on-local-ai-agent/",
-          "score": 272,
+          "score": 284,
           "created_at": "2026-04-20T07:49:48Z",
           "comments_url": "https://news.ycombinator.com/item?id=47831437",
-          "summary": "The article details how to build an OpenClaw local AI agent, emphasizing its free, secure, and always-on nature, drawing a nostalgic comparison to MS-DOS."
+          "summary": "Story: summary generation failed."
         },
         {
           "id": 47835646,
           "title": "I prompted ChatGPT, Claude, Perplexity, and Gemini and watched my Nginx logs",
           "url": "https://surfacedby.com/blog/nginx-logs-ai-traffic-vs-referral-traffic",
-          "score": 125,
+          "score": 129,
           "created_at": "2026-04-20T15:22:01Z",
           "comments_url": "https://news.ycombinator.com/item?id=47835646",
-          "summary": "A researcher analyzed Nginx server logs to compare the traffic patterns and characteristics generated by interactions with various large language models like ChatGPT, Claude, Perplexity, and Gemini against traditional referral traffic."
+          "summary": "Story: summary generation failed."
+        },
+        {
+          "id": 47842021,
+          "title": "Even 'uncensored' models can't say what they want",
+          "url": "https://morgin.ai/articles/even-uncensored-models-cant-say-what-they-want.html",
+          "score": 126,
+          "created_at": "2026-04-20T22:43:29Z",
+          "comments_url": "https://news.ycombinator.com/item?id=47842021",
+          "summary": "Story: summary generation failed."
         }
       ],
       "meta": {
-        "count": 7
+        "count": 8
       }
     },
     {
@@ -311,90 +156,90 @@
           "url": "https://github.com/Fincept-Corporation/FinceptTerminal",
           "description": "FinceptTerminal is a modern finance application offering advanced market analytics, investment research, and economic data tools, designed for interactive exploration and data-driven decision-making in a user-friendly environment.",
           "stars_today": 3109,
-          "total_stars": 9695,
+          "total_stars": 10162,
           "language": "Python",
           "topics": [],
-          "summary": "FinceptTerminal is a modern finance application providing advanced market analytics, investment research, and economic data tools for interactive exploration and data-driven decision-making."
+          "summary": "Repo: summary generation failed."
         },
         {
           "full_name": "ruvnet/RuView",
           "url": "https://github.com/ruvnet/RuView",
           "description": "π RuView: WiFi DensePose turns commodity WiFi signals into real-time human pose estimation, vital sign monitoring, and presence detection — all without a single pixel of video.",
           "stars_today": 713,
-          "total_stars": 48255,
+          "total_stars": 48429,
           "language": "Rust",
           "topics": [],
-          "summary": "RuView is a WiFi-based system that transforms commodity WiFi signals into real-time human pose estimation, vital sign monitoring, and presence detection without using any video."
+          "summary": "Repo: summary generation failed."
         },
         {
           "full_name": "thunderbird/thunderbolt",
           "url": "https://github.com/thunderbird/thunderbolt",
           "description": "AI You Control: Choose your models. Own your data. Eliminate vendor lock-in.",
           "stars_today": 675,
-          "total_stars": 2853,
+          "total_stars": 2953,
           "language": "TypeScript",
           "topics": [],
-          "summary": "Thunderbolt is an AI platform enabling users to control their models and data, offering freedom from vendor lock-in by allowing model choice."
+          "summary": "Repo: summary generation failed."
         },
         {
           "full_name": "paperless-ngx/paperless-ngx",
           "url": "https://github.com/paperless-ngx/paperless-ngx",
           "description": "A community-supported supercharged document management system: scan, index and archive all your documents",
           "stars_today": 606,
-          "total_stars": 39456,
+          "total_stars": 39537,
           "language": "Python",
           "topics": [],
-          "summary": "Paperless-ngx is a community-supported document management system that allows users to scan, index, and archive all their documents efficiently."
+          "summary": "Repo: summary generation failed."
         },
         {
           "full_name": "tractorjuice/arc-kit",
           "url": "https://github.com/tractorjuice/arc-kit",
           "description": "Enterprise Architecture Governance & Vendor Procurement Toolkit",
           "stars_today": 329,
-          "total_stars": 1357,
+          "total_stars": 1407,
           "language": "HTML",
           "topics": [],
-          "summary": "Arc-Kit is an enterprise architecture governance and vendor procurement toolkit designed to streamline and manage architectural oversight and the acquisition of necessary technologies."
+          "summary": "Repo: summary generation failed."
         },
         {
           "full_name": "koala73/worldmonitor",
           "url": "https://github.com/koala73/worldmonitor",
           "description": "Real-time global intelligence dashboard. AI-powered news aggregation, geopolitical monitoring, and infrastructure tracking in a unified situational awareness interface",
           "stars_today": 316,
-          "total_stars": 50200,
+          "total_stars": 50447,
           "language": "TypeScript",
           "topics": [],
-          "summary": "WorldMonitor is a real-time global intelligence dashboard that uses AI to aggregate news, monitor geopolitics, and track infrastructure within a unified situational awareness interface."
+          "summary": "Repo: summary generation failed."
         },
         {
           "full_name": "openai/openai-agents-python",
           "url": "https://github.com/openai/openai-agents-python",
           "description": "A lightweight, powerful framework for multi-agent workflows",
           "stars_today": 905,
-          "total_stars": 23980,
+          "total_stars": 24112,
           "language": "Python",
           "topics": [],
-          "summary": "The `openai-agents-python` repository provides a lightweight, powerful framework for orchestrating complex multi-agent workflows using OpenAI capabilities."
+          "summary": "Repo: summary generation failed."
         },
         {
           "full_name": "deepseek-ai/DeepGEMM",
           "url": "https://github.com/deepseek-ai/DeepGEMM",
           "description": "DeepGEMM: clean and efficient FP8 GEMM kernels with fine-grained scaling",
           "stars_today": 109,
-          "total_stars": 6844,
+          "total_stars": 6882,
           "language": "Cuda",
           "topics": [],
-          "summary": "DeepGEMM provides clean and efficient FP8 General Matrix Multiplication (GEMM) kernels featuring fine-grained scaling for optimized performance."
+          "summary": "Repo: summary generation failed."
         },
         {
           "full_name": "pi-hole/pi-hole",
           "url": "https://github.com/pi-hole/pi-hole",
           "description": "A black hole for Internet advertisements",
           "stars_today": 196,
-          "total_stars": 57222,
+          "total_stars": 57377,
           "language": "Shell",
           "topics": [],
-          "summary": "Pi-hole is a DNS sinkhole that blocks ads and trackers across your entire network by acting as a DNS server for all connected devices."
+          "summary": "Repo: summary generation failed."
         }
       ],
       "meta": {
@@ -404,402 +249,89 @@
   ],
   "meta": {
     "papers_fetched": 100,
-    "papers_after_keyword_filter": 57,
-    "papers_after_llm_filter": 7,
+    "papers_after_keyword_filter": 43,
+    "papers_after_llm_filter": 0,
     "llm_model": "google/gemini-2.5-flash-lite-preview-09-2025",
     "scoring_model": "google/gemini-2.5-flash-lite-preview-09-2025",
     "summarization_model": "google/gemini-2.5-flash-lite-preview-09-2025",
-    "duration_seconds": 54
+    "duration_seconds": 334
   },
-  "quote_of_day": [
-    {
-      "quote": "When I was in college, I was debating to try my hand at show business, or to become a professor. I just thought of the risk of not going into show business and always wondering if I would've had a chance. Because that's where my real heart was.",
-      "author": "Steve Martin",
-      "category": "business"
-    }
-  ],
+  "quote_of_day": [],
   "hitokoto": [],
-  "arxiv": [
-    {
-      "id": "2604.17937v1",
-      "title": "ContraPrompt: Contrastive Prompt Optimization via Dyadic Reasoning Trace Analysis",
-      "authors": [
-        "Rishav Rishav",
-        "Pushpak Pujari",
-        "Pushpendre Rastogi"
-      ],
-      "categories": [
-        "cs.AI"
-      ],
-      "abstract": "ContraPrompt optimizes prompts by analyzing the difference between a model's failed and successful chain-of-thought traces for the same input, a process termed dyadic reasoning trace analysis. This method captures optimization signals based on contrasting the complete intermediate reasoning processes, which prior methods miss by analyzing traces in isolation. The core contribution is an automated, agentic retry loop that generates this contrastive data without human labeling to extract effective reasoning rules.",
-      "url": "http://arxiv.org/abs/2604.17937v1",
-      "pdf_url": "https://arxiv.org/pdf/2604.17937v1",
-      "score": 7.0,
-      "figure_url": "https://arxiv.org/html/2604.17937v1/x1.png",
-      "figure_caption": "Monadic vs. dyadic trace analysis. Left : Prior methods consume one failed trace and produce a generic diagnosis with no positive target. Right: ContraPrompt consumes a trace pair ( τ − \\( \\tau^{-} \\) , τ + \\( \\tau^{+} \\) ) produced by the same model on the same input, identifying the inserted reasoning steps that carry the success (highlighted, steps 1’–3’). The extracted rule targets that specific step, not generic thoroughness.",
-      "primary_category": "cs.AI",
-      "primary_category_anchor": "cs-ai",
-      "primary_category_rank": 0
-    },
-    {
-      "id": "2604.18038v1",
-      "title": "First, Do No Harm (With LLMs): Mitigating Racial Bias via Agentic Workflows",
-      "authors": [
-        "Sihao Xing",
-        "Zaur Gouliev"
-      ],
-      "categories": [
-        "cs.AI",
-        "cs.CY"
-      ],
-      "abstract": "This paper investigates racial bias in five major LLMs across synthetic patient case generation and differential diagnosis ranking, using the EU AI Act as a governance framework. The core method involves structured prompting and evaluation against race-stratified epidemiological data and expert diagnoses. The contribution is demonstrating bias across models and showing that agentic workflows can mitigate this harm, with GPT-4.1 and DeepSeek V3 showing relative strengths in the respective tasks.",
-      "url": "http://arxiv.org/abs/2604.18038v1",
-      "pdf_url": "https://arxiv.org/pdf/2604.18038v1",
-      "score": 7.0,
-      "figure_url": "https://arxiv.org/html/2604.18038v1/figures/pipline.png",
-      "figure_caption": "Experimental Pipeline",
-      "primary_category": "cs.AI",
-      "primary_category_anchor": "cs-ai",
-      "primary_category_rank": 0
-    },
-    {
-      "id": "2604.17920v1",
-      "title": "Prompting Foundation Models for Zero-Shot Ship Instance Segmentation in SAR Imagery",
-      "authors": [
-        "Islam Mansour",
-        "Francescopaolo Sica",
-        "Michael Schmitt"
-      ],
-      "categories": [
-        "cs.AI",
-        "cs.LG",
-        "cs.CV"
-      ],
-      "abstract": "This paper introduces a zero-shot method for ship instance segmentation in SAR imagery by leveraging a pre-trained YOLOv11 detector to generate bounding boxes that prompt the Segment Anything Model 2 (SAM2). The core contribution is demonstrating that spatial constraints from a SAR-trained detector alone can effectively regularize SAM2's predictions, bridging the optical-SAR domain gap without requiring any mask annotations or fine-tuning of the foundation model.",
-      "url": "http://arxiv.org/abs/2604.17920v1",
-      "pdf_url": "https://arxiv.org/pdf/2604.17920v1",
-      "score": 7.0,
-      "figure_url": "https://arxiv.org/html/2604.17920v1/figures/workflow.drawio.png",
-      "figure_caption": "Two-stage detect-and-prompt framework. Stage 1: YOLOv11 detects ship instances and generates bounding box prompts. Stage 2: SAM2 produces zero-shot segmentation masks from these prompts.",
-      "primary_category": "cs.AI",
-      "primary_category_anchor": "cs-ai",
-      "primary_category_rank": 0
-    },
-    {
-      "id": "2604.17838v1",
-      "title": "Efficient Diffusion Models under Nonconvex Equality and Inequality constraints via Landing",
-      "authors": [
-        "Kijung Jeon",
-        "Michael Muehlebach",
-        "Molei Tao"
-      ],
-      "categories": [
-        "cs.LG",
-        "stat.ML",
-        "stat.CO"
-      ],
-      "abstract": "This paper introduces a unified framework for constrained diffusion models that efficiently handles nonconvex equality and inequality constraints throughout the sampling process. The core innovation is a computationally efficient \"landing mechanism\" that ensures feasibility without relying on costly projections or iterative solvers. This method, leveraging both overdamped and underdamped dynamics, significantly reduces simulation costs and improves mixing toward the prior distribution.",
-      "url": "http://arxiv.org/abs/2604.17838v1",
-      "pdf_url": "https://arxiv.org/pdf/2604.17838v1",
-      "score": 7.0,
-      "figure_url": "https://arxiv.org/html/2604.17838v1/x1.png",
-      "figure_caption": "Mean JSD on S 2 S^{2} flood versus trajectory length N N under the fixed T T . Cross mark ( × ) (\\( \\times \\)) indicates the smallest N N values after which projection failures no longer occur during the forward process.",
-      "primary_category": "cs.LG",
-      "primary_category_anchor": "cs-lg",
-      "primary_category_rank": 1
-    },
-    {
-      "id": "2604.17751v1",
-      "title": "HiP-LoRA: Budgeted Spectral Plasticity for Robust Low-Rank Adaptation",
-      "authors": [
-        "Lixian Chen",
-        "Jianhong Tan"
-      ],
-      "categories": [
-        "cs.LG",
-        "cs.CL"
-      ],
-      "abstract": "HiP-LoRA addresses LoRA's spectral interference by decomposing low-rank updates into a principal channel within the dominant singular subspace and a residual channel. It uses a singular-value-weighted budget on the principal channel to balance preserving pretrained knowledge with task adaptation. This spectrum-aware approach significantly reduces pretraining degradation and improves robustness compared to standard LoRA.",
-      "url": "http://arxiv.org/abs/2604.17751v1",
-      "pdf_url": "https://arxiv.org/pdf/2604.17751v1",
-      "score": 7.0,
-      "figure_url": "https://arxiv.org/html/2604.17751v1/x1.png",
-      "figure_caption": "Motivation of HiP-LoRA. Although LoRA updates are low-rank, their drift can still concentrate on dominant singular directions of the frozen pretrained weight, which may harm pretrained capabilities and reduce robustness under continual adaptation and adapter merging. HiP-LoRA addresses this by decomposing each update into a principal component regulated by a singular-value–weighted stability budget and a residual component that preserves adaptation capacity.",
-      "primary_category": "cs.LG",
-      "primary_category_anchor": "cs-lg",
-      "primary_category_rank": 1
-    },
-    {
-      "id": "2604.17862v1",
-      "title": "M100: An Orchestrated Dataflow Architecture Powering General AI Computing",
-      "authors": [
-        "Yan Xie",
-        "Changkui Mao",
-        "Changsong Wu",
-        "Chao Lu",
-        "Chao Suo"
-      ],
-      "categories": [
-        "cs.LG",
-        "cs.AR"
-      ],
-      "abstract": "The M100 is an orchestrated dataflow architecture designed by Li Auto to provide a performant and cost-effective solution for diverse AI inference tasks like Autonomous Driving and LLMs. Its core method involves a dataflow parallel design where compiler-architecture co-design critically manages data movement across time and space, not just computation. This approach contributes to improved system performance and reduced hardware complexity compared to traditional GPGPU or rigid DSA solutions.",
-      "url": "http://arxiv.org/abs/2604.17862v1",
-      "pdf_url": "https://arxiv.org/pdf/2604.17862v1",
-      "score": 7.0,
-      "figure_url": "https://arxiv.org/html/2604.17862v1/x1.png",
-      "figure_caption": "Computing blocks in M100, each composed of three computing elements.",
-      "primary_category": "cs.LG",
-      "primary_category_anchor": "cs-lg",
-      "primary_category_rank": 1
-    },
-    {
-      "id": "2604.18034v1",
-      "title": "SignDPO: Multi-level Direct Preference Optimisation for Skeleton-based Gloss-free Sign Language Translation",
-      "authors": [
-        "Muxin Pu",
-        "Xiao-Ming Wu",
-        "Mei Kuan Lim",
-        "Chun Yong Chong",
-        "Wei Li"
-      ],
-      "categories": [
-        "cs.CL",
-        "cs.CV"
-      ],
-      "abstract": "SignDPO introduces a novel multi-level Direct Preference Optimisation (DPO) framework for skeleton-based Sign Language Translation, moving beyond imitation-based methods. It addresses semantic drift by aligning the model based on structured preferences across spatial, temporal, and linguistic dimensions. This is achieved via hierarchical perturbation to generate non-preferred samples and a self-guiding mechanism that targets semantically salient skeletal regions for improved fine-grained alignment.",
-      "url": "http://arxiv.org/abs/2604.18034v1",
-      "pdf_url": "https://arxiv.org/pdf/2604.18034v1",
-      "score": 7.0,
-      "figure_url": "https://arxiv.org/html/2604.18034v1/x1.png",
-      "figure_caption": "Figure 1 . Challenges in capturing the multi-dimensional semantics of sign language. SLT requires modelling fine-grained spatial and temporal semantics, yet existing methods often overlook these cues, leading to lexically correct but semantically deficient translations.",
-      "primary_category": "cs.CL",
-      "primary_category_anchor": "cs-cl",
-      "primary_category_rank": 2
-    }
-  ],
-  "papers": [
-    {
-      "id": "2604.17937v1",
-      "title": "ContraPrompt: Contrastive Prompt Optimization via Dyadic Reasoning Trace Analysis",
-      "authors": [
-        "Rishav Rishav",
-        "Pushpak Pujari",
-        "Pushpendre Rastogi"
-      ],
-      "categories": [
-        "cs.AI"
-      ],
-      "abstract": "ContraPrompt optimizes prompts by analyzing the difference between a model's failed and successful chain-of-thought traces for the same input, a process termed dyadic reasoning trace analysis. This method captures optimization signals based on contrasting the complete intermediate reasoning processes, which prior methods miss by analyzing traces in isolation. The core contribution is an automated, agentic retry loop that generates this contrastive data without human labeling to extract effective reasoning rules.",
-      "url": "http://arxiv.org/abs/2604.17937v1",
-      "pdf_url": "https://arxiv.org/pdf/2604.17937v1",
-      "score": 7.0,
-      "figure_url": "https://arxiv.org/html/2604.17937v1/x1.png",
-      "figure_caption": "Monadic vs. dyadic trace analysis. Left : Prior methods consume one failed trace and produce a generic diagnosis with no positive target. Right: ContraPrompt consumes a trace pair ( τ − \\( \\tau^{-} \\) , τ + \\( \\tau^{+} \\) ) produced by the same model on the same input, identifying the inserted reasoning steps that carry the success (highlighted, steps 1’–3’). The extracted rule targets that specific step, not generic thoroughness.",
-      "primary_category": "cs.AI",
-      "primary_category_anchor": "cs-ai",
-      "primary_category_rank": 0
-    },
-    {
-      "id": "2604.18038v1",
-      "title": "First, Do No Harm (With LLMs): Mitigating Racial Bias via Agentic Workflows",
-      "authors": [
-        "Sihao Xing",
-        "Zaur Gouliev"
-      ],
-      "categories": [
-        "cs.AI",
-        "cs.CY"
-      ],
-      "abstract": "This paper investigates racial bias in five major LLMs across synthetic patient case generation and differential diagnosis ranking, using the EU AI Act as a governance framework. The core method involves structured prompting and evaluation against race-stratified epidemiological data and expert diagnoses. The contribution is demonstrating bias across models and showing that agentic workflows can mitigate this harm, with GPT-4.1 and DeepSeek V3 showing relative strengths in the respective tasks.",
-      "url": "http://arxiv.org/abs/2604.18038v1",
-      "pdf_url": "https://arxiv.org/pdf/2604.18038v1",
-      "score": 7.0,
-      "figure_url": "https://arxiv.org/html/2604.18038v1/figures/pipline.png",
-      "figure_caption": "Experimental Pipeline",
-      "primary_category": "cs.AI",
-      "primary_category_anchor": "cs-ai",
-      "primary_category_rank": 0
-    },
-    {
-      "id": "2604.17920v1",
-      "title": "Prompting Foundation Models for Zero-Shot Ship Instance Segmentation in SAR Imagery",
-      "authors": [
-        "Islam Mansour",
-        "Francescopaolo Sica",
-        "Michael Schmitt"
-      ],
-      "categories": [
-        "cs.AI",
-        "cs.LG",
-        "cs.CV"
-      ],
-      "abstract": "This paper introduces a zero-shot method for ship instance segmentation in SAR imagery by leveraging a pre-trained YOLOv11 detector to generate bounding boxes that prompt the Segment Anything Model 2 (SAM2). The core contribution is demonstrating that spatial constraints from a SAR-trained detector alone can effectively regularize SAM2's predictions, bridging the optical-SAR domain gap without requiring any mask annotations or fine-tuning of the foundation model.",
-      "url": "http://arxiv.org/abs/2604.17920v1",
-      "pdf_url": "https://arxiv.org/pdf/2604.17920v1",
-      "score": 7.0,
-      "figure_url": "https://arxiv.org/html/2604.17920v1/figures/workflow.drawio.png",
-      "figure_caption": "Two-stage detect-and-prompt framework. Stage 1: YOLOv11 detects ship instances and generates bounding box prompts. Stage 2: SAM2 produces zero-shot segmentation masks from these prompts.",
-      "primary_category": "cs.AI",
-      "primary_category_anchor": "cs-ai",
-      "primary_category_rank": 0
-    },
-    {
-      "id": "2604.17838v1",
-      "title": "Efficient Diffusion Models under Nonconvex Equality and Inequality constraints via Landing",
-      "authors": [
-        "Kijung Jeon",
-        "Michael Muehlebach",
-        "Molei Tao"
-      ],
-      "categories": [
-        "cs.LG",
-        "stat.ML",
-        "stat.CO"
-      ],
-      "abstract": "This paper introduces a unified framework for constrained diffusion models that efficiently handles nonconvex equality and inequality constraints throughout the sampling process. The core innovation is a computationally efficient \"landing mechanism\" that ensures feasibility without relying on costly projections or iterative solvers. This method, leveraging both overdamped and underdamped dynamics, significantly reduces simulation costs and improves mixing toward the prior distribution.",
-      "url": "http://arxiv.org/abs/2604.17838v1",
-      "pdf_url": "https://arxiv.org/pdf/2604.17838v1",
-      "score": 7.0,
-      "figure_url": "https://arxiv.org/html/2604.17838v1/x1.png",
-      "figure_caption": "Mean JSD on S 2 S^{2} flood versus trajectory length N N under the fixed T T . Cross mark ( × ) (\\( \\times \\)) indicates the smallest N N values after which projection failures no longer occur during the forward process.",
-      "primary_category": "cs.LG",
-      "primary_category_anchor": "cs-lg",
-      "primary_category_rank": 1
-    },
-    {
-      "id": "2604.17751v1",
-      "title": "HiP-LoRA: Budgeted Spectral Plasticity for Robust Low-Rank Adaptation",
-      "authors": [
-        "Lixian Chen",
-        "Jianhong Tan"
-      ],
-      "categories": [
-        "cs.LG",
-        "cs.CL"
-      ],
-      "abstract": "HiP-LoRA addresses LoRA's spectral interference by decomposing low-rank updates into a principal channel within the dominant singular subspace and a residual channel. It uses a singular-value-weighted budget on the principal channel to balance preserving pretrained knowledge with task adaptation. This spectrum-aware approach significantly reduces pretraining degradation and improves robustness compared to standard LoRA.",
-      "url": "http://arxiv.org/abs/2604.17751v1",
-      "pdf_url": "https://arxiv.org/pdf/2604.17751v1",
-      "score": 7.0,
-      "figure_url": "https://arxiv.org/html/2604.17751v1/x1.png",
-      "figure_caption": "Motivation of HiP-LoRA. Although LoRA updates are low-rank, their drift can still concentrate on dominant singular directions of the frozen pretrained weight, which may harm pretrained capabilities and reduce robustness under continual adaptation and adapter merging. HiP-LoRA addresses this by decomposing each update into a principal component regulated by a singular-value–weighted stability budget and a residual component that preserves adaptation capacity.",
-      "primary_category": "cs.LG",
-      "primary_category_anchor": "cs-lg",
-      "primary_category_rank": 1
-    },
-    {
-      "id": "2604.17862v1",
-      "title": "M100: An Orchestrated Dataflow Architecture Powering General AI Computing",
-      "authors": [
-        "Yan Xie",
-        "Changkui Mao",
-        "Changsong Wu",
-        "Chao Lu",
-        "Chao Suo"
-      ],
-      "categories": [
-        "cs.LG",
-        "cs.AR"
-      ],
-      "abstract": "The M100 is an orchestrated dataflow architecture designed by Li Auto to provide a performant and cost-effective solution for diverse AI inference tasks like Autonomous Driving and LLMs. Its core method involves a dataflow parallel design where compiler-architecture co-design critically manages data movement across time and space, not just computation. This approach contributes to improved system performance and reduced hardware complexity compared to traditional GPGPU or rigid DSA solutions.",
-      "url": "http://arxiv.org/abs/2604.17862v1",
-      "pdf_url": "https://arxiv.org/pdf/2604.17862v1",
-      "score": 7.0,
-      "figure_url": "https://arxiv.org/html/2604.17862v1/x1.png",
-      "figure_caption": "Computing blocks in M100, each composed of three computing elements.",
-      "primary_category": "cs.LG",
-      "primary_category_anchor": "cs-lg",
-      "primary_category_rank": 1
-    },
-    {
-      "id": "2604.18034v1",
-      "title": "SignDPO: Multi-level Direct Preference Optimisation for Skeleton-based Gloss-free Sign Language Translation",
-      "authors": [
-        "Muxin Pu",
-        "Xiao-Ming Wu",
-        "Mei Kuan Lim",
-        "Chun Yong Chong",
-        "Wei Li"
-      ],
-      "categories": [
-        "cs.CL",
-        "cs.CV"
-      ],
-      "abstract": "SignDPO introduces a novel multi-level Direct Preference Optimisation (DPO) framework for skeleton-based Sign Language Translation, moving beyond imitation-based methods. It addresses semantic drift by aligning the model based on structured preferences across spatial, temporal, and linguistic dimensions. This is achieved via hierarchical perturbation to generate non-preferred samples and a self-guiding mechanism that targets semantically salient skeletal regions for improved fine-grained alignment.",
-      "url": "http://arxiv.org/abs/2604.18034v1",
-      "pdf_url": "https://arxiv.org/pdf/2604.18034v1",
-      "score": 7.0,
-      "figure_url": "https://arxiv.org/html/2604.18034v1/x1.png",
-      "figure_caption": "Figure 1 . Challenges in capturing the multi-dimensional semantics of sign language. SLT requires modelling fine-grained spatial and temporal semantics, yet existing methods often overlook these cues, leading to lexically correct but semantically deficient translations.",
-      "primary_category": "cs.CL",
-      "primary_category_anchor": "cs-cl",
-      "primary_category_rank": 2
-    }
-  ],
+  "arxiv": [],
+  "papers": [],
   "hacker_news": [
     {
       "id": 47831621,
       "title": "GitHub's fake star economy",
       "url": "https://awesomeagents.ai/news/github-fake-stars-investigation/",
-      "score": 740,
+      "score": 760,
       "created_at": "2026-04-20T08:26:52Z",
       "comments_url": "https://news.ycombinator.com/item?id=47831621",
-      "summary": "GitHub is investigating a surge in fake stars used to artificially inflate project popularity, revealing a hidden economy of paid engagement."
+      "summary": "Story: summary generation failed."
     },
     {
       "id": 47834565,
       "title": "Qwen3.6-Max-Preview: Smarter, Sharper, Still Evolving",
       "url": "https://qwen.ai/blog?id=qwen3.6-max-preview",
-      "score": 545,
+      "score": 591,
       "created_at": "2026-04-20T14:05:34Z",
       "comments_url": "https://news.ycombinator.com/item?id=47834565",
-      "summary": "Alibaba Cloud has previewed Qwen3.6-Max, an updated large language model that demonstrates improved intelligence and performance while remaining under active development."
+      "summary": "Story: summary generation failed."
     },
     {
       "id": 47833247,
       "title": "Atlassian enables default data collection to train AI",
       "url": "https://letsdatascience.com/news/atlassian-enables-default-data-collection-to-train-ai-f71343d8",
-      "score": 504,
+      "score": 547,
       "created_at": "2026-04-20T12:23:39Z",
       "comments_url": "https://news.ycombinator.com/item?id=47833247",
-      "summary": "Atlassian has enabled the default collection of customer data to train its artificial intelligence models, prompting a change in user settings."
+      "summary": "Story: summary generation failed."
     },
     {
       "id": 47839951,
       "title": "AI Resistance: some recent anti-AI stuff that’s worth discussing",
       "url": "https://stephvee.ca/blog/artificial%20intelligence/ai-resistance-is-growing/",
-      "score": 319,
+      "score": 346,
       "created_at": "2026-04-20T20:19:13Z",
       "comments_url": "https://news.ycombinator.com/item?id=47839951",
-      "summary": "The tech news story discusses the growing resistance and various forms of pushback against artificial intelligence development and deployment."
+      "summary": "Story: summary generation failed."
     },
     {
       "id": 47835928,
       "title": "Deezer says 44% of songs uploaded to its platform daily are AI-generated",
       "url": "https://techcrunch.com/2026/04/20/deezer-says-44-of-songs-uploaded-to-its-platform-daily-are-ai-generated/",
-      "score": 301,
+      "score": 333,
       "created_at": "2026-04-20T15:41:02Z",
       "comments_url": "https://news.ycombinator.com/item?id=47835928",
-      "summary": "Deezer reports that nearly half of the music uploaded to its platform each day is now being generated by artificial intelligence."
+      "summary": "Story: summary generation failed."
     },
     {
       "id": 47831437,
       "title": "OpenClaw isn't fooling me. I remember MS-DOS",
       "url": "https://www.flyingpenguin.com/build-an-openclaw-free-secure-always-on-local-ai-agent/",
-      "score": 272,
+      "score": 284,
       "created_at": "2026-04-20T07:49:48Z",
       "comments_url": "https://news.ycombinator.com/item?id=47831437",
-      "summary": "The article details how to build an OpenClaw local AI agent, emphasizing its free, secure, and always-on nature, drawing a nostalgic comparison to MS-DOS."
+      "summary": "Story: summary generation failed."
     },
     {
       "id": 47835646,
       "title": "I prompted ChatGPT, Claude, Perplexity, and Gemini and watched my Nginx logs",
       "url": "https://surfacedby.com/blog/nginx-logs-ai-traffic-vs-referral-traffic",
-      "score": 125,
+      "score": 129,
       "created_at": "2026-04-20T15:22:01Z",
       "comments_url": "https://news.ycombinator.com/item?id=47835646",
-      "summary": "A researcher analyzed Nginx server logs to compare the traffic patterns and characteristics generated by interactions with various large language models like ChatGPT, Claude, Perplexity, and Gemini against traditional referral traffic."
+      "summary": "Story: summary generation failed."
+    },
+    {
+      "id": 47842021,
+      "title": "Even 'uncensored' models can't say what they want",
+      "url": "https://morgin.ai/articles/even-uncensored-models-cant-say-what-they-want.html",
+      "score": 126,
+      "created_at": "2026-04-20T22:43:29Z",
+      "comments_url": "https://news.ycombinator.com/item?id=47842021",
+      "summary": "Story: summary generation failed."
     }
   ],
   "github_trending": [
@@ -808,90 +340,90 @@
       "url": "https://github.com/Fincept-Corporation/FinceptTerminal",
       "description": "FinceptTerminal is a modern finance application offering advanced market analytics, investment research, and economic data tools, designed for interactive exploration and data-driven decision-making in a user-friendly environment.",
       "stars_today": 3109,
-      "total_stars": 9695,
+      "total_stars": 10162,
       "language": "Python",
       "topics": [],
-      "summary": "FinceptTerminal is a modern finance application providing advanced market analytics, investment research, and economic data tools for interactive exploration and data-driven decision-making."
+      "summary": "Repo: summary generation failed."
     },
     {
       "full_name": "ruvnet/RuView",
       "url": "https://github.com/ruvnet/RuView",
       "description": "π RuView: WiFi DensePose turns commodity WiFi signals into real-time human pose estimation, vital sign monitoring, and presence detection — all without a single pixel of video.",
       "stars_today": 713,
-      "total_stars": 48255,
+      "total_stars": 48429,
       "language": "Rust",
       "topics": [],
-      "summary": "RuView is a WiFi-based system that transforms commodity WiFi signals into real-time human pose estimation, vital sign monitoring, and presence detection without using any video."
+      "summary": "Repo: summary generation failed."
     },
     {
       "full_name": "thunderbird/thunderbolt",
       "url": "https://github.com/thunderbird/thunderbolt",
       "description": "AI You Control: Choose your models. Own your data. Eliminate vendor lock-in.",
       "stars_today": 675,
-      "total_stars": 2853,
+      "total_stars": 2953,
       "language": "TypeScript",
       "topics": [],
-      "summary": "Thunderbolt is an AI platform enabling users to control their models and data, offering freedom from vendor lock-in by allowing model choice."
+      "summary": "Repo: summary generation failed."
     },
     {
       "full_name": "paperless-ngx/paperless-ngx",
       "url": "https://github.com/paperless-ngx/paperless-ngx",
       "description": "A community-supported supercharged document management system: scan, index and archive all your documents",
       "stars_today": 606,
-      "total_stars": 39456,
+      "total_stars": 39537,
       "language": "Python",
       "topics": [],
-      "summary": "Paperless-ngx is a community-supported document management system that allows users to scan, index, and archive all their documents efficiently."
+      "summary": "Repo: summary generation failed."
     },
     {
       "full_name": "tractorjuice/arc-kit",
       "url": "https://github.com/tractorjuice/arc-kit",
       "description": "Enterprise Architecture Governance & Vendor Procurement Toolkit",
       "stars_today": 329,
-      "total_stars": 1357,
+      "total_stars": 1407,
       "language": "HTML",
       "topics": [],
-      "summary": "Arc-Kit is an enterprise architecture governance and vendor procurement toolkit designed to streamline and manage architectural oversight and the acquisition of necessary technologies."
+      "summary": "Repo: summary generation failed."
     },
     {
       "full_name": "koala73/worldmonitor",
       "url": "https://github.com/koala73/worldmonitor",
       "description": "Real-time global intelligence dashboard. AI-powered news aggregation, geopolitical monitoring, and infrastructure tracking in a unified situational awareness interface",
       "stars_today": 316,
-      "total_stars": 50200,
+      "total_stars": 50447,
       "language": "TypeScript",
       "topics": [],
-      "summary": "WorldMonitor is a real-time global intelligence dashboard that uses AI to aggregate news, monitor geopolitics, and track infrastructure within a unified situational awareness interface."
+      "summary": "Repo: summary generation failed."
     },
     {
       "full_name": "openai/openai-agents-python",
       "url": "https://github.com/openai/openai-agents-python",
       "description": "A lightweight, powerful framework for multi-agent workflows",
       "stars_today": 905,
-      "total_stars": 23980,
+      "total_stars": 24112,
       "language": "Python",
       "topics": [],
-      "summary": "The `openai-agents-python` repository provides a lightweight, powerful framework for orchestrating complex multi-agent workflows using OpenAI capabilities."
+      "summary": "Repo: summary generation failed."
     },
     {
       "full_name": "deepseek-ai/DeepGEMM",
       "url": "https://github.com/deepseek-ai/DeepGEMM",
       "description": "DeepGEMM: clean and efficient FP8 GEMM kernels with fine-grained scaling",
       "stars_today": 109,
-      "total_stars": 6844,
+      "total_stars": 6882,
       "language": "Cuda",
       "topics": [],
-      "summary": "DeepGEMM provides clean and efficient FP8 General Matrix Multiplication (GEMM) kernels featuring fine-grained scaling for optimized performance."
+      "summary": "Repo: summary generation failed."
     },
     {
       "full_name": "pi-hole/pi-hole",
       "url": "https://github.com/pi-hole/pi-hole",
       "description": "A black hole for Internet advertisements",
       "stars_today": 196,
-      "total_stars": 57222,
+      "total_stars": 57377,
       "language": "Shell",
       "topics": [],
-      "summary": "Pi-hole is a DNS sinkhole that blocks ads and trackers across your entire network by acting as a DNS server for all connected devices."
+      "summary": "Repo: summary generation failed."
     }
   ],
   "postdoc_jobs": [],
@@ -908,16 +440,16 @@
       "longitude": -0.12574,
       "timezone": "Europe/London",
       "forecast_date": "2026-04-21",
-      "condition": "Partly cloudy",
-      "weather_code": 2,
-      "temperature_c": 7.5,
-      "apparent_temperature_c": 4.0,
-      "temp_max_c": 13.5,
-      "temp_min_c": 7.4,
+      "condition": "Mainly clear",
+      "weather_code": 1,
+      "temperature_c": 7.4,
+      "apparent_temperature_c": 3.7,
+      "temp_max_c": 13.1,
+      "temp_min_c": 6.6,
       "humidity_pct": 77,
-      "wind_speed_kmh": 14.4,
+      "wind_speed_kmh": 15.5,
       "precipitation_probability_pct": 0,
-      "is_day": false,
+      "is_day": true,
       "sunrise": "2026-04-21T05:51",
       "sunset": "2026-04-21T20:06",
       "source": "Open-Meteo",
