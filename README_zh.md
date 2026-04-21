@@ -6,7 +6,7 @@
 
 Fork 这个仓库，填入一个 API key，用 GitHub Actions 跑起来。不要服务器，不要订阅，也不会把内容锁死在某个平台里。
 
-**[在线示例](https://yuyangxueed.github.io/Linnet)** · **[中文设置向导](https://yuyangxueed.github.io/Linnet/setup/zh/)** · **[Setup Wizard (EN)](https://yuyangxueed.github.io/Linnet/setup/)** · **[手动配置指南](dev_docs/manual-config.md)**
+**[在线示例](https://yuyangxueed.github.io/Linnet)** · **[中文设置向导](https://yuyangxueed.github.io/Linnet/setup/zh/)** · **[Setup Wizard (EN)](https://yuyangxueed.github.io/Linnet/setup/)** · **[手动配置指南](dev_docs/manual-config.zh.md)**
 
 ---
 
@@ -131,7 +131,7 @@ llm:
   api_key_env: "OPENROUTER_API_KEY"
 ```
 
-如果你打算手改所有配置，直接从 [`dev_docs/manual-config.md`](dev_docs/manual-config.md) 开始。
+如果你打算手改所有配置，直接从 [`dev_docs/manual-config.zh.md`](dev_docs/manual-config.zh.md) 开始。
 
 ---
 
@@ -205,7 +205,7 @@ PYTHONPATH=. pytest tests/ -q
 
 如果你主要是在帮别人配置自己的 fork，先看：
 
-- [`dev_docs/manual-config.md`](dev_docs/manual-config.md)
+- [`dev_docs/manual-config.zh.md`](dev_docs/manual-config.zh.md)
 - [`skills/linnet-config-customization/SKILL.md`](skills/linnet-config-customization/SKILL.md)
 
 给 agent 的推荐提示词：

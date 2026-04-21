@@ -1,5 +1,7 @@
 # Manual Configuration Guide
 
+> 🌐 **Language / 语言**: **English** · [中文](manual-config.zh.md)
+
 Prefer to configure everything by hand? This page walks through every step.
 If you'd rather use the interactive wizard, open the [Setup Wizard](https://yuyangxueed.github.io/Linnet/setup/) instead.
 
@@ -22,6 +24,8 @@ In your forked repo go to: **Settings → Secrets and variables → Actions → 
 
 This is the default fast-path credential. [OpenRouter](https://openrouter.ai) lets you call many AI models
 (Gemini, GPT, Claude) with one key and switch between them any time.
+
+> 💰 **Cost estimate**: With the default model (`google/gemini-2.5-flash-lite`), **one full daily digest run costs roughly $0.1 USD**. At one run per day, that's **under $3 USD / month**. Actual spend varies with the sources you enable, how many papers get fetched, and the summary language — you can watch per-call costs live on the [OpenRouter dashboard](https://openrouter.ai/activity). If you want to spend less, swap `scoring_model` / `summarization_model` in `config/sources.yaml` for a cheaper model, or lower the daily paper cap in `config/extensions/arxiv.yaml`.
 
 If you prefer a different OpenAI-compatible provider, set these fields in [`config/sources.yaml`](../config/sources.yaml):
 
@@ -74,9 +78,14 @@ change `language: "en"` to `"zh"`, `"fr"`, `"de"`, `"ja"`, `"ko"`, `"es"`, or an
 
 ## Step 5 — Run it for the first time
 
-Go to: **Actions → Daily Digest → Run workflow → Run workflow**
+You need to manually trigger **two** workflows in order:
 
-Your site will be live in about 5 minutes.
+1. **Generate the digest content**: Go to **Actions → Daily Digest → Run workflow → Run workflow** and wait for it to finish (about 3–5 minutes). This calls the LLM, builds today's digest, and commits it into `docs/`.
+2. **Deploy the site to GitHub Pages**: Go to **Actions → Deploy Astro Site to GitHub Pages → Run workflow → Run workflow** and wait for it to finish (about 1–2 minutes). This builds the Astro site and publishes it.
+
+> 💡 From then on, `Daily Digest` runs automatically every day and auto-triggers the deploy on success — so you only need to click these two buttons **the first time**.
+
+Once both are green, your site is live at `https://<your-username>.github.io/<repo-name>/`.
 
 ---
 
