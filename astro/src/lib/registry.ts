@@ -61,6 +61,7 @@ export interface SetupField {
   placeholder?: string;
   hint?: string;
   hintZh?: string;
+  autocomplete?: string;
 }
 
 export interface ExtensionMeta {

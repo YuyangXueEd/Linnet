@@ -12,6 +12,7 @@ const hint  = locale === 'zh' ? (field.hintZh  ?? field.hint)  : field.hint;
 const id = `${extKey}-${field.key}`;
 const inputType = field.type === 'number' ? 'number' : 'text';
 const defaultValue = field.default as string | number | undefined;
+const datalistId = field.autocomplete === 'geocode' ? `${id}-suggestions` : undefined;
 ---
 <div class="wz-field wz-field--compact">
   <label for={id}>{label}</label>
@@ -27,6 +28,10 @@ const defaultValue = field.default as string | number | undefined;
     required={field.required}
     data-config-for={extKey}
     data-field={field.key}
+    list={datalistId}
+    data-geocode-autocomplete={field.autocomplete === 'geocode' ? '' : undefined}
+    autocomplete="off"
   />
+  {datalistId && <datalist id={datalistId}></datalist>}
   {hint && <div class="wz-field__hint" set:html={hint}></div>}
 </div>

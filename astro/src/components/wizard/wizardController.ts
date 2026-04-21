@@ -1667,5 +1667,46 @@ export function initWizard(): void {
   renderGitHubSession();
   // PAT flow: no OAuth callback to process
   renderDeployPreview();
+  initGeocodeAutocomplete(shell);
   showStep(1);
+}
+
+function initGeocodeAutocomplete(shell: HTMLElement): void {
+  const GEOCODING_URL = 'https://geocoding-api.open-meteo.com/v1/search';
+
+  function debounce<T extends (...args: unknown[]) => void>(fn: T, ms: number): T {
+    let timer: ReturnType<typeof setTimeout>;
+    return ((...args: unknown[]) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => fn(...args), ms);
+    }) as T;
+  }
+
+  async function fetchSuggestions(query: string, datalist: HTMLDataListElement): Promise<void> {
+    if (query.length < 2) { datalist.innerHTML = ''; return; }
+    try {
+      const lang = qs<HTMLSelectElement>('[data-global-language]', shell)?.value ?? 'en';
+      const res = await fetch(`${GEOCODING_URL}?name=${encodeURIComponent(query)}&count=5&language=${lang}&format=json`);
+      if (!res.ok) return;
+      const data = await res.json() as { results?: Array<{ name: string; admin1?: string; country?: string }> };
+      const results = data.results ?? [];
+      datalist.innerHTML = results.map(r => {
+        const parts = [r.name, r.admin1, r.country].filter(Boolean).join(', ');
+        return `<option value="${r.name}">${parts}</option>`;
+      }).join('');
+    } catch {
+      // silently ignore network errors
+    }
+  }
+
+  const inputs = shell.querySelectorAll<HTMLInputElement>('[data-geocode-autocomplete]');
+  for (const input of inputs) {
+    const datalist = input.list as HTMLDataListElement | null;
+    if (!datalist) continue;
+    const debouncedFetch = debounce(
+      (...args: unknown[]) => void fetchSuggestions(args[0] as string, datalist),
+      300,
+    );
+    input.addEventListener('input', () => debouncedFetch(input.value.trim()));
+  }
 }
