@@ -9,20 +9,30 @@
 
 **Your personal AI morning briefing.** arXiv papers, Hacker News stories, GitHub trends, weather, and optional extras are collected overnight, summarised for you, and published as your own searchable digest site.
 
+![Linnet Hero](assets/hero.png)
+
 Fork the repo, add one API key, and run it on GitHub Actions. No server, no subscription, no dashboard lock-in.
 
 **[Live example](https://yuyangxueed.github.io/Linnet)** · **[Setup Wizard (EN)](https://yuyangxueed.github.io/Linnet/setup/)** · **[设置向导 (中文)](https://yuyangxueed.github.io/Linnet/setup/zh/)** · **[Manual config guide](dev_docs/manual-config.md)**
 
 ---
 
+---
+
+## How it works
+
+![Linnet Workflow](assets/workflow.png)
+
+Linnet is a modular pipeline designed to automate the knowledge-gathering habits of researchers and engineers. It scouts your preferred sources, uses an LLM to distill the signal from the noise, and delivers a polished briefing to your chosen sinks.
+
+---
+
 ## See the product first
 
-### Homepage
-
+### Desktop Dashboard
 ![Linnet homepage screenshot](assets/homepage_screenshot.png)
 
-### Daily digest page
-
+### Daily Editorial Feed
 ![Linnet daily digest example](assets/daily.gif)
 
 ---
