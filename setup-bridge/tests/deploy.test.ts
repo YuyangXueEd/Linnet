@@ -57,10 +57,6 @@ test('deployWithInstallation scopes token and performs repo writes, secrets, act
       default_branch: 'main',
       html_url: 'https://github.com/octocat/briefing',
     }),
-    jsonResponse(404, { message: 'Not Found' }),
-    jsonResponse(200, {}),
-    jsonResponse(200, { key: repositoryPublicKey, key_id: 'KEY_ID' }),
-    jsonResponse(201, {}),
     new Response(null, { status: 204 }),
     new Response(null, { status: 204 }),
     new Response(null, { status: 204 }),
@@ -72,6 +68,10 @@ test('deployWithInstallation scopes token and performs repo writes, secrets, act
       build_type: 'workflow',
       source: { branch: 'main', path: '/' },
     }),
+    jsonResponse(404, { message: 'Not Found' }),
+    jsonResponse(200, {}),
+    jsonResponse(200, { key: repositoryPublicKey, key_id: 'KEY_ID' }),
+    jsonResponse(201, {}),
     new Response(null, { status: 204 }),
   ];
 
@@ -105,26 +105,32 @@ test('deployWithInstallation scopes token and performs repo writes, secrets, act
   assert.equal(calls.length, 14);
   assert.match(calls[0].url, /\/app\/installations\/77\/access_tokens$/);
   assert.match(calls[1].url, /\/repos\/octocat\/briefing$/);
-  assert.match(calls[2].url, /contents\/config\/sources\.yaml\?ref=main$/);
-  assert.match(calls[3].url, /contents\/config\/sources\.yaml$/);
-  assert.match(calls[4].url, /actions\/secrets\/public-key$/);
-  assert.match(calls[5].url, /actions\/secrets\/OPENROUTER_API_KEY$/);
-  assert.match(calls[12].url, /\/repos\/octocat\/briefing\/pages$/);
+  assert.match(calls[2].url, /\/actions\/permissions$/);
+  assert.match(calls[3].url, /actions\/workflows\/daily\.yml\/enable$/);
+  assert.match(calls[4].url, /actions\/workflows\/weekly\.yml\/enable$/);
+  assert.match(calls[5].url, /actions\/workflows\/monthly\.yml\/enable$/);
+  assert.match(calls[6].url, /actions\/workflows\/pages\.yml\/enable$/);
+  assert.match(calls[7].url, /\/repos\/octocat\/briefing\/pages$/);
+  assert.match(calls[8].url, /\/repos\/octocat\/briefing\/pages$/);
+  assert.match(calls[9].url, /contents\/config\/sources\.yaml\?ref=main$/);
+  assert.match(calls[10].url, /contents\/config\/sources\.yaml$/);
+  assert.match(calls[11].url, /actions\/secrets\/public-key$/);
+  assert.match(calls[12].url, /actions\/secrets\/OPENROUTER_API_KEY$/);
   assert.match(calls[13].url, /actions\/workflows\/daily\.yml\/dispatches$/);
 
   const tokenBody = JSON.parse(String(calls[0].init?.body));
   assert.deepEqual(tokenBody, { repositories: ['briefing'] });
 
-  const putFileBody = JSON.parse(String(calls[3].init?.body));
+  const putFileBody = JSON.parse(String(calls[10].init?.body));
   assert.equal(putFileBody.content, 'bGFuZ3VhZ2U6ICJlbiIK');
 
-  const putSecretBody = JSON.parse(String(calls[5].init?.body));
+  const putSecretBody = JSON.parse(String(calls[12].init?.body));
   assert.equal(putSecretBody.key_id, 'KEY_ID');
   assert.equal(typeof putSecretBody.encrypted_value, 'string');
   assert.notEqual(putSecretBody.encrypted_value, '');
   assert.notEqual(putSecretBody.encrypted_value, 'sk-or-123');
 
-  const pagesBody = JSON.parse(String(calls[12].init?.body));
+  const pagesBody = JSON.parse(String(calls[8].init?.body));
   assert.deepEqual(pagesBody, {
     build_type: 'workflow',
     source: {

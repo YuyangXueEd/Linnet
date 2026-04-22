@@ -441,22 +441,6 @@ export async function deployWithInstallation(
   const triggerWorkflowId = request.triggerWorkflowId ?? 'daily.yml';
   const triggerWorkflowRef = request.triggerWorkflowRef ?? defaultBranch;
 
-  const committedPaths = await upsertRepositoryFiles(
-    installationToken.token,
-    request.repo,
-    defaultBranch,
-    request.files,
-    commitMessage,
-    fetchImpl,
-  );
-
-  const writtenSecrets = await upsertRepositorySecrets(
-    installationToken.token,
-    request.repo,
-    request.secrets,
-    fetchImpl,
-  );
-
   const actionsResult: DeployResult['actions'] = {
     attempted: autoEnableActions,
     enabled: false,
@@ -483,6 +467,22 @@ export async function deployWithInstallation(
         sourcePath: null,
         buildType: null,
       };
+
+  const committedPaths = await upsertRepositoryFiles(
+    installationToken.token,
+    request.repo,
+    defaultBranch,
+    request.files,
+    commitMessage,
+    fetchImpl,
+  );
+
+  const writtenSecrets = await upsertRepositorySecrets(
+    installationToken.token,
+    request.repo,
+    request.secrets,
+    fetchImpl,
+  );
 
   await triggerWorkflowDispatch(
     installationToken.token,
