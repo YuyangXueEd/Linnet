@@ -50,6 +50,58 @@ export function buildBridgeUrl(bridgeUrl, path, params = {}) {
 }
 
 /**
+ * @param {Response} response
+ * @returns {Promise<{ json: unknown, text: string }>}
+ */
+async function readBridgePayload(response) {
+  const text = await response.text();
+  const contentType = (response.headers.get('content-type') ?? '').toLowerCase();
+  const looksJson =
+    contentType.includes('application/json') ||
+    (text.trim().startsWith('{') || text.trim().startsWith('['));
+
+  if (!text) {
+    return { json: null, text: '' };
+  }
+
+  if (!looksJson) {
+    return { json: null, text };
+  }
+
+  try {
+    return { json: JSON.parse(text), text };
+  } catch {
+    return { json: null, text };
+  }
+}
+
+/**
+ * @param {Response} response
+ * @returns {Promise<any>}
+ */
+async function parseBridgeJsonResponse(response) {
+  const payload = await readBridgePayload(response);
+  const data = payload.json;
+  const text = payload.text.trim();
+
+  if (!response.ok) {
+    if (data && typeof data === 'object') {
+      const message = /** @type {{ message?: unknown }} */ (data).message;
+      if (typeof message === 'string' && message) {
+        throw new Error(message);
+      }
+    }
+    throw new Error(text || `${response.status} ${response.statusText}`);
+  }
+
+  if (data === null) {
+    throw new Error(text ? `Bridge returned a non-JSON response: ${text}` : 'Bridge returned an empty response.');
+  }
+
+  return data;
+}
+
+/**
  * @param {{ bridgeUrl: string, redirect?: (url: string) => void }} options
  */
 export function startBridgeInstall(options) {
@@ -82,11 +134,7 @@ export async function fetchBridgeSession(options) {
   const response = await (options.fetchImpl ?? fetch)(url, {
     credentials: 'include',
   });
-  const data = await response.json();
-  if (!response.ok) {
-    throw new Error(typeof data?.message === 'string' ? data.message : `${response.status} ${response.statusText}`);
-  }
-  return data;
+  return parseBridgeJsonResponse(response);
 }
 
 /**
@@ -97,11 +145,7 @@ export async function logoutBridgeSession(options) {
     method: 'POST',
     credentials: 'include',
   });
-  const data = await response.json();
-  if (!response.ok) {
-    throw new Error(typeof data?.message === 'string' ? data.message : `${response.status} ${response.statusText}`);
-  }
-  return data;
+  return parseBridgeJsonResponse(response);
 }
 
 /**
@@ -116,9 +160,5 @@ export async function deployViaBridge(options) {
     },
     body: JSON.stringify(options.payload),
   });
-  const data = await response.json();
-  if (!response.ok) {
-    throw new Error(typeof data?.message === 'string' ? data.message : `${response.status} ${response.statusText}`);
-  }
-  return data;
+  return parseBridgeJsonResponse(response);
 }

@@ -37,6 +37,50 @@ const DEFAULT_CORS_ALLOWED_ORIGINS = [
 
 const app = new Hono<{ Bindings: BridgeBindings }>();
 
+app.onError((error, c) => {
+  if (error instanceof BridgeConfigError) {
+    return c.json(
+      {
+        ok: false,
+        service: SERVICE_NAME,
+        error: 'bridge_config_invalid',
+        message: error.message,
+        missing: error.missing,
+      },
+      503,
+    );
+  }
+
+  if (error instanceof GitHubApiError) {
+    return new Response(
+      JSON.stringify({
+        ok: false,
+        service: SERVICE_NAME,
+        error: 'github_api_error',
+        message: error.message,
+        status: error.status,
+        details: error.details,
+      }),
+      {
+        status: error.status,
+        headers: {
+          'content-type': 'application/json; charset=UTF-8',
+        },
+      },
+    );
+  }
+
+  return c.json(
+    {
+      ok: false,
+      service: SERVICE_NAME,
+      error: 'internal_error',
+      message: error instanceof Error ? error.message : String(error),
+    },
+    500,
+  );
+});
+
 function isUnsafeInstallationDeployAllowed(env: BridgeBindings): boolean {
   return env.ALLOW_UNSAFE_INSTALLATION_ID_DEPLOY?.trim().toLowerCase() === 'true';
 }

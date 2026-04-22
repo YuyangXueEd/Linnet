@@ -4,6 +4,8 @@ import assert from 'node:assert/strict';
 import {
   buildBridgeUrl,
   buildCleanReturnTo,
+  deployViaBridge,
+  fetchBridgeSession,
   normalizeBridgeUrl,
   readInstallationIdFromLocation,
 } from '../src/components/wizard/setupBridge.js';
@@ -48,4 +50,37 @@ test('buildCleanReturnTo removes github_auth but keeps installation_id', () => {
 
   assert.equal(cleaned.searchParams.get('installation_id'), '77');
   assert.equal(cleaned.searchParams.get('github_auth'), null);
+});
+
+test('fetchBridgeSession surfaces text errors from non-JSON responses', async () => {
+  await assert.rejects(
+    fetchBridgeSession({
+      bridgeUrl: 'https://bridge.example.com',
+      fetchImpl: async () =>
+        new Response('Internal Server Error', {
+          status: 500,
+          headers: {
+            'content-type': 'text/plain; charset=utf-8',
+          },
+        }),
+    }),
+    /Internal Server Error/,
+  );
+});
+
+test('deployViaBridge rejects when success response is not JSON', async () => {
+  await assert.rejects(
+    deployViaBridge({
+      bridgeUrl: 'https://bridge.example.com',
+      payload: { hello: 'world' },
+      fetchImpl: async () =>
+        new Response('ok', {
+          status: 200,
+          headers: {
+            'content-type': 'text/plain; charset=utf-8',
+          },
+        }),
+    }),
+    /non-JSON response: ok/,
+  );
 });
