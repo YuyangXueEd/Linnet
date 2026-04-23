@@ -61,10 +61,23 @@ jobs:
           if-no-files-found: warn
 
       - name: Commit and push outputs
+        id: commit
         run: |
           # Generated JSON stays ignored locally, so CI force-adds it when publishing.
           git add docs/
           git add -f docs/data/
-          git diff --staged --quiet || git commit -m "digest: $(date -u +%Y-%m-%d)"
-          git pull --rebase -X ours origin ${{ github.ref_name }}
-          git push
+          if git diff --staged --quiet; then
+            echo "pushed=false" >> "$GITHUB_OUTPUT"
+            echo "No changes to commit."
+          else
+            git commit -m "digest: $(date -u +%Y-%m-%d)"
+            git pull --rebase -X ours origin ${{ github.ref_name }}
+            git push
+            echo "pushed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Trigger Pages deployment
+        if: steps.commit.outputs.pushed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh workflow run pages.yml --ref ${{ github.ref_name }}
