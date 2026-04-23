@@ -8,6 +8,35 @@ interface Props {
 const { extensions, locale } = Astro.props;
 
 const t = {
+  starterEyebrow: locale === 'zh' ? 'Starter mode' : 'Starter mode',
+  starterHead:    locale === 'zh' ? '先选一个简报模式' : 'Choose a briefing mode first',
+  starterDesc:    locale === 'zh'
+    ? '先用一个最接近你的默认模板启动，再决定是否要在下面继续改来源和顺序。'
+    : 'Start from the closest default template first, then refine sources and ordering below if you want more control.',
+  academicTitle:  locale === 'zh' ? 'Academic Brief' : 'Academic Brief',
+  academicMeta:   locale === 'zh' ? '研究跟踪优先' : 'Research-first',
+  academicDesc:   locale === 'zh'
+    ? '默认启用 arXiv、Hacker News 和 GitHub Trending，适合学术或研究型工作流。'
+    : 'Starts with arXiv, Hacker News, and GitHub Trending for research-heavy workflows.',
+  personalTitle:  locale === 'zh' ? 'Daily Personal Brief' : 'Daily Personal Brief',
+  personalMeta:   locale === 'zh' ? '日常信息优先' : 'Everyday essentials',
+  personalCardDesc: locale === 'zh'
+    ? '默认启用天气、Hacker News 和 GitHub Trending，适合轻量的日常晨间简报。'
+    : 'Starts with weather, Hacker News, and GitHub Trending for a lighter daily briefing.',
+  starterHint:    locale === 'zh'
+    ? '这些只是起点。你仍然可以在下面继续调整来源和显示顺序。'
+    : 'These are only starting points. You can still change sources and display order below.',
+  currentHead:    locale === 'zh' ? '当前已选来源' : 'Current starter sources',
+  currentDesc:    locale === 'zh'
+    ? '这里会跟着你当前模式和手动增删实时变化。'
+    : 'This updates live as you switch modes or manually add/remove sources.',
+  advancedHead:   locale === 'zh' ? '高级来源选择与排序' : 'Advanced source selection and ordering',
+  advancedDesc:   locale === 'zh'
+    ? '只有在你想跳出 starter mode 默认组合时，才需要展开这里。'
+    : 'Open this only when you want to move beyond the default starter-mode combination.',
+  advancedHint:   locale === 'zh'
+    ? '这里的任何改动都会覆盖 starter mode 的默认来源。'
+    : 'Any changes here override the starter-mode source defaults.',
   search:     locale === 'zh' ? '搜索扩展...' : 'Search extensions...',
   all:        locale === 'zh' ? '全部' : 'All',
   research:   locale === 'zh' ? '学术' : 'Research',
@@ -29,62 +58,107 @@ const categoryLabels = {
 ---
 
 <div class="wz-step" data-step="1" aria-hidden="true">
-  <div class="wz-step1-layout">
+  <section class="wz-card wz-brief-card">
+    <div class="wz-step2-section__eyebrow">{t.starterEyebrow}</div>
+    <h3>{t.starterHead}</h3>
+    <p class="wz-card__desc">{t.starterDesc}</p>
 
-    <!-- Left: extension browser -->
-    <div class="wz-step1-browser">
-      <input
-        type="search"
-        class="wz-search"
-        placeholder={t.search}
-        data-ext-search
-        autocomplete="off"
-      />
-
-      <div class="wz-filter-chips" data-ext-filter>
-        <button class="wz-chip wz-chip--active" data-cat="all">{t.all}</button>
-        <button class="wz-chip" data-cat="research">{t.research}</button>
-        <button class="wz-chip" data-cat="tech">{t.tech}</button>
-        <button class="wz-chip" data-cat="career">{t.career}</button>
-        <button class="wz-chip" data-cat="local">{t.local}</button>
-        <button class="wz-chip" data-cat="custom">{t.custom}</button>
-      </div>
-
-      <div class="wz-ext-grid" data-ext-grid>
-        {extensions.map(ext => {
-          const name = locale === 'zh' ? (ext.displayNameZh ?? ext.displayName) : ext.displayName;
-          const desc = locale === 'zh' ? (ext.descriptionZh ?? ext.description) : ext.description;
-          const categoryLabel = categoryLabels[ext.category];
-          return (
-            <button
-              type="button"
-              class="wz-ext-card"
-              data-ext-key={ext.key}
-              data-ext-cat={ext.category}
-              data-ext-tags={ext.tags.join(' ')}
-              aria-pressed="false"
-            >
-              <div class="wz-ext-card__check" aria-hidden="true">✓</div>
-              <div class="wz-ext-card__name">{name}</div>
-              <p class="wz-ext-card__desc">{desc}</p>
-              <div class="wz-ext-card__meta">
-                <span class="wz-label">{categoryLabel}</span>
-                <span class="wz-label wz-label--ghost">{ext.key}</span>
-              </div>
-            </button>
-          );
-        })}
-        <div class="wz-ext-empty" data-ext-empty hidden>{t.noResults}</div>
-      </div>
+    <div class="wz-brief-mode-grid">
+      <button
+        type="button"
+        class="wz-brief-mode-card"
+        data-brief-mode-btn="academic"
+        aria-pressed="true"
+      >
+        <span class="wz-brief-mode-card__title">{t.academicTitle}</span>
+        <span class="wz-brief-mode-card__meta">{t.academicMeta}</span>
+        <span class="wz-brief-mode-card__desc">{t.academicDesc}</span>
+      </button>
+      <button
+        type="button"
+        class="wz-brief-mode-card"
+        data-brief-mode-btn="personal"
+        aria-pressed="false"
+      >
+        <span class="wz-brief-mode-card__title">{t.personalTitle}</span>
+        <span class="wz-brief-mode-card__meta">{t.personalMeta}</span>
+        <span class="wz-brief-mode-card__desc">{t.personalCardDesc}</span>
+      </button>
     </div>
 
-    <!-- Right: selected order -->
-    <div class="wz-step1-order">
-      <div class="wz-order-head">{t.orderHead}</div>
-      <div class="wz-order-list" data-order-list>
-        {/* populated by wizardController on init */}
-      </div>
+    <div class="wz-notice wz-notice--info" style="margin-top:16px">
+      {t.starterHint}
     </div>
 
-  </div>
+    <div class="wz-step2-subhead">
+      <strong>{t.currentHead}</strong>
+      <div class="wz-field__hint">{t.currentDesc}</div>
+    </div>
+    <div class="wz-brief-selection-summary" data-brief-selection-summary></div>
+  </section>
+
+  <details class="wz-brief-advanced">
+    <summary class="wz-brief-advanced__summary">
+      <span class="wz-brief-advanced__title">{t.advancedHead}</span>
+      <span class="wz-brief-advanced__desc">{t.advancedDesc}</span>
+    </summary>
+    <div class="wz-field__hint" style="margin:0 0 20px">{t.advancedHint}</div>
+    <div class="wz-step1-layout">
+
+      <!-- Left: extension browser -->
+      <div class="wz-step1-browser">
+        <input
+          type="search"
+          class="wz-search"
+          placeholder={t.search}
+          data-ext-search
+          autocomplete="off"
+        />
+
+        <div class="wz-filter-chips" data-ext-filter>
+          <button class="wz-chip wz-chip--active" data-cat="all">{t.all}</button>
+          <button class="wz-chip" data-cat="research">{t.research}</button>
+          <button class="wz-chip" data-cat="tech">{t.tech}</button>
+          <button class="wz-chip" data-cat="career">{t.career}</button>
+          <button class="wz-chip" data-cat="local">{t.local}</button>
+          <button class="wz-chip" data-cat="custom">{t.custom}</button>
+        </div>
+
+        <div class="wz-ext-grid" data-ext-grid>
+          {extensions.map(ext => {
+            const name = locale === 'zh' ? (ext.displayNameZh ?? ext.displayName) : ext.displayName;
+            const desc = locale === 'zh' ? (ext.descriptionZh ?? ext.description) : ext.description;
+            const categoryLabel = categoryLabels[ext.category];
+            return (
+              <button
+                type="button"
+                class="wz-ext-card"
+                data-ext-key={ext.key}
+                data-ext-cat={ext.category}
+                data-ext-tags={ext.tags.join(' ')}
+                aria-pressed="false"
+              >
+                <div class="wz-ext-card__check" aria-hidden="true">✓</div>
+                <div class="wz-ext-card__name">{name}</div>
+                <p class="wz-ext-card__desc">{desc}</p>
+                <div class="wz-ext-card__meta">
+                  <span class="wz-label">{categoryLabel}</span>
+                  <span class="wz-label wz-label--ghost">{ext.key}</span>
+                </div>
+              </button>
+            );
+          })}
+          <div class="wz-ext-empty" data-ext-empty hidden>{t.noResults}</div>
+        </div>
+      </div>
+
+      <!-- Right: selected order -->
+      <div class="wz-step1-order">
+        <div class="wz-order-head">{t.orderHead}</div>
+        <div class="wz-order-list" data-order-list>
+          {/* populated by wizardController on init */}
+        </div>
+      </div>
+    </div>
+  </details>
 </div>

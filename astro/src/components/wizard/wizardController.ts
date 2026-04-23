@@ -20,6 +20,14 @@ function unique<T>(arr: T[]): T[] {
 }
 
 type QueryRoot = Element | Document | null | undefined;
+type TagWidgetElement = HTMLElement & { __renderTags?: (tags: string[]) => void };
+type BriefMode = WizardState['briefing']['mode'];
+
+const DEFAULT_ACADEMIC_PROFILE = 'ai_ml';
+const BRIEF_MODE_DEFAULTS: Record<BriefMode, string[]> = {
+  academic: ['arxiv', 'hacker_news', 'github_trending'],
+  personal: ['weather', 'hacker_news', 'github_trending'],
+};
 
 function qs<T extends Element>(sel: string, root: QueryRoot = document): T | null {
   if (!root) return null;
@@ -166,7 +174,7 @@ type SetupMode = 'connect' | 'manual';
 
 const GITHUB_AUTH_SESSION_KEY = 'linnet-github-auth-v1';
 const WIZARD_SETUP_MODE_KEY = 'linnet-setup-mode-v1';
-const WIZARD_AUTO_ENABLE_ACTIONS_KEY = 'linnet-auto-enable-actions-v1';
+const WIZARD_AUTO_ENABLE_ACTIONS_KEY = 'linnet-auto-enable-actions-v2';
 const AUTO_ENABLE_WORKFLOW_IDS = ['daily.yml', 'weekly.yml', 'monthly.yml', 'pages.yml'] as const;
 
 const DEFAULT_POSTDOC_TERMS = ['machine learning', 'computer vision', 'medical imaging'];
@@ -203,7 +211,7 @@ const LLM_PRESET_DEFAULTS = {
   },
   custom: {
     provider: 'custom',
-    baseUrl: 'https://api.example.com/v1',
+    baseUrl: '',
     apiKeyEnv: 'LLM_API_KEY',
     scoringModel: '',
     summarizationModel: '',
@@ -229,6 +237,9 @@ function resolveLlmConfig(state: WizardState): WizardState['llm'] {
   const provider = state.llm.provider.trim() || 'openrouter';
   const preset = getLlmPresetDefaults(provider);
   const allowBlankModels = provider === 'custom';
+  const fallbackBaseUrl = provider === 'custom'
+    ? ''
+    : (preset.baseUrl || LLM_PRESET_DEFAULTS['openrouter'].baseUrl);
   const scoringModel = state.llm.scoringModel.trim()
     || preset.scoringModel
     || (allowBlankModels ? '' : OPENROUTER_DEFAULT_MODEL);
@@ -239,7 +250,7 @@ function resolveLlmConfig(state: WizardState): WizardState['llm'] {
 
   return {
     provider,
-    baseUrl: state.llm.baseUrl.trim() || preset.baseUrl || LLM_PRESET_DEFAULTS['openrouter'].baseUrl,
+    baseUrl: state.llm.baseUrl.trim() || fallbackBaseUrl,
     apiKeyEnv: state.llm.apiKeyEnv.trim() || preset.apiKeyEnv || LLM_PRESET_DEFAULTS['openrouter'].apiKeyEnv,
     scoringModel,
     summarizationModel,
@@ -569,6 +580,33 @@ function getListVal(container: Element | null): string[] {
   try { return JSON.parse(raw) as string[]; } catch { return []; }
 }
 
+function writeListVal(container: TagWidgetElement, values: string[]): void {
+  if (container.classList.contains('wz-urls')) container.dataset['urls'] = JSON.stringify(values);
+  else container.dataset['tags'] = JSON.stringify(values);
+}
+
+function setTagWidgetValues(container: Element | null, values: string[]): void {
+  const widget = container as TagWidgetElement | null;
+  if (!widget) return;
+  writeListVal(widget, values);
+  widget.__renderTags?.(values);
+}
+
+function syncTagWidgetGroup(source: Element, values: string[]): void {
+  const syncKey = (source as HTMLElement).dataset['syncKey'];
+  if (!syncKey) return;
+  qsa<HTMLElement>(`[data-sync-key="${syncKey}"]`).forEach((peer) => {
+    if (peer === source) return;
+    setTagWidgetValues(peer, values);
+  });
+}
+
+function currentArxivProfileValue(root: QueryRoot = document): string {
+  return qsa<HTMLInputElement>('[data-arxiv-profile-input]:checked', root)
+    .map((input) => input.value)[0]
+    ?? DEFAULT_ACADEMIC_PROFILE;
+}
+
 function readFieldValue(extKey: string, field: SetupField): unknown {
   if (field.type === 'tags' || field.type === 'urls') {
     return getListVal(qs(`[data-config-for="${extKey}"][data-field="${field.key}"]`));
@@ -599,6 +637,11 @@ function readRegistryConfig(state: WizardState): void {
 }
 
 function readState(state: WizardState): void {
+  const briefModeEl = qs<HTMLButtonElement>('[data-brief-mode-btn][aria-pressed="true"]');
+  if (briefModeEl) {
+    state.briefing.mode = (briefModeEl.dataset['briefModeBtn'] ?? 'academic') as BriefMode;
+  }
+
   // Language
   const langEl = qs<HTMLSelectElement>('[data-global-language]');
   if (langEl) state.global.language = langEl.value;
@@ -617,8 +660,10 @@ function readState(state: WizardState): void {
 
   // arXiv
   const arxivPanel = qs('[data-config-for="arxiv"]');
+  const selectedArxivProfile = currentArxivProfileValue(document);
+  state.briefing.academicProfile = selectedArxivProfile;
+  state.arxiv.presets = selectedArxivProfile === 'custom_only' ? [] : [selectedArxivProfile];
   if (arxivPanel) {
-    state.arxiv.presets = qsa<HTMLInputElement>('[name="arxiv_preset"]:checked', arxivPanel).map(el => el.value);
     const threshEl = qs<HTMLInputElement>('[data-arxiv-threshold]');
     if (threshEl) state.arxiv.threshold = Number(threshEl.value);
     const maxEl = qs<HTMLInputElement>('[data-arxiv-max-papers]');
@@ -694,9 +739,8 @@ function initTagsWidget(container: Element): void {
   }
 
   function saveTags(tags: string[]): void {
-    const isUrls = container.classList.contains('wz-urls');
-    if (isUrls) (container as HTMLElement).dataset['urls'] = JSON.stringify(tags);
-    else        (container as HTMLElement).dataset['tags']  = JSON.stringify(tags);
+    writeListVal(container as TagWidgetElement, tags);
+    syncTagWidgetGroup(container, tags);
   }
 
   function renderTags(tags: string[]): void {
@@ -720,6 +764,8 @@ function initTagsWidget(container: Element): void {
       listEl.insertBefore(el, emptyEl ?? null);
     }
   }
+
+  (container as TagWidgetElement).__renderTags = renderTags;
 
   function addTag(): void {
     const val = inputEl.value.trim();
@@ -790,7 +836,7 @@ export function initWizard(): void {
   const locale = (shell.dataset['locale'] ?? 'en') as 'en' | 'zh';
   const state  = createInitialState();
   if (locale === 'zh') state.global.language = 'zh';
-  const TOTAL_STEPS = 6;
+  const TOTAL_STEPS = 5;
 
   const blurbsRaw = shell.dataset['stepBlurbs'] ?? '[]';
   let blurbs: string[] = [];
@@ -808,17 +854,20 @@ export function initWizard(): void {
   const fillEl   = qs<HTMLElement>('[data-progress-fill]', shell);
   const progressAnchorEl = qs<HTMLElement>('[data-progress-anchor]', shell);
   const orderList = qs<HTMLElement>('[data-order-list]', shell);
+  const briefModeButtons = qsa<HTMLButtonElement>('[data-brief-mode-btn]', shell);
+  const briefModePanels = qsa<HTMLElement>('[data-brief-mode-panel]', shell);
+  const briefSelectionSummaryEl = qs<HTMLElement>('[data-brief-selection-summary]', shell);
   const llmProviderSelect = qs<HTMLSelectElement>('[data-llm-provider]', shell);
   const llmBaseUrlInput = qs<HTMLInputElement>('[data-llm-base-url]', shell);
   const llmSecretNameInput = qs<HTMLInputElement>('[data-llm-secret-name]', shell);
   const llmApiKeyInput = qs<HTMLInputElement>('[data-llm-api-key]', shell);
-  const llmApiKeyMirrorInput = qs<HTMLInputElement>('[data-llm-api-key-mirror]', shell);
   const llmApiKeyHintEl = qs<HTMLElement>('[data-llm-api-key-hint]', shell);
-  const llmApiKeyStep6HintEl = qs<HTMLElement>('[data-llm-api-key-step6-hint]', shell);
   const llmScoringModelInput = qs<HTMLInputElement>('[data-llm-scoring-model]', shell);
   const llmSummarizationModelInput = qs<HTMLInputElement>('[data-llm-summarization-model]', shell);
   const llmModelOptionsEl = qs<HTMLDataListElement>('[data-llm-model-options]', shell);
   const llmProviderNoteEl = qs<HTMLElement>('[data-llm-provider-note]', shell);
+  const llmModelsLinkEl = qs<HTMLAnchorElement>('[data-llm-models-link]', shell);
+  const llmBaseUrlRequiredMarkerEl = qs<HTMLElement>('[data-required-marker-for="llm-base-url"]', shell);
   const deployRepoInput = qs<HTMLInputElement>('[data-deploy-repo]', shell);
   const autoEnableActionsCheckbox = qs<HTMLInputElement>('[data-auto-enable-actions]', shell);
   const deploySubmitBtn = qs<HTMLButtonElement>('[data-deploy-submit]', shell);
@@ -854,7 +903,7 @@ export function initWizard(): void {
     removeJson(GITHUB_AUTH_SESSION_KEY);
   }
   if (autoEnableActionsCheckbox) {
-    autoEnableActionsCheckbox.checked = loadJson<boolean>(WIZARD_AUTO_ENABLE_ACTIONS_KEY) ?? false;
+    autoEnableActionsCheckbox.checked = loadJson<boolean>(WIZARD_AUTO_ENABLE_ACTIONS_KEY) ?? true;
   }
 
   // ── Navigation ──────────────────────────────────────────────
@@ -1007,17 +1056,61 @@ export function initWizard(): void {
         ? `这个值只会在部署时作为 ${secretName} 写入 GitHub Actions Secrets，不会写进 YAML。`
         : `This value is written as ${secretName} during deploy and is never stored in YAML.`;
     }
-    if (llmApiKeyStep6HintEl) {
-      llmApiKeyStep6HintEl.textContent = locale === 'zh'
-        ? `这和 Step 3 里的 ${secretName} 是同一个值；如果前面没填，这里也可以补上。`
-        : `This is the same ${secretName} value from Step 3. If you skipped it earlier, you can fill it here as well.`;
-    }
   }
 
   function currentLlmApiKeyValue(): string {
-    return llmApiKeyInput?.value.trim()
-      || llmApiKeyMirrorInput?.value.trim()
-      || '';
+    return llmApiKeyInput?.value.trim() || '';
+  }
+
+  function isVisible(el: HTMLElement | null): boolean {
+    return Boolean(el && el.offsetParent !== null);
+  }
+
+  function syncFieldRequirements(): void {
+    if (llmApiKeyInput) {
+      llmApiKeyInput.required = true;
+    }
+
+    if (llmBaseUrlInput) {
+      const llmBaseUrlRequired = (llmProviderSelect?.value ?? 'openrouter') === 'custom';
+      llmBaseUrlInput.required = llmBaseUrlRequired;
+      if (llmBaseUrlRequiredMarkerEl) {
+        llmBaseUrlRequiredMarkerEl.hidden = !llmBaseUrlRequired;
+      }
+    }
+
+    const quoteInput = qs<HTMLInputElement>('[data-deploy-secret="API_NINJAS_KEY"]', shell);
+    if (quoteInput) {
+      quoteInput.required = isVisible(quoteInput);
+    }
+
+    const slackInput = qs<HTMLInputElement>('[data-deploy-secret="SLACK_WEBHOOK_URL"]', shell);
+    if (slackInput) {
+      slackInput.required = Boolean(qs<HTMLInputElement>('[data-sink-slack-enabled]', shell)?.checked);
+    }
+
+    const serverChanInput = qs<HTMLInputElement>('[data-deploy-secret="SERVERCHAN_SENDKEY"]', shell);
+    if (serverChanInput) {
+      serverChanInput.required = Boolean(qs<HTMLInputElement>('[data-sink-sc-enabled]', shell)?.checked);
+    }
+  }
+
+  function validateCurrentStep(): boolean {
+    syncFieldRequirements();
+    const currentStepEl = qs<HTMLElement>(`.wz-step[data-step="${state.currentStep}"]`, shell);
+    if (!currentStepEl) return true;
+
+    const inputs = qsa<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>(
+      'input:not([type="hidden"]), select, textarea',
+      currentStepEl,
+    ).filter((field) => !field.disabled && isVisible(field as HTMLElement));
+
+    const firstInvalid = inputs.find((field) => !field.checkValidity());
+    if (!firstInvalid) return true;
+
+    firstInvalid.reportValidity();
+    firstInvalid.focus();
+    return false;
   }
 
   function shouldAutoEnableActions(): boolean {
@@ -1025,9 +1118,8 @@ export function initWizard(): void {
   }
 
   function syncLlmApiKeyInputs(source?: HTMLInputElement | null): void {
-    const value = source?.value ?? currentLlmApiKeyValue();
-    if (llmApiKeyInput && llmApiKeyInput !== source) llmApiKeyInput.value = value;
-    if (llmApiKeyMirrorInput && llmApiKeyMirrorInput !== source) llmApiKeyMirrorInput.value = value;
+    if (!llmApiKeyInput || !source || llmApiKeyInput === source) return;
+    llmApiKeyInput.value = source.value;
   }
 
   function renderLlmModelOptions(models: string[]): void {
@@ -1035,6 +1127,22 @@ export function initWizard(): void {
     llmModelOptionsEl.innerHTML = models
       .map((model) => `<option value="${escapeHtml(model)}"></option>`)
       .join('');
+  }
+
+  function syncLlmModelsLink(option: HTMLOptionElement | null): void {
+    if (!llmModelsLinkEl || !option) return;
+    const modelsUrl = option.dataset['modelsUrl'] ?? '';
+    if (!modelsUrl) {
+      llmModelsLinkEl.hidden = true;
+      llmModelsLinkEl.removeAttribute('href');
+      return;
+    }
+
+    llmModelsLinkEl.hidden = false;
+    llmModelsLinkEl.href = modelsUrl;
+    llmModelsLinkEl.textContent = locale === 'zh'
+      ? `查看 ${option.label} 模型列表`
+      : `Browse ${option.label} models`;
   }
 
   function applyLlmProviderPreset(resetModels: boolean): void {
@@ -1054,6 +1162,7 @@ export function initWizard(): void {
 
     renderLlmModelOptions(getSuggestedLlmModels(option));
     if (llmProviderNoteEl) llmProviderNoteEl.textContent = option.dataset['note'] ?? '';
+    syncLlmModelsLink(option);
     syncLlmSecretLabels();
   }
 
@@ -1294,8 +1403,8 @@ export function initWizard(): void {
         ${userHtml}
         <p style="margin-top:12px">
           ${locale === 'zh'
-            ? `已授权 Linnet Bridge。当前安装目标为 ${installationLabel}，仓库范围是 ${repoScope}；到第 6 步时只需要确认目标仓库即可。`
-            : `Linnet Bridge is authorized. The current installation targets ${installationLabel} with ${repoScope}; at Step 6 you only need to confirm the target repository.`}
+            ? `已授权 Linnet Bridge。当前安装目标为 ${installationLabel}，仓库范围是 ${repoScope}；到第 5 步时只需要确认目标仓库即可。`
+            : `Linnet Bridge is authorized. The current installation targets ${installationLabel} with ${repoScope}; at Step 5 you only need to confirm the target repository.`}
         </p>
         ${accessSummary ? `<p style="margin-top:8px">${accessSummary}</p>` : ''}
         ${githubSession.repositoriesTruncated ? `<p style="margin-top:8px">${locale === 'zh' ? '仓库建议列表较长，当前只展示其中一部分；如果没看到目标仓库，也可以手动输入 owner/repo。' : 'The repository suggestion list is long, so only part of it is shown here; you can still type owner/repo manually if your target is missing.'}</p>` : ''}
@@ -1356,6 +1465,11 @@ export function initWizard(): void {
       const secretName = row.dataset['deploySecretRow'] ?? '';
       row.hidden = !required.has(secretName);
     });
+    qsa<HTMLElement>('[data-optional-secret-card]', shell).forEach((card) => {
+      const secretName = card.dataset['optionalSecretCard'] ?? '';
+      card.hidden = !required.has(secretName);
+    });
+    syncFieldRequirements();
   }
 
   function buildDeploySecrets(): Array<{ name: string; value: string }> {
@@ -1388,6 +1502,77 @@ export function initWizard(): void {
     });
     deployPreviewEl.textContent = preview.join('\n');
   }
+
+  function syncBriefModePanels(): void {
+    briefModeButtons.forEach((button) => {
+      const mode = (button.dataset['briefModeBtn'] ?? 'academic') as BriefMode;
+      button.setAttribute('aria-pressed', String(mode === state.briefing.mode));
+    });
+
+    briefModePanels.forEach((panel) => {
+      const mode = (panel.dataset['briefModePanel'] ?? 'academic') as BriefMode;
+      panel.hidden = mode !== state.briefing.mode;
+    });
+  }
+
+  function syncArxivProfileInputs(): void {
+    const selectedValue = state.arxiv.presets[0] ?? state.briefing.academicProfile ?? DEFAULT_ACADEMIC_PROFILE;
+    qsa<HTMLInputElement>('[data-arxiv-profile-input]', shell).forEach((input) => {
+      input.checked = input.value === selectedValue;
+    });
+  }
+
+  function renderBriefSelectionSummary(): void {
+    if (!briefSelectionSummaryEl) return;
+    briefSelectionSummaryEl.innerHTML = '';
+    for (const key of state.selectedKeys) {
+      const ext = REGISTRY[key];
+      const label = locale === 'zh'
+        ? (ext?.displayNameZh ?? ext?.displayName ?? key)
+        : (ext?.displayName ?? key);
+      const pill = document.createElement('span');
+      pill.className = 'wz-label';
+      pill.textContent = label;
+      briefSelectionSummaryEl.appendChild(pill);
+    }
+  }
+
+  function applyBriefModeDefaults(mode: BriefMode): void {
+    state.briefing.mode = mode;
+    state.selectedKeys = [...BRIEF_MODE_DEFAULTS[mode]];
+    if (mode === 'academic' && !state.arxiv.presets.length) {
+      const selectedProfile = state.briefing.academicProfile || DEFAULT_ACADEMIC_PROFILE;
+      state.arxiv.presets = selectedProfile === 'custom_only' ? [] : [selectedProfile];
+    }
+    syncBriefModePanels();
+    syncArxivProfileInputs();
+    ensureScheduleState();
+    syncCards();
+    renderOrderList();
+    renderBriefSelectionSummary();
+    syncConfigPanels();
+    syncScheduleRows();
+    syncSinkSourceFields();
+    syncDeploySecretRows();
+    renderDeployPreview();
+  }
+
+  briefModeButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const nextMode = (button.dataset['briefModeBtn'] ?? 'academic') as BriefMode;
+      applyBriefModeDefaults(nextMode);
+    });
+  });
+
+  qsa<HTMLInputElement>('[data-arxiv-profile-input]', shell).forEach((input) => {
+    input.addEventListener('change', () => {
+      if (!input.checked) return;
+      state.briefing.academicProfile = input.value;
+      state.arxiv.presets = input.value === 'custom_only' ? [] : [input.value];
+      syncArxivProfileInputs();
+      renderDeployPreview();
+    });
+  });
 
   modeButtons.forEach((button) => {
     button.addEventListener('click', () => {
@@ -1473,13 +1658,14 @@ export function initWizard(): void {
       showStep(1, { scroll: true });
       return;
     }
+    if (!validateCurrentStep()) return;
     if (state.currentStep === TOTAL_STEPS - 1) {
       readState(state);
       renderOutputs(state);
     }
     state.currentStep = Math.min(state.currentStep + 1, TOTAL_STEPS);
     if (state.currentStep === 2) syncConfigPanels();
-    if (state.currentStep === 3) syncScheduleRows();
+    if (state.currentStep === 4) syncScheduleRows();
     showStep(state.currentStep, { scroll: true });
   });
 
@@ -1535,9 +1721,12 @@ export function initWizard(): void {
       }
       syncCards();
       renderOrderList();
+      renderBriefSelectionSummary();
       syncConfigPanels();
       syncScheduleRows();
       syncSinkSourceFields();
+      syncDeploySecretRows();
+      renderDeployPreview();
     });
   });
 
@@ -1576,9 +1765,11 @@ export function initWizard(): void {
     initDragReorder(orderList, (keys) => {
       state.selectedKeys = keys;
       renderOrderList();
+      renderBriefSelectionSummary();
       syncConfigPanels();
       syncScheduleRows();
       syncSinkSourceFields();
+      renderDeployPreview();
     });
   }
 
@@ -1622,7 +1813,11 @@ export function initWizard(): void {
     function toggle(check: HTMLInputElement | null, fields: HTMLElement | null): void {
       if (!check || !fields) return;
       fields.hidden = !check.checked;
-      check.addEventListener('change', () => { fields.hidden = !check.checked; });
+      check.addEventListener('change', () => {
+        fields.hidden = !check.checked;
+        syncDeploySecretRows();
+        renderDeployPreview();
+      });
     }
 
     toggle(slackCheck, slackFields);
@@ -1636,7 +1831,7 @@ export function initWizard(): void {
     });
   }
 
-  // ── Step 5: Theme preset toggles ────────────────────────────
+  // ── Step 4: Advanced theme preset toggles ───────────────────
 
   function renderThemePreview(): void {
     readState(state);
@@ -1725,7 +1920,7 @@ export function initWizard(): void {
     renderThemePreview();
   }
 
-  // ── Step 6: YAML output ──────────────────────────────────────
+  // ── Step 5: Deploy output ────────────────────────────────────
 
   function renderOutputs(s: WizardState): void {
     ensureScheduleState();
@@ -1845,8 +2040,14 @@ export function initWizard(): void {
   initThemePresets();
 
   applyLlmProviderPreset(false);
+  syncFieldRequirements();
   llmProviderSelect?.addEventListener('change', () => {
     applyLlmProviderPreset(true);
+    syncFieldRequirements();
+    renderDeployPreview();
+  });
+  llmBaseUrlInput?.addEventListener('input', () => {
+    syncFieldRequirements();
     renderDeployPreview();
   });
   llmSecretNameInput?.addEventListener('input', () => {
@@ -1855,10 +2056,6 @@ export function initWizard(): void {
   });
   llmApiKeyInput?.addEventListener('input', () => {
     syncLlmApiKeyInputs(llmApiKeyInput);
-    renderDeployPreview();
-  });
-  llmApiKeyMirrorInput?.addEventListener('input', () => {
-    syncLlmApiKeyInputs(llmApiKeyMirrorInput);
     renderDeployPreview();
   });
 
@@ -1874,8 +2071,13 @@ export function initWizard(): void {
     }
   });
   qsa<HTMLInputElement>('[data-deploy-secret]', shell).forEach((input) => {
-    input.addEventListener('input', renderDeployPreview);
+    input.addEventListener('input', () => {
+      syncFieldRequirements();
+      renderDeployPreview();
+    });
   });
+  llmScoringModelInput?.addEventListener('input', renderDeployPreview);
+  llmSummarizationModelInput?.addEventListener('input', renderDeployPreview);
   autoEnableActionsCheckbox?.addEventListener('change', () => {
     saveJson(WIZARD_AUTO_ENABLE_ACTIONS_KEY, shouldAutoEnableActions());
     renderDeployPreview();
@@ -1991,8 +2193,11 @@ export function initWizard(): void {
   });
 
   // Sync initial state to DOM
+  syncBriefModePanels();
+  syncArxivProfileInputs();
   syncCards();
   renderOrderList();
+  renderBriefSelectionSummary();
   ensureScheduleState();
   renderSetupMode();
   syncConfigPanels();
@@ -2001,6 +2206,7 @@ export function initWizard(): void {
   syncLlmSecretLabels();
   syncLlmApiKeyInputs();
   syncDeploySecretRows();
+  syncFieldRequirements();
   renderGitHubSession();
   renderDeployPreview();
   if (setupBridgeUrl && (currentUrlInstallationId() || githubSession?.connected)) {

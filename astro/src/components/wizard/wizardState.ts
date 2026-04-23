@@ -5,6 +5,10 @@ export interface SchedulePrefs {
 
 export interface WizardState {
   currentStep: number;
+  briefing: {
+    mode: 'academic' | 'personal';
+    academicProfile: string;
+  };
   selectedKeys: string[];
   config: Record<string, Record<string, unknown>>;
   llm: {
@@ -73,7 +77,11 @@ export interface WizardState {
 export function createInitialState(): WizardState {
   return {
     currentStep: 1,
-    selectedKeys: ['weather', 'arxiv', 'hacker_news', 'github_trending'],
+    briefing: {
+      mode: 'academic',
+      academicProfile: 'ai_ml',
+    },
+    selectedKeys: ['arxiv', 'hacker_news', 'github_trending'],
     config: {},
     llm: {
       provider: 'openrouter',
