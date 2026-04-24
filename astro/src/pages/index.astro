@@ -53,13 +53,13 @@ const features = [
   },
   {
     roman: 'II',
-    head: 'Quiet infrastructure that stays out of the way.',
-    body: 'GitHub Actions runs the pipeline; GitHub Pages hosts the result. No server to maintain.',
+    head: 'A setup flow that stays guided.',
+    body: 'Pick a briefing shape, connect once, and let Linnet handle the repeatable morning routine.',
   },
   {
     roman: 'III',
-    head: 'A guided wizard, not a raw config file.',
-    body: 'Pick your sources, set preferences, and receive ready-to-commit YAML — no manual editing required.',
+    head: 'Advanced control only when you need it.',
+    body: 'Start from the default briefing path, then open sources, sinks, and theme controls only when they matter.',
   },
 ];
 
@@ -143,7 +143,7 @@ function fallbackPreviewLines(): DigestPreviewLine[] {
         <span class="cover-masthead__dot">·</span>
         <span>{totalWeeks} weekly rollups</span>
         <span class="cover-masthead__dot">·</span>
-        <span>Open source</span>
+        <span>Searchable archive</span>
       </div>
     </header>
 
@@ -222,15 +222,15 @@ function fallbackPreviewLines(): DigestPreviewLine[] {
 
     <!-- ── Infrastructure note ───────────────────────────────── -->
     <div class="cover-infra">
-      <div class="cover-section-label">How It Works Today</div>
+      <div class="cover-section-label">Start With The Wizard</div>
       <p class="cover-infra__note">
-        The setup wizard drafts your config files and walks you through a one-time GitHub handoff.
-        After that, Actions runs the pipeline nightly and Pages hosts the result — no server needed.
+        The setup wizard keeps the first run focused on the briefing you want.
+        It guides the one-time GitHub handoff, then Linnet keeps preparing the next issue on a schedule.
       </p>
       <ol class="cover-infra__steps">
-        <li><span><strong>Choose your sources.</strong> Tell Linnet what deserves your attention.</span></li>
-        <li><span><strong>Generate the config.</strong> The wizard drafts the files and reminder notes.</span></li>
-        <li><span><strong>Commit once on GitHub.</strong> Wake up to a finished briefing from then on.</span></li>
+        <li><span><strong>Choose your briefing shape.</strong> Tell Linnet what deserves your attention.</span></li>
+        <li><span><strong>Connect once.</strong> The wizard handles the repo handoff and secret reminders.</span></li>
+        <li><span><strong>Let it run.</strong> Wake up to a finished briefing from then on.</span></li>
       </ol>
       <div class="cover-infra__actions">
         <a href={`${base}/setup/`} class="cover-btn cover-btn--primary">Open the wizard</a>
@@ -242,7 +242,7 @@ function fallbackPreviewLines(): DigestPreviewLine[] {
 
     <!-- ── Colophon ──────────────────────────────────────────── -->
     <div class="cover-colophon">
-      linnet is open source · star the repo if it saves you time · built quietly with python + astro
+      linnet is open source infrastructure for a calm personal briefing · built quietly with python + astro
     </div>
 
   </div>

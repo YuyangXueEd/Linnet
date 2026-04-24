@@ -7,6 +7,7 @@ const revokeLink = 'https://github.com/settings/installations';
 
 const t = {
   nextHead:   locale === 'zh' ? '接下来的步骤' : 'Suggested next steps',
+  troubleshootingHead: locale === 'zh' ? '如果这里卡住了' : 'If this got stuck',
   manualHead: locale === 'zh' ? '手动配置清单' : 'Manual handoff checklist',
   manual1:    locale === 'zh' ? '将每个生成的代码块复制到你自己的仓库对应文件中。' : 'Copy each generated block into the matching file in your repository.',
   manual3sc:  locale === 'zh' ? '如果启用了 Server酱，同时添加 SERVERCHAN_SENDKEY。' : 'If ServerChan is enabled, add SERVERCHAN_SENDKEY too.',
@@ -47,11 +48,17 @@ const t = {
     ? '如果自动触发失败，直接打开这里手动运行一次即可。'
     : 'If the automatic trigger failed, open this and run it manually once.',
   workflowLinkLabel: locale === 'zh' ? '打开 workflow 页面' : 'Open workflow page',
+  repoLinkLabel: locale === 'zh' ? '打开仓库主页' : 'Open repository home',
   siteUrlLabel: locale === 'zh' ? '默认 GitHub Pages 地址：' : 'Default GitHub Pages URL:',
   siteUrlHint: locale === 'zh'
     ? '可选但推荐：站点上线后，把这个地址填到仓库主页的 About -> Website 里，这样 GitHub 上会直接显示站点入口。'
     : 'Optional but recommended: once the site is live, paste this URL into the repository\'s About -> Website field so GitHub shows the homepage link.',
   repoHomeLabel: locale === 'zh' ? '打开仓库主页' : 'Open repository home',
+  resultFiles: locale === 'zh' ? '写入文件' : 'Files written',
+  resultSecrets: locale === 'zh' ? '更新 secrets' : 'Secrets updated',
+  resultActions: locale === 'zh' ? 'GitHub Actions' : 'GitHub Actions',
+  resultPages: locale === 'zh' ? 'GitHub Pages' : 'GitHub Pages',
+  resultRun: locale === 'zh' ? '首次运行' : 'First run',
 };
 ---
 
@@ -105,28 +112,57 @@ const t = {
 
     <div data-deploy-status hidden class="wz-notice wz-notice--info" style="margin-top:16px"></div>
     <div data-deploy-success hidden class="wz-notice wz-notice--success" style="margin-top:16px">
-      <strong>{locale === 'zh' ? '部署已完成' : 'Deploy completed'}</strong>
-      <div>
-        {t.revoke}{' '}
-        <a href={revokeLink} target="_blank" rel="noopener">{t.revokeLinkLabel}</a>
+      <strong data-deploy-success-title>{locale === 'zh' ? '部署已完成' : 'Deploy completed'}</strong>
+      <div data-deploy-success-body></div>
+      <div class="wz-result-grid" style="margin-top:14px">
+        <div class="wz-result-item">
+          <div class="wz-result-item__label">{t.resultFiles}</div>
+          <div class="wz-result-item__value" data-deploy-result-files>0</div>
+        </div>
+        <div class="wz-result-item">
+          <div class="wz-result-item__label">{t.resultSecrets}</div>
+          <div class="wz-result-item__value" data-deploy-result-secrets>0</div>
+        </div>
+        <div class="wz-result-item">
+          <div class="wz-result-item__label">{t.resultActions}</div>
+          <div class="wz-result-item__value" data-deploy-result-actions>Pending</div>
+          <div class="wz-result-item__hint" data-deploy-result-actions-hint></div>
+        </div>
+        <div class="wz-result-item">
+          <div class="wz-result-item__label">{t.resultPages}</div>
+          <div class="wz-result-item__value" data-deploy-result-pages>Pending</div>
+          <div class="wz-result-item__hint" data-deploy-result-pages-hint></div>
+        </div>
+        <div class="wz-result-item wz-result-item--span-2">
+          <div class="wz-result-item__label">{t.resultRun}</div>
+          <div class="wz-result-item__value" data-deploy-result-run>Pending</div>
+          <div class="wz-result-item__hint" data-deploy-result-run-hint></div>
+        </div>
       </div>
-      <div data-deploy-workflow-tip hidden style="margin-top:12px">
+      <div class="wz-result-links" style="margin-top:14px">
         <div>
+          {t.repoLinkLabel}{' '}
+          <a data-deploy-repo-home href="#" target="_blank" rel="noopener">{t.repoHomeLabel}</a>
+        </div>
+        <div data-deploy-workflow-tip hidden>
           {t.workflowLabel}{' '}
           <a data-deploy-workflow-url href="#" target="_blank" rel="noopener">{t.workflowLinkLabel}</a>
         </div>
-        <div>{t.workflowHint}</div>
-      </div>
-      <div data-deploy-site-tip hidden style="margin-top:12px">
-        <div>
+        <div data-deploy-site-tip hidden>
           {t.siteUrlLabel}{' '}
           <a data-deploy-site-url href="#" target="_blank" rel="noopener"></a>
         </div>
-        <div>
-          {t.siteUrlHint}{' '}
-          <a data-deploy-repo-home href="#" target="_blank" rel="noopener">{t.repoHomeLabel}</a>
-        </div>
       </div>
+      <div class="wz-field__hint" style="margin-top:12px" data-deploy-site-hint hidden>{t.siteUrlHint}</div>
+      <div class="wz-field__hint" style="margin-top:12px" data-deploy-workflow-hint hidden>{t.workflowHint}</div>
+      <div class="wz-field__hint" style="margin-top:12px">
+        {t.revoke}{' '}
+        <a href={revokeLink} target="_blank" rel="noopener">{t.revokeLinkLabel}</a>
+      </div>
+    </div>
+    <div data-deploy-troubleshooting hidden class="wz-notice wz-notice--warn" style="margin-top:16px">
+      <strong data-deploy-troubleshooting-title>{t.troubleshootingHead}</strong>
+      <ol class="wz-checklist" data-deploy-troubleshooting-list></ol>
     </div>
   </div>
 
@@ -148,14 +184,7 @@ const t = {
   <!-- Next steps checklist -->
   <div class="wz-notice wz-notice--success" style="margin-top:24px" data-connect-next-steps hidden>
     <strong>{t.nextHead}</strong>
-    <ol class="wz-checklist">
-      <li>{locale === 'zh' ? '检查仓库里的 config 文件和 GitHub Actions secrets 是否都已经写入。' : 'Check that the config files and GitHub Actions secrets were written to the repository.'}</li>
-      <li>{locale === 'zh' ? '如果你没有打开上面的自动启用开关，请自己在目标仓库里启用 GitHub Actions / workflows；fork 先在 Actions 标签页里点击确认。' : 'If you left the auto-enable switch off, enable GitHub Actions / workflows yourself in the target repository; forks need the Actions-tab confirmation first.'}</li>
-      <li>{locale === 'zh' ? '如果你打开了自动启用开关但仍然收到警告，请检查 Linnet Bridge GitHub App 是否已经安装到目标仓库，并确认仓库 / 组织策略没有阻止 Actions 或 Pages。' : 'If you turned auto-enable on but still got a warning, check whether the Linnet Bridge GitHub App is installed on the target repository and whether repo / org policy is blocking Actions or Pages.'}</li>
-      <li>{locale === 'zh' ? '如果自动触发没有成功，再前往 Actions 手动运行一次 Daily Digest 以确认配置正常。' : 'If the auto-trigger did not start successfully, go to Actions and run Daily Digest manually to confirm the setup.'}</li>
-      <li>{locale === 'zh' ? '等 GitHub Pages 上线后，可选地把站点地址填到仓库主页的 About -> Website 里，方便在 GitHub 上直接看到入口。' : 'Once GitHub Pages is live, optionally add your site URL to the repository\'s About -> Website field so the homepage link appears on GitHub.'}</li>
-      <li>{locale === 'zh' ? '如果在共享设备上操作，部署完成后请断开 GitHub 连接。' : 'If you are on a shared device, disconnect GitHub after the deploy finishes.'}</li>
-    </ol>
+    <ol class="wz-checklist" data-connect-next-steps-list></ol>
   </div>
 
   <div class="wz-notice wz-notice--success" style="margin-top:24px" data-manual-next-steps>

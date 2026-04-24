@@ -13,7 +13,7 @@
 
 ![Linnet Hero](assets/hero.png)
 
-Use this template, add one API key, and run it on GitHub Actions. No server, no subscription, no dashboard lock-in.
+Start with the setup wizard, choose the briefing shape you want, add your LLM key, and let Linnet prepare the repo handoff. The current self-hosted path uses GitHub Actions and Pages behind the scenes; you do not need to run a server or accept dashboard lock-in.
 
 **[Live example](https://yuyangxueed.github.io/Linnet)** · **[Upstream setup demo (EN)](https://yuyangxueed.github.io/Linnet/setup/)** · **[上游配置演示 (中文)](https://yuyangxueed.github.io/Linnet/setup/zh/)** · **[Manual config guide](dev_docs/manual-config.md)**
 
@@ -23,7 +23,7 @@ Use this template, add one API key, and run it on GitHub Actions. No server, no 
 
 ![Linnet Workflow](assets/workflow.png)
 
-Linnet is a modular pipeline designed to automate the knowledge-gathering habits of researchers and engineers. It scouts your preferred sources, uses an LLM to distill the signal from the noise, and delivers a polished briefing to your chosen sinks.
+Linnet acts like a small AI secretary for your morning routine. It checks the sources you care about, filters the noise with an LLM, and leaves you with a polished briefing before the workday starts.
 
 ---
 
@@ -53,13 +53,11 @@ The setup wizard also exposes language-specific tagline extensions:
 - `hitokoto` for Chinese briefings, no key required
 - `quote_of_day` for English briefings, requires `API_NINJAS_KEY`
 
-Everything runs on GitHub Actions and publishes to GitHub Pages as your own site.
-
-Generated JSON under `docs/data/` stays ignored in normal local worktrees to avoid noisy diffs, but the scheduled digest workflows force-add and commit published snapshots so your daily, weekly, and monthly archives persist on GitHub Pages.
+Linnet keeps the generated daily, weekly, and monthly archives in your published site, so the briefing stays searchable instead of disappearing into another feed.
 
 ---
 
-## Fastest path to your own digest
+## Fastest path to your own briefing
 
 ### 1. Create your own repo from this template
 
@@ -91,14 +89,13 @@ At the top of the wizard:
 
 Then continue through the normal steps:
 
-- source selection and ordering
-- LLM provider, API key, and model choices in Step 3
-- theme and palette choices
-- optional sinks
+- briefing mode, source selection, and source detail tuning in Steps 1-2
+- optional extra secrets and delivery channels in Step 3
+- LLM provider, API key, model choices, and theme controls in Step 4
 
-In Step 6, choose your target repository and click **Deploy to GitHub**.
+In Step 5, choose your target repository and click **Deploy to GitHub**.
 
-The default one-click path now uses the Linnet Bridge GitHub App flow, not a PAT. On success it will:
+The default one-click path uses the Linnet Bridge GitHub App flow, not a PAT. Behind the scenes, a successful deploy will:
 
 - write the generated config files in a single commit
 - create or update the needed GitHub Actions secrets
@@ -108,7 +105,7 @@ The default one-click path now uses the Linnet Bridge GitHub App flow, not a PAT
 
 ### 5. Run the first workflow
 
-Most users should not need to click anything else after Step 6. Watch these two workflows in your repo:
+Most users should not need to click anything else after Step 5. Watch these two workflows in your repo:
 
 - **Daily Digest** — generates the first issue and commits the published data
 - **Deploy Astro Site to GitHub Pages** — builds the site and publishes it
@@ -165,7 +162,7 @@ If you want to hand-edit everything, start from [`dev_docs/manual-config.md`](de
 
 ---
 
-## Need more than the default setup?
+## Advanced paths
 
 ### Extensions
 

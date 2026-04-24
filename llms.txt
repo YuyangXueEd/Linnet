@@ -38,7 +38,7 @@ Pick the smallest relevant read order before editing:
 4. the affected extension or sink
 5. `tests/`
 
-Read `skills/linnet-contributor/SKILL.md` when editing the repo itself. Read `skills/linnet-config-customization/SKILL.md` when helping someone configure their fork.
+Read `skills/linnet-contributor/SKILL.md` when editing the repo itself. Read `skills/linnet-config-customization/SKILL.md` when helping someone configure their own repo or digest site.
 
 ---
 
@@ -49,7 +49,7 @@ Read `skills/linnet-contributor/SKILL.md` when editing the repo itself. Read `sk
 - Default output: a searchable digest site on GitHub Pages
 - Optional extras: delivery sinks, extra extensions, advanced prompt/model customization
 - Default LLM path: OpenRouter, but runtime supports any OpenAI-compatible endpoint through `llm.base_url` + `llm.api_key_env`
-- Default onboarding path: `Use this template -> install Linnet Bridge GitHub App -> authorize browser -> deploy from Step 6`
+- Default onboarding path: `Use this template -> install Linnet Bridge GitHub App -> authorize browser -> deploy from Step 5`
 - Manual config remains a fallback path, not the main story
 
 Keep the main user story simple. Advanced flexibility should stay available without dominating the first-run experience.
@@ -139,8 +139,8 @@ Important separation:
 
 - Keep API keys, tokens, and webhooks in environment variables or GitHub Actions secrets only
 - Do not commit secrets into YAML or example configs
-- Step 3 of the setup wizard owns provider choice, model choice, and secret naming
-- Step 6 should reflect the resolved `llm.api_key_env`, not a hard-coded provider name
+- Step 4 of the setup wizard owns provider choice, model choice, and secret naming
+- Deploy copy and success states should reflect the resolved `llm.api_key_env`, not a hard-coded provider name
 
 ### Provider support
 

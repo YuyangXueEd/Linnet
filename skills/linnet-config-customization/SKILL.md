@@ -50,7 +50,7 @@ Read `references/config-map.md` when you want a compact config map.
 - provider presets live in the setup wizard
 - `llm.base_url` and `llm.api_key_env` already support OpenAI-compatible endpoints
 - the chosen secret name must match the environment variable that actually exists
-- Step 6 deploy instructions should reflect the resolved provider config, not assume OpenRouter
+- Step 5 deploy instructions should reflect the resolved provider config, not assume OpenRouter
 
 ### Setup and deploy changes
 

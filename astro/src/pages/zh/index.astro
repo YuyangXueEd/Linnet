@@ -53,13 +53,13 @@ const features = [
   },
   {
     roman: 'II',
-    head: '跑在 GitHub 上，不用维护服务器。',
-    body: 'Actions 负责每天定时跑流程，Pages 负责托管结果，你不需要管任何基础设施。',
+    head: '上手过程保持向导式。',
+    body: '先选简报形态，连接一次，之后让 Linnet 按固定节奏替你准备早报。',
   },
   {
     roman: 'III',
-    head: '向导帮你生成配置，不用手写。',
-    body: '选好你关注的内容来源，向导生成好配置文件，放进仓库，之后就不用动了。',
+    head: '需要时再打开高级控制。',
+    body: '先走默认简报路径；来源、推送渠道和主题这些细节，等你真的需要时再展开。',
   },
 ];
 
@@ -144,7 +144,7 @@ function fallbackPreviewLines(): DigestPreviewLine[] {
         <span class="cover-masthead__dot">·</span>
         <span>{totalWeeks} 期周报</span>
         <span class="cover-masthead__dot">·</span>
-        <span>开源项目</span>
+        <span>可搜索归档</span>
       </div>
     </header>
 
@@ -224,15 +224,15 @@ function fallbackPreviewLines(): DigestPreviewLine[] {
 
     <!-- ── Infrastructure note ───────────────────────────────── -->
     <div class="cover-infra">
-      <div class="cover-section-label">怎么跑起来的</div>
+      <div class="cover-section-label">从设置向导开始</div>
       <p class="cover-infra__note">
-        配置向导帮你生成好所有配置文件，做一次 GitHub 操作之后，
-        Actions 每天自动跑流程，Pages 托管结果，你不需要维护任何东西。
+        设置向导会先把注意力放在你想要的 briefing 上。
+        完成一次 GitHub 交接后，Linnet 就会按计划继续准备下一期简报。
       </p>
       <ol class="cover-infra__steps">
-        <li><span><strong>选好你关注的内容来源。</strong>论文、资讯、仓库、天气，按需勾选。</span></li>
-        <li><span><strong>向导生成配置文件。</strong>不用手写，复制进仓库就行。</span></li>
-        <li><span><strong>做一次 GitHub 操作。</strong>之后每天醒来简报已经准备好了。</span></li>
+        <li><span><strong>选择简报形态。</strong>告诉 Linnet 哪些信息值得出现在早上。</span></li>
+        <li><span><strong>连接一次。</strong>向导处理仓库交接和 secret 提醒。</span></li>
+        <li><span><strong>让它自动运行。</strong>之后每天醒来，简报已经准备好了。</span></li>
       </ol>
       <div class="cover-infra__actions">
         <a href={`${base}/setup/zh/`} class="cover-btn cover-btn--primary">打开配置向导</a>
@@ -244,7 +244,7 @@ function fallbackPreviewLines(): DigestPreviewLine[] {
 
     <!-- ── Colophon ──────────────────────────────────────────── -->
     <div class="cover-colophon">
-      linnet 开源 · 如果省了你的时间，给个 star · 用 python + astro 搭的
+      linnet 是一套开源的个人 briefing 基础设施 · 用 python + astro 搭的
     </div>
 
   </div>

@@ -26,7 +26,7 @@ These decisions are settled and should guide all implementation choices.
 ### Proof and packaging
 - Use founder dogfooding as the first credibility source.
 - Show polished real outputs before talking about architecture.
-- Present only a few opinionated starter templates in the main flow (`venture brief`, `academic brief`, `daily industry brief`).
+- Keep the current simple starter-mode design for now; do not add more templates until proof examples show a clear need.
 - Treat open source and deep customisation as trust/infrastructure, not the hero message.
 - Practice "restrained openness" — hide extension, sink, and theme complexity behind advanced paths.
 
@@ -43,109 +43,99 @@ These decisions are settled and should guide all implementation choices.
 
 ---
 
-## P1 — Content, proof, and polish
+## Now
 
+These are the highest-leverage items for the next execution window.
+
+### 1. Improve proof and public packaging
 - [ ] Expand the proof section with concrete founder-run use cases and captions, not only screenshots.
-- [ ] Reduce open-source and customisation complexity in the main public funnel.
-- [ ] Introduce a small set of opinionated starter modes in copy and layout.
 - [ ] Add direct links for any repos/snippets where code or UI was substantially adapted.
+
+Definition of done:
+- Homepage and README show real examples of what Linnet produces.
+- Public-facing copy keeps the current starter-mode design stable unless real proof examples create demand for more modes.
+
+### 2. Add low-cost distribution basics
+- [ ] Draft the first launch post for one primary channel.
+  Recommended first candidate: `Show HN: Linnet – self-hosted AI research digest via GitHub Actions`.
+
+Definition of done:
+- At least one launch-ready written post exists in-repo or in docs drafts.
 
 ---
 
-## Sink delivery ergonomics
+## Next
 
+These are the next product and UX improvements once the current funnel feels stable.
+
+### 1. Sink delivery ergonomics
 - [ ] Add optional `delivery_mode: single | sectioned` config for sinks.
 - [ ] For Slack: consider `sectioned` as default because Block Kit has field/block limits.
 - [ ] For ServerChan: keep `single` as the conservative default.
 - [ ] Add `max_jobs` config parity to the Slack sink.
 - [ ] Add tests covering single vs multi-message delivery behaviour.
 
----
+Definition of done:
+- Sink behaviour is predictable across Slack and ServerChan.
+- Delivery splitting is configurable and tested.
 
-## LLM follow-ups
-
-- [ ] Future follow-up if needed: add native Anthropic/Gemini adapters beyond OpenAI-compatible endpoints.
-
----
-
-## Brand naming follow-ups
-
-- [ ] Treat `Daily Digest` as a report/output label only, not the product name.
-
----
-
-## P2 — Onboarding follow-ups
-
-- [ ] Strengthen the deployment success and failure states with clearer workflow links, policy troubleshooting, and Pages-delay messaging.
-
-- [ ] Prepare the site for future non-GitHub onboarding.
-  Write copy and structure that can survive a SaaS-like deployment flow without a full rewrite.
-
-- [ ] Prepare copy and layout for a future lightweight web onboarding flow.
-  Leave a clean path for `sign in → enter key → deploy/run` without rewriting the public narrative.
-
----
-
-## Growth & Promotion
-
-### Phase 0 — GitHub hygiene
-- [ ] Add GitHub Topics: `arxiv`, `github-actions`, `llm`, `research-digest`, `ai-summary`, `personal-dashboard`, `openai`, `automation`, `python`, `github-pages`.
-
-### Phase 1 — Written posts
-- [ ] Show HN — `Show HN: Linnet – self-hosted AI research digest via GitHub Actions`.
-- [ ] Reddit `r/selfhosted` — "I built a self-hosted daily research digest using GitHub Actions + LLM".
-- [ ] Reddit `r/MachineLearning` or `r/LocalLLaMA` — arXiv + AI summary angle.
-- [ ] dev.to or hashnode article — technical walkthrough.
-- [ ] 知乎文章 — 面向中文学术圈。
-
-### Phase 2 — Passive virality
-- [ ] Showcase page (`docs/showcase.md`) listing forks with live sites.
-- [ ] RSS output so users can subscribe via any RSS reader.
-
-### Phase 3 — Community (when 50+ stars)
-- [ ] Confirm GitHub Discussions is enabled.
-- [ ] Pin one "Share your setup" discussion thread.
-
----
-
-## Documentation IA
-
+### 2. Documentation IA
 - [ ] Enable GitHub Wiki for newcomer-friendly onboarding and FAQs.
 - [ ] Add first-wave Wiki pages: Home, Quick Start for Beginners, Glossary, Troubleshooting, Use Cases.
 - [ ] Link the Wiki from `README.md`, `README_zh.md`, and setup surfaces.
 
----
+Definition of done:
+- README stays focused.
+- Troubleshooting and beginner docs live in one place instead of being scattered.
 
-## Feature backlog
+### 3. Future-proof the onboarding narrative
+- [ ] Prepare the site for future non-GitHub onboarding.
+  Write copy and structure that can survive a SaaS-like deployment flow without a full rewrite.
+- [ ] Prepare copy and layout for a future lightweight web onboarding flow.
+  Leave a clean path for `sign in → enter key → deploy/run` without rewriting the public narrative.
 
-### Email sink `[P0]`
-- Use SendGrid, Mailgun, or SMTP (all have free tiers).
-- Template: plain-text digest + HTML version.
-- Config: `sinks.email.enabled`, `SENDGRID_API_KEY` / `SMTP_*` secrets.
-
-### Discord sink `[P1]`
-- Incoming webhook, same pattern as Slack sink.
-- Rich embeds via Discord embed format.
-
-### Telegram sink `[P1]`
-- Bot API + `sendMessage` with Markdown.
-- Requires `TELEGRAM_BOT_TOKEN` + `TELEGRAM_CHAT_ID`.
-
-### Generic RSS / RSSHub extension `[BACKLOG]`
-```yaml
-rss:
-  enabled: true
-  feeds:
-    - name: "Newlearner Channel"
-      url: "https://rsshub.app/telegram/channel/NewlearnerChannel"
-  max_items_per_feed: 5
-```
-`feedparser` handles RSS/Atom/RDF transparently; LLM summarises each entry in `process()`.
+Definition of done:
+- The public story no longer depends on GitHub being the permanent main funnel.
 
 ---
 
-## Performance
+## Later
 
+These remain useful, but should follow after onboarding, proof, and docs are in a better place.
+
+### Growth & promotion
+- [ ] Reddit `r/selfhosted` — "I built a self-hosted daily research digest using GitHub Actions + LLM".
+- [ ] Reddit `r/MachineLearning` or `r/LocalLLaMA` — arXiv + AI summary angle.
+- [ ] dev.to or hashnode article — technical walkthrough.
+- [ ] 知乎文章 — 面向中文学术圈。
+- [ ] Showcase page (`docs/showcase.md`) listing forks with live sites.
+- [ ] RSS output so users can subscribe via any RSS reader.
+- [ ] Confirm GitHub Discussions is enabled.
+- [ ] Pin one "Share your setup" discussion thread.
+
+### Feature backlog
+
+#### Email sink `[P0]`
+- [ ] Add an email sink using SendGrid, Mailgun, or SMTP.
+- [ ] Support plain-text digest + HTML version.
+- [ ] Add config shape for `sinks.email.enabled` and `SENDGRID_API_KEY` / `SMTP_*` secrets.
+
+#### Discord sink `[P1]`
+- [ ] Add an incoming webhook sink using Discord embeds.
+
+#### Telegram sink `[P1]`
+- [ ] Add a Bot API sink using `sendMessage` with Markdown.
+- [ ] Support `TELEGRAM_BOT_TOKEN` + `TELEGRAM_CHAT_ID`.
+
+#### Generic RSS / RSSHub extension `[BACKLOG]`
+- [ ] Add a generic RSS extension backed by `feedparser`.
+- [ ] Support named feeds and `max_items_per_feed`.
+- [ ] Let the LLM summarise entries in `process()`.
+
+### LLM follow-ups
+- [ ] Add native Anthropic/Gemini adapters beyond OpenAI-compatible endpoints if real demand appears.
+
+### Performance
 Implement after the visual redesign is stable.
 
 - [ ] Add `astro-critters` for critical CSS inlining.
@@ -161,5 +151,4 @@ Implement after the visual redesign is stable.
 
 - [ ] Approve the strongest real digest screenshots and proof examples for the homepage.
 - [ ] Decide whether to record the `1-minute setup` video now or after the next homepage rewrite.
-- [ ] Approve the first three opinionated starter templates to feature publicly.
 - [ ] Decide when to prioritise the long-term SaaS-like onboarding path over GitHub-only setup.

@@ -874,11 +874,26 @@ export function initWizard(): void {
   const deployPreviewEl = qs<HTMLElement>('[data-deploy-preview]', shell);
   const deployStatusEl = qs<HTMLElement>('[data-deploy-status]', shell);
   const deploySuccessEl = qs<HTMLElement>('[data-deploy-success]', shell);
+  const deploySuccessTitleEl = qs<HTMLElement>('[data-deploy-success-title]', shell);
+  const deploySuccessBodyEl = qs<HTMLElement>('[data-deploy-success-body]', shell);
+  const deployResultFilesEl = qs<HTMLElement>('[data-deploy-result-files]', shell);
+  const deployResultSecretsEl = qs<HTMLElement>('[data-deploy-result-secrets]', shell);
+  const deployResultActionsEl = qs<HTMLElement>('[data-deploy-result-actions]', shell);
+  const deployResultActionsHintEl = qs<HTMLElement>('[data-deploy-result-actions-hint]', shell);
+  const deployResultPagesEl = qs<HTMLElement>('[data-deploy-result-pages]', shell);
+  const deployResultPagesHintEl = qs<HTMLElement>('[data-deploy-result-pages-hint]', shell);
+  const deployResultRunEl = qs<HTMLElement>('[data-deploy-result-run]', shell);
+  const deployResultRunHintEl = qs<HTMLElement>('[data-deploy-result-run-hint]', shell);
   const deployWorkflowTipEl = qs<HTMLElement>('[data-deploy-workflow-tip]', shell);
   const deployWorkflowUrlEl = qs<HTMLAnchorElement>('[data-deploy-workflow-url]', shell);
+  const deployWorkflowHintEl = qs<HTMLElement>('[data-deploy-workflow-hint]', shell);
   const deploySiteTipEl = qs<HTMLElement>('[data-deploy-site-tip]', shell);
   const deploySiteUrlEl = qs<HTMLAnchorElement>('[data-deploy-site-url]', shell);
+  const deploySiteHintEl = qs<HTMLElement>('[data-deploy-site-hint]', shell);
   const deployRepoHomeEl = qs<HTMLAnchorElement>('[data-deploy-repo-home]', shell);
+  const deployTroubleshootingEl = qs<HTMLElement>('[data-deploy-troubleshooting]', shell);
+  const deployTroubleshootingTitleEl = qs<HTMLElement>('[data-deploy-troubleshooting-title]', shell);
+  const deployTroubleshootingListEl = qs<HTMLElement>('[data-deploy-troubleshooting-list]', shell);
   const modeButtons = qsa<HTMLButtonElement>('[data-setup-mode-btn]', shell);
   const modePanels = qsa<HTMLElement>('[data-setup-mode-panel]', shell);
   const installBtn = qs<HTMLButtonElement>('[data-github-install-btn]', shell);
@@ -892,6 +907,7 @@ export function initWizard(): void {
   const connectDeployCardEl = qs<HTMLElement>('[data-connect-deploy-card]', shell);
   const manualNextStepsEl = qs<HTMLElement>('[data-manual-next-steps]', shell);
   const connectNextStepsEl = qs<HTMLElement>('[data-connect-next-steps]', shell);
+  const connectNextStepsListEl = qs<HTMLElement>('[data-connect-next-steps-list]', shell);
   const manualLlmSecretNameEls = qsa<HTMLElement>('[data-manual-llm-secret-name]', shell);
   const llmSecretCodeEls = qsa<HTMLElement>('[data-llm-secret-code]', shell);
   const setupBridgeUrl = normalizeBridgeUrl(shell.dataset['setupBridgeUrl'] ?? '');
@@ -944,6 +960,16 @@ export function initWizard(): void {
     return `https://${owner}.github.io${isUserSiteRepo ? '/' : `/${repo}/`}`;
   }
 
+  function setChecklistItems(listEl: HTMLElement | null, items: string[]): void {
+    if (!listEl) return;
+    listEl.innerHTML = '';
+    for (const item of items) {
+      const li = document.createElement('li');
+      li.textContent = item;
+      listEl.append(li);
+    }
+  }
+
   function renderDeploySuccessLinks(
     owner: string,
     repo: string,
@@ -956,12 +982,138 @@ export function initWizard(): void {
       deployWorkflowUrlEl.href = workflowUrl;
     }
     if (deployWorkflowTipEl) deployWorkflowTipEl.hidden = !workflowUrl;
+    if (deployWorkflowHintEl) deployWorkflowHintEl.hidden = !workflowUrl;
     if (deploySiteUrlEl) {
       deploySiteUrlEl.href = resolvedPagesUrl;
       deploySiteUrlEl.textContent = resolvedPagesUrl;
     }
     if (deployRepoHomeEl) deployRepoHomeEl.href = repoHtmlUrl;
     if (deploySiteTipEl) deploySiteTipEl.hidden = false;
+    if (deploySiteHintEl) deploySiteHintEl.hidden = false;
+  }
+
+  function renderDeployTroubleshooting(
+    title: string,
+    items: string[],
+    kind: 'info' | 'warn' = 'warn',
+  ): void {
+    if (!deployTroubleshootingEl || !deployTroubleshootingListEl || !deployTroubleshootingTitleEl || items.length === 0) {
+      if (deployTroubleshootingEl) deployTroubleshootingEl.hidden = true;
+      return;
+    }
+    deployTroubleshootingEl.hidden = false;
+    deployTroubleshootingEl.className = `wz-notice wz-notice--${kind}`;
+    deployTroubleshootingTitleEl.textContent = title;
+    setChecklistItems(deployTroubleshootingListEl, items);
+  }
+
+  function renderConnectNextSteps(items: string[]): void {
+    if (!connectNextStepsEl || !connectNextStepsListEl) return;
+    connectNextStepsEl.hidden = items.length === 0;
+    setChecklistItems(connectNextStepsListEl, items);
+  }
+
+  function renderDeployOutcomeSummary(summary: {
+    title: string;
+    body: string;
+    filesWritten: number;
+    secretsWritten: number;
+    actionsValue: string;
+    actionsHint: string;
+    pagesValue: string;
+    pagesHint: string;
+    runValue: string;
+    runHint: string;
+  }): void {
+    if (!deploySuccessEl) return;
+    deploySuccessEl.hidden = false;
+    if (deploySuccessTitleEl) deploySuccessTitleEl.textContent = summary.title;
+    if (deploySuccessBodyEl) deploySuccessBodyEl.textContent = summary.body;
+    if (deployResultFilesEl) deployResultFilesEl.textContent = String(summary.filesWritten);
+    if (deployResultSecretsEl) deployResultSecretsEl.textContent = String(summary.secretsWritten);
+    if (deployResultActionsEl) deployResultActionsEl.textContent = summary.actionsValue;
+    if (deployResultActionsHintEl) deployResultActionsHintEl.textContent = summary.actionsHint;
+    if (deployResultPagesEl) deployResultPagesEl.textContent = summary.pagesValue;
+    if (deployResultPagesHintEl) deployResultPagesHintEl.textContent = summary.pagesHint;
+    if (deployResultRunEl) deployResultRunEl.textContent = summary.runValue;
+    if (deployResultRunHintEl) deployResultRunHintEl.textContent = summary.runHint;
+  }
+
+  function classifyDeployFailure(message: string, repoValue: string): { title: string; items: string[] } {
+    const normalized = message.toLowerCase();
+    const items: string[] = [];
+
+    if (normalized.includes('resource not accessible by integration')
+      || normalized.includes('forbidden')
+      || normalized.includes('403')
+      || normalized.includes('admin')
+      || normalized.includes('permission')) {
+      items.push(
+        locale === 'zh'
+          ? '先确认 Linnet Bridge GitHub App 已安装到目标仓库，并且安装权限包含 Actions、Secrets、Administration 和 Pages 的写权限。'
+          : 'First confirm that Linnet Bridge is installed on the target repository with write access for Actions, Secrets, Administration, and Pages.',
+      );
+      items.push(
+        locale === 'zh'
+          ? '如果仓库属于组织，请检查组织策略是否阻止了 GitHub App、Actions 或 Pages。'
+          : 'If the repository belongs to an org, check whether org policy is blocking the GitHub App, Actions, or Pages.',
+      );
+    }
+
+    if (normalized.includes('not found')
+      || normalized.includes('404')
+      || normalized.includes('repository')
+      || normalized.includes('installation')) {
+      items.push(
+        locale === 'zh'
+          ? `确认目标仓库 ${repoValue || 'owner/repo'} 存在，并且当前 GitHub App 安装确实覆盖到了这个仓库。`
+          : `Confirm that the target repository ${repoValue || 'owner/repo'} exists and is actually covered by the current GitHub App installation.`,
+      );
+    }
+
+    if (normalized.includes('workflow')
+      || normalized.includes('dispatch')
+      || normalized.includes('actions')) {
+      items.push(
+        locale === 'zh'
+          ? '如果仓库已经写入成功但 workflow 仍未运行，先去仓库的 Actions 标签页检查是否被关闭，再手动运行一次 Daily Digest。'
+          : 'If the repo write succeeded but workflows still did not run, check the Actions tab and manually run Daily Digest once.',
+      );
+    }
+
+    if (normalized.includes('pages')) {
+      items.push(
+        locale === 'zh'
+          ? '如果问题和 GitHub Pages 有关，先等几分钟再刷新；新仓库上的 Pages 地址通常会比 API 成功响应更慢出现。'
+          : 'If the issue mentions GitHub Pages, wait a few minutes and refresh; brand-new repos often expose the Pages URL a bit later than the API success response.',
+      );
+    }
+
+    if (normalized.includes('secret') || normalized.includes('public key') || normalized.includes('encrypt')) {
+      items.push(
+        locale === 'zh'
+          ? '如果错误发生在 secrets 阶段，请检查 GitHub App 是否还保留 Secrets 写权限，并确认你填写的必填 secret 没有留空。'
+          : 'If the failure happened during secrets setup, check that the GitHub App still has Secrets write access and that the required secret fields are not empty.',
+      );
+    }
+
+    if (items.length === 0) {
+      items.push(
+        locale === 'zh'
+          ? '先确认页面顶部的 GitHub 授权仍然有效，再检查目标仓库、GitHub App 安装范围，以及仓库 / 组织策略。'
+          : 'First confirm that the GitHub authorization at the top of the page is still valid, then re-check the target repository, app installation scope, and repo/org policy.',
+      );
+      items.push(
+        locale === 'zh'
+          ? '如果这一步之后仍然失败，切回手动配置路径，把生成的 YAML 和 secret 清单提交到自己的仓库。'
+          : 'If it still fails after that, switch back to the manual path and commit the generated YAML plus secret checklist yourself.',
+      );
+    }
+
+    return {
+      title: locale === 'zh' ? '这次部署没有完全跑通' : 'This deploy did not complete cleanly',
+      items,
+    };
   }
 
   function setDeployStatus(kind: 'info' | 'warn' | 'success', message: string): void {
@@ -979,13 +1131,22 @@ export function initWizard(): void {
     }
     if (deploySuccessEl) deploySuccessEl.hidden = true;
     if (deployWorkflowTipEl) deployWorkflowTipEl.hidden = true;
+    if (deployWorkflowHintEl) deployWorkflowHintEl.hidden = true;
     if (deployWorkflowUrlEl) deployWorkflowUrlEl.removeAttribute('href');
     if (deploySiteTipEl) deploySiteTipEl.hidden = true;
+    if (deploySiteHintEl) deploySiteHintEl.hidden = true;
     if (deploySiteUrlEl) {
       deploySiteUrlEl.removeAttribute('href');
       deploySiteUrlEl.textContent = '';
     }
     if (deployRepoHomeEl) deployRepoHomeEl.removeAttribute('href');
+    if (deployTroubleshootingEl) {
+      deployTroubleshootingEl.hidden = true;
+      deployTroubleshootingEl.className = 'wz-notice wz-notice--warn';
+    }
+    if (deployTroubleshootingListEl) deployTroubleshootingListEl.innerHTML = '';
+    if (connectNextStepsEl) connectNextStepsEl.hidden = true;
+    if (connectNextStepsListEl) connectNextStepsListEl.innerHTML = '';
   }
 
   function setAuthStatus(kind: 'info' | 'warn' | 'success', message: string): void {
@@ -2089,10 +2250,22 @@ export function initWizard(): void {
     clearDeployStatus();
 
     const repo = parseRepoInput(deployRepoInput?.value ?? '');
+    const repoValue = deployRepoInput?.value.trim() ?? '';
     if (!repo) {
       setDeployStatus(
         'warn',
         locale === 'zh' ? '请先填写正确的 GitHub 仓库（owner/repo 或仓库 URL）。' : 'Enter a valid GitHub repository first (owner/repo or repository URL).',
+      );
+      renderDeployTroubleshooting(
+        locale === 'zh' ? '先修正仓库输入' : 'Fix the repository input first',
+        [
+          locale === 'zh'
+            ? '使用 `owner/repo`，或者直接粘贴目标 GitHub 仓库 URL。'
+            : 'Use the `owner/repo` format, or paste the full GitHub repository URL.',
+          locale === 'zh'
+            ? '如果你刚完成 GitHub App 安装，也可以先点回输入框，看看推荐列表里有没有目标仓库。'
+            : 'If you just finished installing the GitHub App, click back into the field and see whether the target repo appears in the suggestion list.',
+        ],
       );
       return;
     }
@@ -2105,6 +2278,17 @@ export function initWizard(): void {
           ? '请先在页面顶部完成 Linnet Bridge 安装和 GitHub 授权。'
           : 'Finish the Linnet Bridge install and GitHub authorization at the top of the page first.',
       );
+      renderDeployTroubleshooting(
+        locale === 'zh' ? '先把 GitHub 连接补齐' : 'Finish the GitHub connection first',
+        [
+          locale === 'zh'
+            ? '先安装 Linnet Bridge GitHub App 到目标仓库，然后回到页面顶部点击“授权 GitHub”。'
+            : 'Install the Linnet Bridge GitHub App on the target repository, then return to the top and click “Authorize GitHub”.',
+          locale === 'zh'
+            ? '如果你已经安装过 App，但当前页面没有识别出来，刷新一下页面或重新走一次授权。'
+            : 'If the app is already installed but this page did not detect it, refresh the page or run the authorization step once more.',
+        ],
+      );
       return;
     }
 
@@ -2116,6 +2300,17 @@ export function initWizard(): void {
         locale === 'zh'
           ? `缺少必填 secret：${missingSecret.name}`
           : `Missing required secret: ${missingSecret.name}`,
+      );
+      renderDeployTroubleshooting(
+        locale === 'zh' ? '先补齐必填 secret' : 'Fill the missing secret first',
+        [
+          locale === 'zh'
+            ? `回到当前步骤，把 ${missingSecret.name} 对应的输入框补上。`
+            : `Return to this step and fill the field for ${missingSecret.name}.`,
+          locale === 'zh'
+            ? '如果你启用了自定义 OpenAI-compatible provider，也别忘了同时填写 API endpoint。'
+            : 'If you enabled the custom OpenAI-compatible provider, do not forget to fill the API endpoint as well.',
+        ],
       );
       return;
     }
@@ -2157,13 +2352,93 @@ export function initWizard(): void {
       const autoEnableRequested = shouldAutoEnableActions();
       const pagesConfigured = result.pages.attempted && result.pages.status !== 'skipped';
       const actionsConfigured = autoEnableRequested && result.actions.enabled;
-      const triggerSummary = result.workflowDispatch.triggered
-        ? (locale === 'zh' ? 'Daily Digest 也已经触发。' : 'Daily Digest has also been triggered.')
-        : (locale === 'zh'
-          ? `自动触发 Daily Digest 失败${result.workflowDispatch.errorMessage ? `（${result.workflowDispatch.errorMessage}）` : ''}；请打开 workflow 页面手动运行一次。`
-          : `Automatic Daily Digest trigger failed${result.workflowDispatch.errorMessage ? ` (${result.workflowDispatch.errorMessage})` : ''}; open the workflow page and run it manually once.`);
+      const pagesReachable = Boolean(result.pages.htmlUrl);
+      const manualFollowUpNeeded =
+        !result.workflowDispatch.triggered
+        || (autoEnableRequested && !actionsConfigured)
+        || !pagesReachable;
+      const nextSteps: string[] = [
+        locale === 'zh'
+          ? '先打开仓库主页，确认生成的 config 文件和 GitHub Actions secrets 都已经写入。'
+          : 'Open the repository home first and confirm that the generated config files and GitHub Actions secrets were written.',
+      ];
+      if (!autoEnableRequested) {
+        nextSteps.push(
+          locale === 'zh'
+            ? '你关闭了自动启用开关，所以还需要自己在目标仓库里启用 GitHub Actions / workflows。'
+            : 'You left auto-enable off, so you still need to enable GitHub Actions / workflows yourself in the target repository.',
+        );
+      } else if (!actionsConfigured) {
+        nextSteps.push(
+          locale === 'zh'
+            ? 'Linnet 没能替你打开 GitHub Actions；请检查 GitHub App 权限，或者在仓库的 Actions 页面里手动启用 workflows。'
+            : 'Linnet could not turn on GitHub Actions for you; check the app permissions or enable the workflows manually from the Actions page.',
+        );
+      }
+      if (!result.workflowDispatch.triggered) {
+        nextSteps.push(
+          locale === 'zh'
+            ? '第一次 Daily Digest 没有自动触发；请用上面的 workflow 链接手动运行一次。'
+            : 'The first Daily Digest did not trigger automatically; use the workflow link above and run it once manually.',
+        );
+      }
+      if (pagesReachable) {
+        nextSteps.push(
+          locale === 'zh'
+            ? 'GitHub Pages 地址已经准备好了；如果首页还没更新，等几分钟再刷新。'
+            : 'The GitHub Pages URL is ready; if the homepage is not fresh yet, wait a few minutes and refresh.',
+        );
+      } else {
+        nextSteps.push(
+          locale === 'zh'
+            ? 'GitHub Pages 通常会比 API 成功响应更慢一点；先等几分钟，再回到上面的站点链接检查。'
+            : 'GitHub Pages often appears a bit later than the API success response; wait a few minutes, then come back and check the site link above.',
+        );
+      }
+      nextSteps.push(
+        locale === 'zh'
+          ? '如果你在共享设备上操作，部署完成后记得断开 GitHub 连接。'
+          : 'If you are on a shared device, disconnect GitHub after the deploy finishes.',
+      );
 
-      if (deploySuccessEl) deploySuccessEl.hidden = false;
+      renderDeployOutcomeSummary({
+        title: manualFollowUpNeeded
+          ? (locale === 'zh' ? '配置已写入，还剩一两个收尾动作' : 'Config was written, with one or two follow-up steps left')
+          : (locale === 'zh' ? '部署已完成，首次运行也已经开始' : 'Deploy completed and the first run has started'),
+        body: manualFollowUpNeeded
+          ? (locale === 'zh'
+            ? 'Linnet 已经把核心配置写进仓库，但你最好再检查 workflow 和 Pages 这两个结果块，确认是否还需要手动点一下。'
+            : 'Linnet has already written the core configuration into your repository, but it is worth checking the workflow and Pages blocks below for any manual follow-up.')
+          : (locale === 'zh'
+            ? '仓库配置、secrets、Pages 和首次运行都已经进入正轨。接下来通常只需要等 GitHub 把站点发布出来。'
+            : 'Repo config, secrets, Pages, and the first run are all in motion. From here you usually only need to wait for GitHub to publish the site.'),
+        filesWritten: result.committedPaths.length,
+        secretsWritten: result.writtenSecrets.length,
+        actionsValue: autoEnableRequested
+          ? (actionsConfigured ? (locale === 'zh' ? '已启用' : 'Enabled') : (locale === 'zh' ? '需要手动检查' : 'Needs manual check'))
+          : (locale === 'zh' ? '手动路径' : 'Manual path'),
+        actionsHint: autoEnableRequested
+          ? (actionsConfigured
+            ? (locale === 'zh' ? 'Linnet 已尝试打开仓库级 Actions，并重新启用了相关 workflows。' : 'Linnet attempted to turn on repository Actions and re-enabled the related workflows.')
+            : (locale === 'zh' ? '自动启用没有完全成功；通常是 GitHub App 权限或仓库 / 组织策略还需要你手动确认。' : 'Auto-enable did not fully complete; this usually means the GitHub App permissions or repo/org policy still need manual confirmation.'))
+          : (locale === 'zh' ? '你关闭了自动启用开关，所以 workflows 是否启用由你自己控制。' : 'You turned auto-enable off, so workflow enablement remains under your control.'),
+        pagesValue: pagesReachable
+          ? (locale === 'zh' ? '已配置' : 'Configured')
+          : (pagesConfigured ? (locale === 'zh' ? '等待上线' : 'Waiting for site') : (locale === 'zh' ? '未变更' : 'Left unchanged')),
+        pagesHint: pagesReachable
+          ? (locale === 'zh' ? '站点链接已经生成，但首次发布在新仓库上仍可能慢几分钟。' : 'The site link is already available, though the first publish on a new repo may still lag by a few minutes.')
+          : (pagesConfigured
+            ? (locale === 'zh' ? 'Pages 设置已经写入，接下来只需要等 GitHub 完成首次发布。' : 'Pages configuration is in place; GitHub still needs a little time to finish the first publish.')
+            : (locale === 'zh' ? '这次没有改动 Pages 设置。' : 'Pages settings were left unchanged in this run.')),
+        runValue: result.workflowDispatch.triggered
+          ? (locale === 'zh' ? '已触发' : 'Triggered')
+          : (locale === 'zh' ? '请手动运行' : 'Run manually'),
+        runHint: result.workflowDispatch.triggered
+          ? (locale === 'zh' ? 'Daily Digest 已经自动触发，接下来它会写入第一期发布数据。' : 'Daily Digest was dispatched automatically and will write the first published data set.')
+          : (locale === 'zh'
+            ? `自动触发失败${result.workflowDispatch.errorMessage ? `（${result.workflowDispatch.errorMessage}）` : ''}；请用上面的 workflow 链接手动运行一次。`
+            : `Automatic trigger failed${result.workflowDispatch.errorMessage ? ` (${result.workflowDispatch.errorMessage})` : ''}; use the workflow link above and run it once manually.`),
+      });
       renderDeploySuccessLinks(
         repo.owner,
         repo.repo,
@@ -2173,19 +2448,27 @@ export function initWizard(): void {
       );
       setDeployStatus(
         'success',
-        autoEnableRequested
+        manualFollowUpNeeded
           ? (locale === 'zh'
-            ? `已写入 ${result.committedPaths.length} 个文件，并更新 ${result.writtenSecrets.length} 个 secret；GitHub Actions${actionsConfigured ? '已启用' : '已保留现状'}，GitHub Pages${pagesConfigured ? '已配置' : '未变更'}，${triggerSummary}`
-            : `Wrote ${result.committedPaths.length} files and updated ${result.writtenSecrets.length} secrets; GitHub Actions were ${actionsConfigured ? 'enabled' : 'left as-is'}, GitHub Pages were ${pagesConfigured ? 'configured' : 'left unchanged'}, and ${triggerSummary}`)
+            ? '部署核心步骤已经成功，但你最好根据下面的结果块完成最后的手动检查。'
+            : 'The core deploy steps succeeded, but you should finish the last manual checks using the result blocks below.')
           : (locale === 'zh'
-            ? `已写入 ${result.committedPaths.length} 个文件，并更新 ${result.writtenSecrets.length} 个 secret；GitHub Pages${pagesConfigured ? '已配置' : '未变更'}，${triggerSummary}`
-            : `Wrote ${result.committedPaths.length} files and updated ${result.writtenSecrets.length} secrets; GitHub Pages were ${pagesConfigured ? 'configured' : 'left unchanged'}, and ${triggerSummary}`),
+            ? '部署核心步骤已经全部成功。'
+            : 'The core deploy steps completed successfully.'),
       );
-
-      if (connectNextStepsEl) connectNextStepsEl.hidden = false;
+      renderConnectNextSteps(nextSteps);
+      if (!result.workflowDispatch.triggered || (autoEnableRequested && !actionsConfigured) || !pagesReachable) {
+        renderDeployTroubleshooting(
+          locale === 'zh' ? '还有一点收尾值得检查' : 'A little follow-up is still worth checking',
+          nextSteps.slice(1, Math.max(nextSteps.length - 1, 1)),
+          'info',
+        );
+      }
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error);
       setDeployStatus('warn', message);
+      const failure = classifyDeployFailure(message, repoValue);
+      renderDeployTroubleshooting(failure.title, failure.items);
     } finally {
       deploySubmitBtn.disabled = false;
       deploySubmitBtn.textContent = originalLabel;
