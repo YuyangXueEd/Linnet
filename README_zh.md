@@ -18,9 +18,13 @@
 **[在线示例](https://yuyangxueed.github.io/Linnet)** · **[中文设置向导入口](https://yuyangxueed.github.io/Linnet/setup/zh/)** · **[English setup entry](https://yuyangxueed.github.io/Linnet/setup/)** · **[手动配置指南](dev_docs/manual-config.zh.md)**
 
 > **克隆或从模板创建仓库后，先点这里**
+>
 > `setup` 页面现在就是新用户的主入口，登录、授权、配置和部署都在这里完成。
+>
 > 中文界面：<https://yuyangxueed.github.io/Linnet/setup/zh/>
+>
 > English UI: <https://yuyangxueed.github.io/Linnet/setup/>
+>
 > 第一次部署完成后，把你的 GitHub Pages 地址填到仓库的 **About -> Website** 里，这样仓库头部就会直接显示站点入口。
 
 ---

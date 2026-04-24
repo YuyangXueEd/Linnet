@@ -19,8 +19,11 @@ After you create your own repo from this template, start with the setup wizard. 
 
 > **Start here after creating your repo**
 > The setup page is now the main sign-in, GitHub authorization, and deployment flow for new users.
+>
 > English UI: <https://yuyangxueed.github.io/Linnet/setup/>
+>
 > 中文界面: <https://yuyangxueed.github.io/Linnet/setup/zh/>
+>
 > After the first deploy, add your GitHub Pages URL to the repo's **About -> Website** field so the site entrance is visible from the repo header.
 
 ---
