@@ -15,7 +15,7 @@ const t = {
   manual4:    locale === 'zh' ? '先在目标仓库中启用 GitHub Actions / workflows。fork 仓库需要先进入 Actions 标签页，点击 “I understand my workflows, go ahead and enable them”。' : 'Enable GitHub Actions / workflows in the target repository first. For forks, open the Actions tab and click "I understand my workflows, go ahead and enable them".',
   manual5:    locale === 'zh' ? '然后前往 Actions，运行一次 Daily Digest 以确认配置正常。' : 'Then go to Actions and run Daily Digest once to confirm the setup.',
   connectHead: locale === 'zh' ? 'Connect GitHub 一键部署' : 'One-click deploy with Connect GitHub',
-  connectDesc: locale === 'zh' ? '如果你在开始前已经安装 Linnet Bridge GitHub App 并授权当前浏览器，这里会直接把生成的配置文件和所需 secrets 写入你自己的仓库。你也可以额外开启下面的自动启用开关，让 Linnet 帮你打开 Actions、重新启用相关 workflows，并配置 GitHub Pages。' : 'If you installed the Linnet Bridge GitHub App and authorized this browser first, this section writes the generated config files and required secrets straight into your own repository. You can also opt into the switch below if you want Linnet to turn Actions back on, re-enable the related workflows, and configure GitHub Pages for you.',
+  connectDesc: locale === 'zh' ? '如果你在开始前已经安装 Linnet Bridge GitHub App 并授权当前浏览器，这里会直接把生成的配置文件和所需 secrets 写入你自己的仓库。你也可以额外开启下面的自动启用开关，让 Linnet 帮你打开 Actions、重新启用相关 workflows、配置 GitHub Pages，并同步仓库 About 里的 Website 链接。' : 'If you installed the Linnet Bridge GitHub App and authorized this browser first, this section writes the generated config files and required secrets straight into your own repository. You can also opt into the switch below if you want Linnet to turn Actions back on, re-enable the related workflows, configure GitHub Pages, and sync the repo About Website link for you.',
   connectNeed: locale === 'zh' ? '当前还没有 GitHub 连接。请回到页面顶部，先安装 Linnet Bridge GitHub App，并完成浏览器授权。' : 'GitHub is not connected yet. Go back to the top of the page, install the Linnet Bridge GitHub App, and finish browser authorization first.',
   connectedUsing: locale === 'zh' ? '当前正在使用已授权的 Linnet Bridge GitHub 会话。' : 'This deploy uses your authorized Linnet Bridge GitHub session.',
   repoLabel:  locale === 'zh' ? '目标仓库' : 'Target repository',
@@ -34,8 +34,8 @@ const t = {
     : 'If you turn on auto-enable, make sure the Linnet Bridge GitHub App installation has write access for Actions, Secrets, Administration, and Pages; otherwise keep the manual path for Daily / Weekly / Monthly / Pages.',
   autoEnableLabel: locale === 'zh' ? '自动启用 GitHub Actions 和 workflows' : 'Auto-enable GitHub Actions and workflows',
   autoEnableHint: locale === 'zh'
-    ? '会尝试打开仓库级 Actions，重新启用 daily.yml、weekly.yml、monthly.yml、pages.yml，并配置 Pages 使用 workflow 构建。'
-    : 'This attempts to turn on repository Actions, re-enable daily.yml, weekly.yml, monthly.yml, and pages.yml, and configure Pages to build from workflows.',
+    ? '会尝试打开仓库级 Actions，重新启用 daily.yml、weekly.yml、monthly.yml、pages.yml，配置 Pages 使用 workflow 构建，并把 About -> Website 指向你的 Pages 地址。'
+    : 'This attempts to turn on repository Actions, re-enable daily.yml, weekly.yml, monthly.yml, and pages.yml, configure Pages to build from workflows, and point About -> Website at your Pages URL.',
   autoEnableNote: locale === 'zh'
     ? '关闭时：仍然会写入文件和 secrets，但你需要自己到 Actions 页面里启用。'
     : 'When off: Linnet still writes files and secrets, but you enable the repo/workflows yourself from the Actions page.',
@@ -51,8 +51,8 @@ const t = {
   repoLinkLabel: locale === 'zh' ? '打开仓库主页' : 'Open repository home',
   siteUrlLabel: locale === 'zh' ? '默认 GitHub Pages 地址：' : 'Default GitHub Pages URL:',
   siteUrlHint: locale === 'zh'
-    ? '可选但推荐：站点上线后，把这个地址填到仓库主页的 About -> Website 里，这样 GitHub 上会直接显示站点入口。'
-    : 'Optional but recommended: once the site is live, paste this URL into the repository\'s About -> Website field so GitHub shows the homepage link.',
+    ? 'Linnet 会尝试把这个地址同步到仓库主页的 About -> Website；如果 GitHub 权限或策略拦住了这一步，请手动检查一次。'
+    : 'Linnet tries to sync this URL into the repository About -> Website field; if GitHub permissions or policy block that step, check it once by hand.',
   repoHomeLabel: locale === 'zh' ? '打开仓库主页' : 'Open repository home',
   resultFiles: locale === 'zh' ? '写入文件' : 'Files written',
   resultSecrets: locale === 'zh' ? '更新 secrets' : 'Secrets updated',

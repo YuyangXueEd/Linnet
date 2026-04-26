@@ -40,7 +40,8 @@ export function parseRepoInput(input) {
  *   files: DeployFile[],
  *   secrets: DeploySecret[],
  *   autoEnableActions?: boolean,
- *   workflowsToEnable?: string[]
+ *   workflowsToEnable?: string[],
+ *   configurePages?: boolean
  * }} plan
  * @returns {string[]}
  */
@@ -66,6 +67,12 @@ export function buildGitHubCallPreview(plan) {
     for (const workflowId of plan.workflowsToEnable ?? []) {
       lines.push(`PUT /repos/${plan.owner}/${plan.repo}/actions/workflows/${workflowId}/enable`);
     }
+  }
+
+  if (plan.configurePages !== false) {
+    lines.push(`GET /repos/${plan.owner}/${plan.repo}/pages`);
+    lines.push(`PUT/POST /repos/${plan.owner}/${plan.repo}/pages`);
+    lines.push(`PATCH /repos/${plan.owner}/${plan.repo} homepage`);
   }
 
   lines.push(`POST /repos/${plan.owner}/${plan.repo}/actions/workflows/daily.yml/dispatches`);

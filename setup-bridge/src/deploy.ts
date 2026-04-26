@@ -56,6 +56,12 @@ export type DeployResult = {
     sourcePath: string | null;
     buildType: string | null;
   };
+  repositoryHomepage: {
+    attempted: boolean;
+    status: 'updated' | 'unchanged' | 'skipped' | 'failed';
+    htmlUrl: string | null;
+    errorMessage: string | null;
+  };
   workflowDispatch: {
     attempted: boolean;
     workflowId: string | null;
@@ -72,6 +78,7 @@ type RepoInfo = {
   full_name: string;
   default_branch?: string;
   html_url?: string;
+  homepage?: string | null;
 };
 
 type GitReference = {
@@ -180,6 +187,10 @@ export function buildDefaultPagesUrl(owner: string, repo: string): string {
 
 export function buildWorkflowUrl(repoHtmlUrl: string, workflowId: string): string {
   return `${repoHtmlUrl.replace(/\/+$/, '')}/actions/workflows/${encodeURIComponent(workflowId)}`;
+}
+
+function normalizeComparableUrl(value: string | null | undefined): string {
+  return (value ?? '').trim().replace(/\/+$/, '');
 }
 
 function decodeBase64(value: string): Uint8Array {
@@ -484,6 +495,59 @@ async function ensurePagesSite(
   }
 }
 
+async function updateRepositoryHomepage(
+  token: string,
+  repo: RepoRef,
+  homepageUrl: string | null,
+  currentHomepage: string | null | undefined,
+  fetchImpl: typeof fetch,
+): Promise<DeployResult['repositoryHomepage']> {
+  const nextHomepage = homepageUrl?.trim() ?? '';
+  if (!nextHomepage) {
+    return {
+      attempted: false,
+      status: 'skipped',
+      htmlUrl: null,
+      errorMessage: null,
+    };
+  }
+
+  if (normalizeComparableUrl(currentHomepage) === normalizeComparableUrl(nextHomepage)) {
+    return {
+      attempted: false,
+      status: 'unchanged',
+      htmlUrl: nextHomepage,
+      errorMessage: null,
+    };
+  }
+
+  try {
+    await githubInstallationRequest<RepoInfo>(
+      token,
+      `/repos/${repo.owner}/${repo.repo}`,
+      {
+        method: 'PATCH',
+        body: JSON.stringify({ homepage: nextHomepage }),
+      },
+      fetchImpl,
+    );
+
+    return {
+      attempted: true,
+      status: 'updated',
+      htmlUrl: nextHomepage,
+      errorMessage: null,
+    };
+  } catch (error) {
+    return {
+      attempted: true,
+      status: 'failed',
+      htmlUrl: nextHomepage,
+      errorMessage: error instanceof Error ? error.message : String(error),
+    };
+  }
+}
+
 async function triggerWorkflowDispatch(
   token: string,
   repo: RepoRef,
@@ -553,6 +617,20 @@ export async function deployWithInstallation(
         sourcePath: null,
         buildType: null,
       };
+  const repositoryHomepageResult = configurePages
+    ? await updateRepositoryHomepage(
+        installationToken.token,
+        request.repo,
+        pagesResult.htmlUrl ?? buildDefaultPagesUrl(request.repo.owner, request.repo.repo),
+        repoInfo.homepage,
+        fetchImpl,
+      )
+    : {
+        attempted: false,
+        status: 'skipped' as const,
+        htmlUrl: null,
+        errorMessage: null,
+      };
 
   const committedPaths = await upsertRepositoryFiles(
     installationToken.token,
@@ -607,6 +685,7 @@ export async function deployWithInstallation(
     writtenSecrets,
     actions: actionsResult,
     pages: pagesResult,
+    repositoryHomepage: repositoryHomepageResult,
     workflowDispatch: workflowDispatchResult,
   };
 }

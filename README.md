@@ -15,7 +15,7 @@
 
 After you create your own repo from this template, start with the setup wizard. It is now the main sign-in, GitHub authorization, and deployment entry point: choose the briefing shape you want, add your LLM key, and let Linnet prepare the repo handoff. The current self-hosted path uses GitHub Actions and Pages behind the scenes; you do not need to run a server or accept dashboard lock-in.
 
-**[Live example](https://yuyangxueed.github.io/linnet_new/)** · **[Start setup in English](https://yuyangxueed.github.io/Linnet/setup/)** · **[用中文进入设置向导](https://yuyangxueed.github.io/Linnet/setup/zh/)** · **[Manual config guide](dev_docs/manual-config.md)**
+**[English demo](https://yuyangxueed.github.io/linnet_new/)** · **[中文示例](https://rasingue.github.io/linnet_new/)** · **[Start setup in English](https://yuyangxueed.github.io/Linnet/setup/)** · **[用中文进入设置向导](https://yuyangxueed.github.io/Linnet/setup/zh/)** · **[Manual config guide](dev_docs/manual-config.md)**
 
 > **Start here after creating your repo**
 > The setup page is now the main sign-in, GitHub authorization, and deployment flow for new users.
@@ -24,7 +24,7 @@ After you create your own repo from this template, start with the setup wizard. 
 >
 > 中文界面: <https://yuyangxueed.github.io/Linnet/setup/zh/>
 >
-> After the first deploy, add your GitHub Pages URL to the repo's **About -> Website** field so the site entrance is visible from the repo header.
+> After the first deploy, Linnet tries to set the repo's **About -> Website** field to your GitHub Pages URL. If GitHub permissions block that optional step, paste the Pages URL there manually.
 
 ---
 
@@ -110,6 +110,7 @@ The default one-click path uses the Linnet Bridge GitHub App flow, not a PAT. Be
 - create or update the needed GitHub Actions secrets
 - enable `daily.yml`, `weekly.yml`, `monthly.yml`, and `pages.yml`
 - configure GitHub Pages for workflow-based publishing
+- set the repository **About -> Website** link to your Pages URL when permissions allow it
 - trigger the first `Daily Digest` run
 
 ### 5. Run the first workflow
@@ -121,7 +122,7 @@ Most users should not need to click anything else after Step 5. Watch these two 
 
 Your site should go live at `https://<your-username>.github.io/<repo-name>/` a few minutes later.
 
-Once that URL is live, put it in the repository's **About -> Website** field. That makes the site entrance easy to find directly from the GitHub repo header.
+Linnet will also try to put that URL in the repository's **About -> Website** field. If the About link still points to the template repo after setup, replace it with your Pages URL manually so the site entrance is easy to find from the GitHub repo header.
 
 GitHub Pages provisioning can lag slightly behind the API call on a brand-new repo, so give it a short moment before assuming it failed. If repo or org policy blocks app installation, Actions, or Pages, fall back to the [manual config guide](dev_docs/manual-config.md).
 

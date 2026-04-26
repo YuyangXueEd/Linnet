@@ -16,6 +16,7 @@ The goal is narrow on purpose:
 - writing GitHub Actions secrets
 - enabling Actions and workflows
 - configuring GitHub Pages
+- updating the repository About / Website link to the Pages URL
 - triggering the first digest run
 
 ## Current scaffold
@@ -44,6 +45,7 @@ The bridge can now:
 - write GitHub Actions secrets
 - enable repo Actions and workflows
 - configure GitHub Pages for workflow-based publishing
+- update the repository About / Website link to the Pages URL when permissions allow it
 - trigger the first digest workflow
 
 The deploy route now supports the safer browser-based flow by default:
@@ -127,7 +129,7 @@ npm test
   - prefers a verified GitHub user session when present
   - otherwise returns `401` unless you explicitly enable the temporary unsafe mode
   - uses an installation-scoped token for the target repository
-  - writes files, secrets, Actions settings, Pages settings, and dispatches `daily.yml`
+  - writes files, secrets, Actions settings, Pages settings, repository homepage metadata, and dispatches `daily.yml`
   - can still be forced into installation-id-only mode with `ALLOW_UNSAFE_INSTALLATION_ID_DEPLOY=true`
 
 Important:
