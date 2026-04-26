@@ -29,6 +29,13 @@ github_trending/
   __init__.py        GitHubTrendingExtension — fetch + LLM summarise
   README.md          Config options, output schema, test commands
 
+us_stocks/
+  __init__.py        USStocksExtension — public market data + deterministic scoring + optional LLM synthesis
+  collector.py       Quote/news/filing provider fallback chain
+  scorer.py          Signal scoring and sector overview aggregation
+  summarizer.py      Structured LLM text synthesis
+  README.md          Config options, provider notes, output schema, test commands
+
 jobs/
   __init__.py        JobsExtension — RSS + scraping, LLM score + summarise
   README.md          Config options, output schema, enabling steps

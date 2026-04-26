@@ -1,0 +1,101 @@
+{
+  "key": "us_stocks",
+  "title": "US Stocks",
+  "subtitle": "Pre-market signal radar",
+  "icon": "chart",
+  "defaultOrder": 2,
+  "layout": "stack",
+  "displayName": "US Stock Signals",
+  "displayNameZh": "美股盘前信号",
+  "description": "A compact pre-market signal board for AI infrastructure stocks, with data quality notes and source links.",
+  "descriptionZh": "面向 AI 基建股票的盘前信号看板，包含数据质量标注和来源链接。",
+  "category": "tech",
+  "locale": "general",
+  "tags": ["stocks", "markets", "premarket", "AI infrastructure", "finance", "美股", "盘前", "股票"],
+  "setupFields": [
+    {
+      "key": "mode",
+      "label": "Signal mode",
+      "labelZh": "信号模式",
+      "type": "select",
+      "default": "premarket",
+      "options": [
+        {
+          "value": "premarket",
+          "label": "Pre-market",
+          "description": "Rank AI infrastructure stocks before the US market opens."
+        }
+      ],
+      "hint": "The MVP focuses on a pre-market trading signal radar.",
+      "hintZh": "MVP 聚焦盘前交易信号雷达。"
+    },
+    {
+      "key": "max_items",
+      "label": "Max signals",
+      "labelZh": "最多信号数",
+      "type": "slider",
+      "default": 12,
+      "min": 5,
+      "max": 25,
+      "step": 1,
+      "hint": "The extension fetches the full configured universe, then renders the top ranked signals.",
+      "hintZh": "扩展会抓取完整股票池，然后只展示排名靠前的信号。"
+    },
+    {
+      "key": "max_symbols",
+      "label": "Max fetched symbols",
+      "labelZh": "最多抓取股票数",
+      "type": "slider",
+      "default": 24,
+      "min": 4,
+      "max": 60,
+      "step": 1,
+      "hint": "Limits live data requests before ranking. Set higher after you confirm provider coverage.",
+      "hintZh": "限制排序前的实时数据请求数量。确认数据源覆盖稳定后可以调高。"
+    },
+    {
+      "key": "max_sector_overview",
+      "label": "Sector rows",
+      "labelZh": "板块概览数",
+      "type": "slider",
+      "default": 8,
+      "min": 3,
+      "max": 12,
+      "step": 1,
+      "hint": "Show a compact sector tape above the stock table.",
+      "hintZh": "在股票表格上方展示紧凑的板块概览。"
+    },
+    {
+      "key": "max_llm_items",
+      "label": "LLM signal summaries",
+      "labelZh": "LLM 合成信号数",
+      "type": "slider",
+      "default": 8,
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "hint": "How many ranked stock rows receive LLM-written drivers and invalidation notes.",
+      "hintZh": "排名靠前的多少个股票信号会交给 LLM 生成驱动因素和失效条件。"
+    },
+    {
+      "key": "include_neutral",
+      "label": "Include neutral watches",
+      "labelZh": "包含中性观察项",
+      "type": "toggle",
+      "default": true,
+      "hint": "Include neutral stocks when they have notable news or data movement.",
+      "hintZh": "当中性股票有明显新闻或数据变化时，也纳入看板。"
+    },
+    {
+      "key": "skip_llm",
+      "label": "Skip LLM synthesis",
+      "labelZh": "跳过 LLM 合成",
+      "type": "toggle",
+      "default": false,
+      "hint": "Leave off to let the configured LLM refine summaries, drivers, invalidation, and risk flags.",
+      "hintZh": "关闭此项时，会使用配置的 LLM 优化摘要、驱动因素、失效条件和风险提示。"
+    }
+  ],
+  "weeklyDefault": false,
+  "monthlyDefault": false
+}

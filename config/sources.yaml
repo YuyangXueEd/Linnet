@@ -25,6 +25,17 @@ hacker_news:
 github_trending:
   enabled: true
 
+us_stocks:
+  enabled: false
+  mode: premarket
+  max_items: 12
+  max_symbols: 24
+  max_sector_overview: 8
+  max_llm_items: 8
+  include_neutral: true
+  skip_llm: false
+  request_timeout: 20.0
+
 postdoc_jobs:
   enabled: false
 

@@ -157,6 +157,7 @@ If your extension needs a custom card layout in the Astro site, add a component 
 | `arxiv/` | `arxiv` | Fetches arXiv papers, LLM-scores and summarises them — [docs](arxiv/README.md) |
 | `hacker_news/` | `hacker_news` | Fetches top HN stories above a score threshold — [docs](hacker_news/README.md) |
 | `github_trending/` | `github_trending` | Fetches daily trending GitHub repos — [docs](github_trending/README.md) |
+| `us_stocks/` | `us_stocks` | Builds a pre-market signal board for configurable US stock watchlists — [docs](us_stocks/README.md) |
 | `postdoc_jobs/` | `postdoc_jobs` | Fetches and ranks research job postings — [docs](postdoc_jobs/README.md) |
 | `supervisor_updates/` | `supervisor_updates` | Monitors supervisor / lab pages for changes — [docs](supervisor_updates/README.md) |
 | `weather/` | `weather` | Fetches today's weather for a configured city |

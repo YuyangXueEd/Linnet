@@ -1,0 +1,155 @@
+# AI infrastructure stock universe and deterministic pre-market scoring defaults.
+# API keys are optional and should live in environment variables or GitHub Actions secrets.
+
+news_window_hours: 18
+max_news_per_symbol: 3
+history_days: 90
+max_sector_overview: 8
+
+data_providers:
+  quotes:
+    # Yahoo is the primary public baseline; Nasdaq is the no-key delayed fallback.
+    # If FINNHUB_API_KEY is available, users can change this to [finnhub, yahoo, nasdaq].
+    order: [yahoo, nasdaq]
+  news:
+    # GDELT is broad and free; Google News RSS is the no-key fallback when GDELT is sparse.
+    # If FINNHUB_API_KEY is available, users can change this to [finnhub, gdelt, google_news_rss].
+    order: [gdelt, google_news_rss]
+  filings:
+    # SEC API needs a User-Agent; the SEC company page remains as a no-key reference link.
+    order: [sec, sec_company_page]
+
+api_key_env:
+  finnhub: FINNHUB_API_KEY
+
+signal_thresholds:
+  bullish: 70
+  bearish: 35
+  high_confidence: 75
+
+scoring_weights:
+  premarket_move: 0.18
+  news: 0.25
+  earnings_financials: 0.12
+  technicals: 0.22
+  sector_trend: 0.18
+  risk_flags: 0.05
+
+analysis_modules:
+  market_regime: true
+  sector_overview: true
+  sector_trend: true
+  news: true
+  technicals: true
+  filings: true
+
+sectors:
+  foundry:
+    label: Foundry
+    benchmark_etfs: [SMH, SOXX]
+    tickers:
+      - { symbol: INTC, name: Intel }
+      - { symbol: TSM, name: Taiwan Semiconductor }
+
+  servers_thermal:
+    label: Servers and Thermal Management
+    benchmark_etfs: [SMH, XLK]
+    tickers:
+      - { symbol: VRT, name: Vertiv Holdings }
+      - { symbol: DELL, name: Dell Technologies }
+
+  battery_storage:
+    label: Battery and Energy Storage
+    benchmark_etfs: [ICLN, XLU]
+    tickers:
+      - { symbol: EOSE, name: Eos Energy }
+      - { symbol: SLDP, name: Solid Power }
+      - { symbol: FLNC, name: Fluence Energy }
+
+  networking_equipment:
+    label: Networking Equipment
+    benchmark_etfs: [IGN, XLK]
+    tickers:
+      - { symbol: CRDO, name: Credo Technology }
+      - { symbol: ANET, name: Arista Networks }
+      - { symbol: APH, name: Amphenol }
+      - { symbol: CIEN, name: Ciena }
+
+  hyperscale_cloud:
+    label: Hyperscale Cloud
+    benchmark_etfs: [QQQ, IGV, XLK]
+    tickers:
+      - { symbol: GOOGL, name: Alphabet-A }
+      - { symbol: MSFT, name: Microsoft }
+      - { symbol: AMZN, name: Amazon }
+      - { symbol: ORCL, name: Oracle }
+
+  compute_mining:
+    label: Compute Mining
+    benchmark_etfs: [WGMI, BTC-USD]
+    tickers:
+      - { symbol: IREN, name: IREN Ltd }
+      - { symbol: WULF, name: TeraWulf }
+      - { symbol: CIFR, name: Cipher Mining }
+      - { symbol: HUT, name: Hut 8 }
+
+  manufacturing:
+    label: Manufacturing
+    benchmark_etfs: [XLI, SMH]
+    tickers:
+      - { symbol: CLS, name: Celestica }
+      - { symbol: FLEX, name: Flex Ltd }
+      - { symbol: FN, name: Fabrinet }
+      - { symbol: SANM, name: Sanmina }
+
+  energy_infrastructure:
+    label: Energy Infrastructure
+    benchmark_etfs: [XLU, XLE]
+    tickers:
+      - { symbol: VST, name: Vistra Energy }
+      - { symbol: CEG, name: Constellation Energy }
+      - { symbol: LEU, name: Centrus Energy }
+      - { symbol: OKLO, name: Oklo Inc }
+      - { symbol: BE, name: Bloom Energy }
+      - { symbol: TLN, name: Talen Energy }
+      - { symbol: GEV, name: GE Vernova }
+
+  chip_design_equipment:
+    label: Chip Design and Equipment
+    benchmark_etfs: [SMH, SOXX]
+    tickers:
+      - { symbol: NVDA, name: Nvidia }
+      - { symbol: AVGO, name: Broadcom }
+      - { symbol: AMD, name: Advanced Micro Devices }
+      - { symbol: ASML, name: ASML Holding }
+      - { symbol: ARM, name: Arm Holdings }
+
+  optics_modules:
+    label: Optics and Optical Modules
+    benchmark_etfs: [IGN, SOXX]
+    tickers:
+      - { symbol: LITE, name: Lumentum }
+      - { symbol: AAOI, name: Applied Optoelectronics }
+      - { symbol: ALAB, name: Astera Labs }
+      - { symbol: COHR, name: Coherent }
+      - { symbol: SMTC, name: Semtech }
+
+  memory:
+    label: Memory
+    benchmark_etfs: [SMH, SOXX]
+    tickers:
+      - { symbol: SNDK, name: SanDisk Corp }
+      - { symbol: STX, name: Seagate Technology }
+      - { symbol: MU, name: Micron Technology }
+      - { symbol: WDC, name: Western Digital }
+      - { symbol: PSTG, name: Pure Storage }
+
+  neocloud:
+    label: Neocloud
+    benchmark_etfs: [QQQ, SMH]
+    tickers:
+      - { symbol: NBIS, name: Nebius }
+      - { symbol: CRWV, name: CoreWeave }
+      - { symbol: APLD, name: Applied Digital }
+      - { symbol: GLXY, name: Galaxy Digital }
+      - { symbol: NUAI, name: New Era Energy and Digital }

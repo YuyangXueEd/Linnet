@@ -26,7 +26,23 @@ type BriefMode = WizardState['briefing']['mode'];
 const DEFAULT_ACADEMIC_PROFILE = 'ai_ml';
 const BRIEF_MODE_DEFAULTS: Record<BriefMode, string[]> = {
   academic: ['arxiv', 'hacker_news', 'github_trending'],
-  personal: ['weather', 'hacker_news', 'github_trending'],
+  personal: ['weather', 'us_stocks', 'hacker_news', 'github_trending'],
+};
+const SOURCE_LEVEL_SETUP_KEYS: Record<string, string[]> = {
+  us_stocks: [
+    'mode',
+    'max_items',
+    'max_symbols',
+    'max_sector_overview',
+    'max_llm_items',
+    'include_neutral',
+    'skip_llm',
+  ],
+};
+const SOURCE_LEVEL_DEFAULTS: Record<string, Record<string, unknown>> = {
+  us_stocks: {
+    request_timeout: 20.0,
+  },
 };
 
 function qs<T extends Element>(sel: string, root: QueryRoot = document): T | null {
@@ -338,6 +354,19 @@ function buildSourcesYaml(state: WizardState): string {
   for (const ext of EXTENSION_LIST) {
     lines.push(`${ext.key}:`);
     lines.push(`  enabled: ${yamlStr(order.includes(ext.key))}`);
+    if (order.includes(ext.key)) {
+      const sourceKeys = SOURCE_LEVEL_SETUP_KEYS[ext.key] ?? [];
+      const extConfig = state.config[ext.key] ?? {};
+      for (const key of sourceKeys) {
+        const field = ext.setupFields.find((item) => item.key === key);
+        const value = extConfig[key] ?? field?.default ?? '';
+        lines.push(`  ${key}: ${yamlStr(value)}`);
+      }
+      const defaults = SOURCE_LEVEL_DEFAULTS[ext.key] ?? {};
+      for (const [key, value] of Object.entries(defaults)) {
+        lines.push(`  ${key}: ${yamlStr(value)}`);
+      }
+    }
     lines.push('');
   }
 

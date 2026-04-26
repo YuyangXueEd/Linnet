@@ -20,7 +20,8 @@ export type LayoutMode =
 
 export type IconName =
   | 'paper' | 'flame' | 'repo' | 'post' | 'cloud'
-  | 'feather' | 'book' | 'search' | 'arrow' | 'sun' | 'moon';
+  | 'feather' | 'book' | 'search' | 'arrow' | 'sun' | 'moon'
+  | 'chart';
 
 export type ExtensionCategory =
   | 'research'

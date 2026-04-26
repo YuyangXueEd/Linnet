@@ -1,0 +1,757 @@
+---
+interface StockSignal {
+  symbol?: string;
+  name?: string;
+  sector?: string;
+  signal?: 'bullish' | 'neutral' | 'bearish' | string;
+  score?: number;
+  confidence?: string;
+  setup_type?: string;
+  price?: number | null;
+  previous_close?: number | null;
+  premarket_change_pct?: number | null;
+  change_5d_pct?: number | null;
+  relative_strength_pct?: number | null;
+  sector_trend?: string;
+  news_sentiment?: string;
+  news_count?: number;
+  summary?: string;
+  drivers?: string[];
+  invalidation?: string[];
+  risk_flags?: string[];
+  sources?: { title?: string; url?: string; provider?: string; published_at?: string }[];
+  data_quality?: Record<string, string>;
+  source_url?: string;
+}
+
+interface SectorOverview {
+  sector?: string;
+  signal?: 'bullish' | 'neutral' | 'bearish' | string;
+  avg_score?: number;
+  avg_change_5d_pct?: number | null;
+  avg_relative_strength_pct?: number | null;
+  sector_trend?: string;
+  counts?: { bullish?: number; bearish?: number; neutral?: number };
+  top_symbol?: string;
+  stock_count?: number;
+}
+
+interface CoverageItem {
+  provider?: string;
+  order?: string[];
+  providers?: Record<string, number>;
+  ok?: number;
+  fallback_ok?: number;
+  total?: number;
+}
+
+interface Props {
+  items: StockSignal[];
+  meta?: Record<string, unknown>;
+}
+
+const { items = [], meta = {} } = Astro.props;
+const marketStatus = String(meta.market_status ?? 'unknown');
+const marketDate = String(meta.market_date ?? '');
+const skipReason = String(meta.skip_reason ?? '');
+const disclaimer = String(meta.disclaimer ?? '');
+const coverage = (meta.provider_coverage ?? {}) as Record<string, CoverageItem>;
+const invalidSymbols = (meta.invalid_symbols ?? []) as string[];
+const sectorOverview = (meta.sector_overview ?? []) as SectorOverview[];
+const lang = String(meta.language ?? 'en').toLowerCase();
+const isZh = lang.startsWith('zh');
+const copy = isZh
+  ? {
+      eyebrow: '美股盘前雷达',
+      bullish: '看多',
+      bearish: '风险',
+      neutral: '观察',
+      ticker: '标的',
+      setup: '形态',
+      move: '涨跌',
+      score: '评分',
+      evidence: '证据',
+      quality: '质量',
+      sectorOverview: '板块概览',
+      top: 'Top',
+      confidence: '置信度',
+      sector: '板块',
+      closedTitle: '美股休市',
+      closedBody: '周末或美国市场假日。',
+      emptyTitle: '没有生成股票信号',
+      emptyBody: '数据源不可用，或配置项都被过滤掉了。',
+      missingQuotes: '缺少报价',
+      news: '新闻',
+      names: '只',
+    }
+  : {
+      eyebrow: 'US pre-market radar',
+      bullish: 'Bullish',
+      bearish: 'Bearish',
+      neutral: 'Neutral',
+      ticker: 'Ticker',
+      setup: 'Setup',
+      move: 'Move',
+      score: 'Score',
+      evidence: 'Evidence',
+      quality: 'Quality',
+      sectorOverview: 'Sector Tape',
+      top: 'Top',
+      confidence: 'confidence',
+      sector: 'sector',
+      closedTitle: 'US market is closed',
+      closedBody: 'Weekend or US market holiday.',
+      emptyTitle: 'No stock signals generated',
+      emptyBody: 'Provider data was unavailable or every configured item was filtered out.',
+      missingQuotes: 'missing quotes',
+      news: 'news',
+      names: 'names',
+    };
+
+const counts = items.reduce(
+  (acc, item) => {
+    const signal = item.signal === 'bullish' || item.signal === 'bearish' ? item.signal : 'neutral';
+    acc[signal] += 1;
+    return acc;
+  },
+  { bullish: 0, bearish: 0, neutral: 0 },
+);
+
+function fmtPct(value?: number | null): string {
+  if (value == null || Number.isNaN(value)) return '—';
+  return `${value >= 0 ? '+' : ''}${value.toFixed(1)}%`;
+}
+
+function fmtPrice(value?: number | null): string {
+  if (value == null || Number.isNaN(value)) return '—';
+  return `$${value.toFixed(2)}`;
+}
+
+function signalLabel(signal?: string): string {
+  if (signal === 'bullish') return copy.bullish;
+  if (signal === 'bearish') return copy.bearish;
+  return copy.neutral;
+}
+
+function qualityLabel(value?: string): string {
+  if (!value) return 'missing';
+  return value.replace(/_/g, ' ');
+}
+
+function providerText(key: string, value: CoverageItem): string {
+  const providers = Object.entries(value.providers ?? {})
+    .filter(([, count]) => count > 0)
+    .map(([provider, count]) => `${provider} ${count}`)
+    .join(', ');
+  const order = value.order?.join('>');
+  const label = providers || value.provider || order || 'n/a';
+  const fallback = value.fallback_ok ? `, fallback ${value.fallback_ok}` : '';
+  return `${key}: ${label} ${value.ok ?? 0}/${value.total ?? 0}${fallback}`;
+}
+---
+
+<div class="stocks-board">
+  <div class="stocks-board__top">
+    <div>
+      <div class="stocks-board__eyebrow">{copy.eyebrow}</div>
+      <div class="stocks-board__status">
+        <span class:list={['market-pill', `market-pill--${marketStatus}`]}>{marketStatus}</span>
+        {marketDate && <span class="stocks-board__date">{marketDate}</span>}
+      </div>
+    </div>
+
+    <div class="stocks-board__counts" aria-label="Signal counts">
+      <div class="count-tile count-tile--bullish">
+        <span>{counts.bullish}</span>
+        <small>{copy.bullish}</small>
+      </div>
+      <div class="count-tile count-tile--bearish">
+        <span>{counts.bearish}</span>
+        <small>{copy.bearish}</small>
+      </div>
+      <div class="count-tile">
+        <span>{counts.neutral}</span>
+        <small>{copy.neutral}</small>
+      </div>
+    </div>
+  </div>
+
+  {sectorOverview.length > 0 && (
+    <div class="sector-tape" aria-label={copy.sectorOverview}>
+      <div class="sector-tape__label">{copy.sectorOverview}</div>
+      <div class="sector-tape__grid">
+        {sectorOverview.map((sector) => {
+          const signal = sector.signal ?? 'neutral';
+          return (
+            <article class:list={['sector-cell', `sector-cell--${signal}`]}>
+              <div>
+                <strong>{sector.sector}</strong>
+                <span>{sector.stock_count ?? 0} {copy.names}</span>
+              </div>
+              <b>{sector.avg_score ?? '—'}</b>
+              <small>
+                {copy.top}: {sector.top_symbol ?? '—'} · {signalLabel(signal)} · RS {fmtPct(sector.avg_relative_strength_pct)}
+              </small>
+              <small>
+                {copy.bullish} {sector.counts?.bullish ?? 0} / {copy.bearish} {sector.counts?.bearish ?? 0} / 5d {fmtPct(sector.avg_change_5d_pct)}
+              </small>
+            </article>
+          );
+        })}
+      </div>
+    </div>
+  )}
+
+  {marketStatus === 'closed' && (
+    <div class="stocks-closed">
+      <div class="stocks-closed__title">{copy.closedTitle}</div>
+      <p>{skipReason || copy.closedBody}</p>
+    </div>
+  )}
+
+  {marketStatus !== 'closed' && items.length === 0 && (
+    <div class="stocks-closed">
+      <div class="stocks-closed__title">{copy.emptyTitle}</div>
+      <p>{copy.emptyBody}</p>
+    </div>
+  )}
+
+  {items.length > 0 && (
+    <div class="stocks-table" role="table" aria-label="US stock signals">
+      <div class="stocks-row stocks-row--head" role="row">
+        <span>{copy.ticker}</span>
+        <span>{copy.setup}</span>
+        <span>{copy.move}</span>
+        <span>{copy.score}</span>
+        <span>{copy.evidence}</span>
+        <span>{copy.quality}</span>
+      </div>
+
+      {items.map((item) => {
+        const source = item.sources?.[0];
+        const signal = item.signal ?? 'neutral';
+        return (
+          <article class:list={['stocks-row', `stocks-row--${signal}`]} role="row">
+            <div class="stock-id" role="cell">
+              <a href={item.source_url || `https://finance.yahoo.com/quote/${item.symbol}`} target="_blank" rel="noopener" class="stock-id__symbol">
+                {item.symbol}
+              </a>
+              <span class="stock-id__name">{item.name}</span>
+              <span class="stock-id__sector">{item.sector}</span>
+            </div>
+
+            <div class="stock-setup" role="cell">
+              <span class:list={['signal-pill', `signal-pill--${signal}`]}>{signalLabel(signal)}</span>
+              <span class="setup-type">{item.setup_type?.replace(/_/g, ' ')}</span>
+              <span class="confidence">{item.confidence ?? 'low'} {copy.confidence}</span>
+            </div>
+
+            <div class="stock-move" role="cell">
+              <strong class:list={[item.premarket_change_pct != null && item.premarket_change_pct < 0 ? 'down' : 'up']}>
+                {fmtPct(item.premarket_change_pct)}
+              </strong>
+              <span>{fmtPrice(item.price)}</span>
+              <small>5d {fmtPct(item.change_5d_pct)}</small>
+            </div>
+
+            <div class="stock-score" role="cell">
+              <span>{item.score ?? '—'}</span>
+              <small>{copy.sector} {item.sector_trend ?? 'unknown'}</small>
+              {item.relative_strength_pct != null && <small>RS {fmtPct(item.relative_strength_pct)}</small>}
+            </div>
+
+            <div class="stock-evidence" role="cell">
+              <p>{item.summary}</p>
+              {source && (
+                <a href={source.url} target="_blank" rel="noopener" class="source-link">
+                  {source.title}
+                </a>
+              )}
+              {item.invalidation?.[0] && <small>{item.invalidation[0]}</small>}
+            </div>
+
+            <div class="stock-quality" role="cell">
+              {Object.entries(item.data_quality ?? {}).map(([key, value]) => (
+                <span class:list={['quality-chip', `quality-chip--${value}`]}>
+                  {key}: {qualityLabel(value)}
+                </span>
+              ))}
+              {item.news_count != null && <span class="quality-chip">{copy.news}: {item.news_count}</span>}
+            </div>
+          </article>
+        );
+      })}
+    </div>
+  )}
+
+  <div class="stocks-board__foot">
+    <div class="provider-strip">
+      {Object.entries(coverage).map(([key, value]) => (
+        <span>{providerText(key, value)}</span>
+      ))}
+      {invalidSymbols.length > 0 && <span>{copy.missingQuotes}: {invalidSymbols.slice(0, 8).join(', ')}</span>}
+    </div>
+    {disclaimer && <p>{disclaimer}</p>}
+  </div>
+</div>
+
+<style>
+.stocks-board {
+  border: 1px solid var(--ink);
+  background: var(--paper);
+}
+
+.stocks-board__top {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 24px;
+  align-items: center;
+  padding: 22px 24px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.stocks-board__eyebrow,
+.stocks-board__date,
+.sector-tape__label,
+.sector-cell span,
+.sector-cell small,
+.setup-type,
+.confidence,
+.stocks-row--head,
+.source-link,
+.stock-quality,
+.provider-strip,
+.stocks-board__foot p {
+  font-family: var(--font-mono);
+}
+
+.stocks-board__eyebrow {
+  font-size: 0.64rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: 8px;
+}
+
+.stocks-board__status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.market-pill,
+.signal-pill,
+.quality-chip {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--rule);
+  white-space: nowrap;
+}
+
+.market-pill {
+  padding: 3px 9px;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.market-pill--closed {
+  color: var(--ink-muted);
+  background: transparent;
+}
+
+.stocks-board__date {
+  font-size: 0.72rem;
+  color: var(--ink-muted);
+}
+
+.stocks-board__counts {
+  display: grid;
+  grid-template-columns: repeat(3, 72px);
+  gap: 10px;
+}
+
+.count-tile {
+  border-left: 1px solid var(--rule);
+  padding-left: 12px;
+}
+
+.count-tile span {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.7rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--ink);
+}
+
+.count-tile small {
+  display: block;
+  margin-top: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+
+.count-tile--bullish span { color: var(--success); }
+.count-tile--bearish span { color: var(--danger); }
+
+.sector-tape {
+  display: grid;
+  grid-template-columns: 112px 1fr;
+  gap: 16px;
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--rule);
+  background: rgba(26, 24, 20, 0.018);
+}
+
+.sector-tape__label {
+  align-self: start;
+  padding-top: 3px;
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+
+.sector-tape__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 10px;
+}
+
+.sector-cell {
+  min-width: 0;
+  padding: 10px 12px;
+  border-left: 2px solid var(--rule);
+  background: rgba(255, 255, 255, 0.34);
+}
+
+.sector-cell--bullish {
+  border-color: color-mix(in srgb, var(--success), transparent 45%);
+}
+
+.sector-cell--bearish {
+  border-color: color-mix(in srgb, var(--danger), transparent 45%);
+}
+
+.sector-cell div {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+  align-items: baseline;
+}
+
+.sector-cell strong {
+  min-width: 0;
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  line-height: 1.2;
+  color: var(--ink);
+  overflow-wrap: anywhere;
+}
+
+.sector-cell span,
+.sector-cell small {
+  font-size: 0.58rem;
+  line-height: 1.35;
+  color: var(--ink-muted);
+}
+
+.sector-cell b {
+  display: block;
+  margin-top: 5px;
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  line-height: 1;
+  color: var(--ink);
+}
+
+.sector-cell--bullish b { color: var(--success); }
+.sector-cell--bearish b { color: var(--danger); }
+
+.sector-cell small {
+  display: block;
+  margin-top: 4px;
+  overflow-wrap: anywhere;
+}
+
+.stocks-closed {
+  padding: 24px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.stocks-closed__title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.stocks-closed p {
+  margin-top: 4px;
+  color: var(--ink-muted);
+}
+
+.stocks-table {
+  width: 100%;
+}
+
+.stocks-row {
+  display: grid;
+  grid-template-columns: minmax(116px, 0.9fr) minmax(130px, 0.9fr) minmax(86px, 0.6fr) minmax(82px, 0.55fr) minmax(240px, 1.8fr) minmax(160px, 1fr);
+  gap: 18px;
+  align-items: start;
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.stocks-row--head {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  background: rgba(26, 24, 20, 0.025);
+}
+
+.stock-id,
+.stock-setup,
+.stock-move,
+.stock-score,
+.stock-evidence,
+.stock-quality {
+  min-width: 0;
+}
+
+.stock-id {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.stock-id__symbol {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.stock-id__symbol:hover {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.stock-id__name {
+  font-family: var(--font-ui);
+  font-size: 0.77rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  overflow-wrap: anywhere;
+}
+
+.stock-id__sector {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+
+.stock-setup {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+}
+
+.signal-pill {
+  padding: 2px 8px;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.signal-pill--bullish {
+  color: var(--success);
+  border-color: color-mix(in srgb, var(--success), transparent 68%);
+}
+
+.signal-pill--bearish {
+  color: var(--danger);
+  border-color: color-mix(in srgb, var(--danger), transparent 68%);
+}
+
+.signal-pill--neutral {
+  color: var(--gold);
+  border-color: rgba(184, 137, 42, 0.3);
+}
+
+.setup-type,
+.confidence {
+  font-size: 0.62rem;
+  color: var(--ink-muted);
+}
+
+.stock-move,
+.stock-score {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.stock-move strong,
+.stock-score span {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  line-height: 1;
+  color: var(--ink);
+}
+
+.stock-move .up { color: var(--success); }
+.stock-move .down { color: var(--danger); }
+
+.stock-move span,
+.stock-move small,
+.stock-score small {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: var(--ink-muted);
+}
+
+.stock-evidence p {
+  font-family: var(--font-body);
+  font-size: 0.86rem;
+  line-height: 1.45;
+  color: var(--ink);
+}
+
+.source-link {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.64rem;
+  line-height: 1.35;
+  color: var(--accent);
+  overflow-wrap: anywhere;
+}
+
+.stock-evidence small {
+  display: block;
+  margin-top: 5px;
+  font-size: 0.72rem;
+  line-height: 1.35;
+  color: var(--ink-muted);
+}
+
+.stock-quality {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.quality-chip {
+  padding: 2px 6px;
+  font-size: 0.56rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+
+.quality-chip--fresh {
+  color: var(--success);
+  border-color: color-mix(in srgb, var(--success), transparent 72%);
+}
+
+.quality-chip--missing,
+.quality-chip--unavailable,
+.quality-chip--sparse,
+.quality-chip--reference,
+.quality-chip--delayed,
+.quality-chip--delayed_fallback {
+  color: var(--gold);
+  border-color: rgba(184, 137, 42, 0.3);
+}
+
+.stocks-board__foot {
+  padding: 14px 24px 18px;
+}
+
+.provider-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+
+.stocks-board__foot p {
+  margin-top: 8px;
+  font-size: 0.62rem;
+  line-height: 1.5;
+  color: var(--ink-muted);
+}
+
+@media (max-width: 1100px) {
+  .stocks-row {
+    grid-template-columns: minmax(110px, 0.8fr) minmax(116px, 0.8fr) minmax(82px, 0.5fr) minmax(82px, 0.5fr) minmax(220px, 1.5fr);
+  }
+  .stocks-row--head span:nth-child(6),
+  .stock-quality {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 760px) {
+  .stocks-board__top {
+    grid-template-columns: 1fr;
+  }
+  .sector-tape {
+    grid-template-columns: 1fr;
+  }
+  .stocks-board__counts {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .stocks-row,
+  .stocks-row--head {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px 16px;
+  }
+  .stocks-row--head {
+    display: none;
+  }
+  .stock-evidence,
+  .stock-quality {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 480px) {
+  .stocks-board__top,
+  .sector-tape,
+  .stocks-row,
+  .stocks-closed,
+  .stocks-board__foot {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .stocks-row {
+    grid-template-columns: 1fr;
+  }
+  .stock-evidence,
+  .stock-quality {
+    grid-column: auto;
+  }
+}
+</style>

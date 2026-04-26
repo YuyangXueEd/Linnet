@@ -81,3 +81,57 @@ def test_get_llm_client_only_adds_openrouter_headers_for_openrouter(monkeypatch)
         "HTTP-Referer": "https://github.com/YuyangXueEd/linnet",
         "X-OpenRouter-Title": "Linnet",
     }
+
+
+def test_get_llm_client_loads_api_key_from_dotenv(tmp_path, monkeypatch):
+    captured = {}
+
+    class FakeOpenAI:
+        def __init__(self, **kwargs):
+            captured.update(kwargs)
+
+    env_path = tmp_path / ".env"
+    env_path.write_text("OPENROUTER_API_KEY=sk-or-from-dotenv\n", encoding="utf-8")
+
+    monkeypatch.setattr(main, "OpenAI", FakeOpenAI)
+    monkeypatch.setattr(main, "DOTENV_PATH", env_path)
+    monkeypatch.delenv("OPENROUTER_API_KEY", raising=False)
+
+    main.get_llm_client(
+        {
+            "llm": {
+                "provider": "openrouter",
+                "base_url": "https://openrouter.ai/api/v1",
+                "api_key_env": "OPENROUTER_API_KEY",
+            }
+        }
+    )
+
+    assert captured["api_key"] == "sk-or-from-dotenv"
+
+
+def test_build_extension_configs_sources_override_extension_defaults(monkeypatch):
+    monkeypatch.setattr(
+        main,
+        "load_extension_config",
+        lambda name: {"enabled": False, "max_sector_overview": 8}
+        if name == "us_stocks"
+        else {},
+    )
+
+    configs = main._build_extension_configs(
+        {
+            "llm": {
+                "scoring_model": "score-model",
+                "summarization_model": "summary-model",
+            },
+            "language": "en",
+            "us_stocks": {
+                "enabled": True,
+                "max_sector_overview": 3,
+            },
+        }
+    )
+
+    assert configs["us_stocks"]["enabled"] is True
+    assert configs["us_stocks"]["max_sector_overview"] == 3

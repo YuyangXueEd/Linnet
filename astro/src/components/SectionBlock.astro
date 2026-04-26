@@ -17,6 +17,7 @@ import HNCard       from './HNCard.astro';
 import RepoCard     from './RepoCard.astro';
 import WeatherBlock from './WeatherBlock.astro';
 import JobCard      from './JobCard.astro';
+import USStocksBlock from './USStocksBlock.astro';
 import GenericCard  from './GenericCard.astro';
 // New extensions: add import here, then one line in COMPONENTS below.
 
@@ -83,6 +84,9 @@ const isRepos = key === 'github_trending';
 // HN first item spans full width, rest in 2-col grid
 const isHN = key === 'hacker_news';
 
+// US stocks render as one dense board with section meta and data-quality badges
+const isUSStocks = key === 'us_stocks';
+
 type ItemType = Record<string, unknown>;
 const visibleItems = isPapers ? (items as ItemType[]).slice(0, MAX_PAPERS) : (items as ItemType[]);
 const totalPapers  = items?.length ?? 0;
@@ -103,12 +107,19 @@ const totalPapers  = items?.length ?? 0;
     </span>}
   </div>
 
-  {isEmpty && (
+  {isEmpty && !isUSStocks && (
     <p class="section-empty">No items for this section today.</p>
   )}
 
+  {/* US Stocks — compact pre-market signal board, including closed-market state */}
+  {isUSStocks && (
+    <div class="section-body">
+      <USStocksBlock items={items as Parameters<typeof USStocksBlock>[0]['items']} meta={section.meta ?? {}} />
+    </div>
+  )}
+
   {/* Weather — full-width block */}
-  {!isEmpty && layout === 'single' && (
+  {!isEmpty && layout === 'single' && !isUSStocks && (
     <div class="section-body">
       <WeatherBlock items={items as Parameters<typeof WeatherBlock>[0]['items']} />
     </div>
@@ -179,7 +190,7 @@ const totalPapers  = items?.length ?? 0;
   )}
 
   {/* All other card-style layouts */}
-  {!isEmpty && layout !== 'single' && !isPapers && !isRepos && !isHN && (
+  {!isEmpty && layout !== 'single' && !isPapers && !isRepos && !isHN && !isUSStocks && (
     <div class:list={[gridClass, 'section-feed']}>
       {(items as ItemType[]).map((item, i) => (
         <CardComp paper={item} item={item} repo={item} job={item} _idx={i} />

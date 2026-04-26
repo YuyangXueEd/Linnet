@@ -57,6 +57,10 @@ const t = {
   noTag:          locale === 'zh' ? '尚未添加' : 'None added',
   noUrl:          locale === 'zh' ? '尚未添加 URL' : 'No URLs added',
   mergedProfile:  locale === 'zh' ? '生成逻辑说明' : 'Generation note',
+  usStocksNoteHead: locale === 'zh' ? '盘前信号默认设置' : 'Pre-market signal defaults',
+  usStocksNote: locale === 'zh'
+    ? '默认 provider 链路会保留 no-key fallback：报价为 Yahoo → Nasdaq，新闻为 GDELT → Google News RSS，SEC 没有 User-Agent 时仅提供公司页面参考链接。股票池和板块分类部署后可在 config/extensions/us_stocks.yaml 里继续自定义。'
+    : 'The default provider chain keeps no-key fallbacks: Yahoo → Nasdaq for quotes, GDELT → Google News RSS for news, and SEC company-page links when no SEC User-Agent is set. You can customize the stock universe and sector taxonomy later in config/extensions/us_stocks.yaml.',
 };
 
 const compactFieldTypes = new Set(['text', 'number', 'slider', 'select']);
@@ -205,6 +209,13 @@ const categoryLabels = {
             </div>
           ) : (
             <div class="wz-field-stack">
+              {ext.key === 'us_stocks' && (
+                <div class="wz-notice wz-notice--info">
+                  <strong>{t.usStocksNoteHead}</strong>
+                  <div class="wz-field__hint">{t.usStocksNote}</div>
+                </div>
+              )}
+
               {compactFields.length > 0 && (
                 <div class="wz-field-grid">
                   {compactFields.map(field => {

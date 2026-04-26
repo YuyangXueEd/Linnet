@@ -24,6 +24,7 @@ from extensions.hitokoto import HitokotoExtension
 from extensions.postdoc_jobs import PostdocJobsExtension
 from extensions.quote_of_day import QuoteOfDayExtension
 from extensions.supervisor_updates import SupervisorExtension
+from extensions.us_stocks import USStocksExtension
 from extensions.weather import WeatherExtension
 
 # Ordered list of all known extensions.
@@ -34,6 +35,7 @@ REGISTRY: list[type[BaseExtension]] = [
     ArxivExtension,
     HackerNewsExtension,
     GitHubTrendingExtension,
+    USStocksExtension,
     PostdocJobsExtension,
     SupervisorExtension,
     WeatherExtension,

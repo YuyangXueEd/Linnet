@@ -38,8 +38,27 @@ from publishers.data_publisher import (
 )
 from sinks import SINK_REGISTRY
 
+DOTENV_PATH = Path(__file__).with_name(".env")
+
+
+def load_local_dotenv(path: Path | None = None) -> None:
+    """Load local .env secrets for developer runs without overriding real env vars."""
+    path = path or DOTENV_PATH
+    if not path.exists():
+        return
+    try:
+        from dotenv import load_dotenv
+    except ImportError:
+        print(
+            "WARNING: python-dotenv is not installed; .env file was not loaded",
+            file=sys.stderr,
+        )
+        return
+    load_dotenv(path, override=False)
+
 
 def get_llm_client(sources_cfg: dict) -> OpenAI:
+    load_local_dotenv()
     llm_cfg = sources_cfg.get("llm", {})
     env_var_name = llm_cfg.get("api_key_env", "OPENROUTER_API_KEY")
     api_key = os.environ.get(env_var_name, "")
@@ -70,8 +89,8 @@ def _build_extension_configs(sources: dict) -> dict[str, dict]:
     per-extension filter/keyword config from config/extensions/{name}.yaml.
 
     Each extension receives a single flat dict containing:
-      - source settings (enabled flag, limits) from sources.yaml
       - filter/keyword settings from config/extensions/{name}.yaml
+      - source settings (enabled flag, limits) from sources.yaml
       - injected LLM model names and language
     """
     llm = {
@@ -81,8 +100,8 @@ def _build_extension_configs(sources: dict) -> dict[str, dict]:
     }
     return {
         ext_class.key: {
-            **sources.get(ext_class.key, {}),
             **load_extension_config(ext_class.key),
+            **sources.get(ext_class.key, {}),
             **llm,
         }
         for ext_class in REGISTRY

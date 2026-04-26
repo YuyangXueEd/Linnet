@@ -120,5 +120,5 @@ export function createInitialState(): WizardState {
 export const DEFAULT_TOP_N: Record<string, number> = {
   weather: 1, arxiv: 7, github_trending: 5,
   hacker_news: 5, postdoc_jobs: 5, supervisor_updates: 5,
-  quote_of_day: 1, hitokoto: 1,
+  quote_of_day: 1, hitokoto: 1, us_stocks: 6,
 };
