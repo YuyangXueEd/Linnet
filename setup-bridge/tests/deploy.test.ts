@@ -63,6 +63,7 @@ test('deployWithInstallation scopes token and performs repo writes, secrets, act
       full_name: 'octocat/briefing',
       default_branch: 'main',
       html_url: 'https://github.com/octocat/briefing',
+      homepage: 'https://yuyangxueed.github.io/Linnet/',
     }),
     new Response(null, { status: 204 }),
     new Response(null, { status: 204 }),
@@ -74,6 +75,9 @@ test('deployWithInstallation scopes token and performs repo writes, secrets, act
       html_url: 'https://octocat.github.io/briefing/',
       build_type: 'workflow',
       source: { branch: 'main', path: '/' },
+    }),
+    jsonResponse(200, {
+      homepage: 'https://octocat.github.io/briefing/',
     }),
     jsonResponse(200, {
       object: {
@@ -120,13 +124,15 @@ test('deployWithInstallation scopes token and performs repo writes, secrets, act
   assert.equal(result.actions.enabled, true);
   assert.deepEqual(result.actions.enabledWorkflows, ['daily.yml', 'weekly.yml', 'monthly.yml', 'pages.yml']);
   assert.equal(result.pages.status, 'created');
+  assert.equal(result.repositoryHomepage.status, 'updated');
+  assert.equal(result.repositoryHomepage.htmlUrl, 'https://octocat.github.io/briefing/');
   assert.equal(result.workflowDispatch.workflowId, 'daily.yml');
   assert.equal(result.workflowDispatch.ref, 'main');
   assert.equal(result.workflowDispatch.triggered, true);
   assert.equal(result.workflowDispatch.errorMessage, null);
   assert.equal(result.workflowDispatch.workflowUrl, 'https://github.com/octocat/briefing/actions/workflows/daily.yml');
 
-  assert.equal(calls.length, 18);
+  assert.equal(calls.length, 19);
   assert.match(calls[0].url, /\/app\/installations\/77\/access_tokens$/);
   assert.match(calls[1].url, /\/repos\/octocat\/briefing$/);
   assert.match(calls[2].url, /\/actions\/permissions$/);
@@ -136,26 +142,32 @@ test('deployWithInstallation scopes token and performs repo writes, secrets, act
   assert.match(calls[6].url, /actions\/workflows\/pages\.yml\/enable$/);
   assert.match(calls[7].url, /\/repos\/octocat\/briefing\/pages$/);
   assert.match(calls[8].url, /\/repos\/octocat\/briefing\/pages$/);
-  assert.match(calls[9].url, /\/git\/ref\/heads\/main$/);
-  assert.match(calls[10].url, /\/git\/commits\/head-commit-sha$/);
-  assert.match(calls[11].url, /\/git\/blobs$/);
-  assert.match(calls[12].url, /\/git\/trees$/);
-  assert.match(calls[13].url, /\/git\/commits$/);
-  assert.match(calls[14].url, /\/git\/refs\/heads\/main$/);
-  assert.match(calls[15].url, /actions\/secrets\/public-key$/);
-  assert.match(calls[16].url, /actions\/secrets\/OPENROUTER_API_KEY$/);
-  assert.match(calls[17].url, /actions\/workflows\/daily\.yml\/dispatches$/);
+  assert.match(calls[9].url, /\/repos\/octocat\/briefing$/);
+  assert.match(calls[10].url, /\/git\/ref\/heads\/main$/);
+  assert.match(calls[11].url, /\/git\/commits\/head-commit-sha$/);
+  assert.match(calls[12].url, /\/git\/blobs$/);
+  assert.match(calls[13].url, /\/git\/trees$/);
+  assert.match(calls[14].url, /\/git\/commits$/);
+  assert.match(calls[15].url, /\/git\/refs\/heads\/main$/);
+  assert.match(calls[16].url, /actions\/secrets\/public-key$/);
+  assert.match(calls[17].url, /actions\/secrets\/OPENROUTER_API_KEY$/);
+  assert.match(calls[18].url, /actions\/workflows\/daily\.yml\/dispatches$/);
 
   const tokenBody = JSON.parse(String(calls[0].init?.body));
   assert.deepEqual(tokenBody, { repositories: ['briefing'] });
 
-  const putBlobBody = JSON.parse(String(calls[11].init?.body));
+  const homepageBody = JSON.parse(String(calls[9].init?.body));
+  assert.deepEqual(homepageBody, {
+    homepage: 'https://octocat.github.io/briefing/',
+  });
+
+  const putBlobBody = JSON.parse(String(calls[12].init?.body));
   assert.deepEqual(putBlobBody, {
     content: 'language: "en"\n',
     encoding: 'utf-8',
   });
 
-  const createTreeBody = JSON.parse(String(calls[12].init?.body));
+  const createTreeBody = JSON.parse(String(calls[13].init?.body));
   assert.deepEqual(createTreeBody, {
     base_tree: 'base-tree-sha',
     tree: [
@@ -168,20 +180,20 @@ test('deployWithInstallation scopes token and performs repo writes, secrets, act
     ],
   });
 
-  const createCommitBody = JSON.parse(String(calls[13].init?.body));
+  const createCommitBody = JSON.parse(String(calls[14].init?.body));
   assert.deepEqual(createCommitBody, {
     message: 'chore: configure Linnet via setup bridge',
     tree: 'next-tree-sha',
     parents: ['head-commit-sha'],
   });
 
-  const updateRefBody = JSON.parse(String(calls[14].init?.body));
+  const updateRefBody = JSON.parse(String(calls[15].init?.body));
   assert.deepEqual(updateRefBody, {
     sha: 'next-commit-sha',
     force: false,
   });
 
-  const putSecretBody = JSON.parse(String(calls[16].init?.body));
+  const putSecretBody = JSON.parse(String(calls[17].init?.body));
   assert.equal(putSecretBody.key_id, 'KEY_ID');
   assert.equal(typeof putSecretBody.encrypted_value, 'string');
   assert.notEqual(putSecretBody.encrypted_value, '');
@@ -196,7 +208,7 @@ test('deployWithInstallation scopes token and performs repo writes, secrets, act
     },
   });
 
-  const dispatchBody = JSON.parse(String(calls[17].init?.body));
+  const dispatchBody = JSON.parse(String(calls[18].init?.body));
   assert.deepEqual(dispatchBody, { ref: 'main' });
 });
 
@@ -210,6 +222,7 @@ test('deployWithInstallation keeps repo setup changes even if workflow dispatch 
       full_name: 'octocat/briefing',
       default_branch: 'main',
       html_url: 'https://github.com/octocat/briefing',
+      homepage: 'https://yuyangxueed.github.io/Linnet/',
     }),
     new Response(null, { status: 204 }),
     new Response(null, { status: 204 }),
@@ -221,6 +234,9 @@ test('deployWithInstallation keeps repo setup changes even if workflow dispatch 
       html_url: 'https://octocat.github.io/briefing/',
       build_type: 'workflow',
       source: { branch: 'main', path: '/' },
+    }),
+    jsonResponse(200, {
+      homepage: 'https://octocat.github.io/briefing/',
     }),
     jsonResponse(200, {
       object: {
@@ -263,8 +279,9 @@ test('deployWithInstallation keeps repo setup changes even if workflow dispatch 
 
   assert.deepEqual(result.committedPaths, ['config/sources.yaml']);
   assert.deepEqual(result.writtenSecrets, ['OPENROUTER_API_KEY']);
+  assert.equal(result.repositoryHomepage.status, 'updated');
   assert.equal(result.workflowDispatch.triggered, false);
   assert.equal(result.workflowDispatch.errorMessage, 'Actions are disabled for this repository.');
   assert.equal(result.workflowDispatch.workflowUrl, 'https://github.com/octocat/briefing/actions/workflows/daily.yml');
-  assert.equal(calls.length, 18);
+  assert.equal(calls.length, 19);
 });

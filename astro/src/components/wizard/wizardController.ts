@@ -1689,6 +1689,7 @@ export function initWizard(): void {
       secrets: buildDeploySecrets().map(({ name, value }) => ({ name, value })),
       autoEnableActions: shouldAutoEnableActions(),
       workflowsToEnable: [...AUTO_ENABLE_WORKFLOW_IDS],
+      configurePages: true,
     });
     deployPreviewEl.textContent = preview.join('\n');
   }
@@ -2372,6 +2373,12 @@ export function initWizard(): void {
         writtenSecrets: string[];
         actions: { enabled: boolean };
         pages: { attempted: boolean; htmlUrl: string | null; status: string };
+        repositoryHomepage?: {
+          attempted: boolean;
+          status: string;
+          htmlUrl: string | null;
+          errorMessage?: string | null;
+        };
         workflowDispatch: {
           triggered: boolean;
           errorMessage?: string | null;
@@ -2382,10 +2389,14 @@ export function initWizard(): void {
       const pagesConfigured = result.pages.attempted && result.pages.status !== 'skipped';
       const actionsConfigured = autoEnableRequested && result.actions.enabled;
       const pagesReachable = Boolean(result.pages.htmlUrl);
+      const homepageStatus = result.repositoryHomepage?.status ?? 'skipped';
+      const homepageUpdated = homepageStatus === 'updated' || homepageStatus === 'unchanged';
+      const homepageNeedsCheck = pagesReachable && !homepageUpdated;
       const manualFollowUpNeeded =
         !result.workflowDispatch.triggered
         || (autoEnableRequested && !actionsConfigured)
-        || !pagesReachable;
+        || !pagesReachable
+        || homepageNeedsCheck;
       const nextSteps: string[] = [
         locale === 'zh'
           ? '先打开仓库主页，确认生成的 config 文件和 GitHub Actions secrets 都已经写入。'
@@ -2414,8 +2425,12 @@ export function initWizard(): void {
       if (pagesReachable) {
         nextSteps.push(
           locale === 'zh'
-            ? 'GitHub Pages 地址已经准备好了；如果首页还没更新，等几分钟再刷新。'
-            : 'The GitHub Pages URL is ready; if the homepage is not fresh yet, wait a few minutes and refresh.',
+            ? (homepageUpdated
+              ? 'GitHub Pages 地址已经准备好了，仓库 About -> Website 也已指向这个站点；如果首页还没更新，等几分钟再刷新。'
+              : 'GitHub Pages 地址已经准备好了；请检查仓库 About -> Website 是否仍指向旧链接，必要时手动替换为站点地址。')
+            : (homepageUpdated
+              ? 'The GitHub Pages URL is ready, and the repo About -> Website link now points to it; if the homepage is not fresh yet, wait a few minutes and refresh.'
+              : 'The GitHub Pages URL is ready; check whether the repo About -> Website field still points to an old link and replace it with the site URL if needed.'),
         );
       } else {
         nextSteps.push(
@@ -2455,7 +2470,9 @@ export function initWizard(): void {
           ? (locale === 'zh' ? '已配置' : 'Configured')
           : (pagesConfigured ? (locale === 'zh' ? '等待上线' : 'Waiting for site') : (locale === 'zh' ? '未变更' : 'Left unchanged')),
         pagesHint: pagesReachable
-          ? (locale === 'zh' ? '站点链接已经生成，但首次发布在新仓库上仍可能慢几分钟。' : 'The site link is already available, though the first publish on a new repo may still lag by a few minutes.')
+          ? (homepageUpdated
+            ? (locale === 'zh' ? '站点链接已经生成，仓库 About 里的 Website 链接也已同步。' : 'The site link is available, and the repository About Website link was synced.')
+            : (locale === 'zh' ? '站点链接已经生成，但 About Website 没有自动确认成功，请手动检查一次。' : 'The site link is available, but About Website was not confirmed automatically; check it once by hand.'))
           : (pagesConfigured
             ? (locale === 'zh' ? 'Pages 设置已经写入，接下来只需要等 GitHub 完成首次发布。' : 'Pages configuration is in place; GitHub still needs a little time to finish the first publish.')
             : (locale === 'zh' ? '这次没有改动 Pages 设置。' : 'Pages settings were left unchanged in this run.')),
