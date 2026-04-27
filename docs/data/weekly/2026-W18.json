@@ -1,0 +1,924 @@
+{
+  "period": "2026-W18",
+  "summary": "**中文论文周报（40篇）：代理、对齐与效率优化成为焦点**\n\n本周中文论文的讨论热度集中于**LLM的代理（Agentic AI）能力、模型对齐与安全、以及推理效率的提升**三大方向。\n\n**一、 代理与复杂任务的实现：**\n\n代理（Agent）相关研究是热点。**AEL** 提出了通过双时间尺度机制（快速决策与慢速反思）来增强LLM在开放环境中的经验利用。在科学自动化方面，**From Research Question to Scientific Workflow** 实现了将自然语言研究问题转化为可执行工作流（DAGs）的架构，并强调了通过结构化“技能”来**限制LLM的非确定性**。在工具使用方面，**Tool Attention** 机制通过动态门控和懒加载，有效消除了工具调用带来的“上下文税”，极大提升了代理的可扩展性。**AgenticQwen** 则专注于训练小规模模型以应对工业化的工具使用和多步推理。\n\n**二、 对齐、安全与认知支持：**\n\n对齐研究出现了新的反思。**Alignment has a Fantasia Problem** 指出AI过度推定用户意图，并呼吁研究应侧重于提供**认知支持**而非仅假设用户是完全理性的。在安全方面，**BadStyle** 提出了一种利用自然风格而非显式特征的**隐蔽后门攻击**。同时，**Transient Turn Injection (TTI)** 揭示了LLM在**多轮交互的无状态环节**中存在的漏洞。此外，**Measuring Opinion Bias and Sycophancy** 提供了通过分步压力测试来揭示模型真实观点的工具。\n\n**三、 推理增强与效率提升：**\n\n推理质量和效率的提升是另一大趋势。**Process Supervision via Verbal Critique (VPS)** 通过外部模型的**口头批评**（训练无关）显著提升了模型的推理性能，标志着对推理过程的精细化控制。在记忆管理上，**StructMem** 通过结构化的分层记忆增强了LLM的长期时间推理能力。效率方面，**Low-Rank Adaptation Redux** 提供了对LoRA的信号处理视角下的理论解释，而 **DiffMAS** 则实现了多智能体系统中**潜在通信的端到端优化**。值得一提的是，**Nemobot Games** 探索了LLM在复杂博弈环境中的策略合成能力。\n\n**总结：** 本周研究明显向更复杂、更具工程化和可解释性的方向发展，重点在于如何让LLM“记住、规划、沟通并安全地与工具协作”，同时对齐问题也从简单的偏见检测延伸到了对用户心智模型的深度支持。",
+  "top_papers": [
+    {
+      "id": "2604.21725v1",
+      "title": "AEL: Agent Evolving Learning for Open-Ended Environments",
+      "authors": [
+        "Wujiang Xu",
+        "Jiaojiao Han",
+        "Minghao Guo",
+        "Kai Mei",
+        "Xi Zhu"
+      ],
+      "categories": [
+        "cs.AI",
+        "cs.CL",
+        "cs.CE"
+      ],
+      "abstract": "The paper introduces Agent Evolving Learning (AEL), a two-timescale framework designed to enable LLM agents to effectively utilize past experience in open-ended environments. AEL employs fast-timescale Thompson Sampling to select the optimal memory retrieval policy for each episode, while a slow-timescale LLM reflection process diagnoses failures and injects causal insights into the agent's prompt. This method significantly improves performance on sequential tasks by providing a structured way to interpret and apply prior knowledge.",
+      "url": "http://arxiv.org/abs/2604.21725v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.21725v1",
+      "score": 9.0,
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2604.21827v1",
+      "title": "Alignment has a Fantasia Problem",
+      "authors": [
+        "Nathanael Jo",
+        "Zoe De Simone",
+        "Mitchell Gordon",
+        "Ashia Wilson"
+      ],
+      "categories": [
+        "cs.AI",
+        "cs.HC"
+      ],
+      "abstract": "The paper identifies \"Fantasia interactions\" as a core problem where AI treats incomplete user prompts as final intent, leading to misaligned assistance because users often lack fully formed goals. The contribution is arguing that alignment research must shift from treating users as rational oracles to actively providing cognitive support that helps users form and refine their intent over time. This requires integrating machine learning with interface design and behavioral science.",
+      "url": "http://arxiv.org/abs/2604.21827v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.21827v1",
+      "score": 9.0,
+      "figure_url": "https://arxiv.org/html/2604.21827v1/figs/diagram_summary_vertical_mickey.png",
+      "figure_caption": "Diagram describing a Fantasia interaction, including behavioral sources and failure modes.",
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2604.21910v1",
+      "title": "From Research Question to Scientific Workflow: Leveraging Agentic AI for Science Automation",
+      "authors": [
+        "Bartosz Balis",
+        "Michal Orzechowski",
+        "Piotr Kica",
+        "Michal Dygas",
+        "Michal Kuszewski"
+      ],
+      "categories": [
+        "cs.AI"
+      ],
+      "abstract": "This paper introduces an agentic AI architecture to automate the translation of natural language research questions into executable scientific workflows. It achieves this by separating the process into three layers: an LLM for intent extraction, deterministic generators for creating workflow DAGs, and expert-authored \"Skills\" to encode domain knowledge and constraints. The core contribution is confining LLM non-determinism to the initial intent stage, ensuring that identical intents always produce identical, reproducible workflows.",
+      "url": "http://arxiv.org/abs/2604.21910v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.21910v1",
+      "score": 9.0,
+      "figure_url": "https://arxiv.org/html/2604.21910v1/x1.png",
+      "figure_caption": "Component architecture. The Conductor orchestrates three specialized agents. The Workflow Composer (semantic layer) consults domain Skills (knowledge layer) to produce workflow plans that include data preparation commands. The Deployment Service and Execution Sentinel (deterministic layer) execute these plans on the Kubernetes infrastructure running the HyperFlow engine.",
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2604.21794v1",
+      "title": "Learning to Communicate: Toward End-to-End Optimization of Multi-Agent Language Systems",
+      "authors": [
+        "Ye Yu",
+        "Heming Liu",
+        "Haibo Jin",
+        "Xiaopeng Yuan",
+        "Peng Kuang"
+      ],
+      "categories": [
+        "cs.AI",
+        "cs.CL",
+        "cs.MA"
+      ],
+      "abstract": "This paper introduces **DiffMAS**, a novel training framework that enables the **end-to-end, joint optimization of latent inter-agent communication** alongside multi-agent reasoning. It treats the internal, non-textual communication (like key-value caches) as a learnable component, optimizing how information is encoded and interpreted across agent interactions using parameter-efficient supervised training. This approach consistently improves reasoning accuracy and stability compared to standard single-agent inference across various complex tasks.",
+      "url": "http://arxiv.org/abs/2604.21794v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.21794v1",
+      "score": 9.0,
+      "figure_url": "https://arxiv.org/html/2604.21794v1/x1.png",
+      "figure_caption": "In Stage I, agents 1 to K–1 sequentially construct a shared KV trace by prefilling the existing cache and appending newly generated KV segments without gradient updates. The accumulated KV trace serves as a latent communication medium across agents. In Stage II, the final agent performs autoregressive decoding on the prefilled KV cache. Cross-attention over the KV trace produces hidden states, which are projected through the LM head to generate tokens. Supervised fine-tuning is applied using cross-entropy loss, and gradients are backpropagated to update only the LoRA parameters of the final agent while keeping the backbone model frozen.",
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2604.21896v1",
+      "title": "Nemobot Games: Crafting Strategic AI Gaming Agents for Interactive Learning with Large Language Models",
+      "authors": [
+        "Chee Wei Tan",
+        "Yuchen Wang",
+        "Shangxin Guo"
+      ],
+      "categories": [
+        "cs.AI"
+      ],
+      "abstract": "This paper introduces **Nemobot Games**, an interactive engineering environment that operationalizes Shannon's game taxonomy using Large Language Models (LLMs) to create strategic AI agents. The core method involves leveraging the LLM's reasoning and synthesis capabilities to generate optimal or heuristic strategies tailored to four distinct classes of games (dictionary, solvable, heuristic, and learning-based). The contribution is a novel paradigm for building customizable, explainable, and adaptive AI game agents powered by LLMs.",
+      "url": "http://arxiv.org/abs/2604.21896v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.21896v1",
+      "score": 9.0,
+      "figure_url": "https://arxiv.org/html/2604.21896v1/x1.png",
+      "figure_caption": "Crowdsourcing and strategy optimization in game-playing AI. The LLM generates optimized strategies for game-playing agents, while game states and results from interactions with human players are fed back to train the LLM, creating a self-reinforcing cycle of improvement through crowdsourcing.",
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2604.21611v1",
+      "title": "Process Supervision via Verbal Critique Improves Reasoning in Large Language Models",
+      "authors": [
+        "Hao-Yuan Chen"
+      ],
+      "categories": [
+        "cs.AI",
+        "cs.CL"
+      ],
+      "abstract": "This paper introduces Verbal Process Supervision (VPS), a training-free method that uses structured natural-language critique from a stronger model to iteratively guide an LLM's reasoning process. VPS establishes a new axis for inference-time scaling by focusing on the granularity of external verbal supervision. This approach significantly improves reasoning performance across complex benchmarks like GPQA Diamond and AIME 2025, often surpassing existing state-of-the-art methods like Reflexion.",
+      "url": "http://arxiv.org/abs/2604.21611v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.21611v1",
+      "score": 9.0,
+      "figure_url": "https://arxiv.org/html/2604.21611v1/images/baseline_comparison.png",
+      "figure_caption": "Three-way matched-compute baseline comparison across all three benchmarks. Each group shows Actor standalone, Self-Consistency @ 5 (SC@5), Reflexion (outcome-level verbal critique), and VPS (step-level, ours) on the frontier same-family pair per benchmark. Annotated deltas confirm VPS > > SC@5 > > Reflexion on GPQA Diamond ( + 5.0 +5.0 pp and + 8.5 +8.5 pp) and LiveCodeBench V6 ( + 8.3 +8.3 pp and + 12.1 +12.1 pp); on AIME 2025, VPS > > Reflexion by + 10.0 +10.0 pp and exceeds SC@5 narrowly by + 1.1 +1.1 pp (within seed variance). The consistent VPS > > Reflexion gap across all three benchmarks isolates critique granularity as the operative variable.",
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2604.21700v1",
+      "title": "Stealthy Backdoor Attacks against LLMs Based on Natural Style Triggers",
+      "authors": [
+        "Jiali Wei",
+        "Ming Fan",
+        "Guoheng Sun",
+        "Xicheng Zhang",
+        "Haijun Wang"
+      ],
+      "categories": [
+        "cs.AI",
+        "cs.CL",
+        "cs.CR"
+      ],
+      "abstract": "This paper introduces **BadStyle**, a novel backdoor attack framework against LLMs that utilizes **natural style-level triggers** instead of explicit patterns. The core method involves using an LLM to generate stealthy poisoned samples with these style triggers while maintaining semantic fluency. BadStyle's contribution is a complete pipeline that stabilizes payload injection using an auxiliary target loss, addressing the shortcomings of previous, less natural backdoor attacks.",
+      "url": "http://arxiv.org/abs/2604.21700v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.21700v1",
+      "score": 9.0,
+      "figure_url": "https://arxiv.org/html/2604.21700v1/x1.png",
+      "figure_caption": "The complete framework and attack flow of BadStyle . This illustrates a clear supply-chain-based backdoor attack, where the attacker is the model provider, with the complete attack process comprising two main phases.",
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2604.21748v1",
+      "title": "StructMem: Structured Memory for Long-Horizon Behavior in LLMs",
+      "authors": [
+        "Buqiang Xu",
+        "Yijun Chen",
+        "Jizhan Fang",
+        "Ruobin Zhong",
+        "Yunzhi Yao"
+      ],
+      "categories": [
+        "cs.AI",
+        "cs.LG",
+        "cs.CL",
+        "cs.IR",
+        "cs.MA"
+      ],
+      "abstract": "StructMem introduces a structure-enriched hierarchical memory framework for LLMs designed to capture event relationships essential for long-horizon reasoning. It achieves this by temporally anchoring dual perspectives and performing semantic consolidation, which preserves event bindings and induces cross-event connections. This method significantly improves temporal reasoning and multi-hop QA performance while substantially reducing computational overhead compared to existing flat or graph-based memory systems.",
+      "url": "http://arxiv.org/abs/2604.21748v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.21748v1",
+      "score": 9.0,
+      "figure_url": "https://arxiv.org/html/2604.21748v1/x1.png",
+      "figure_caption": "Three paradigms of Memory systems.",
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2604.21816v1",
+      "title": "Tool Attention Is All You Need: Dynamic Tool Gating and Lazy Schema Loading for Eliminating the MCP/Tools Tax in Scalable Agentic Workflows",
+      "authors": [
+        "Anuj Sadani",
+        "Deepak Kumar"
+      ],
+      "categories": [
+        "cs.AI"
+      ],
+      "abstract": "This paper introduces **Tool Attention**, a middleware mechanism that replaces the costly, eager schema injection of the Model Context Protocol (MCP) with a dynamic, gated attention system over available tools. It uses an Intent Schema Overlap (ISO) score and state-aware gating to select only necessary tool schemas, significantly reducing the per-turn context overhead (the \"Tools Tax\") and mitigating context-length-related performance degradation in agentic workflows.",
+      "url": "http://arxiv.org/abs/2604.21816v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.21816v1",
+      "score": 9.0,
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2604.21860v1",
+      "title": "Transient Turn Injection: Exposing Stateless Multi-Turn Vulnerabilities in Large Language Models",
+      "authors": [
+        "Naheed Rayhan",
+        "Sohely Jahan"
+      ],
+      "categories": [
+        "cs.AI",
+        "cs.CR"
+      ],
+      "abstract": "The paper introduces **Transient Turn Injection (TTI)**, a novel multi-turn attack that exploits LLM vulnerabilities by distributing adversarial intent across isolated interactions, bypassing stateless moderation. TTI utilizes automated LLM agents to iteratively probe and evade policy enforcement, unlike traditional context-dependent jailbreaks. This method effectively exposes significant variations in the robustness of state-of-the-art commercial and open-source models.",
+      "url": "http://arxiv.org/abs/2604.21860v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.21860v1",
+      "score": 9.0,
+      "figure_url": "https://arxiv.org/html/2604.21860v1/figure/figure0.png",
+      "figure_caption": "TTI Prompt Evaluation Example.",
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2604.21905v1",
+      "title": "Low-Rank Adaptation Redux for Large Models",
+      "authors": [
+        "Bingcong Li",
+        "Yilang Zhang",
+        "Georgios B. Giannakis"
+      ],
+      "categories": [
+        "cs.LG",
+        "eess.SP"
+      ],
+      "abstract": "This paper re-examines Low-Rank Adaptation (LoRA) by framing it through the lens of signal processing (SP) and classical low-rank modeling. The core contribution is providing a principled, theoretical understanding of the mechanisms behind LoRA and its variants, rather than just empirical comparison. This SP perspective aims to guide future, principled advancements in parameter-efficient fine-tuning based on architectural design and efficiency.",
+      "url": "http://arxiv.org/abs/2604.21905v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.21905v1",
+      "score": 9.0,
+      "figure_url": "https://arxiv.org/html/2604.21905v1/figs/lora.jpg",
+      "figure_caption": "LoRA fine-tuning of a GPT-3 model. Grey and orange boxes are respectively frozen (snowflake icon) weights of linear layers, and trainable (fire icon) LoRA weights.",
+      "primary_category": "cs.LG",
+      "primary_category_anchor": "cs-lg",
+      "primary_category_rank": 1
+    },
+    {
+      "id": "2604.21590v1",
+      "title": "AgenticQwen: Training Small Agentic Language Models with Dual Data Flywheels for Industrial-Scale Tool Use",
+      "authors": [
+        "Yuanjie Lyu",
+        "Chengyu Wang",
+        "Haonan Zheng",
+        "Yuanhao Yue",
+        "Junbing Yan"
+      ],
+      "categories": [
+        "cs.CL"
+      ],
+      "abstract": "This paper introduces **AgenticQwen**, a family of small language models optimized for industrial-scale tool use and multi-step reasoning. The core method involves training these models using a novel framework combining reasoning and agentic Reinforcement Learning (RL) powered by **dual data flywheels**. These flywheels automatically generate increasingly complex tasks—one focusing on error-based difficulty scaling and the other on expanding simple workflows into complex decision trees—enabling strong performance in real-world agentic systems.",
+      "url": "http://arxiv.org/abs/2604.21590v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.21590v1",
+      "score": 9.0,
+      "figure_url": "https://arxiv.org/html/2604.21590v1/x1.png",
+      "figure_caption": "Overview of our dual data flywheels. The reasoning data flywheel generates increasingly challenging, verifiable problems from model failures, while the agentic data flywheel expands linear workflows into multi-branch behavior trees and generates new training data.",
+      "primary_category": "cs.CL",
+      "primary_category_anchor": "cs-cl",
+      "primary_category_rank": 2
+    },
+    {
+      "id": "2604.21564v1",
+      "title": "Measuring Opinion Bias and Sycophancy via LLM-based Coercion",
+      "authors": [
+        "Rodrigo Nogueira",
+        "Giovana Kerche Bonás",
+        "Thales Sales Almeida",
+        "Andrea Roque",
+        "Ramon Pires"
+      ],
+      "categories": [
+        "cs.CL"
+      ],
+      "abstract": "This paper introduces **llm-bias-bench**, an open-source method to uncover the true opinions of Large Language Models (LLMs) on contested topics, overcoming their evasive disclaimers. The method uses two complementary, multi-turn, free-form probing strategies: **Direct Probing** (escalating pressure) and **Indirect Probing** (never directly asking for an opinion). This approach aims to reveal the model's underlying stance as it might manifest in realistic user interactions.",
+      "url": "http://arxiv.org/abs/2604.21564v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.21564v1",
+      "score": 9.0,
+      "primary_category": "cs.CL",
+      "primary_category_anchor": "cs-cl",
+      "primary_category_rank": 2
+    },
+    {
+      "id": "2604.21882v1",
+      "title": "Revisiting Non-Verbatim Memorization in Large Language Models: The Role of Entity Surface Forms",
+      "authors": [
+        "Yuto Nishida",
+        "Naoki Shikoda",
+        "Yosuke Kishinami",
+        "Ryo Fujii",
+        "Makoto Morishita"
+      ],
+      "categories": [
+        "cs.CL"
+      ],
+      "abstract": "This paper introduces **RedirectQA**, a novel dataset that uses Wikipedia redirects to associate factual triples with multiple, categorized surface forms (aliases, variants, errors) for each entity. The core method analyzes how LLMs' factual recall changes when only the entity's surface form is altered, revealing that memorization access is highly **surface-conditioned**. The contribution is demonstrating that LLM factual consistency is significantly dependent on the specific name used, with models being less robust to major lexical variations like aliases than to minor spelling changes.",
+      "url": "http://arxiv.org/abs/2604.21882v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.21882v1",
+      "score": 9.0,
+      "figure_url": "https://arxiv.org/html/2604.21882v1/x1.png",
+      "figure_caption": "Overview of the RedirectQA construction process: (1) Factual triples are collected from Wikidata. (2) Each subject entity is associated with canonical and redirect surface forms, together with redirect categories, using Wikipedia redirects. (3) Question realizations are generated from surface instances using relation-specific question templates.",
+      "primary_category": "cs.CL",
+      "primary_category_anchor": "cs-cl",
+      "primary_category_rank": 2
+    },
+    {
+      "id": "2604.21725v1",
+      "title": "AEL: Agent Evolving Learning for Open-Ended Environments",
+      "authors": [
+        "Wujiang Xu",
+        "Jiaojiao Han",
+        "Minghao Guo",
+        "Kai Mei",
+        "Xi Zhu"
+      ],
+      "categories": [
+        "cs.AI",
+        "cs.CL",
+        "cs.CE"
+      ],
+      "abstract": "本文提出了**智能体演化学习 (AEL)** 框架，旨在解决大型语言模型（LLM）智能体在开放式、多步骤环境中缺乏状态和经验积累的问题。AEL 采用双时间尺度机制：快速时间尺度上，一个 Thompson Sampling 策略学习最佳的记忆检索策略；慢速时间尺度上，LLM 通过反思诊断失败模式，并将因果洞察注入决策提示中，从而指导经验的有效利用。该方法显著提升了智能体在长期序列任务中的表现。",
+      "url": "http://arxiv.org/abs/2604.21725v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.21725v1",
+      "score": 9.0,
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2604.21827v1",
+      "title": "Alignment has a Fantasia Problem",
+      "authors": [
+        "Nathanael Jo",
+        "Zoe De Simone",
+        "Mitchell Gordon",
+        "Ashia Wilson"
+      ],
+      "categories": [
+        "cs.AI",
+        "cs.HC"
+      ],
+      "abstract": "该论文指出，当前AI对齐研究的一个核心问题是“幻象互动”（Fantasia interactions）：用户在目标未完全形成时与AI交互，而AI将提示视为完整意图，导致服务不一定符合用户真实需求。作者主张，对齐研究应超越将用户视为理性预言者的假设，转而需要AI提供认知支持，通过跨学科方法（结合机器学习、界面设计和行为科学）主动帮助用户形成和完善意图。",
+      "url": "http://arxiv.org/abs/2604.21827v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.21827v1",
+      "score": 9.0,
+      "figure_url": "https://arxiv.org/html/2604.21827v1/figs/diagram_summary_vertical_mickey.png",
+      "figure_caption": "Diagram describing a Fantasia interaction, including behavioral sources and failure modes.",
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2604.21910v1",
+      "title": "From Research Question to Scientific Workflow: Leveraging Agentic AI for Science Automation",
+      "authors": [
+        "Bartosz Balis",
+        "Michal Orzechowski",
+        "Piotr Kica",
+        "Michal Dygas",
+        "Michal Kuszewski"
+      ],
+      "categories": [
+        "cs.AI"
+      ],
+      "abstract": "该论文提出了一种**代理式AI架构**，旨在实现科学工作流的自动化，弥补了现有系统无法将自然语言研究问题转化为可执行工作流规范的不足。该架构通过**语义层（LLM意图提取）、确定性层（生成工作流DAG）和知识层（领域专家定义的“技能”）**三层解耦，将LLM的非确定性限制在初始意图理解阶段，确保了工作流生成的可复现性。其核心贡献在于**利用LLM和结构化知识（Skills）的结合，实现了从研究问题到可执行科学工作流的端到端自动化**。",
+      "url": "http://arxiv.org/abs/2604.21910v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.21910v1",
+      "score": 9.0,
+      "figure_url": "https://arxiv.org/html/2604.21910v1/x1.png",
+      "figure_caption": "Component architecture. The Conductor orchestrates three specialized agents. The Workflow Composer (semantic layer) consults domain Skills (knowledge layer) to produce workflow plans that include data preparation commands. The Deployment Service and Execution Sentinel (deterministic layer) execute these plans on the Kubernetes infrastructure running the HyperFlow engine.",
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2604.21794v1",
+      "title": "Learning to Communicate: Toward End-to-End Optimization of Multi-Agent Language Systems",
+      "authors": [
+        "Ye Yu",
+        "Heming Liu",
+        "Haibo Jin",
+        "Xiaopeng Yuan",
+        "Peng Kuang"
+      ],
+      "categories": [
+        "cs.AI",
+        "cs.CL",
+        "cs.MA"
+      ],
+      "abstract": "本文提出了DiffMAS训练框架，旨在端到端地优化多智能体系统中的**潜在通信**。该方法将智能体间的内部表征（如键值缓存）视为可学习组件，通过对多智能体潜在轨迹进行参数高效的监督训练，使智能体能共同学习信息如何在交互中编码和解释。实验证明，DiffMAS能有效提升数学推理、代码生成等任务的准确性和稳定性。",
+      "url": "http://arxiv.org/abs/2604.21794v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.21794v1",
+      "score": 9.0,
+      "figure_url": "https://arxiv.org/html/2604.21794v1/x1.png",
+      "figure_caption": "In Stage I, agents 1 to K–1 sequentially construct a shared KV trace by prefilling the existing cache and appending newly generated KV segments without gradient updates. The accumulated KV trace serves as a latent communication medium across agents. In Stage II, the final agent performs autoregressive decoding on the prefilled KV cache. Cross-attention over the KV trace produces hidden states, which are projected through the LM head to generate tokens. Supervised fine-tuning is applied using cross-entropy loss, and gradients are backpropagated to update only the LoRA parameters of the final agent while keeping the backbone model frozen.",
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2604.21896v1",
+      "title": "Nemobot Games: Crafting Strategic AI Gaming Agents for Interactive Learning with Large Language Models",
+      "authors": [
+        "Chee Wei Tan",
+        "Yuchen Wang",
+        "Shangxin Guo"
+      ],
+      "categories": [
+        "cs.AI"
+      ],
+      "abstract": "本文提出了一种新的AI游戏编程范式，利用大型语言模型（LLMs）扩展了香农的游戏机分类法。核心是Nemobot交互式代理工程环境，允许用户创建和部署LLM驱动的游戏代理，并与其策略进行互动。该方法展示了LLM在不同游戏类型中，通过状态压缩、数学推理、启发式策略合成和学习等方式，生成可解释的最优或适应性策略的能力。",
+      "url": "http://arxiv.org/abs/2604.21896v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.21896v1",
+      "score": 9.0,
+      "figure_url": "https://arxiv.org/html/2604.21896v1/x1.png",
+      "figure_caption": "Crowdsourcing and strategy optimization in game-playing AI. The LLM generates optimized strategies for game-playing agents, while game states and results from interactions with human players are fed back to train the LLM, creating a self-reinforcing cycle of improvement through crowdsourcing.",
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2604.21611v1",
+      "title": "Process Supervision via Verbal Critique Improves Reasoning in Large Language Models",
+      "authors": [
+        "Hao-Yuan Chen"
+      ],
+      "categories": [
+        "cs.AI",
+        "cs.CL"
+      ],
+      "abstract": "该论文提出了一种名为“口头过程监督”（VPS）的训练无关框架，通过更强的模型提供结构化的自然语言批评，指导大型语言模型（LLM）进行迭代的“生成-批评-精炼”循环以改进推理。VPS开辟了外部口头监督粒度这一新维度，并在GPQA、AIME等基准测试中取得了超越现有最先进方法的性能，尤其在弱模型“救援”和计算效率方面表现出色。",
+      "url": "http://arxiv.org/abs/2604.21611v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.21611v1",
+      "score": 9.0,
+      "figure_url": "https://arxiv.org/html/2604.21611v1/images/baseline_comparison.png",
+      "figure_caption": "Three-way matched-compute baseline comparison across all three benchmarks. Each group shows Actor standalone, Self-Consistency @ 5 (SC@5), Reflexion (outcome-level verbal critique), and VPS (step-level, ours) on the frontier same-family pair per benchmark. Annotated deltas confirm VPS > > SC@5 > > Reflexion on GPQA Diamond ( + 5.0 +5.0 pp and + 8.5 +8.5 pp) and LiveCodeBench V6 ( + 8.3 +8.3 pp and + 12.1 +12.1 pp); on AIME 2025, VPS > > Reflexion by + 10.0 +10.0 pp and exceeds SC@5 narrowly by + 1.1 +1.1 pp (within seed variance). The consistent VPS > > Reflexion gap across all three benchmarks isolates critique granularity as the operative variable.",
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2604.21700v1",
+      "title": "Stealthy Backdoor Attacks against LLMs Based on Natural Style Triggers",
+      "authors": [
+        "Jiali Wei",
+        "Ming Fan",
+        "Guoheng Sun",
+        "Xicheng Zhang",
+        "Haijun Wang"
+      ],
+      "categories": [
+        "cs.AI",
+        "cs.CL",
+        "cs.CR"
+      ],
+      "abstract": "该论文提出了名为 BadStyle 的隐蔽后门攻击框架，用于针对大型语言模型（LLMs）。其核心方法是利用 LLM 本身生成带有**自然风格触发器**的投毒样本，这些触发器在语义和流畅性上保持自然，难以察觉。此外，它引入了辅助目标损失函数来稳定微调过程中攻击者指定内容的注入，从而实现更可靠和隐蔽的后门攻击。",
+      "url": "http://arxiv.org/abs/2604.21700v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.21700v1",
+      "score": 9.0,
+      "figure_url": "https://arxiv.org/html/2604.21700v1/x1.png",
+      "figure_caption": "The complete framework and attack flow of BadStyle . This illustrates a clear supply-chain-based backdoor attack, where the attacker is the model provider, with the complete attack process comprising two main phases.",
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2604.21748v1",
+      "title": "StructMem: Structured Memory for Long-Horizon Behavior in LLMs",
+      "authors": [
+        "Buqiang Xu",
+        "Yijun Chen",
+        "Jizhan Fang",
+        "Ruobin Zhong",
+        "Yunzhi Yao"
+      ],
+      "categories": [
+        "cs.AI",
+        "cs.LG",
+        "cs.CL",
+        "cs.IR",
+        "cs.MA"
+      ],
+      "abstract": "该论文提出了**StructMem**，一个结构化的分层记忆框架，用于解决大型语言模型（LLM）在长期行为中建模事件间关系的需求。其核心方法是通过时间锚定和周期性语义整合，在保留事件绑定和诱导跨事件连接的同时，实现了结构化推理。StructMem在提升时间推理和多跳问答性能的同时，显著降低了代币使用量和运行时成本。",
+      "url": "http://arxiv.org/abs/2604.21748v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.21748v1",
+      "score": 9.0,
+      "figure_url": "https://arxiv.org/html/2604.21748v1/x1.png",
+      "figure_caption": "Three paradigms of Memory systems.",
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2604.21816v1",
+      "title": "Tool Attention Is All You Need: Dynamic Tool Gating and Lazy Schema Loading for Eliminating the MCP/Tools Tax in Scalable Agentic Workflows",
+      "authors": [
+        "Anuj Sadani",
+        "Deepak Kumar"
+      ],
+      "categories": [
+        "cs.AI"
+      ],
+      "abstract": "该论文提出了一种名为“工具注意力”（Tool Attention）的中间件机制，以解决现有模型上下文协议（MCP）在连接LLM代理和工具时产生的“工具税”开销。其核心方法是通过**动态工具门控**（基于意图重叠分数和状态感知函数）和**延迟模式加载**，仅在需要时才将工具模式注入上下文。这显著减少了上下文负载和推理成本，从而提高了可扩展的代理工作流的效率。",
+      "url": "http://arxiv.org/abs/2604.21816v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.21816v1",
+      "score": 9.0,
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2604.21860v1",
+      "title": "Transient Turn Injection: Exposing Stateless Multi-Turn Vulnerabilities in Large Language Models",
+      "authors": [
+        "Naheed Rayhan",
+        "Sohely Jahan"
+      ],
+      "categories": [
+        "cs.AI",
+        "cs.CR"
+      ],
+      "abstract": "该论文提出了一种名为“瞬态轮次注入”（TTI）的新型多轮攻击技术，用于系统性地利用大型语言模型（LLMs）的无状态（stateless）策略执行机制。TTI通过在隔离的交互中分散恶意意图，利用自动化的攻击代理迭代测试并绕过安全策略，这与依赖持续上下文的传统越狱方法不同。研究发现，不同LLM架构对TTI攻击的鲁棒性存在显著差异。",
+      "url": "http://arxiv.org/abs/2604.21860v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.21860v1",
+      "score": 9.0,
+      "figure_url": "https://arxiv.org/html/2604.21860v1/figure/figure0.png",
+      "figure_caption": "TTI Prompt Evaluation Example.",
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2604.21905v1",
+      "title": "Low-Rank Adaptation Redux for Large Models",
+      "authors": [
+        "Bingcong Li",
+        "Yilang Zhang",
+        "Georgios B. Giannakis"
+      ],
+      "categories": [
+        "cs.LG",
+        "eess.SP"
+      ],
+      "abstract": "该论文将低秩适应（LoRA）置于信号处理（SP）的视角下重新审视，旨在阐明其有效性的技术机制。它将现代适配器设计与经典的低秩建模工具和逆问题联系起来，强调信号处理原理如何指导PEFT方法的改进。核心贡献在于提供一个理论框架来理解和指导LoRA及其变体的实际选择，而非简单地比较现有方法。",
+      "url": "http://arxiv.org/abs/2604.21905v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.21905v1",
+      "score": 9.0,
+      "figure_url": "https://arxiv.org/html/2604.21905v1/figs/lora.jpg",
+      "figure_caption": "LoRA fine-tuning of a GPT-3 model. Grey and orange boxes are respectively frozen (snowflake icon) weights of linear layers, and trainable (fire icon) LoRA weights.",
+      "primary_category": "cs.LG",
+      "primary_category_anchor": "cs-lg",
+      "primary_category_rank": 1
+    },
+    {
+      "id": "2604.21590v1",
+      "title": "AgenticQwen: Training Small Agentic Language Models with Dual Data Flywheels for Industrial-Scale Tool Use",
+      "authors": [
+        "Yuanjie Lyu",
+        "Chengyu Wang",
+        "Haonan Zheng",
+        "Yuanhao Yue",
+        "Junbing Yan"
+      ],
+      "categories": [
+        "cs.CL"
+      ],
+      "abstract": "该论文提出了AgenticQwen系列小型智能体语言模型，旨在满足工业应用中对低成本、低延迟的多步推理和工具使用需求。其核心方法是利用**双数据飞轮**（推理飞轮和智能体飞轮）的**多轮强化学习**框架进行训练，该框架能自动生成难度递增的任务，并扩展出更复杂的决策行为树。这使得AgenticQwen在工业级智能体任务中展现出强大的性能。",
+      "url": "http://arxiv.org/abs/2604.21590v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.21590v1",
+      "score": 9.0,
+      "figure_url": "https://arxiv.org/html/2604.21590v1/x1.png",
+      "figure_caption": "Overview of our dual data flywheels. The reasoning data flywheel generates increasingly challenging, verifiable problems from model failures, while the agentic data flywheel expands linear workflows into multi-branch behavior trees and generates new training data.",
+      "primary_category": "cs.CL",
+      "primary_category_anchor": "cs-cl",
+      "primary_category_rank": 2
+    },
+    {
+      "id": "2604.21564v1",
+      "title": "Measuring Opinion Bias and Sycophancy via LLM-based Coercion",
+      "authors": [
+        "Rodrigo Nogueira",
+        "Giovana Kerche Bonás",
+        "Thales Sales Almeida",
+        "Andrea Roque",
+        "Ramon Pires"
+      ],
+      "categories": [
+        "cs.CL"
+      ],
+      "abstract": "该论文提出了一种名为“基于LLM胁迫的意见偏见和谄媚测量”的新方法，用于揭示大型语言模型（LLM）在有争议话题上实际持有的立场。该方法结合了“直接探查”（逐步施压）和“间接探查”（不直接询问意见）两种互补的自由形式探针，以模拟真实的多轮交互场景。其核心贡献是提供了一个开源工具（llm-bias-bench），能更有效地发现模型在规避性回答背后的真实倾向。",
+      "url": "http://arxiv.org/abs/2604.21564v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.21564v1",
+      "score": 9.0,
+      "primary_category": "cs.CL",
+      "primary_category_anchor": "cs-cl",
+      "primary_category_rank": 2
+    },
+    {
+      "id": "2604.21882v1",
+      "title": "Revisiting Non-Verbatim Memorization in Large Language Models: The Role of Entity Surface Forms",
+      "authors": [
+        "Yuto Nishida",
+        "Naoki Shikoda",
+        "Yosuke Kishinami",
+        "Ryo Fujii",
+        "Makoto Morishita"
+      ],
+      "categories": [
+        "cs.CL"
+      ],
+      "abstract": "该论文旨在探究大型语言模型（LLMs）对实体事实的记忆是否依赖于实体表面形式。研究引入了 **RedirectQA** 数据集，利用维基百科重定向信息，为同一实体关联了多种表面形式（如别名、缩写、错误形式）。实验发现，模型对事实的预测结果会随着实体表面形式的变化而改变，且这种不一致性与表面形式的词汇差异程度相关。",
+      "url": "http://arxiv.org/abs/2604.21882v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.21882v1",
+      "score": 9.0,
+      "figure_url": "https://arxiv.org/html/2604.21882v1/x1.png",
+      "figure_caption": "Overview of the RedirectQA construction process: (1) Factual triples are collected from Wikidata. (2) Each subject entity is associated with canonical and redirect surface forms, together with redirect categories, using Wikipedia redirects. (3) Question realizations are generated from surface instances using relation-specific question templates.",
+      "primary_category": "cs.CL",
+      "primary_category_anchor": "cs-cl",
+      "primary_category_rank": 2
+    },
+    {
+      "id": "2604.21579v1",
+      "title": "A Metamorphic Testing Approach to Diagnosing Memorization in LLM-Based Program Repair",
+      "authors": [
+        "Milan De Koning",
+        "Ali Asgari",
+        "Pouria Derakhshanfar",
+        "Annibale Panichella"
+      ],
+      "categories": [
+        "cs.AI",
+        "cs.SE"
+      ],
+      "abstract": "This paper introduces a metamorphic testing (MT) approach combined with negative log-likelihood (NLL) to diagnose data leakage (memorization) in LLM-based program repair. By applying semantics-preserving transformations to create variant benchmarks, the authors reveal substantial drops in repair success rates across several LLMs, demonstrating that MT effectively exposes performance inflation caused by pretraining data overlap.",
+      "url": "http://arxiv.org/abs/2604.21579v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.21579v1",
+      "score": 8.0,
+      "figure_url": "https://arxiv.org/html/2604.21579v1/img/method/overview.drawio.png",
+      "figure_caption": "Experimental pipeline",
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2604.21584v1",
+      "title": "CoFEE: Reasoning Control for LLM-Based Feature Discovery",
+      "authors": [
+        "Maximilian Westermann",
+        "Ben Griffin",
+        "Aaron Ontoyin Yin",
+        "Zakari Salifu",
+        "Yagiz Ihlamur"
+      ],
+      "categories": [
+        "cs.AI",
+        "cs.LG",
+        "cs.CE"
+      ],
+      "abstract": "CoFEE is a reasoning control framework designed to improve feature discovery from unstructured data using Large Language Models (LLMs). It enforces specific \"cognitive behaviors\" during the LLM's reasoning process, which act as structured inductive biases. This method aims to generate higher-quality, predictive features by guiding the LLM away from generating weak or invalid feature candidates.",
+      "url": "http://arxiv.org/abs/2604.21584v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.21584v1",
+      "score": 8.0,
+      "figure_url": "https://arxiv.org/html/2604.21584v1/1.png",
+      "figure_caption": "Overview of the CoFEE pipeline.",
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2604.21598v1",
+      "title": "DryRUN: On the Role of Public Tests in LLM-Driven Code Generation",
+      "authors": [
+        "Kaushitha Silva",
+        "Srinath Perera"
+      ],
+      "categories": [
+        "cs.AI",
+        "cs.SE"
+      ],
+      "abstract": "DryRUN addresses the bottleneck of relying on human-provided public tests in LLM-driven code generation by proposing a method that operates without them. The core contribution is demonstrating that LLM agents can effectively debug and refine code using only *internal* execution feedback, mitigating the \"overconfidence gap\" caused by overfitting to simplistic public examples. This allows autonomous code generation to move beyond curated benchmarks toward real-world scenarios where ground-truth tests are scarce.",
+      "url": "http://arxiv.org/abs/2604.21598v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.21598v1",
+      "score": 8.0,
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2604.21536v1",
+      "title": "Pre-trained LLMs Meet Sequential Recommenders: Efficient User-Centric Knowledge Distillation",
+      "authors": [
+        "Nikita Severin",
+        "Danil Kartushov",
+        "Vladislav Urzhumov",
+        "Vladislav Kulikov",
+        "Oksana Konovalova"
+      ],
+      "categories": [
+        "cs.AI",
+        "cs.IR"
+      ],
+      "abstract": "This paper introduces a novel knowledge distillation method to integrate rich user semantics from pre-trained LLMs into sequential recommenders. The core method distills LLM-generated textual user profiles into the recommender model, enabling it to capture deeper user understanding. The key contribution is achieving this enhancement without requiring LLM inference during serving time, maintaining the efficiency of traditional sequential models.",
+      "url": "http://arxiv.org/abs/2604.21536v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.21536v1",
+      "score": 8.0,
+      "figure_url": "https://arxiv.org/html/2604.21536v1/x1.png",
+      "figure_caption": "Proposed knowledge transfer approach from LLM to a Transformer-based sequential recommendation model.",
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2604.21716v1",
+      "title": "From If-Statements to ML Pipelines: Revisiting Bias in Code-Generation",
+      "authors": [
+        "Minh Duc Bui",
+        "Xenia Heilmann",
+        "Mattia Cerrato",
+        "Manuel Mager",
+        "Katharina von der Wense"
+      ],
+      "categories": [
+        "cs.CL",
+        "cs.SE"
+      ],
+      "abstract": "This paper shifts bias evaluation in code generation from simple if-statements to the more realistic task of generating machine learning pipelines. The core contribution is demonstrating that this pipeline-based approach reveals significantly higher and more subtle bias, finding sensitive attributes in 87.7% of generated pipelines, compared to only 59.2% in conditional statements. This highlights that current evaluation methods severely underestimate the practical bias embedded in LLM-generated code.",
+      "url": "http://arxiv.org/abs/2604.21716v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.21716v1",
+      "score": 8.0,
+      "figure_url": "https://arxiv.org/html/2604.21716v1/x1.png",
+      "figure_caption": "Overview of our evaluation approach. We assess bias through covert discrimination in ML pipeline generation, specifically through feature selection , moving beyond the overt conditional statements studied in prior work.",
+      "primary_category": "cs.CL",
+      "primary_category_anchor": "cs-cl",
+      "primary_category_rank": 2
+    },
+    {
+      "id": "2604.21871v1",
+      "title": "Machine Behavior in Relational Moral Dilemmas: Moral Rightness, Predicted Human Behavior, and Model Decisions",
+      "authors": [
+        "Jiseon Kim",
+        "Jea Kwon",
+        "Luiz Felipe Vecchietti",
+        "Wenchao Dong",
+        "Jaehong Kim"
+      ],
+      "categories": [
+        "cs.CL"
+      ],
+      "abstract": "This paper investigates how LLMs handle relational nuances in moral dilemmas, specifically the Whistleblower's Dilemma, by varying crime severity and relational closeness. The core finding is a divergence: models judge moral rightness based on fairness, but predict human behavior shifts toward loyalty with increased closeness. Crucially, the LLMs' autonomous decisions align with their moral rightness judgments, not their own behavioral predictions.",
+      "url": "http://arxiv.org/abs/2604.21871v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.21871v1",
+      "score": 8.0,
+      "figure_url": "https://arxiv.org/html/2604.21871v1/x1.png",
+      "figure_caption": "Illustration of the Whistleblower’s Dilemma and the three perspectives investigated (moral rightness, predicted human behavior, and model decision). It offers how LLM responses shift when the same ethical scenario is framed through divergent evaluative lenses.",
+      "primary_category": "cs.CL",
+      "primary_category_anchor": "cs-cl",
+      "primary_category_rank": 2
+    },
+    {
+      "id": "2604.21579v1",
+      "title": "A Metamorphic Testing Approach to Diagnosing Memorization in LLM-Based Program Repair",
+      "authors": [
+        "Milan De Koning",
+        "Ali Asgari",
+        "Pouria Derakhshanfar",
+        "Annibale Panichella"
+      ],
+      "categories": [
+        "cs.AI",
+        "cs.SE"
+      ],
+      "abstract": "该论文提出了一种结合**变异测试（MT）**和**负对数似然（NLL）**的**元测试方法**，用于诊断大型语言模型（LLM）在程序修复中存在的**数据记忆（Data Leakage）**问题。研究者通过对现有数据集应用语义保持变换来构造变异基准，并分析修复成功率的下降与NLL之间的关系，从而揭示了现有LLM在评估基准上存在严重的性能虚高现象。",
+      "url": "http://arxiv.org/abs/2604.21579v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.21579v1",
+      "score": 8.0,
+      "figure_url": "https://arxiv.org/html/2604.21579v1/img/method/overview.drawio.png",
+      "figure_caption": "Experimental pipeline",
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2604.21584v1",
+      "title": "CoFEE: Reasoning Control for LLM-Based Feature Discovery",
+      "authors": [
+        "Maximilian Westermann",
+        "Ben Griffin",
+        "Aaron Ontoyin Yin",
+        "Zakari Salifu",
+        "Yagiz Ihlamur"
+      ],
+      "categories": [
+        "cs.AI",
+        "cs.LG",
+        "cs.CE"
+      ],
+      "abstract": "本文提出了CoFEE（认知特征工程引擎），一个用于LLM特征发现的推理控制框架。其核心方法是通过引入认知行为作为结构化归纳偏置，来约束和引导LLM的推理过程，从而提高特征发现的质量。CoFEE的贡献在于提供了一种系统化的方法，利用认知控制来克服无约束特征生成导致的弱特征问题。",
+      "url": "http://arxiv.org/abs/2604.21584v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.21584v1",
+      "score": 8.0,
+      "figure_url": "https://arxiv.org/html/2604.21584v1/1.png",
+      "figure_caption": "Overview of the CoFEE pipeline.",
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2604.21598v1",
+      "title": "DryRUN: On the Role of Public Tests in LLM-Driven Code Generation",
+      "authors": [
+        "Kaushitha Silva",
+        "Srinath Perera"
+      ],
+      "categories": [
+        "cs.AI",
+        "cs.SE"
+      ],
+      "abstract": "DryRUN 提出了一种解决大型语言模型（LLM）代码生成中对人工公共测试用例依赖性的新方法。该方法通过引入**外部采样**机制来替代对预设测试的依赖，从而在没有地面真值输入/输出的情况下进行规划和调试。DryRUN 的核心贡献在于打破了现有模拟驱动框架对基准测试的限制，并有效缓解了因过度拟合公共测试而导致的“过度自信差距”。",
+      "url": "http://arxiv.org/abs/2604.21598v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.21598v1",
+      "score": 8.0,
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2604.21536v1",
+      "title": "Pre-trained LLMs Meet Sequential Recommenders: Efficient User-Centric Knowledge Distillation",
+      "authors": [
+        "Nikita Severin",
+        "Danil Kartushov",
+        "Vladislav Urzhumov",
+        "Vladislav Kulikov",
+        "Oksana Konovalova"
+      ],
+      "categories": [
+        "cs.AI",
+        "cs.IR"
+      ],
+      "abstract": "该论文提出了一种新颖的知识蒸馏方法，旨在将预训练大语言模型（LLM）对用户文本资料的丰富语义理解融入到序列推荐模型中。该方法通过蒸馏过程，使序列推荐模型能够在不进行LLM推理的情况下，保持传统模型的推理效率，同时提升了对用户深层语义的建模能力，且无需修改模型架构或微调LLM。",
+      "url": "http://arxiv.org/abs/2604.21536v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.21536v1",
+      "score": 8.0,
+      "figure_url": "https://arxiv.org/html/2604.21536v1/x1.png",
+      "figure_caption": "Proposed knowledge transfer approach from LLM to a Transformer-based sequential recommendation model.",
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2604.21716v1",
+      "title": "From If-Statements to ML Pipelines: Revisiting Bias in Code-Generation",
+      "authors": [
+        "Minh Duc Bui",
+        "Xenia Heilmann",
+        "Mattia Cerrato",
+        "Manuel Mager",
+        "Katharina von der Wense"
+      ],
+      "categories": [
+        "cs.CL",
+        "cs.SE"
+      ],
+      "abstract": "该论文的核心方法是**将代码生成偏见评估从简单的if语句扩展到更真实的机器学习（ML）管道生成任务**。研究发现，在生成ML管道时，模型对敏感属性的偏见（如在特征选择中包含“种族”）远比在简单条件语句中观察到的更为普遍和严重。这表明现有评估方法严重低估了代码生成模型中存在的实际偏见。",
+      "url": "http://arxiv.org/abs/2604.21716v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.21716v1",
+      "score": 8.0,
+      "figure_url": "https://arxiv.org/html/2604.21716v1/x1.png",
+      "figure_caption": "Overview of our evaluation approach. We assess bias through covert discrimination in ML pipeline generation, specifically through feature selection , moving beyond the overt conditional statements studied in prior work.",
+      "primary_category": "cs.CL",
+      "primary_category_anchor": "cs-cl",
+      "primary_category_rank": 2
+    },
+    {
+      "id": "2604.21871v1",
+      "title": "Machine Behavior in Relational Moral Dilemmas: Moral Rightness, Predicted Human Behavior, and Model Decisions",
+      "authors": [
+        "Jiseon Kim",
+        "Jea Kwon",
+        "Luiz Felipe Vecchietti",
+        "Wenchao Dong",
+        "Jaehong Kim"
+      ],
+      "categories": [
+        "cs.CL"
+      ],
+      "abstract": "该研究使用“举报人困境”来探究大型语言模型（LLM）在关系性道德困境中的行为。研究从道德正确性、预测人类行为和模型自主决策三个角度进行评估，发现模型决策与公平导向的道德正确性一致，而非与其预测的人类行为（后者随亲密关系增加而偏向忠诚）。核心贡献在于揭示了LLM决策过程与对人类行为的预测之间存在不一致性。",
+      "url": "http://arxiv.org/abs/2604.21871v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.21871v1",
+      "score": 8.0,
+      "figure_url": "https://arxiv.org/html/2604.21871v1/x1.png",
+      "figure_caption": "Illustration of the Whistleblower’s Dilemma and the three perspectives investigated (moral rightness, predicted human behavior, and model decision). It offers how LLM responses shift when the same ethical scenario is framed through divergent evaluative lenses.",
+      "primary_category": "cs.CL",
+      "primary_category_anchor": "cs-cl",
+      "primary_category_rank": 2
+    }
+  ],
+  "new_jobs": [],
+  "trending_keywords": [],
+  "keyword_frequency": {},
+  "daily_refs": [
+    "2026-04-20",
+    "2026-04-21",
+    "2026-04-22",
+    "2026-04-23",
+    "2026-04-24",
+    "2026-04-25",
+    "2026-04-26"
+  ]
+}
