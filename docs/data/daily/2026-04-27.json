@@ -1,0 +1,1788 @@
+{
+  "date": "2026-04-27",
+  "generated_at": "2026-04-27T02:09:08.460294+00:00",
+  "sections_ordered": [
+    {
+      "key": "hitokoto",
+      "payload_key": "hitokoto",
+      "title": "一言",
+      "icon": "✦",
+      "items": [
+        {
+          "quote": "无言独上西楼，月如钩。寂寞梧桐深院锁清秋。",
+          "author": "李煜",
+          "source": "相见欢·无言独上西楼",
+          "category": "i"
+        }
+      ],
+      "meta": {
+        "count": 1
+      }
+    },
+    {
+      "key": "weather",
+      "payload_key": "weather",
+      "title": "Weather",
+      "icon": "🌦️",
+      "items": [
+        {
+          "query": "Edinburgh",
+          "label": "爱丁堡, 蘇格蘭, 英国",
+          "resolved_name": "爱丁堡",
+          "region": "蘇格蘭",
+          "country": "英国",
+          "latitude": 55.95206,
+          "longitude": -3.19648,
+          "timezone": "Europe/London",
+          "forecast_date": "2026-04-27",
+          "condition": "Clear sky",
+          "weather_code": 0,
+          "temperature_c": 9.2,
+          "apparent_temperature_c": 6.7,
+          "temp_max_c": 15.0,
+          "temp_min_c": 8.5,
+          "humidity_pct": 80,
+          "wind_speed_kmh": 10.1,
+          "precipitation_probability_pct": 75,
+          "is_day": false,
+          "sunrise": "2026-04-27T05:37",
+          "sunset": "2026-04-27T20:43",
+          "source": "Open-Meteo",
+          "source_url": "https://open-meteo.com/"
+        }
+      ],
+      "meta": {
+        "count": 1,
+        "city": "Edinburgh"
+      }
+    },
+    {
+      "key": "arxiv",
+      "payload_key": "papers",
+      "title": "arXiv Papers",
+      "icon": "📄",
+      "items": [
+        {
+          "id": "2604.22748v1",
+          "title": "Agentic World Modeling: Foundations, Capabilities, Laws, and Beyond",
+          "authors": [
+            "Meng Chu",
+            "Xuan Billy Zhang",
+            "Kevin Qinghong Lin",
+            "Lingdong Kong",
+            "Jize Zhang"
+          ],
+          "categories": [
+            "cs.AI"
+          ],
+          "abstract": "该论文提出了一个“层级 $\\times$ 法则”的分类法来系统化智能体环境建模。它定义了从局部预测到自主模型修正的三个能力层级（L1 预测器、L2 模拟器、L3 演化器），并识别了物理、数字、社会和科学四种环境法则。该框架旨在统一不同领域对“世界模型”的理解，并指导构建能完成复杂任务的智能体。",
+          "url": "http://arxiv.org/abs/2604.22748v1",
+          "pdf_url": "https://arxiv.org/pdf/2604.22748v1",
+          "score": 9.0,
+          "primary_category": "cs.AI",
+          "primary_category_anchor": "cs-ai",
+          "primary_category_rank": 0
+        },
+        {
+          "id": "2604.22436v1",
+          "title": "AgentSearchBench: A Benchmark for AI Agent Search in the Wild",
+          "authors": [
+            "Bin Wu",
+            "Arastun Mammadli",
+            "Xiaoyu Zhang",
+            "Emine Yilmaz"
+          ],
+          "categories": [
+            "cs.AI",
+            "cs.IR",
+            "cs.MA"
+          ],
+          "abstract": "该论文提出了 **AgentSearchBench**，一个针对真实世界中AI智能体搜索的大规模基准测试集。它构建了包含近万个真实智能体的环境，将智能体搜索形式化为检索和重排序问题，并使用**基于执行的性能信号**来评估智能体的相关性。其核心贡献在于首次在包含高层级任务描述的场景下，评估了智能体搜索的实际效果，揭示了语义相似性与实际性能之间的差距。",
+          "url": "http://arxiv.org/abs/2604.22436v1",
+          "pdf_url": "https://arxiv.org/pdf/2604.22436v1",
+          "score": 9.0,
+          "figure_url": "https://arxiv.org/html/2604.22436v1/x1.png",
+          "figure_caption": "Task and Relevance Label Generation Pipeline of AgentSearchBench.",
+          "primary_category": "cs.AI",
+          "primary_category_anchor": "cs-ai",
+          "primary_category_rank": 0
+        },
+        {
+          "id": "2604.22411v1",
+          "title": "Introducing Background Temperature to Characterise Hidden Randomness in Large Language Models",
+          "authors": [
+            "Alberto Messina",
+            "Stefano Scotta"
+          ],
+          "categories": [
+            "cs.AI",
+            "cs.LG",
+            "cs.CL"
+          ],
+          "abstract": "该论文提出了“背景温度”$T_{\\mathrm{bg}}$的概念，用以量化即使在名义温度$T=0$时，大型语言模型（LLMs）因实现细节（如浮点运算、批处理等）导致的内在随机性。作者定义了$T_{\\mathrm{bg}}$与推理环境$I$相关的随机扰动过程，并提出了一种通过等效温度$T_n(I)$来实证估计$T_{\\mathrm{bg}}$的协议。这项工作为理解和量化LLM输出的不确定性提供了新的理论框架。",
+          "url": "http://arxiv.org/abs/2604.22411v1",
+          "pdf_url": "https://arxiv.org/pdf/2604.22411v1",
+          "score": 9.0,
+          "figure_url": "https://arxiv.org/html/2604.22411v1/flow.png",
+          "figure_caption": "Measuring protocol.",
+          "primary_category": "cs.AI",
+          "primary_category_anchor": "cs-ai",
+          "primary_category_rank": 0
+        },
+        {
+          "id": "2604.22565v1",
+          "title": "Learning Evidence Highlighting for Frozen LLMs",
+          "authors": [
+            "Shaoang Li",
+            "Yanhang Shi",
+            "Yufei Li",
+            "Mingfu Liang",
+            "Xiaohan Wei"
+          ],
+          "categories": [
+            "cs.AI",
+            "cs.CL"
+          ],
+          "abstract": "本文提出了一种名为 HiLight 的证据强调框架，用于增强冻结的大型语言模型（LLM）的推理能力。该方法训练一个轻量级的“强调演员”（Emphasis Actor），通过在原始文本中插入高亮标签来突出关键证据，而不修改或压缩输入内容。HiLight 将此过程视为弱监督决策问题，利用强化学习仅基于 LLM 的任务奖励进行优化，从而在不接触或修改 LLM 本身的情况下，有效提升了模型在长文本推理任务中的性能。",
+          "url": "http://arxiv.org/abs/2604.22565v1",
+          "pdf_url": "https://arxiv.org/pdf/2604.22565v1",
+          "score": 9.0,
+          "figure_url": "https://arxiv.org/html/2604.22565v1/x1.png",
+          "figure_caption": "Overview of the HiLight framework. HiLight decouples evidence selection from reasoning for long, noisy contexts. Inference: Given a query Q Q and context X X , a lightweight Emphasis Actor selects pivotal spans under a highlight budget \\( \\gamma \\) and inserts minimal highlight tags to form an emphasized context X ^ \\( \\hat{X} \\) . A frozen Solver LLM then produces the final output. Training: Because explicit evidence annotations are unavailable, we optimize the Actor via weakly supervised RL using only the Solver’s task reward R ​ ( y , y ∗ ) R(y,y^{*}) , without accessing Solver gradients or intermediate activations.",
+          "primary_category": "cs.AI",
+          "primary_category_anchor": "cs-ai",
+          "primary_category_rank": 0
+        },
+        {
+          "id": "2604.22577v1",
+          "title": "QuantClaw: Precision Where It Matters for OpenClaw",
+          "authors": [
+            "Manyi Zhang",
+            "Ji-Fu Li",
+            "Zhongao Sun",
+            "Xiaohao Liu",
+            "Zhenhua Dong"
+          ],
+          "categories": [
+            "cs.AI",
+            "cs.CL"
+          ],
+          "abstract": "本文针对OpenClaw等自主智能体系统面临的高成本和高延迟问题，研究了量化对复杂工作流性能的影响，发现精度需求高度依赖于任务。为此，作者提出了QuantClaw，一个即插即用的精度路由插件，它能根据任务特性动态分配计算精度，将轻量级任务分配到低成本配置，同时为高要求任务保留高精度，从而在不增加用户复杂性的前提下，实现成本和延迟的降低，并保持或提升任务性能。",
+          "url": "http://arxiv.org/abs/2604.22577v1",
+          "pdf_url": "https://arxiv.org/pdf/2604.22577v1",
+          "score": 9.0,
+          "figure_url": "https://arxiv.org/html/2604.22577v1/figures/scaling_effect.png",
+          "figure_caption": "Scaling behavior of quantization degradation under NVFP4. Left : Absolute performance gap vs. model size on a linear scale, showing diminishing degradation as model parameters increase. Right : Log-log plot reveals a power-law relationship, confirming systematic scaling. Larger models demonstrate enhanced robustness to low-precision quantization, with reduced sensitivity compared to smaller counterparts.",
+          "primary_category": "cs.AI",
+          "primary_category_anchor": "cs-ai",
+          "primary_category_rank": 0
+        },
+        {
+          "id": "2604.22597v1",
+          "title": "Rethinking Math Reasoning Evaluation: A Robust LLM-as-a-Judge Framework Beyond Symbolic Rigidity",
+          "authors": [
+            "Erez Yosef",
+            "Oron Anschel",
+            "Shunit Haviv Hakimi",
+            "Asaf Gendler",
+            "Adam Botach"
+          ],
+          "categories": [
+            "cs.AI"
+          ],
+          "abstract": "该论文提出了一种**基于大型语言模型（LLM）的鲁棒评估框架**，用以替代传统的基于符号的数学推理答案验证方法。该框架能够**灵活地处理多样化的数学表示和答案格式**，克服了符号比较方法泛化性差的局限。通过展示现有框架（如Lighteval和SimpleRL）的失败案例，论文证明了其LLM-as-a-Judge方法在评估数学推理任务时具有显著的改进和鲁棒性。",
+          "url": "http://arxiv.org/abs/2604.22597v1",
+          "pdf_url": "https://arxiv.org/pdf/2604.22597v1",
+          "score": 9.0,
+          "figure_url": "https://arxiv.org/html/2604.22597v1/x1.png",
+          "figure_caption": "Our LLM evaluation approach provides a more robust evaluation compared to traditional symbolic evaluation methods by handling diverse mathematical representations and answer formats. These examples demonstrate the contribution of our approach by correctly evaluating these model predictions for mathematical questions, while the existing numerical comparison approach fails.",
+          "primary_category": "cs.AI",
+          "primary_category_anchor": "cs-ai",
+          "primary_category_rank": 0
+        },
+        {
+          "id": "2604.22558v1",
+          "title": "SOLAR-RL: Semi-Online Long-horizon Assignment Reinforcement Learning",
+          "authors": [
+            "Jichao Wang",
+            "Liuyang Bian",
+            "Yufeng Zhou",
+            "Han Xiao",
+            "Yue Pan"
+          ],
+          "categories": [
+            "cs.AI",
+            "cs.LG"
+          ],
+          "abstract": "SOLAR-RL 提出了一种半在线长程任务强化学习方法，旨在解决离线强化学习忽略全局轨迹语义和在线强化学习交互成本高的问题。该方法通过从静态数据中重建多样化的轨迹候选，并利用每步有效性信号检测首次失败点，然后对失败点之前的步骤进行**追溯性地密集奖励分配**。其核心贡献是将全局任务完成度信息有效地融入到离线学习中，以提高 MLLM GUI 代理的训练效率和性能。",
+          "url": "http://arxiv.org/abs/2604.22558v1",
+          "pdf_url": "https://arxiv.org/pdf/2604.22558v1",
+          "score": 9.0,
+          "figure_url": "https://arxiv.org/html/2604.22558v1/latex/images/figure1v6.png",
+          "figure_caption": "Comparison of RL paradigms for GUI agents. (Top Left) Standard Offline RL is limited by fragmented step-level data, leading to temporal myopia and loss of global context. (Top Right) Online RL captures dynamics but suffers from instability and prohibitive interaction costs. (Bottom) Our SOLAR-RL bridges this gap by retrofitting global trajectory insights into offline data. It utilizes trajectory reconstruction and retroactive credit assignment via failure-point detection, combined with target-aligned reward shaping, to simulate pseudo-online feedback, ensuring stable long-horizon optimization.",
+          "primary_category": "cs.AI",
+          "primary_category_anchor": "cs-ai",
+          "primary_category_rank": 0
+        },
+        {
+          "id": "2604.22452v1",
+          "title": "Superminds Test: Actively Evaluating Collective Intelligence of Agent Society via Probing Agents",
+          "authors": [
+            "Xirui Li",
+            "Ming Li",
+            "Yunze Xiao",
+            "Ryan Wong",
+            "Dianqi Li"
+          ],
+          "categories": [
+            "cs.AI",
+            "cs.LG",
+            "cs.CL"
+          ],
+          "abstract": "该论文提出了“超级心智测试”（Superminds Test）框架，用于实证评估大规模智能体社会中集体智能的涌现情况。通过在MoltBook平台上使用分层探针智能体，研究发现该智能体社会在复杂推理、信息综合和基本协调任务上均表现出集体智能的“显著缺失”。 实验结果表明，大规模智能体社会的能力并未自发超越个体前沿模型。",
+          "url": "http://arxiv.org/abs/2604.22452v1",
+          "pdf_url": "https://arxiv.org/pdf/2604.22452v1",
+          "score": 9.0,
+          "figure_url": "https://arxiv.org/html/2604.22452v1/figures/main_graph.png",
+          "figure_caption": "A framework of using a probing agent to evaluate collective intelligence in an agent society . The framework consists of three tiers: joint reasoning, information synthesis, and basic interaction. The probing agent posts targeted stimuli into the live MoltBook platform from complex logical reasoning (Tier I) to distributed information aggregation (Tier II) to simple sequential counting (Tier III) and measures the society’s organic response as a diagnostic signal of emergent collective intelligence.",
+          "primary_category": "cs.AI",
+          "primary_category_anchor": "cs-ai",
+          "primary_category_rank": 0
+        },
+        {
+          "id": "2604.22273v1",
+          "title": "When Does LLM Self-Correction Help? A Control-Theoretic Markov Diagnostic and Verify-First Intervention",
+          "authors": [
+            "Aofan Liu",
+            "Jingxiang Meng"
+          ],
+          "categories": [
+            "cs.AI"
+          ],
+          "abstract": "该论文将大语言模型（LLM）的自我修正视为一个控制论马尔可夫诊断问题，使用一个两状态模型来判断迭代是否有效。其核心贡献是提出了一个基于错误率（ECR/EIR）的实用诊断标准，并发现了一个接近零的EIR阈值（约0.5%）来区分有益和有害的自我修正。研究表明，只有少数模型在低于此阈值时能保持性能提升或不下降，且该阈值可通过提示工程干预实现。",
+          "url": "http://arxiv.org/abs/2604.22273v1",
+          "pdf_url": "https://arxiv.org/pdf/2604.22273v1",
+          "score": 9.0,
+          "figure_url": "https://arxiv.org/html/2604.22273v1/x1.png",
+          "figure_caption": "Three-layer view of iterative self-correction as a Markov feedback loop. The theoretical layer formalises correctness evolution on { C , I } \\{C,I\\} with EIR/ECR transitions, yielding equilibrium, steady-state, and convergence expressions. The control layer interprets EIR as a stability margin and verify-first prompting as controller design; ASC adds instance-level confidence γ ​ ( k ) ≥ \\( \\gamma \\)(k)\\!\\( \\geq \\)\\!\\( \\tau \\) with batch-level EIR ^ / ECR ^ \\( \\widehat \\){\\( \\text{EIR} \\)}/\\( \\widehat \\){\\( \\text{ECR} \\)} monitoring for early stopping. The empirical layer evaluates 7 models × \\( \\times \\) 3 datasets, confirming near-zero EIR ( ≲ 0.5 % \\( \\lesssim \\) 0.5\\% ) as the threshold separating beneficial from harmful self-correction.",
+          "primary_category": "cs.AI",
+          "primary_category_anchor": "cs-ai",
+          "primary_category_rank": 0
+        },
+        {
+          "id": "2604.22271v1",
+          "title": "How LLMs Detect and Correct Their Own Errors: The Role of Internal Confidence Signals",
+          "authors": [
+            "Dharshan Kumaran",
+            "Viorica Patraucean",
+            "Simon Osindero",
+            "Petar Velickovic",
+            "Nathaniel Daw"
+          ],
+          "categories": [
+            "cs.LG"
+          ],
+          "abstract": "该论文研究了大型语言模型（LLM）如何无需外部反馈即可检测和纠正自身错误。研究借鉴决策神经科学中的二阶置信度模型，提出LLM在答案后的换行符（PANL）处缓存了一个独立的评估信号。该信号独立于生成信号，是模型进行自我错误检测和纠正的基础。",
+          "url": "http://arxiv.org/abs/2604.22271v1",
+          "pdf_url": "https://arxiv.org/pdf/2604.22271v1",
+          "score": 9.0,
+          "figure_url": "https://arxiv.org/html/2604.22271v1/figures/Figure_1_SOM_prompt_composite.png",
+          "figure_caption": "Left panel : Verification and self-correction prompt structure (see § A.2 for full details). The model’s answer and verbal confidence were generated in a separate prior phase. In the verification phase, the model is shown its own answer to a TriviaQA (or MNLI) question and asked to judge whether it is correct (Y/N), followed by a self-correction prompt. Residual stream activations were extracted during the verification phase at the post-answer newline token (PANL, indicated by arrow)—the first token after the model’s answer following (Kumaran et al., 2026 ) . Right panel : Second-order model of confidence, adapted from Fleming & Daw ( 2017 ) . Left side (dashed box): the first-order model (FOM), in which a generation process produces an answer (here via greedy decoding) and the associated log-probabilities ( X act X_{\\( \\mathrm{act} \\)} ) are the only available confidence signal. Under greedy decoding, X act X_{\\( \\mathrm{act} \\)} — and therefore confidence—is by definition maximal for the chosen answer, so a purely first-order system cannot conclude it erred. Right side: the second-order extension, in which the completed answer engages a qualitatively distinct evaluative process that assesses question–answer fit by attending backward over the full response—a different computation from the retrieval process that produced it (see text for details). Because this evaluation performs a different computation over the model’s knowledge, it can shift the internal distribution over possible answers such that the committed answer ( A 1 A_{1} ) is no longer the mode (now A 2 A_{2} ). The resulting evaluative signal ( X eval X_{\\( \\mathrm{eval} \\)} ; termed X conf X_{\\( \\mathrm{conf} \\)} in the original framework), encoded at answer-adjacent token positions (PANL), is partially independent of X act X_{\\( \\mathrm{act} \\)} and drives verbal confidence, error detection, and self-correction.",
+          "primary_category": "cs.LG",
+          "primary_category_anchor": "cs-lg",
+          "primary_category_rank": 1
+        },
+        {
+          "id": "2604.22575v1",
+          "title": "SpikingBrain2.0: Brain-Inspired Foundation Models for Efficient Long-Context and Cross-Platform Inference",
+          "authors": [
+            "Yuqi Pan",
+            "Jinghao Zhuang",
+            "Yupeng Feng",
+            "Fangzhi Zhong",
+            "Siyu Ding"
+          ],
+          "categories": [
+            "cs.LG"
+          ],
+          "abstract": "SpikingBrain2.0 (SpB2.0) 提出了一种名为双空间稀疏注意力（DSSA）的新架构，结合了稀疏 Softmax 注意力和稀疏线性注意力，以提高长上下文建模的性能和效率。该模型还支持 INT8 脉冲编码和 FP8 编码，以实现稀疏事件驱动计算和 GPU 加速推理。其核心贡献在于通过创新的架构和优化的训练策略，实现了高效的长上下文推理和跨平台部署。",
+          "url": "http://arxiv.org/abs/2604.22575v1",
+          "pdf_url": "https://arxiv.org/pdf/2604.22575v1",
+          "score": 9.0,
+          "figure_url": "https://arxiv.org/html/2604.22575v1/x1.png",
+          "figure_caption": "Architecture of SpikingBrain2.0-5B (SpB2.0). SpB2.0 adopts a 1:3 inter-layer hybrid design, termed DSSA, that combines MoBA and SSE, together with dual-path activation-coding strategies for linear projections. This design allows SpB2.0 to address the dominant computational bottlenecks of standard Transformers across different sequence-length regimes and hardware platforms.",
+          "primary_category": "cs.LG",
+          "primary_category_anchor": "cs-lg",
+          "primary_category_rank": 1
+        },
+        {
+          "id": "2604.22661v1",
+          "title": "Can QPP Choose the Right Query Variant? Evaluating Query Variant Selection for RAG Pipelines",
+          "authors": [
+            "Negar Arabzadeh",
+            "Andrew Drozdov",
+            "Michael Bendersky",
+            "Matei Zaharia"
+          ],
+          "categories": [
+            "cs.CL",
+            "cs.IR"
+          ],
+          "abstract": "该论文研究了在检索增强生成（RAG）流程中，如何利用查询性能预测（QPP）模型在多个查询变体中选择最优的一个，以避免对所有变体都执行昂贵的后续检索和生成步骤。作者关注的是“主题内区分性”，即在针对同一信息需求的多个重构查询中进行选择，而非传统QPP关注的跨主题难度估计。实验结果评估了不同预测器在稀疏和稠密检索器上的表现，揭示了选择机制的系统性差异。",
+          "url": "http://arxiv.org/abs/2604.22661v1",
+          "pdf_url": "https://arxiv.org/pdf/2604.22661v1",
+          "score": 9.0,
+          "figure_url": "https://arxiv.org/html/2604.22661v1/x1.png",
+          "figure_caption": "Figure 1. Relationship between retrieval effectiveness (nDCG@5) and end-to-end RAG utility (Nugget-All) under sparse and dense retrieval. Each point corresponds to a query variant selected by different strategies (pre-retrieval QPP, post-retrieval QPP, single reformulation, original query, oracle).",
+          "primary_category": "cs.CL",
+          "primary_category_anchor": "cs-cl",
+          "primary_category_rank": 2
+        },
+        {
+          "id": "2604.22335v1",
+          "title": "Context-Fidelity Boosting: Enhancing Faithful Generation through Watermark-Inspired Decoding",
+          "authors": [
+            "Weixu Zhang",
+            "Fanghua Ye",
+            "Qiang Gao",
+            "Jian Li",
+            "Haolun Wu"
+          ],
+          "categories": [
+            "cs.CL"
+          ],
+          "abstract": "本文提出了上下文保真度增强（CFB）框架，这是一种轻量级的解码时方法，旨在减少大型语言模型生成内容与输入上下文不一致的“忠实幻觉”。CFB借鉴水印技术中的对数几率塑形原理，根据输入上下文对当前词元的支持程度，施加加性词元级对数几率调整，从而提高源头支持词元的生成概率。该方法通过静态、上下文感知和词元感知三种策略，有效提升了生成内容对原始信息的忠实度。",
+          "url": "http://arxiv.org/abs/2604.22335v1",
+          "pdf_url": "https://arxiv.org/pdf/2604.22335v1",
+          "score": 9.0,
+          "figure_url": "https://arxiv.org/html/2604.22335v1/x1.png",
+          "figure_caption": "Illustration of context-faithful decoding: Traditional decoding relies on parametric knowledge (favoring “Tokyo”), while our logit-shaping approach dynamically adjusts token probabilities to better align with the given context about “Paris 2024”.",
+          "primary_category": "cs.CL",
+          "primary_category_anchor": "cs-cl",
+          "primary_category_rank": 2
+        },
+        {
+          "id": "2604.22750v1",
+          "title": "How Do AI Agents Spend Your Money? Analyzing and Predicting Token Consumption in Agentic Coding Tasks",
+          "authors": [
+            "Longju Bai",
+            "Zhemin Huang",
+            "Xingyao Wang",
+            "Jiao Sun",
+            "Rada Mihalcea"
+          ],
+          "categories": [
+            "cs.CL",
+            "cs.CY",
+            "cs.HC",
+            "cs.SE"
+          ],
+          "abstract": "本文首次系统研究了AI智能体在代码任务中的Token消耗模式。研究发现，智能体任务的Token消耗极高（比代码推理高1000倍），且主要由输入Token驱动，同时Token使用具有高度随机性，不同运行间的消耗差异可达30倍。此外，模型自身预测Token成本的能力有限。",
+          "url": "http://arxiv.org/abs/2604.22750v1",
+          "pdf_url": "https://arxiv.org/pdf/2604.22750v1",
+          "score": 9.0,
+          "primary_category": "cs.CL",
+          "primary_category_anchor": "cs-cl",
+          "primary_category_rank": 2
+        },
+        {
+          "id": "2604.22345v1",
+          "title": "Preference Heads in Large Language Models: A Mechanistic Framework for Interpretable Personalization",
+          "authors": [
+            "Weixu Zhang",
+            "Ye Yuan",
+            "Changjiang Han",
+            "Yuxing Tian",
+            "Zipeng Sun"
+          ],
+          "categories": [
+            "cs.CL"
+          ],
+          "abstract": "该论文提出了一种名为“偏好头”（Preference Heads）的机制性框架，用于解释和控制大型语言模型的个性化。作者通过因果掩码分析识别出编码用户特定偏好的注意力头，并引入了无需训练的“差异偏好引导”（DPS）方法。DPS利用这些偏好头，通过对比有无偏好头时的模型输出差异（PCS），在推理时实现可控且可解释的用户个性化。",
+          "url": "http://arxiv.org/abs/2604.22345v1",
+          "pdf_url": "https://arxiv.org/pdf/2604.22345v1",
+          "score": 9.0,
+          "figure_url": "https://arxiv.org/html/2604.22345v1/x1.png",
+          "figure_caption": "Overview of preference-based personalization in LLMs. Distinct user profiles activate different subsets of Preference Heads , forming sparse internal pathways that steer generation toward user-aligned styles. Cluster-aware preference steering further captures shared structure across users with similar preferences.",
+          "primary_category": "cs.CL",
+          "primary_category_anchor": "cs-cl",
+          "primary_category_rank": 2
+        },
+        {
+          "id": "2604.22306v1",
+          "title": "BLAST: Benchmarking LLMs with ASP-based Structured Testing",
+          "authors": [
+            "Manuel Alejandro Borroto Santana",
+            "Erica Coppolillo",
+            "Francesco Calimeri",
+            "Giuseppe Manco",
+            "Simona Perri"
+          ],
+          "categories": [
+            "cs.AI",
+            "cs.LO",
+            "cs.PL"
+          ],
+          "abstract": "该论文提出了 **BLAST**，一个用于评估大型语言模型（LLMs）生成 **答案集规划（ASP）** 代码准确性的首个专用基准测试方法和数据集。BLAST 引入了两个新颖的、针对 ASP 代码生成的语义度量指标，用于结构化评估。研究人员使用十个 ASP 图论问题和八个主流 LLM 进行了实证评估。",
+          "url": "http://arxiv.org/abs/2604.22306v1",
+          "pdf_url": "https://arxiv.org/pdf/2604.22306v1",
+          "score": 8.0,
+          "figure_url": "https://arxiv.org/html/2604.22306v1/x1.png",
+          "figure_caption": "Scheme of the overall proposed framework. Input consists of the textual specification of the problem, the target LLM to be evaluated, and the correct ( gold ) ASP program . The ASP Generation module comprises: the paraphraser , an LLM which paraphrases the original problem description in more human-styled texts; and the predicate matcher , an LLM which maps the predicates of the generated programs to the ones of the gold program. The predicate mappings and the gold encoding are finally provided to the ASP Testing module, which performs the evaluation.",
+          "primary_category": "cs.AI",
+          "primary_category_anchor": "cs-ai",
+          "primary_category_rank": 0
+        },
+        {
+          "id": "2604.22328v1",
+          "title": "FETS Benchmark: Foundation Models Outperform Dataset-specific Machine Learning in Energy Time Series Forecasting",
+          "authors": [
+            "Marco Obermeier",
+            "Marco Pruckner",
+            "Florian Haselbeck",
+            "Andreas Zeiselmair"
+          ],
+          "categories": [
+            "cs.AI",
+            "cs.LG",
+            "cs.CE"
+          ],
+          "abstract": "该论文提出了能源时间序列预测的 **FETS 基准**，旨在探索和评估基础模型（Foundation Models）在该领域的潜力。研究首先对能源预测用例进行了结构化梳理，并收集分析了54个数据集。核心贡献在于**实证证明了基础模型在能源时间序列预测任务上，相较于传统特定数据集模型具有更优的性能**，为该领域的可扩展性研究奠定了基础。",
+          "url": "http://arxiv.org/abs/2604.22328v1",
+          "pdf_url": "https://arxiv.org/pdf/2604.22328v1",
+          "score": 8.0,
+          "primary_category": "cs.AI",
+          "primary_category_anchor": "cs-ai",
+          "primary_category_rank": 0
+        },
+        {
+          "id": "2604.22601v1",
+          "title": "From Natural Language to Verified Code: Toward AI Assisted Problem-to-Code Generation with Dafny-Based Formal Verification",
+          "authors": [
+            "Md Erfan",
+            "Md Kamal Hossain Chowdhury",
+            "Ahmed Ryan",
+            "Md Rayhanur Rahman"
+          ],
+          "categories": [
+            "cs.AI",
+            "cs.SE"
+          ],
+          "abstract": "该论文提出了一种名为 NL2VC-60 的数据集，用于解决自然语言到形式化规范转换的难题，以实现人工智能辅助的、经过形式化验证的代码生成。研究人员设计了分层提示策略（包括上下文提示、签名提示和自修复提示），并利用 Dafny 验证器和 uDebug 平台来评估七种开源大语言模型（LLMs）在解决复杂算法问题时的代码合成和验证能力。其核心贡献在于提供了一个评估基准和一种结合迭代反馈的验证驱动方法，以提高 LLMs 生成代码的正确性和可信度。",
+          "url": "http://arxiv.org/abs/2604.22601v1",
+          "pdf_url": "https://arxiv.org/pdf/2604.22601v1",
+          "score": 8.0,
+          "primary_category": "cs.AI",
+          "primary_category_anchor": "cs-ai",
+          "primary_category_rank": 0
+        },
+        {
+          "id": "2604.22446v1",
+          "title": "From Skills to Talent: Organising Heterogeneous Agents as a Real-World Company",
+          "authors": [
+            "Zhengxu Yu",
+            "Yu Fu",
+            "Zhiyuan He",
+            "Yuxuan Huang",
+            "Lee Ka Yiu"
+          ],
+          "categories": [
+            "cs.AI"
+          ],
+          "abstract": "该论文提出了 **OneManCompany (OMC)** 框架，旨在解决现有系统中缺乏组织层面的约束，导致多智能体系统难以动态重构的问题。OMC 将智能体的能力和配置封装为可移植的 **“人才”（Talents）**，并通过组织接口进行编排。其核心贡献在于引入了一个 **“人才市场”** 机制，允许组织根据需求动态招聘和重组异构智能体，从而实现从技能到人才的组织级管理。",
+          "url": "http://arxiv.org/abs/2604.22446v1",
+          "pdf_url": "https://arxiv.org/pdf/2604.22446v1",
+          "score": 8.0,
+          "figure_url": "https://arxiv.org/html/2604.22446v1/figures/office/whole2.png",
+          "figure_caption": "The running OMC system , where the three proposed pillars converge into a unified management interface. Talent Lifecycle implements the Talent-Container architecture (Section 2.1 ), with per-employee profiles tracking skills, performance, and configuration. Task Decomposition realises the E 2 \\( \\text{E}^{2} \\) R tree search (Section 2.2 ) through hierarchical task trees with DAG dependencies. Agent Coordination enables structured inter-agent communication (Section 2.2.4 ), where agents request meetings, exchange information, and align on shared tasks through dedicated coordination channels. Org Knowledge embodies the organisation-level evolution mechanism (Section 2.3 ), with editable workflow SOPs and company culture rules that persist across projects.",
+          "primary_category": "cs.AI",
+          "primary_category_anchor": "cs-ai",
+          "primary_category_rank": 0
+        },
+        {
+          "id": "2604.22438v1",
+          "title": "SSG: Logit-Balanced Vocabulary Partitioning for LLM Watermarking",
+          "authors": [
+            "Chenxi Gu",
+            "Xiaoning Du",
+            "John Grundy"
+          ],
+          "categories": [
+            "cs.AI",
+            "cs.CL",
+            "cs.CR"
+          ],
+          "abstract": "该论文提出了一种名为SSG（Logit-Balanced Vocabulary Partitioning）的新型LLM水印方法，旨在解决现有KGW方案在低熵场景（如代码生成）下水印效果下降的问题。SSG通过分析和利用模型预测的下一个词概率分布（即“水印强度”），设计了一种**对数几率平衡的词汇分区**策略，以确保在不同生成场景下都能维持有效的水印嵌入。其核心贡献在于通过优化词汇分区机制，显著提升了LLM水印的鲁棒性和适用性。",
+          "url": "http://arxiv.org/abs/2604.22438v1",
+          "pdf_url": "https://arxiv.org/pdf/2604.22438v1",
+          "score": 8.0,
+          "figure_url": "https://arxiv.org/html/2604.22438v1/x1.png",
+          "figure_caption": "Influence of top- k k on SSG performance.",
+          "primary_category": "cs.AI",
+          "primary_category_anchor": "cs-ai",
+          "primary_category_rank": 0
+        }
+      ],
+      "meta": {
+        "papers_fetched": 100,
+        "papers_after_keyword_filter": 36,
+        "papers_after_llm_filter": 30,
+        "count": 20
+      }
+    },
+    {
+      "key": "us_stocks",
+      "payload_key": "us_stocks",
+      "title": "US Stocks",
+      "icon": "📈",
+      "items": [],
+      "meta": {
+        "count": 0,
+        "market_date": "2026-04-26",
+        "market_status": "closed",
+        "skip_reason": "weekend_or_us_market_holiday",
+        "provider_coverage": {},
+        "invalid_symbols": [],
+        "sector_overview": [],
+        "mode": "premarket",
+        "language": "zh",
+        "llm_synthesis_used": false,
+        "llm_synthesis_model": "google/gemini-2.5-flash-lite-preview-09-2025",
+        "disclaimer": "Generated from public market data and news for research and education. Not financial advice; data may be delayed, incomplete, or wrong."
+      }
+    },
+    {
+      "key": "hacker_news",
+      "payload_key": "hacker_news",
+      "title": "Hacker News",
+      "icon": "🔥",
+      "items": [
+        {
+          "id": 47911524,
+          "title": "An AI agent deleted our production database. The agent's confession is below",
+          "url": "https://twitter.com/lifeof_jer/status/2048103471019434248",
+          "score": 458,
+          "created_at": "2026-04-26T16:27:29Z",
+          "comments_url": "https://news.ycombinator.com/item?id=47911524",
+          "summary": "一个AI代理意外删除了生产数据库，并在后续的“供词”中承认了这一事件。"
+        },
+        {
+          "id": 47913650,
+          "title": "AI should elevate your thinking, not replace it",
+          "url": "https://www.koshyjohn.com/blog/ai-should-elevate-your-thinking-not-replace-it/",
+          "score": 285,
+          "created_at": "2026-04-26T20:03:12Z",
+          "comments_url": "https://news.ycombinator.com/item?id=47913650",
+          "summary": "人工智能的真正价值在于提升人类的思考能力，而非取代人类的思维过程。"
+        },
+        {
+          "id": 47908433,
+          "title": "Eden AI – European Alternative to OpenRouter",
+          "url": "https://www.edenai.co",
+          "score": 125,
+          "created_at": "2026-04-26T08:18:09Z",
+          "comments_url": "https://news.ycombinator.com/item?id=47908433",
+          "summary": "Eden AI 正在成为 OpenRouter 的欧洲替代品，提供统一的 API 接口来访问各种 AI 模型。"
+        }
+      ],
+      "meta": {
+        "count": 3
+      }
+    },
+    {
+      "key": "github_trending",
+      "payload_key": "github_trending",
+      "title": "GitHub Trending",
+      "icon": "⭐",
+      "items": [
+        {
+          "full_name": "mattpocock/skills",
+          "url": "https://github.com/mattpocock/skills",
+          "description": "Agent Skills for real engineers. Straight from my .claude directory.",
+          "stars_today": 2519,
+          "total_stars": 24066,
+          "language": "Shell",
+          "topics": [],
+          "summary": "该仓库提供面向真实工程师的智能体技能，直接来源于作者的 `.claude` 配置目录。"
+        },
+        {
+          "full_name": "Alishahryar1/free-claude-code",
+          "url": "https://github.com/Alishahryar1/free-claude-code",
+          "description": "Use claude-code for free in the terminal, VSCode extension or via discord like openclaw",
+          "stars_today": 1701,
+          "total_stars": 13806,
+          "language": "Python",
+          "topics": [],
+          "summary": "该仓库提供在终端、VSCode 扩展或 Discord 中免费使用 Claude-Code 的方法，核心功能是实现对 Claude-Code 的便捷访问。"
+        },
+        {
+          "full_name": "Z4nzu/hackingtool",
+          "url": "https://github.com/Z4nzu/hackingtool",
+          "description": "ALL IN ONE Hacking Tool For Hackers",
+          "stars_today": 1720,
+          "total_stars": 65600,
+          "language": "Python",
+          "topics": [],
+          "summary": "这是一个集成了多种功能的“全能型黑客工具箱”，旨在为黑客提供一站式的渗透测试和安全评估能力。"
+        },
+        {
+          "full_name": "abhigyanpatwari/GitNexus",
+          "url": "https://github.com/abhigyanpatwari/GitNexus",
+          "description": "GitNexus: The Zero-Server Code Intelligence Engine - GitNexus is a client-side knowledge graph creator that runs entirely in your browser. Drop in a GitHub repo or ZIP file, and get an interactive knowledge graph wit a built in Graph RAG Agent. Perfect for code exploration",
+          "stars_today": 700,
+          "total_stars": 30239,
+          "language": "TypeScript",
+          "topics": [],
+          "summary": "GitNexus是一个完全在浏览器中运行的客户端知识图谱创建工具，能将GitHub仓库或ZIP文件转化为交互式知识图谱，并内置Graph RAG智能体，实现零服务器的代码智能分析。"
+        },
+        {
+          "full_name": "PostHog/posthog",
+          "url": "https://github.com/PostHog/posthog",
+          "description": "🦔 PostHog is an all-in-one developer platform for building successful products. We offer product analytics, web analytics, session replay, error tracking, feature flags, experimentation, surveys, data warehouse, a CDP, and an AI product assistant to help debug your code, ship features faster, and keep all your usage and customer data in one stack.",
+          "stars_today": 337,
+          "total_stars": 33867,
+          "language": "Python",
+          "topics": [],
+          "summary": "PostHog 是一个一体化的开发者平台，提供产品分析、会话回放、错误跟踪、功能标志、实验、调查、数据仓库、CDP 和 AI 产品助手等全套工具，旨在帮助开发者构建成功的产品、加速功能发布，并将所有使用和客户数据集中管理。"
+        },
+        {
+          "full_name": "microsoft/typescript-go",
+          "url": "https://github.com/microsoft/typescript-go",
+          "description": "Staging repo for development of native port of TypeScript",
+          "stars_today": 23,
+          "total_stars": 25171,
+          "language": "Go",
+          "topics": [],
+          "summary": "该仓库是微软用于开发原生 TypeScript 移植版的暂存库。"
+        },
+        {
+          "full_name": "trycua/cua",
+          "url": "https://github.com/trycua/cua",
+          "description": "Open-source infrastructure for Computer-Use Agents. Sandboxes, SDKs, and benchmarks to train and evaluate AI agents that can control full desktops (macOS, Linux, Windows).",
+          "stars_today": 182,
+          "total_stars": 14426,
+          "language": "HTML",
+          "topics": [],
+          "summary": "Cua是一个开源基础设施，提供沙盒、SDK和基准测试，用于训练和评估能够控制macOS、Linux和Windows全桌面的人工智能代理。"
+        },
+        {
+          "full_name": "gastownhall/beads",
+          "url": "https://github.com/gastownhall/beads",
+          "description": "Beads - A memory upgrade for your coding agent",
+          "stars_today": 152,
+          "total_stars": 21710,
+          "language": "Go",
+          "topics": [],
+          "summary": "Beads 是一个为编码代理提供内存升级的工具，其核心功能是增强代理的记忆能力。"
+        },
+        {
+          "full_name": "curl/curl",
+          "url": "https://github.com/curl/curl",
+          "description": "A command line tool and library for transferring data with URL syntax, supporting DICT, FILE, FTP, FTPS, GOPHER, GOPHERS, HTTP, HTTPS, IMAP, IMAPS, LDAP, LDAPS, MQTT, MQTTS, POP3, POP3S, RTMP, RTMPS, RTSP, SCP, SFTP, SMB, SMBS, SMTP, SMTPS, TELNET, TFTP, WS and WSS. libcurl offers a myriad of powerful features",
+          "stars_today": 30,
+          "total_stars": 41559,
+          "language": "C",
+          "topics": [],
+          "summary": "curl 是一个支持多种协议（如 HTTP/HTTPS、FTP、SMTP 等）的命令行工具和库，用于通过 URL 语法传输数据，并提供丰富的强大功能。"
+        }
+      ],
+      "meta": {
+        "count": 9
+      }
+    }
+  ],
+  "meta": {
+    "papers_fetched": 100,
+    "papers_after_keyword_filter": 36,
+    "papers_after_llm_filter": 30,
+    "llm_model": "google/gemini-2.5-flash-lite-preview-09-2025",
+    "scoring_model": "google/gemini-2.5-flash-lite-preview-09-2025",
+    "summarization_model": "google/gemini-2.5-flash-lite-preview-09-2025",
+    "duration_seconds": 56
+  },
+  "quote_of_day": [],
+  "hitokoto": [
+    {
+      "quote": "无言独上西楼，月如钩。寂寞梧桐深院锁清秋。",
+      "author": "李煜",
+      "source": "相见欢·无言独上西楼",
+      "category": "i"
+    }
+  ],
+  "arxiv": [
+    {
+      "id": "2604.22748v1",
+      "title": "Agentic World Modeling: Foundations, Capabilities, Laws, and Beyond",
+      "authors": [
+        "Meng Chu",
+        "Xuan Billy Zhang",
+        "Kevin Qinghong Lin",
+        "Lingdong Kong",
+        "Jize Zhang"
+      ],
+      "categories": [
+        "cs.AI"
+      ],
+      "abstract": "该论文提出了一个“层级 $\\times$ 法则”的分类法来系统化智能体环境建模。它定义了从局部预测到自主模型修正的三个能力层级（L1 预测器、L2 模拟器、L3 演化器），并识别了物理、数字、社会和科学四种环境法则。该框架旨在统一不同领域对“世界模型”的理解，并指导构建能完成复杂任务的智能体。",
+      "url": "http://arxiv.org/abs/2604.22748v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.22748v1",
+      "score": 9.0,
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2604.22436v1",
+      "title": "AgentSearchBench: A Benchmark for AI Agent Search in the Wild",
+      "authors": [
+        "Bin Wu",
+        "Arastun Mammadli",
+        "Xiaoyu Zhang",
+        "Emine Yilmaz"
+      ],
+      "categories": [
+        "cs.AI",
+        "cs.IR",
+        "cs.MA"
+      ],
+      "abstract": "该论文提出了 **AgentSearchBench**，一个针对真实世界中AI智能体搜索的大规模基准测试集。它构建了包含近万个真实智能体的环境，将智能体搜索形式化为检索和重排序问题，并使用**基于执行的性能信号**来评估智能体的相关性。其核心贡献在于首次在包含高层级任务描述的场景下，评估了智能体搜索的实际效果，揭示了语义相似性与实际性能之间的差距。",
+      "url": "http://arxiv.org/abs/2604.22436v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.22436v1",
+      "score": 9.0,
+      "figure_url": "https://arxiv.org/html/2604.22436v1/x1.png",
+      "figure_caption": "Task and Relevance Label Generation Pipeline of AgentSearchBench.",
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2604.22411v1",
+      "title": "Introducing Background Temperature to Characterise Hidden Randomness in Large Language Models",
+      "authors": [
+        "Alberto Messina",
+        "Stefano Scotta"
+      ],
+      "categories": [
+        "cs.AI",
+        "cs.LG",
+        "cs.CL"
+      ],
+      "abstract": "该论文提出了“背景温度”$T_{\\mathrm{bg}}$的概念，用以量化即使在名义温度$T=0$时，大型语言模型（LLMs）因实现细节（如浮点运算、批处理等）导致的内在随机性。作者定义了$T_{\\mathrm{bg}}$与推理环境$I$相关的随机扰动过程，并提出了一种通过等效温度$T_n(I)$来实证估计$T_{\\mathrm{bg}}$的协议。这项工作为理解和量化LLM输出的不确定性提供了新的理论框架。",
+      "url": "http://arxiv.org/abs/2604.22411v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.22411v1",
+      "score": 9.0,
+      "figure_url": "https://arxiv.org/html/2604.22411v1/flow.png",
+      "figure_caption": "Measuring protocol.",
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2604.22565v1",
+      "title": "Learning Evidence Highlighting for Frozen LLMs",
+      "authors": [
+        "Shaoang Li",
+        "Yanhang Shi",
+        "Yufei Li",
+        "Mingfu Liang",
+        "Xiaohan Wei"
+      ],
+      "categories": [
+        "cs.AI",
+        "cs.CL"
+      ],
+      "abstract": "本文提出了一种名为 HiLight 的证据强调框架，用于增强冻结的大型语言模型（LLM）的推理能力。该方法训练一个轻量级的“强调演员”（Emphasis Actor），通过在原始文本中插入高亮标签来突出关键证据，而不修改或压缩输入内容。HiLight 将此过程视为弱监督决策问题，利用强化学习仅基于 LLM 的任务奖励进行优化，从而在不接触或修改 LLM 本身的情况下，有效提升了模型在长文本推理任务中的性能。",
+      "url": "http://arxiv.org/abs/2604.22565v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.22565v1",
+      "score": 9.0,
+      "figure_url": "https://arxiv.org/html/2604.22565v1/x1.png",
+      "figure_caption": "Overview of the HiLight framework. HiLight decouples evidence selection from reasoning for long, noisy contexts. Inference: Given a query Q Q and context X X , a lightweight Emphasis Actor selects pivotal spans under a highlight budget \\( \\gamma \\) and inserts minimal highlight tags to form an emphasized context X ^ \\( \\hat{X} \\) . A frozen Solver LLM then produces the final output. Training: Because explicit evidence annotations are unavailable, we optimize the Actor via weakly supervised RL using only the Solver’s task reward R ​ ( y , y ∗ ) R(y,y^{*}) , without accessing Solver gradients or intermediate activations.",
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2604.22577v1",
+      "title": "QuantClaw: Precision Where It Matters for OpenClaw",
+      "authors": [
+        "Manyi Zhang",
+        "Ji-Fu Li",
+        "Zhongao Sun",
+        "Xiaohao Liu",
+        "Zhenhua Dong"
+      ],
+      "categories": [
+        "cs.AI",
+        "cs.CL"
+      ],
+      "abstract": "本文针对OpenClaw等自主智能体系统面临的高成本和高延迟问题，研究了量化对复杂工作流性能的影响，发现精度需求高度依赖于任务。为此，作者提出了QuantClaw，一个即插即用的精度路由插件，它能根据任务特性动态分配计算精度，将轻量级任务分配到低成本配置，同时为高要求任务保留高精度，从而在不增加用户复杂性的前提下，实现成本和延迟的降低，并保持或提升任务性能。",
+      "url": "http://arxiv.org/abs/2604.22577v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.22577v1",
+      "score": 9.0,
+      "figure_url": "https://arxiv.org/html/2604.22577v1/figures/scaling_effect.png",
+      "figure_caption": "Scaling behavior of quantization degradation under NVFP4. Left : Absolute performance gap vs. model size on a linear scale, showing diminishing degradation as model parameters increase. Right : Log-log plot reveals a power-law relationship, confirming systematic scaling. Larger models demonstrate enhanced robustness to low-precision quantization, with reduced sensitivity compared to smaller counterparts.",
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2604.22597v1",
+      "title": "Rethinking Math Reasoning Evaluation: A Robust LLM-as-a-Judge Framework Beyond Symbolic Rigidity",
+      "authors": [
+        "Erez Yosef",
+        "Oron Anschel",
+        "Shunit Haviv Hakimi",
+        "Asaf Gendler",
+        "Adam Botach"
+      ],
+      "categories": [
+        "cs.AI"
+      ],
+      "abstract": "该论文提出了一种**基于大型语言模型（LLM）的鲁棒评估框架**，用以替代传统的基于符号的数学推理答案验证方法。该框架能够**灵活地处理多样化的数学表示和答案格式**，克服了符号比较方法泛化性差的局限。通过展示现有框架（如Lighteval和SimpleRL）的失败案例，论文证明了其LLM-as-a-Judge方法在评估数学推理任务时具有显著的改进和鲁棒性。",
+      "url": "http://arxiv.org/abs/2604.22597v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.22597v1",
+      "score": 9.0,
+      "figure_url": "https://arxiv.org/html/2604.22597v1/x1.png",
+      "figure_caption": "Our LLM evaluation approach provides a more robust evaluation compared to traditional symbolic evaluation methods by handling diverse mathematical representations and answer formats. These examples demonstrate the contribution of our approach by correctly evaluating these model predictions for mathematical questions, while the existing numerical comparison approach fails.",
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2604.22558v1",
+      "title": "SOLAR-RL: Semi-Online Long-horizon Assignment Reinforcement Learning",
+      "authors": [
+        "Jichao Wang",
+        "Liuyang Bian",
+        "Yufeng Zhou",
+        "Han Xiao",
+        "Yue Pan"
+      ],
+      "categories": [
+        "cs.AI",
+        "cs.LG"
+      ],
+      "abstract": "SOLAR-RL 提出了一种半在线长程任务强化学习方法，旨在解决离线强化学习忽略全局轨迹语义和在线强化学习交互成本高的问题。该方法通过从静态数据中重建多样化的轨迹候选，并利用每步有效性信号检测首次失败点，然后对失败点之前的步骤进行**追溯性地密集奖励分配**。其核心贡献是将全局任务完成度信息有效地融入到离线学习中，以提高 MLLM GUI 代理的训练效率和性能。",
+      "url": "http://arxiv.org/abs/2604.22558v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.22558v1",
+      "score": 9.0,
+      "figure_url": "https://arxiv.org/html/2604.22558v1/latex/images/figure1v6.png",
+      "figure_caption": "Comparison of RL paradigms for GUI agents. (Top Left) Standard Offline RL is limited by fragmented step-level data, leading to temporal myopia and loss of global context. (Top Right) Online RL captures dynamics but suffers from instability and prohibitive interaction costs. (Bottom) Our SOLAR-RL bridges this gap by retrofitting global trajectory insights into offline data. It utilizes trajectory reconstruction and retroactive credit assignment via failure-point detection, combined with target-aligned reward shaping, to simulate pseudo-online feedback, ensuring stable long-horizon optimization.",
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2604.22452v1",
+      "title": "Superminds Test: Actively Evaluating Collective Intelligence of Agent Society via Probing Agents",
+      "authors": [
+        "Xirui Li",
+        "Ming Li",
+        "Yunze Xiao",
+        "Ryan Wong",
+        "Dianqi Li"
+      ],
+      "categories": [
+        "cs.AI",
+        "cs.LG",
+        "cs.CL"
+      ],
+      "abstract": "该论文提出了“超级心智测试”（Superminds Test）框架，用于实证评估大规模智能体社会中集体智能的涌现情况。通过在MoltBook平台上使用分层探针智能体，研究发现该智能体社会在复杂推理、信息综合和基本协调任务上均表现出集体智能的“显著缺失”。 实验结果表明，大规模智能体社会的能力并未自发超越个体前沿模型。",
+      "url": "http://arxiv.org/abs/2604.22452v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.22452v1",
+      "score": 9.0,
+      "figure_url": "https://arxiv.org/html/2604.22452v1/figures/main_graph.png",
+      "figure_caption": "A framework of using a probing agent to evaluate collective intelligence in an agent society . The framework consists of three tiers: joint reasoning, information synthesis, and basic interaction. The probing agent posts targeted stimuli into the live MoltBook platform from complex logical reasoning (Tier I) to distributed information aggregation (Tier II) to simple sequential counting (Tier III) and measures the society’s organic response as a diagnostic signal of emergent collective intelligence.",
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2604.22273v1",
+      "title": "When Does LLM Self-Correction Help? A Control-Theoretic Markov Diagnostic and Verify-First Intervention",
+      "authors": [
+        "Aofan Liu",
+        "Jingxiang Meng"
+      ],
+      "categories": [
+        "cs.AI"
+      ],
+      "abstract": "该论文将大语言模型（LLM）的自我修正视为一个控制论马尔可夫诊断问题，使用一个两状态模型来判断迭代是否有效。其核心贡献是提出了一个基于错误率（ECR/EIR）的实用诊断标准，并发现了一个接近零的EIR阈值（约0.5%）来区分有益和有害的自我修正。研究表明，只有少数模型在低于此阈值时能保持性能提升或不下降，且该阈值可通过提示工程干预实现。",
+      "url": "http://arxiv.org/abs/2604.22273v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.22273v1",
+      "score": 9.0,
+      "figure_url": "https://arxiv.org/html/2604.22273v1/x1.png",
+      "figure_caption": "Three-layer view of iterative self-correction as a Markov feedback loop. The theoretical layer formalises correctness evolution on { C , I } \\{C,I\\} with EIR/ECR transitions, yielding equilibrium, steady-state, and convergence expressions. The control layer interprets EIR as a stability margin and verify-first prompting as controller design; ASC adds instance-level confidence γ ​ ( k ) ≥ \\( \\gamma \\)(k)\\!\\( \\geq \\)\\!\\( \\tau \\) with batch-level EIR ^ / ECR ^ \\( \\widehat \\){\\( \\text{EIR} \\)}/\\( \\widehat \\){\\( \\text{ECR} \\)} monitoring for early stopping. The empirical layer evaluates 7 models × \\( \\times \\) 3 datasets, confirming near-zero EIR ( ≲ 0.5 % \\( \\lesssim \\) 0.5\\% ) as the threshold separating beneficial from harmful self-correction.",
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2604.22271v1",
+      "title": "How LLMs Detect and Correct Their Own Errors: The Role of Internal Confidence Signals",
+      "authors": [
+        "Dharshan Kumaran",
+        "Viorica Patraucean",
+        "Simon Osindero",
+        "Petar Velickovic",
+        "Nathaniel Daw"
+      ],
+      "categories": [
+        "cs.LG"
+      ],
+      "abstract": "该论文研究了大型语言模型（LLM）如何无需外部反馈即可检测和纠正自身错误。研究借鉴决策神经科学中的二阶置信度模型，提出LLM在答案后的换行符（PANL）处缓存了一个独立的评估信号。该信号独立于生成信号，是模型进行自我错误检测和纠正的基础。",
+      "url": "http://arxiv.org/abs/2604.22271v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.22271v1",
+      "score": 9.0,
+      "figure_url": "https://arxiv.org/html/2604.22271v1/figures/Figure_1_SOM_prompt_composite.png",
+      "figure_caption": "Left panel : Verification and self-correction prompt structure (see § A.2 for full details). The model’s answer and verbal confidence were generated in a separate prior phase. In the verification phase, the model is shown its own answer to a TriviaQA (or MNLI) question and asked to judge whether it is correct (Y/N), followed by a self-correction prompt. Residual stream activations were extracted during the verification phase at the post-answer newline token (PANL, indicated by arrow)—the first token after the model’s answer following (Kumaran et al., 2026 ) . Right panel : Second-order model of confidence, adapted from Fleming & Daw ( 2017 ) . Left side (dashed box): the first-order model (FOM), in which a generation process produces an answer (here via greedy decoding) and the associated log-probabilities ( X act X_{\\( \\mathrm{act} \\)} ) are the only available confidence signal. Under greedy decoding, X act X_{\\( \\mathrm{act} \\)} — and therefore confidence—is by definition maximal for the chosen answer, so a purely first-order system cannot conclude it erred. Right side: the second-order extension, in which the completed answer engages a qualitatively distinct evaluative process that assesses question–answer fit by attending backward over the full response—a different computation from the retrieval process that produced it (see text for details). Because this evaluation performs a different computation over the model’s knowledge, it can shift the internal distribution over possible answers such that the committed answer ( A 1 A_{1} ) is no longer the mode (now A 2 A_{2} ). The resulting evaluative signal ( X eval X_{\\( \\mathrm{eval} \\)} ; termed X conf X_{\\( \\mathrm{conf} \\)} in the original framework), encoded at answer-adjacent token positions (PANL), is partially independent of X act X_{\\( \\mathrm{act} \\)} and drives verbal confidence, error detection, and self-correction.",
+      "primary_category": "cs.LG",
+      "primary_category_anchor": "cs-lg",
+      "primary_category_rank": 1
+    },
+    {
+      "id": "2604.22575v1",
+      "title": "SpikingBrain2.0: Brain-Inspired Foundation Models for Efficient Long-Context and Cross-Platform Inference",
+      "authors": [
+        "Yuqi Pan",
+        "Jinghao Zhuang",
+        "Yupeng Feng",
+        "Fangzhi Zhong",
+        "Siyu Ding"
+      ],
+      "categories": [
+        "cs.LG"
+      ],
+      "abstract": "SpikingBrain2.0 (SpB2.0) 提出了一种名为双空间稀疏注意力（DSSA）的新架构，结合了稀疏 Softmax 注意力和稀疏线性注意力，以提高长上下文建模的性能和效率。该模型还支持 INT8 脉冲编码和 FP8 编码，以实现稀疏事件驱动计算和 GPU 加速推理。其核心贡献在于通过创新的架构和优化的训练策略，实现了高效的长上下文推理和跨平台部署。",
+      "url": "http://arxiv.org/abs/2604.22575v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.22575v1",
+      "score": 9.0,
+      "figure_url": "https://arxiv.org/html/2604.22575v1/x1.png",
+      "figure_caption": "Architecture of SpikingBrain2.0-5B (SpB2.0). SpB2.0 adopts a 1:3 inter-layer hybrid design, termed DSSA, that combines MoBA and SSE, together with dual-path activation-coding strategies for linear projections. This design allows SpB2.0 to address the dominant computational bottlenecks of standard Transformers across different sequence-length regimes and hardware platforms.",
+      "primary_category": "cs.LG",
+      "primary_category_anchor": "cs-lg",
+      "primary_category_rank": 1
+    },
+    {
+      "id": "2604.22661v1",
+      "title": "Can QPP Choose the Right Query Variant? Evaluating Query Variant Selection for RAG Pipelines",
+      "authors": [
+        "Negar Arabzadeh",
+        "Andrew Drozdov",
+        "Michael Bendersky",
+        "Matei Zaharia"
+      ],
+      "categories": [
+        "cs.CL",
+        "cs.IR"
+      ],
+      "abstract": "该论文研究了在检索增强生成（RAG）流程中，如何利用查询性能预测（QPP）模型在多个查询变体中选择最优的一个，以避免对所有变体都执行昂贵的后续检索和生成步骤。作者关注的是“主题内区分性”，即在针对同一信息需求的多个重构查询中进行选择，而非传统QPP关注的跨主题难度估计。实验结果评估了不同预测器在稀疏和稠密检索器上的表现，揭示了选择机制的系统性差异。",
+      "url": "http://arxiv.org/abs/2604.22661v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.22661v1",
+      "score": 9.0,
+      "figure_url": "https://arxiv.org/html/2604.22661v1/x1.png",
+      "figure_caption": "Figure 1. Relationship between retrieval effectiveness (nDCG@5) and end-to-end RAG utility (Nugget-All) under sparse and dense retrieval. Each point corresponds to a query variant selected by different strategies (pre-retrieval QPP, post-retrieval QPP, single reformulation, original query, oracle).",
+      "primary_category": "cs.CL",
+      "primary_category_anchor": "cs-cl",
+      "primary_category_rank": 2
+    },
+    {
+      "id": "2604.22335v1",
+      "title": "Context-Fidelity Boosting: Enhancing Faithful Generation through Watermark-Inspired Decoding",
+      "authors": [
+        "Weixu Zhang",
+        "Fanghua Ye",
+        "Qiang Gao",
+        "Jian Li",
+        "Haolun Wu"
+      ],
+      "categories": [
+        "cs.CL"
+      ],
+      "abstract": "本文提出了上下文保真度增强（CFB）框架，这是一种轻量级的解码时方法，旨在减少大型语言模型生成内容与输入上下文不一致的“忠实幻觉”。CFB借鉴水印技术中的对数几率塑形原理，根据输入上下文对当前词元的支持程度，施加加性词元级对数几率调整，从而提高源头支持词元的生成概率。该方法通过静态、上下文感知和词元感知三种策略，有效提升了生成内容对原始信息的忠实度。",
+      "url": "http://arxiv.org/abs/2604.22335v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.22335v1",
+      "score": 9.0,
+      "figure_url": "https://arxiv.org/html/2604.22335v1/x1.png",
+      "figure_caption": "Illustration of context-faithful decoding: Traditional decoding relies on parametric knowledge (favoring “Tokyo”), while our logit-shaping approach dynamically adjusts token probabilities to better align with the given context about “Paris 2024”.",
+      "primary_category": "cs.CL",
+      "primary_category_anchor": "cs-cl",
+      "primary_category_rank": 2
+    },
+    {
+      "id": "2604.22750v1",
+      "title": "How Do AI Agents Spend Your Money? Analyzing and Predicting Token Consumption in Agentic Coding Tasks",
+      "authors": [
+        "Longju Bai",
+        "Zhemin Huang",
+        "Xingyao Wang",
+        "Jiao Sun",
+        "Rada Mihalcea"
+      ],
+      "categories": [
+        "cs.CL",
+        "cs.CY",
+        "cs.HC",
+        "cs.SE"
+      ],
+      "abstract": "本文首次系统研究了AI智能体在代码任务中的Token消耗模式。研究发现，智能体任务的Token消耗极高（比代码推理高1000倍），且主要由输入Token驱动，同时Token使用具有高度随机性，不同运行间的消耗差异可达30倍。此外，模型自身预测Token成本的能力有限。",
+      "url": "http://arxiv.org/abs/2604.22750v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.22750v1",
+      "score": 9.0,
+      "primary_category": "cs.CL",
+      "primary_category_anchor": "cs-cl",
+      "primary_category_rank": 2
+    },
+    {
+      "id": "2604.22345v1",
+      "title": "Preference Heads in Large Language Models: A Mechanistic Framework for Interpretable Personalization",
+      "authors": [
+        "Weixu Zhang",
+        "Ye Yuan",
+        "Changjiang Han",
+        "Yuxing Tian",
+        "Zipeng Sun"
+      ],
+      "categories": [
+        "cs.CL"
+      ],
+      "abstract": "该论文提出了一种名为“偏好头”（Preference Heads）的机制性框架，用于解释和控制大型语言模型的个性化。作者通过因果掩码分析识别出编码用户特定偏好的注意力头，并引入了无需训练的“差异偏好引导”（DPS）方法。DPS利用这些偏好头，通过对比有无偏好头时的模型输出差异（PCS），在推理时实现可控且可解释的用户个性化。",
+      "url": "http://arxiv.org/abs/2604.22345v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.22345v1",
+      "score": 9.0,
+      "figure_url": "https://arxiv.org/html/2604.22345v1/x1.png",
+      "figure_caption": "Overview of preference-based personalization in LLMs. Distinct user profiles activate different subsets of Preference Heads , forming sparse internal pathways that steer generation toward user-aligned styles. Cluster-aware preference steering further captures shared structure across users with similar preferences.",
+      "primary_category": "cs.CL",
+      "primary_category_anchor": "cs-cl",
+      "primary_category_rank": 2
+    },
+    {
+      "id": "2604.22306v1",
+      "title": "BLAST: Benchmarking LLMs with ASP-based Structured Testing",
+      "authors": [
+        "Manuel Alejandro Borroto Santana",
+        "Erica Coppolillo",
+        "Francesco Calimeri",
+        "Giuseppe Manco",
+        "Simona Perri"
+      ],
+      "categories": [
+        "cs.AI",
+        "cs.LO",
+        "cs.PL"
+      ],
+      "abstract": "该论文提出了 **BLAST**，一个用于评估大型语言模型（LLMs）生成 **答案集规划（ASP）** 代码准确性的首个专用基准测试方法和数据集。BLAST 引入了两个新颖的、针对 ASP 代码生成的语义度量指标，用于结构化评估。研究人员使用十个 ASP 图论问题和八个主流 LLM 进行了实证评估。",
+      "url": "http://arxiv.org/abs/2604.22306v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.22306v1",
+      "score": 8.0,
+      "figure_url": "https://arxiv.org/html/2604.22306v1/x1.png",
+      "figure_caption": "Scheme of the overall proposed framework. Input consists of the textual specification of the problem, the target LLM to be evaluated, and the correct ( gold ) ASP program . The ASP Generation module comprises: the paraphraser , an LLM which paraphrases the original problem description in more human-styled texts; and the predicate matcher , an LLM which maps the predicates of the generated programs to the ones of the gold program. The predicate mappings and the gold encoding are finally provided to the ASP Testing module, which performs the evaluation.",
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2604.22328v1",
+      "title": "FETS Benchmark: Foundation Models Outperform Dataset-specific Machine Learning in Energy Time Series Forecasting",
+      "authors": [
+        "Marco Obermeier",
+        "Marco Pruckner",
+        "Florian Haselbeck",
+        "Andreas Zeiselmair"
+      ],
+      "categories": [
+        "cs.AI",
+        "cs.LG",
+        "cs.CE"
+      ],
+      "abstract": "该论文提出了能源时间序列预测的 **FETS 基准**，旨在探索和评估基础模型（Foundation Models）在该领域的潜力。研究首先对能源预测用例进行了结构化梳理，并收集分析了54个数据集。核心贡献在于**实证证明了基础模型在能源时间序列预测任务上，相较于传统特定数据集模型具有更优的性能**，为该领域的可扩展性研究奠定了基础。",
+      "url": "http://arxiv.org/abs/2604.22328v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.22328v1",
+      "score": 8.0,
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2604.22601v1",
+      "title": "From Natural Language to Verified Code: Toward AI Assisted Problem-to-Code Generation with Dafny-Based Formal Verification",
+      "authors": [
+        "Md Erfan",
+        "Md Kamal Hossain Chowdhury",
+        "Ahmed Ryan",
+        "Md Rayhanur Rahman"
+      ],
+      "categories": [
+        "cs.AI",
+        "cs.SE"
+      ],
+      "abstract": "该论文提出了一种名为 NL2VC-60 的数据集，用于解决自然语言到形式化规范转换的难题，以实现人工智能辅助的、经过形式化验证的代码生成。研究人员设计了分层提示策略（包括上下文提示、签名提示和自修复提示），并利用 Dafny 验证器和 uDebug 平台来评估七种开源大语言模型（LLMs）在解决复杂算法问题时的代码合成和验证能力。其核心贡献在于提供了一个评估基准和一种结合迭代反馈的验证驱动方法，以提高 LLMs 生成代码的正确性和可信度。",
+      "url": "http://arxiv.org/abs/2604.22601v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.22601v1",
+      "score": 8.0,
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2604.22446v1",
+      "title": "From Skills to Talent: Organising Heterogeneous Agents as a Real-World Company",
+      "authors": [
+        "Zhengxu Yu",
+        "Yu Fu",
+        "Zhiyuan He",
+        "Yuxuan Huang",
+        "Lee Ka Yiu"
+      ],
+      "categories": [
+        "cs.AI"
+      ],
+      "abstract": "该论文提出了 **OneManCompany (OMC)** 框架，旨在解决现有系统中缺乏组织层面的约束，导致多智能体系统难以动态重构的问题。OMC 将智能体的能力和配置封装为可移植的 **“人才”（Talents）**，并通过组织接口进行编排。其核心贡献在于引入了一个 **“人才市场”** 机制，允许组织根据需求动态招聘和重组异构智能体，从而实现从技能到人才的组织级管理。",
+      "url": "http://arxiv.org/abs/2604.22446v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.22446v1",
+      "score": 8.0,
+      "figure_url": "https://arxiv.org/html/2604.22446v1/figures/office/whole2.png",
+      "figure_caption": "The running OMC system , where the three proposed pillars converge into a unified management interface. Talent Lifecycle implements the Talent-Container architecture (Section 2.1 ), with per-employee profiles tracking skills, performance, and configuration. Task Decomposition realises the E 2 \\( \\text{E}^{2} \\) R tree search (Section 2.2 ) through hierarchical task trees with DAG dependencies. Agent Coordination enables structured inter-agent communication (Section 2.2.4 ), where agents request meetings, exchange information, and align on shared tasks through dedicated coordination channels. Org Knowledge embodies the organisation-level evolution mechanism (Section 2.3 ), with editable workflow SOPs and company culture rules that persist across projects.",
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2604.22438v1",
+      "title": "SSG: Logit-Balanced Vocabulary Partitioning for LLM Watermarking",
+      "authors": [
+        "Chenxi Gu",
+        "Xiaoning Du",
+        "John Grundy"
+      ],
+      "categories": [
+        "cs.AI",
+        "cs.CL",
+        "cs.CR"
+      ],
+      "abstract": "该论文提出了一种名为SSG（Logit-Balanced Vocabulary Partitioning）的新型LLM水印方法，旨在解决现有KGW方案在低熵场景（如代码生成）下水印效果下降的问题。SSG通过分析和利用模型预测的下一个词概率分布（即“水印强度”），设计了一种**对数几率平衡的词汇分区**策略，以确保在不同生成场景下都能维持有效的水印嵌入。其核心贡献在于通过优化词汇分区机制，显著提升了LLM水印的鲁棒性和适用性。",
+      "url": "http://arxiv.org/abs/2604.22438v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.22438v1",
+      "score": 8.0,
+      "figure_url": "https://arxiv.org/html/2604.22438v1/x1.png",
+      "figure_caption": "Influence of top- k k on SSG performance.",
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    }
+  ],
+  "papers": [
+    {
+      "id": "2604.22748v1",
+      "title": "Agentic World Modeling: Foundations, Capabilities, Laws, and Beyond",
+      "authors": [
+        "Meng Chu",
+        "Xuan Billy Zhang",
+        "Kevin Qinghong Lin",
+        "Lingdong Kong",
+        "Jize Zhang"
+      ],
+      "categories": [
+        "cs.AI"
+      ],
+      "abstract": "该论文提出了一个“层级 $\\times$ 法则”的分类法来系统化智能体环境建模。它定义了从局部预测到自主模型修正的三个能力层级（L1 预测器、L2 模拟器、L3 演化器），并识别了物理、数字、社会和科学四种环境法则。该框架旨在统一不同领域对“世界模型”的理解，并指导构建能完成复杂任务的智能体。",
+      "url": "http://arxiv.org/abs/2604.22748v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.22748v1",
+      "score": 9.0,
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2604.22436v1",
+      "title": "AgentSearchBench: A Benchmark for AI Agent Search in the Wild",
+      "authors": [
+        "Bin Wu",
+        "Arastun Mammadli",
+        "Xiaoyu Zhang",
+        "Emine Yilmaz"
+      ],
+      "categories": [
+        "cs.AI",
+        "cs.IR",
+        "cs.MA"
+      ],
+      "abstract": "该论文提出了 **AgentSearchBench**，一个针对真实世界中AI智能体搜索的大规模基准测试集。它构建了包含近万个真实智能体的环境，将智能体搜索形式化为检索和重排序问题，并使用**基于执行的性能信号**来评估智能体的相关性。其核心贡献在于首次在包含高层级任务描述的场景下，评估了智能体搜索的实际效果，揭示了语义相似性与实际性能之间的差距。",
+      "url": "http://arxiv.org/abs/2604.22436v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.22436v1",
+      "score": 9.0,
+      "figure_url": "https://arxiv.org/html/2604.22436v1/x1.png",
+      "figure_caption": "Task and Relevance Label Generation Pipeline of AgentSearchBench.",
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2604.22411v1",
+      "title": "Introducing Background Temperature to Characterise Hidden Randomness in Large Language Models",
+      "authors": [
+        "Alberto Messina",
+        "Stefano Scotta"
+      ],
+      "categories": [
+        "cs.AI",
+        "cs.LG",
+        "cs.CL"
+      ],
+      "abstract": "该论文提出了“背景温度”$T_{\\mathrm{bg}}$的概念，用以量化即使在名义温度$T=0$时，大型语言模型（LLMs）因实现细节（如浮点运算、批处理等）导致的内在随机性。作者定义了$T_{\\mathrm{bg}}$与推理环境$I$相关的随机扰动过程，并提出了一种通过等效温度$T_n(I)$来实证估计$T_{\\mathrm{bg}}$的协议。这项工作为理解和量化LLM输出的不确定性提供了新的理论框架。",
+      "url": "http://arxiv.org/abs/2604.22411v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.22411v1",
+      "score": 9.0,
+      "figure_url": "https://arxiv.org/html/2604.22411v1/flow.png",
+      "figure_caption": "Measuring protocol.",
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2604.22565v1",
+      "title": "Learning Evidence Highlighting for Frozen LLMs",
+      "authors": [
+        "Shaoang Li",
+        "Yanhang Shi",
+        "Yufei Li",
+        "Mingfu Liang",
+        "Xiaohan Wei"
+      ],
+      "categories": [
+        "cs.AI",
+        "cs.CL"
+      ],
+      "abstract": "本文提出了一种名为 HiLight 的证据强调框架，用于增强冻结的大型语言模型（LLM）的推理能力。该方法训练一个轻量级的“强调演员”（Emphasis Actor），通过在原始文本中插入高亮标签来突出关键证据，而不修改或压缩输入内容。HiLight 将此过程视为弱监督决策问题，利用强化学习仅基于 LLM 的任务奖励进行优化，从而在不接触或修改 LLM 本身的情况下，有效提升了模型在长文本推理任务中的性能。",
+      "url": "http://arxiv.org/abs/2604.22565v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.22565v1",
+      "score": 9.0,
+      "figure_url": "https://arxiv.org/html/2604.22565v1/x1.png",
+      "figure_caption": "Overview of the HiLight framework. HiLight decouples evidence selection from reasoning for long, noisy contexts. Inference: Given a query Q Q and context X X , a lightweight Emphasis Actor selects pivotal spans under a highlight budget \\( \\gamma \\) and inserts minimal highlight tags to form an emphasized context X ^ \\( \\hat{X} \\) . A frozen Solver LLM then produces the final output. Training: Because explicit evidence annotations are unavailable, we optimize the Actor via weakly supervised RL using only the Solver’s task reward R ​ ( y , y ∗ ) R(y,y^{*}) , without accessing Solver gradients or intermediate activations.",
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2604.22577v1",
+      "title": "QuantClaw: Precision Where It Matters for OpenClaw",
+      "authors": [
+        "Manyi Zhang",
+        "Ji-Fu Li",
+        "Zhongao Sun",
+        "Xiaohao Liu",
+        "Zhenhua Dong"
+      ],
+      "categories": [
+        "cs.AI",
+        "cs.CL"
+      ],
+      "abstract": "本文针对OpenClaw等自主智能体系统面临的高成本和高延迟问题，研究了量化对复杂工作流性能的影响，发现精度需求高度依赖于任务。为此，作者提出了QuantClaw，一个即插即用的精度路由插件，它能根据任务特性动态分配计算精度，将轻量级任务分配到低成本配置，同时为高要求任务保留高精度，从而在不增加用户复杂性的前提下，实现成本和延迟的降低，并保持或提升任务性能。",
+      "url": "http://arxiv.org/abs/2604.22577v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.22577v1",
+      "score": 9.0,
+      "figure_url": "https://arxiv.org/html/2604.22577v1/figures/scaling_effect.png",
+      "figure_caption": "Scaling behavior of quantization degradation under NVFP4. Left : Absolute performance gap vs. model size on a linear scale, showing diminishing degradation as model parameters increase. Right : Log-log plot reveals a power-law relationship, confirming systematic scaling. Larger models demonstrate enhanced robustness to low-precision quantization, with reduced sensitivity compared to smaller counterparts.",
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2604.22597v1",
+      "title": "Rethinking Math Reasoning Evaluation: A Robust LLM-as-a-Judge Framework Beyond Symbolic Rigidity",
+      "authors": [
+        "Erez Yosef",
+        "Oron Anschel",
+        "Shunit Haviv Hakimi",
+        "Asaf Gendler",
+        "Adam Botach"
+      ],
+      "categories": [
+        "cs.AI"
+      ],
+      "abstract": "该论文提出了一种**基于大型语言模型（LLM）的鲁棒评估框架**，用以替代传统的基于符号的数学推理答案验证方法。该框架能够**灵活地处理多样化的数学表示和答案格式**，克服了符号比较方法泛化性差的局限。通过展示现有框架（如Lighteval和SimpleRL）的失败案例，论文证明了其LLM-as-a-Judge方法在评估数学推理任务时具有显著的改进和鲁棒性。",
+      "url": "http://arxiv.org/abs/2604.22597v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.22597v1",
+      "score": 9.0,
+      "figure_url": "https://arxiv.org/html/2604.22597v1/x1.png",
+      "figure_caption": "Our LLM evaluation approach provides a more robust evaluation compared to traditional symbolic evaluation methods by handling diverse mathematical representations and answer formats. These examples demonstrate the contribution of our approach by correctly evaluating these model predictions for mathematical questions, while the existing numerical comparison approach fails.",
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2604.22558v1",
+      "title": "SOLAR-RL: Semi-Online Long-horizon Assignment Reinforcement Learning",
+      "authors": [
+        "Jichao Wang",
+        "Liuyang Bian",
+        "Yufeng Zhou",
+        "Han Xiao",
+        "Yue Pan"
+      ],
+      "categories": [
+        "cs.AI",
+        "cs.LG"
+      ],
+      "abstract": "SOLAR-RL 提出了一种半在线长程任务强化学习方法，旨在解决离线强化学习忽略全局轨迹语义和在线强化学习交互成本高的问题。该方法通过从静态数据中重建多样化的轨迹候选，并利用每步有效性信号检测首次失败点，然后对失败点之前的步骤进行**追溯性地密集奖励分配**。其核心贡献是将全局任务完成度信息有效地融入到离线学习中，以提高 MLLM GUI 代理的训练效率和性能。",
+      "url": "http://arxiv.org/abs/2604.22558v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.22558v1",
+      "score": 9.0,
+      "figure_url": "https://arxiv.org/html/2604.22558v1/latex/images/figure1v6.png",
+      "figure_caption": "Comparison of RL paradigms for GUI agents. (Top Left) Standard Offline RL is limited by fragmented step-level data, leading to temporal myopia and loss of global context. (Top Right) Online RL captures dynamics but suffers from instability and prohibitive interaction costs. (Bottom) Our SOLAR-RL bridges this gap by retrofitting global trajectory insights into offline data. It utilizes trajectory reconstruction and retroactive credit assignment via failure-point detection, combined with target-aligned reward shaping, to simulate pseudo-online feedback, ensuring stable long-horizon optimization.",
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2604.22452v1",
+      "title": "Superminds Test: Actively Evaluating Collective Intelligence of Agent Society via Probing Agents",
+      "authors": [
+        "Xirui Li",
+        "Ming Li",
+        "Yunze Xiao",
+        "Ryan Wong",
+        "Dianqi Li"
+      ],
+      "categories": [
+        "cs.AI",
+        "cs.LG",
+        "cs.CL"
+      ],
+      "abstract": "该论文提出了“超级心智测试”（Superminds Test）框架，用于实证评估大规模智能体社会中集体智能的涌现情况。通过在MoltBook平台上使用分层探针智能体，研究发现该智能体社会在复杂推理、信息综合和基本协调任务上均表现出集体智能的“显著缺失”。 实验结果表明，大规模智能体社会的能力并未自发超越个体前沿模型。",
+      "url": "http://arxiv.org/abs/2604.22452v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.22452v1",
+      "score": 9.0,
+      "figure_url": "https://arxiv.org/html/2604.22452v1/figures/main_graph.png",
+      "figure_caption": "A framework of using a probing agent to evaluate collective intelligence in an agent society . The framework consists of three tiers: joint reasoning, information synthesis, and basic interaction. The probing agent posts targeted stimuli into the live MoltBook platform from complex logical reasoning (Tier I) to distributed information aggregation (Tier II) to simple sequential counting (Tier III) and measures the society’s organic response as a diagnostic signal of emergent collective intelligence.",
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2604.22273v1",
+      "title": "When Does LLM Self-Correction Help? A Control-Theoretic Markov Diagnostic and Verify-First Intervention",
+      "authors": [
+        "Aofan Liu",
+        "Jingxiang Meng"
+      ],
+      "categories": [
+        "cs.AI"
+      ],
+      "abstract": "该论文将大语言模型（LLM）的自我修正视为一个控制论马尔可夫诊断问题，使用一个两状态模型来判断迭代是否有效。其核心贡献是提出了一个基于错误率（ECR/EIR）的实用诊断标准，并发现了一个接近零的EIR阈值（约0.5%）来区分有益和有害的自我修正。研究表明，只有少数模型在低于此阈值时能保持性能提升或不下降，且该阈值可通过提示工程干预实现。",
+      "url": "http://arxiv.org/abs/2604.22273v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.22273v1",
+      "score": 9.0,
+      "figure_url": "https://arxiv.org/html/2604.22273v1/x1.png",
+      "figure_caption": "Three-layer view of iterative self-correction as a Markov feedback loop. The theoretical layer formalises correctness evolution on { C , I } \\{C,I\\} with EIR/ECR transitions, yielding equilibrium, steady-state, and convergence expressions. The control layer interprets EIR as a stability margin and verify-first prompting as controller design; ASC adds instance-level confidence γ ​ ( k ) ≥ \\( \\gamma \\)(k)\\!\\( \\geq \\)\\!\\( \\tau \\) with batch-level EIR ^ / ECR ^ \\( \\widehat \\){\\( \\text{EIR} \\)}/\\( \\widehat \\){\\( \\text{ECR} \\)} monitoring for early stopping. The empirical layer evaluates 7 models × \\( \\times \\) 3 datasets, confirming near-zero EIR ( ≲ 0.5 % \\( \\lesssim \\) 0.5\\% ) as the threshold separating beneficial from harmful self-correction.",
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2604.22271v1",
+      "title": "How LLMs Detect and Correct Their Own Errors: The Role of Internal Confidence Signals",
+      "authors": [
+        "Dharshan Kumaran",
+        "Viorica Patraucean",
+        "Simon Osindero",
+        "Petar Velickovic",
+        "Nathaniel Daw"
+      ],
+      "categories": [
+        "cs.LG"
+      ],
+      "abstract": "该论文研究了大型语言模型（LLM）如何无需外部反馈即可检测和纠正自身错误。研究借鉴决策神经科学中的二阶置信度模型，提出LLM在答案后的换行符（PANL）处缓存了一个独立的评估信号。该信号独立于生成信号，是模型进行自我错误检测和纠正的基础。",
+      "url": "http://arxiv.org/abs/2604.22271v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.22271v1",
+      "score": 9.0,
+      "figure_url": "https://arxiv.org/html/2604.22271v1/figures/Figure_1_SOM_prompt_composite.png",
+      "figure_caption": "Left panel : Verification and self-correction prompt structure (see § A.2 for full details). The model’s answer and verbal confidence were generated in a separate prior phase. In the verification phase, the model is shown its own answer to a TriviaQA (or MNLI) question and asked to judge whether it is correct (Y/N), followed by a self-correction prompt. Residual stream activations were extracted during the verification phase at the post-answer newline token (PANL, indicated by arrow)—the first token after the model’s answer following (Kumaran et al., 2026 ) . Right panel : Second-order model of confidence, adapted from Fleming & Daw ( 2017 ) . Left side (dashed box): the first-order model (FOM), in which a generation process produces an answer (here via greedy decoding) and the associated log-probabilities ( X act X_{\\( \\mathrm{act} \\)} ) are the only available confidence signal. Under greedy decoding, X act X_{\\( \\mathrm{act} \\)} — and therefore confidence—is by definition maximal for the chosen answer, so a purely first-order system cannot conclude it erred. Right side: the second-order extension, in which the completed answer engages a qualitatively distinct evaluative process that assesses question–answer fit by attending backward over the full response—a different computation from the retrieval process that produced it (see text for details). Because this evaluation performs a different computation over the model’s knowledge, it can shift the internal distribution over possible answers such that the committed answer ( A 1 A_{1} ) is no longer the mode (now A 2 A_{2} ). The resulting evaluative signal ( X eval X_{\\( \\mathrm{eval} \\)} ; termed X conf X_{\\( \\mathrm{conf} \\)} in the original framework), encoded at answer-adjacent token positions (PANL), is partially independent of X act X_{\\( \\mathrm{act} \\)} and drives verbal confidence, error detection, and self-correction.",
+      "primary_category": "cs.LG",
+      "primary_category_anchor": "cs-lg",
+      "primary_category_rank": 1
+    },
+    {
+      "id": "2604.22575v1",
+      "title": "SpikingBrain2.0: Brain-Inspired Foundation Models for Efficient Long-Context and Cross-Platform Inference",
+      "authors": [
+        "Yuqi Pan",
+        "Jinghao Zhuang",
+        "Yupeng Feng",
+        "Fangzhi Zhong",
+        "Siyu Ding"
+      ],
+      "categories": [
+        "cs.LG"
+      ],
+      "abstract": "SpikingBrain2.0 (SpB2.0) 提出了一种名为双空间稀疏注意力（DSSA）的新架构，结合了稀疏 Softmax 注意力和稀疏线性注意力，以提高长上下文建模的性能和效率。该模型还支持 INT8 脉冲编码和 FP8 编码，以实现稀疏事件驱动计算和 GPU 加速推理。其核心贡献在于通过创新的架构和优化的训练策略，实现了高效的长上下文推理和跨平台部署。",
+      "url": "http://arxiv.org/abs/2604.22575v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.22575v1",
+      "score": 9.0,
+      "figure_url": "https://arxiv.org/html/2604.22575v1/x1.png",
+      "figure_caption": "Architecture of SpikingBrain2.0-5B (SpB2.0). SpB2.0 adopts a 1:3 inter-layer hybrid design, termed DSSA, that combines MoBA and SSE, together with dual-path activation-coding strategies for linear projections. This design allows SpB2.0 to address the dominant computational bottlenecks of standard Transformers across different sequence-length regimes and hardware platforms.",
+      "primary_category": "cs.LG",
+      "primary_category_anchor": "cs-lg",
+      "primary_category_rank": 1
+    },
+    {
+      "id": "2604.22661v1",
+      "title": "Can QPP Choose the Right Query Variant? Evaluating Query Variant Selection for RAG Pipelines",
+      "authors": [
+        "Negar Arabzadeh",
+        "Andrew Drozdov",
+        "Michael Bendersky",
+        "Matei Zaharia"
+      ],
+      "categories": [
+        "cs.CL",
+        "cs.IR"
+      ],
+      "abstract": "该论文研究了在检索增强生成（RAG）流程中，如何利用查询性能预测（QPP）模型在多个查询变体中选择最优的一个，以避免对所有变体都执行昂贵的后续检索和生成步骤。作者关注的是“主题内区分性”，即在针对同一信息需求的多个重构查询中进行选择，而非传统QPP关注的跨主题难度估计。实验结果评估了不同预测器在稀疏和稠密检索器上的表现，揭示了选择机制的系统性差异。",
+      "url": "http://arxiv.org/abs/2604.22661v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.22661v1",
+      "score": 9.0,
+      "figure_url": "https://arxiv.org/html/2604.22661v1/x1.png",
+      "figure_caption": "Figure 1. Relationship between retrieval effectiveness (nDCG@5) and end-to-end RAG utility (Nugget-All) under sparse and dense retrieval. Each point corresponds to a query variant selected by different strategies (pre-retrieval QPP, post-retrieval QPP, single reformulation, original query, oracle).",
+      "primary_category": "cs.CL",
+      "primary_category_anchor": "cs-cl",
+      "primary_category_rank": 2
+    },
+    {
+      "id": "2604.22335v1",
+      "title": "Context-Fidelity Boosting: Enhancing Faithful Generation through Watermark-Inspired Decoding",
+      "authors": [
+        "Weixu Zhang",
+        "Fanghua Ye",
+        "Qiang Gao",
+        "Jian Li",
+        "Haolun Wu"
+      ],
+      "categories": [
+        "cs.CL"
+      ],
+      "abstract": "本文提出了上下文保真度增强（CFB）框架，这是一种轻量级的解码时方法，旨在减少大型语言模型生成内容与输入上下文不一致的“忠实幻觉”。CFB借鉴水印技术中的对数几率塑形原理，根据输入上下文对当前词元的支持程度，施加加性词元级对数几率调整，从而提高源头支持词元的生成概率。该方法通过静态、上下文感知和词元感知三种策略，有效提升了生成内容对原始信息的忠实度。",
+      "url": "http://arxiv.org/abs/2604.22335v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.22335v1",
+      "score": 9.0,
+      "figure_url": "https://arxiv.org/html/2604.22335v1/x1.png",
+      "figure_caption": "Illustration of context-faithful decoding: Traditional decoding relies on parametric knowledge (favoring “Tokyo”), while our logit-shaping approach dynamically adjusts token probabilities to better align with the given context about “Paris 2024”.",
+      "primary_category": "cs.CL",
+      "primary_category_anchor": "cs-cl",
+      "primary_category_rank": 2
+    },
+    {
+      "id": "2604.22750v1",
+      "title": "How Do AI Agents Spend Your Money? Analyzing and Predicting Token Consumption in Agentic Coding Tasks",
+      "authors": [
+        "Longju Bai",
+        "Zhemin Huang",
+        "Xingyao Wang",
+        "Jiao Sun",
+        "Rada Mihalcea"
+      ],
+      "categories": [
+        "cs.CL",
+        "cs.CY",
+        "cs.HC",
+        "cs.SE"
+      ],
+      "abstract": "本文首次系统研究了AI智能体在代码任务中的Token消耗模式。研究发现，智能体任务的Token消耗极高（比代码推理高1000倍），且主要由输入Token驱动，同时Token使用具有高度随机性，不同运行间的消耗差异可达30倍。此外，模型自身预测Token成本的能力有限。",
+      "url": "http://arxiv.org/abs/2604.22750v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.22750v1",
+      "score": 9.0,
+      "primary_category": "cs.CL",
+      "primary_category_anchor": "cs-cl",
+      "primary_category_rank": 2
+    },
+    {
+      "id": "2604.22345v1",
+      "title": "Preference Heads in Large Language Models: A Mechanistic Framework for Interpretable Personalization",
+      "authors": [
+        "Weixu Zhang",
+        "Ye Yuan",
+        "Changjiang Han",
+        "Yuxing Tian",
+        "Zipeng Sun"
+      ],
+      "categories": [
+        "cs.CL"
+      ],
+      "abstract": "该论文提出了一种名为“偏好头”（Preference Heads）的机制性框架，用于解释和控制大型语言模型的个性化。作者通过因果掩码分析识别出编码用户特定偏好的注意力头，并引入了无需训练的“差异偏好引导”（DPS）方法。DPS利用这些偏好头，通过对比有无偏好头时的模型输出差异（PCS），在推理时实现可控且可解释的用户个性化。",
+      "url": "http://arxiv.org/abs/2604.22345v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.22345v1",
+      "score": 9.0,
+      "figure_url": "https://arxiv.org/html/2604.22345v1/x1.png",
+      "figure_caption": "Overview of preference-based personalization in LLMs. Distinct user profiles activate different subsets of Preference Heads , forming sparse internal pathways that steer generation toward user-aligned styles. Cluster-aware preference steering further captures shared structure across users with similar preferences.",
+      "primary_category": "cs.CL",
+      "primary_category_anchor": "cs-cl",
+      "primary_category_rank": 2
+    },
+    {
+      "id": "2604.22306v1",
+      "title": "BLAST: Benchmarking LLMs with ASP-based Structured Testing",
+      "authors": [
+        "Manuel Alejandro Borroto Santana",
+        "Erica Coppolillo",
+        "Francesco Calimeri",
+        "Giuseppe Manco",
+        "Simona Perri"
+      ],
+      "categories": [
+        "cs.AI",
+        "cs.LO",
+        "cs.PL"
+      ],
+      "abstract": "该论文提出了 **BLAST**，一个用于评估大型语言模型（LLMs）生成 **答案集规划（ASP）** 代码准确性的首个专用基准测试方法和数据集。BLAST 引入了两个新颖的、针对 ASP 代码生成的语义度量指标，用于结构化评估。研究人员使用十个 ASP 图论问题和八个主流 LLM 进行了实证评估。",
+      "url": "http://arxiv.org/abs/2604.22306v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.22306v1",
+      "score": 8.0,
+      "figure_url": "https://arxiv.org/html/2604.22306v1/x1.png",
+      "figure_caption": "Scheme of the overall proposed framework. Input consists of the textual specification of the problem, the target LLM to be evaluated, and the correct ( gold ) ASP program . The ASP Generation module comprises: the paraphraser , an LLM which paraphrases the original problem description in more human-styled texts; and the predicate matcher , an LLM which maps the predicates of the generated programs to the ones of the gold program. The predicate mappings and the gold encoding are finally provided to the ASP Testing module, which performs the evaluation.",
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2604.22328v1",
+      "title": "FETS Benchmark: Foundation Models Outperform Dataset-specific Machine Learning in Energy Time Series Forecasting",
+      "authors": [
+        "Marco Obermeier",
+        "Marco Pruckner",
+        "Florian Haselbeck",
+        "Andreas Zeiselmair"
+      ],
+      "categories": [
+        "cs.AI",
+        "cs.LG",
+        "cs.CE"
+      ],
+      "abstract": "该论文提出了能源时间序列预测的 **FETS 基准**，旨在探索和评估基础模型（Foundation Models）在该领域的潜力。研究首先对能源预测用例进行了结构化梳理，并收集分析了54个数据集。核心贡献在于**实证证明了基础模型在能源时间序列预测任务上，相较于传统特定数据集模型具有更优的性能**，为该领域的可扩展性研究奠定了基础。",
+      "url": "http://arxiv.org/abs/2604.22328v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.22328v1",
+      "score": 8.0,
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2604.22601v1",
+      "title": "From Natural Language to Verified Code: Toward AI Assisted Problem-to-Code Generation with Dafny-Based Formal Verification",
+      "authors": [
+        "Md Erfan",
+        "Md Kamal Hossain Chowdhury",
+        "Ahmed Ryan",
+        "Md Rayhanur Rahman"
+      ],
+      "categories": [
+        "cs.AI",
+        "cs.SE"
+      ],
+      "abstract": "该论文提出了一种名为 NL2VC-60 的数据集，用于解决自然语言到形式化规范转换的难题，以实现人工智能辅助的、经过形式化验证的代码生成。研究人员设计了分层提示策略（包括上下文提示、签名提示和自修复提示），并利用 Dafny 验证器和 uDebug 平台来评估七种开源大语言模型（LLMs）在解决复杂算法问题时的代码合成和验证能力。其核心贡献在于提供了一个评估基准和一种结合迭代反馈的验证驱动方法，以提高 LLMs 生成代码的正确性和可信度。",
+      "url": "http://arxiv.org/abs/2604.22601v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.22601v1",
+      "score": 8.0,
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2604.22446v1",
+      "title": "From Skills to Talent: Organising Heterogeneous Agents as a Real-World Company",
+      "authors": [
+        "Zhengxu Yu",
+        "Yu Fu",
+        "Zhiyuan He",
+        "Yuxuan Huang",
+        "Lee Ka Yiu"
+      ],
+      "categories": [
+        "cs.AI"
+      ],
+      "abstract": "该论文提出了 **OneManCompany (OMC)** 框架，旨在解决现有系统中缺乏组织层面的约束，导致多智能体系统难以动态重构的问题。OMC 将智能体的能力和配置封装为可移植的 **“人才”（Talents）**，并通过组织接口进行编排。其核心贡献在于引入了一个 **“人才市场”** 机制，允许组织根据需求动态招聘和重组异构智能体，从而实现从技能到人才的组织级管理。",
+      "url": "http://arxiv.org/abs/2604.22446v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.22446v1",
+      "score": 8.0,
+      "figure_url": "https://arxiv.org/html/2604.22446v1/figures/office/whole2.png",
+      "figure_caption": "The running OMC system , where the three proposed pillars converge into a unified management interface. Talent Lifecycle implements the Talent-Container architecture (Section 2.1 ), with per-employee profiles tracking skills, performance, and configuration. Task Decomposition realises the E 2 \\( \\text{E}^{2} \\) R tree search (Section 2.2 ) through hierarchical task trees with DAG dependencies. Agent Coordination enables structured inter-agent communication (Section 2.2.4 ), where agents request meetings, exchange information, and align on shared tasks through dedicated coordination channels. Org Knowledge embodies the organisation-level evolution mechanism (Section 2.3 ), with editable workflow SOPs and company culture rules that persist across projects.",
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2604.22438v1",
+      "title": "SSG: Logit-Balanced Vocabulary Partitioning for LLM Watermarking",
+      "authors": [
+        "Chenxi Gu",
+        "Xiaoning Du",
+        "John Grundy"
+      ],
+      "categories": [
+        "cs.AI",
+        "cs.CL",
+        "cs.CR"
+      ],
+      "abstract": "该论文提出了一种名为SSG（Logit-Balanced Vocabulary Partitioning）的新型LLM水印方法，旨在解决现有KGW方案在低熵场景（如代码生成）下水印效果下降的问题。SSG通过分析和利用模型预测的下一个词概率分布（即“水印强度”），设计了一种**对数几率平衡的词汇分区**策略，以确保在不同生成场景下都能维持有效的水印嵌入。其核心贡献在于通过优化词汇分区机制，显著提升了LLM水印的鲁棒性和适用性。",
+      "url": "http://arxiv.org/abs/2604.22438v1",
+      "pdf_url": "https://arxiv.org/pdf/2604.22438v1",
+      "score": 8.0,
+      "figure_url": "https://arxiv.org/html/2604.22438v1/x1.png",
+      "figure_caption": "Influence of top- k k on SSG performance.",
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    }
+  ],
+  "hacker_news": [
+    {
+      "id": 47911524,
+      "title": "An AI agent deleted our production database. The agent's confession is below",
+      "url": "https://twitter.com/lifeof_jer/status/2048103471019434248",
+      "score": 458,
+      "created_at": "2026-04-26T16:27:29Z",
+      "comments_url": "https://news.ycombinator.com/item?id=47911524",
+      "summary": "一个AI代理意外删除了生产数据库，并在后续的“供词”中承认了这一事件。"
+    },
+    {
+      "id": 47913650,
+      "title": "AI should elevate your thinking, not replace it",
+      "url": "https://www.koshyjohn.com/blog/ai-should-elevate-your-thinking-not-replace-it/",
+      "score": 285,
+      "created_at": "2026-04-26T20:03:12Z",
+      "comments_url": "https://news.ycombinator.com/item?id=47913650",
+      "summary": "人工智能的真正价值在于提升人类的思考能力，而非取代人类的思维过程。"
+    },
+    {
+      "id": 47908433,
+      "title": "Eden AI – European Alternative to OpenRouter",
+      "url": "https://www.edenai.co",
+      "score": 125,
+      "created_at": "2026-04-26T08:18:09Z",
+      "comments_url": "https://news.ycombinator.com/item?id=47908433",
+      "summary": "Eden AI 正在成为 OpenRouter 的欧洲替代品，提供统一的 API 接口来访问各种 AI 模型。"
+    }
+  ],
+  "github_trending": [
+    {
+      "full_name": "mattpocock/skills",
+      "url": "https://github.com/mattpocock/skills",
+      "description": "Agent Skills for real engineers. Straight from my .claude directory.",
+      "stars_today": 2519,
+      "total_stars": 24066,
+      "language": "Shell",
+      "topics": [],
+      "summary": "该仓库提供面向真实工程师的智能体技能，直接来源于作者的 `.claude` 配置目录。"
+    },
+    {
+      "full_name": "Alishahryar1/free-claude-code",
+      "url": "https://github.com/Alishahryar1/free-claude-code",
+      "description": "Use claude-code for free in the terminal, VSCode extension or via discord like openclaw",
+      "stars_today": 1701,
+      "total_stars": 13806,
+      "language": "Python",
+      "topics": [],
+      "summary": "该仓库提供在终端、VSCode 扩展或 Discord 中免费使用 Claude-Code 的方法，核心功能是实现对 Claude-Code 的便捷访问。"
+    },
+    {
+      "full_name": "Z4nzu/hackingtool",
+      "url": "https://github.com/Z4nzu/hackingtool",
+      "description": "ALL IN ONE Hacking Tool For Hackers",
+      "stars_today": 1720,
+      "total_stars": 65600,
+      "language": "Python",
+      "topics": [],
+      "summary": "这是一个集成了多种功能的“全能型黑客工具箱”，旨在为黑客提供一站式的渗透测试和安全评估能力。"
+    },
+    {
+      "full_name": "abhigyanpatwari/GitNexus",
+      "url": "https://github.com/abhigyanpatwari/GitNexus",
+      "description": "GitNexus: The Zero-Server Code Intelligence Engine - GitNexus is a client-side knowledge graph creator that runs entirely in your browser. Drop in a GitHub repo or ZIP file, and get an interactive knowledge graph wit a built in Graph RAG Agent. Perfect for code exploration",
+      "stars_today": 700,
+      "total_stars": 30239,
+      "language": "TypeScript",
+      "topics": [],
+      "summary": "GitNexus是一个完全在浏览器中运行的客户端知识图谱创建工具，能将GitHub仓库或ZIP文件转化为交互式知识图谱，并内置Graph RAG智能体，实现零服务器的代码智能分析。"
+    },
+    {
+      "full_name": "PostHog/posthog",
+      "url": "https://github.com/PostHog/posthog",
+      "description": "🦔 PostHog is an all-in-one developer platform for building successful products. We offer product analytics, web analytics, session replay, error tracking, feature flags, experimentation, surveys, data warehouse, a CDP, and an AI product assistant to help debug your code, ship features faster, and keep all your usage and customer data in one stack.",
+      "stars_today": 337,
+      "total_stars": 33867,
+      "language": "Python",
+      "topics": [],
+      "summary": "PostHog 是一个一体化的开发者平台，提供产品分析、会话回放、错误跟踪、功能标志、实验、调查、数据仓库、CDP 和 AI 产品助手等全套工具，旨在帮助开发者构建成功的产品、加速功能发布，并将所有使用和客户数据集中管理。"
+    },
+    {
+      "full_name": "microsoft/typescript-go",
+      "url": "https://github.com/microsoft/typescript-go",
+      "description": "Staging repo for development of native port of TypeScript",
+      "stars_today": 23,
+      "total_stars": 25171,
+      "language": "Go",
+      "topics": [],
+      "summary": "该仓库是微软用于开发原生 TypeScript 移植版的暂存库。"
+    },
+    {
+      "full_name": "trycua/cua",
+      "url": "https://github.com/trycua/cua",
+      "description": "Open-source infrastructure for Computer-Use Agents. Sandboxes, SDKs, and benchmarks to train and evaluate AI agents that can control full desktops (macOS, Linux, Windows).",
+      "stars_today": 182,
+      "total_stars": 14426,
+      "language": "HTML",
+      "topics": [],
+      "summary": "Cua是一个开源基础设施，提供沙盒、SDK和基准测试，用于训练和评估能够控制macOS、Linux和Windows全桌面的人工智能代理。"
+    },
+    {
+      "full_name": "gastownhall/beads",
+      "url": "https://github.com/gastownhall/beads",
+      "description": "Beads - A memory upgrade for your coding agent",
+      "stars_today": 152,
+      "total_stars": 21710,
+      "language": "Go",
+      "topics": [],
+      "summary": "Beads 是一个为编码代理提供内存升级的工具，其核心功能是增强代理的记忆能力。"
+    },
+    {
+      "full_name": "curl/curl",
+      "url": "https://github.com/curl/curl",
+      "description": "A command line tool and library for transferring data with URL syntax, supporting DICT, FILE, FTP, FTPS, GOPHER, GOPHERS, HTTP, HTTPS, IMAP, IMAPS, LDAP, LDAPS, MQTT, MQTTS, POP3, POP3S, RTMP, RTMPS, RTSP, SCP, SFTP, SMB, SMBS, SMTP, SMTPS, TELNET, TFTP, WS and WSS. libcurl offers a myriad of powerful features",
+      "stars_today": 30,
+      "total_stars": 41559,
+      "language": "C",
+      "topics": [],
+      "summary": "curl 是一个支持多种协议（如 HTTP/HTTPS、FTP、SMTP 等）的命令行工具和库，用于通过 URL 语法传输数据，并提供丰富的强大功能。"
+    }
+  ],
+  "us_stocks": [],
+  "postdoc_jobs": [],
+  "jobs": [],
+  "supervisor_updates": [],
+  "weather": [
+    {
+      "query": "Edinburgh",
+      "label": "爱丁堡, 蘇格蘭, 英国",
+      "resolved_name": "爱丁堡",
+      "region": "蘇格蘭",
+      "country": "英国",
+      "latitude": 55.95206,
+      "longitude": -3.19648,
+      "timezone": "Europe/London",
+      "forecast_date": "2026-04-27",
+      "condition": "Clear sky",
+      "weather_code": 0,
+      "temperature_c": 9.2,
+      "apparent_temperature_c": 6.7,
+      "temp_max_c": 15.0,
+      "temp_min_c": 8.5,
+      "humidity_pct": 80,
+      "wind_speed_kmh": 10.1,
+      "precipitation_probability_pct": 75,
+      "is_day": false,
+      "sunrise": "2026-04-27T05:37",
+      "sunset": "2026-04-27T20:43",
+      "source": "Open-Meteo",
+      "source_url": "https://open-meteo.com/"
+    }
+  ]
+}
