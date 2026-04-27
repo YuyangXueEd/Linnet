@@ -46,6 +46,9 @@ jobs:
         env:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
           API_NINJAS_KEY:     ${{ secrets.API_NINJAS_KEY }}
+          FINNHUB_API_KEY:     ${{ secrets.FINNHUB_API_KEY }}
+          SEC_USER_AGENT:      ${{ secrets.SEC_USER_AGENT }}
+          LINNET_SEC_USER_AGENT: ${{ secrets.LINNET_SEC_USER_AGENT }}
           PYTHONUNBUFFERED: "1"
           # ── Optional delivery sinks ──────────────────────────────────
           # Set these secrets in your repo to enable the corresponding sink.

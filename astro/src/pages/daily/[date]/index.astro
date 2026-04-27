@@ -45,11 +45,15 @@ const taglineAttr = quoteItem?.author || quoteItem?.source
   ? `— ${quoteItem.author || quoteItem.source}`
   : null;
 
-// Feed sections exclude header extensions AND weather (handled separately) AND empty sections
+function shouldRenderFeedSection(section: Section): boolean {
+  if (HEADER_KEYS.has(section.key) || section.key === 'weather') return false;
+  if (section.items && section.items.length > 0) return true;
+  return section.key === 'us_stocks' && Boolean(section.meta?.market_status);
+}
+
+// Feed sections exclude header extensions and weather; us_stocks may render a closed-market state.
 const sections = allSections.filter(s =>
-  !HEADER_KEYS.has(s.key) &&
-  s.key !== 'weather' &&
-  (s.items && s.items.length > 0)
+  shouldRenderFeedSection(s)
 );
 
 const totalItems = sections.reduce((n, s) => n + (s.items?.length ?? 0), 0);
@@ -80,7 +84,6 @@ const llmModel    = String(meta.llm_model ?? data.llm_model ?? '');
 
 const ROMAN = ['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII'];
 const navSections = sections
-  .filter(s => s.items?.length)
   .map((s, i) => ({
     ...s,
     roman: ROMAN[i] ?? String(i + 1),
