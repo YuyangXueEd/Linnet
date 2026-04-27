@@ -204,7 +204,7 @@ sinks:
 - [`.github/workflows/weekly.yml`](.github/workflows/weekly.yml)
 - [`.github/workflows/monthly.yml`](.github/workflows/monthly.yml)
 
-GitHub Actions cron uses UTC. Edit those cron lines directly in your repo if you want different times.
+GitHub Actions cron uses UTC. The default daily run is `09:30 UTC` on weekdays so the US stock signal board runs after New York has rolled into the trading day. Edit those cron lines directly in your repo if you want different times.
 
 ---
 

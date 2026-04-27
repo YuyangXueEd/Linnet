@@ -226,7 +226,7 @@ If you skip this step, nothing breaks — the website still updates as normal.
 
 | When | What happens |
 |---|---|
-| Every day at midnight UTC | Full digest — papers, HN, GitHub trending, weather, any extras you enabled |
+| Weekdays at 09:30 UTC | Full digest — papers, HN, GitHub trending, weather, US pre-market stocks, any extras you enabled |
 | Every Monday at 1 AM UTC | Weekly summary of the past week |
 | 1st of every month at 2 AM UTC | Monthly overview |
 

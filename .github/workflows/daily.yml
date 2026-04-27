@@ -2,7 +2,7 @@ name: Daily Digest
 
 on:
   schedule:
-    - cron: '0 0 * * *'   # UTC 00:00 = UK winter midnight
+    - cron: '30 9 * * 1-5'   # UTC 09:30 = US pre-market morning, after New York has rolled into the trading day
   workflow_dispatch:        # manual trigger for testing
 
 env:

@@ -207,7 +207,7 @@ sinks:
 - [`.github/workflows/weekly.yml`](.github/workflows/weekly.yml)
 - [`.github/workflows/monthly.yml`](.github/workflows/monthly.yml)
 
-GitHub Actions 的 cron 使用 UTC。如果你想改运行时间，直接在你自己的仓库里改这些 cron。
+GitHub Actions 的 cron 使用 UTC。默认日报会在工作日 `09:30 UTC` 运行，这样美股盘前信号会等纽约进入交易日后再生成。如果你想改运行时间，直接在你自己的仓库里改这些 cron。
 
 ---
 
