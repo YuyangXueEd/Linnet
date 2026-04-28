@@ -433,6 +433,45 @@ def test_score_stocks_allows_high_confidence_bearish_setups():
     assert items[0]["confidence"] == "high"
 
 
+def test_score_stocks_uses_chinese_invalidation_templates():
+    config = {**_small_config(), "language": "zh"}
+    raw_payload = {
+        "benchmarks": {
+            "SMH": parse_yahoo_chart(
+                "SMH",
+                _chart_payload(symbol="SMH", price=250.0, previous_close=245.0),
+            )
+        },
+        "stocks": [
+            {
+                "symbol": "NVDA",
+                "name": "Nvidia",
+                "sector": "Chips",
+                "sector_key": "chips",
+                "benchmark_etfs": ["SMH"],
+                "quote": parse_yahoo_chart(
+                    "NVDA",
+                    _chart_payload(price=121.0, previous_close=119.0, premarket=123.0),
+                ),
+                "news": [
+                    {
+                        "title": "Nvidia upgraded as AI demand grows",
+                        "url": "https://example.com",
+                    }
+                ],
+                "filings": [],
+            }
+        ],
+    }
+
+    items = score_stocks(raw_payload, config)
+
+    assert items[0]["signal"] == "bullish"
+    assert items[0]["invalidation"] == [
+        "如果价格跌回前收盘价下方，或板块基准转弱，这个偏多信号会减弱。"
+    ]
+
+
 def test_sector_overview_aggregates_ranked_signals():
     config = {**_small_config(), "signal_thresholds": {"bullish": 65, "bearish": 35}}
     raw_payload = {

@@ -290,7 +290,7 @@ def score_stock(
     }
     item["summary"] = _driver_for_signal(item)
     item["drivers"] = _build_drivers(item)
-    item["invalidation"] = _build_invalidation(item)
+    item["invalidation"] = _build_invalidation(item, config.get("language", "en"))
     return item
 
 
@@ -426,8 +426,19 @@ def _build_drivers(item: dict[str, Any]) -> list[str]:
     return drivers[:3] or ["No strong catalyst; surfaced by baseline ranking."]
 
 
-def _build_invalidation(item: dict[str, Any]) -> list[str]:
+def _is_chinese_language(language: Any) -> bool:
+    return str(language or "").lower().startswith("zh")
+
+
+def _build_invalidation(item: dict[str, Any], language: Any = "en") -> list[str]:
     signal = item.get("signal")
+    if _is_chinese_language(language):
+        if signal == "bullish":
+            return ["如果价格跌回前收盘价下方，或板块基准转弱，这个偏多信号会减弱。"]
+        if signal == "bearish":
+            return ["如果价格重新站上前收盘价，且负面消息没有被确认，这个偏空信号会缓和。"]
+        return ["需要新的价格或新闻确认，才适合作为可执行的交易观察。"]
+
     if signal == "bullish":
         return ["Weakens if price fades below previous close or sector benchmarks roll over."]
     if signal == "bearish":
