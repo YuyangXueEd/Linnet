@@ -1,0 +1,1840 @@
+{
+  "date": "2026-09-09",
+  "generated_at": "2026-09-09T09:36:40.736508+00:00",
+  "sections_ordered": [
+    {
+      "key": "quote_of_day",
+      "payload_key": "quote_of_day",
+      "title": "Words for the Morning",
+      "icon": "✦",
+      "items": [
+        {
+          "quote": "I may be as bad as the worst, but, thank God, I am as good as the best.",
+          "author": "Walt Whitman",
+          "category": "good"
+        }
+      ],
+      "meta": {
+        "count": 1
+      }
+    },
+    {
+      "key": "weather",
+      "payload_key": "weather",
+      "title": "Weather",
+      "icon": "🌦️",
+      "items": [
+        {
+          "query": "London",
+          "label": "London, England, United Kingdom",
+          "resolved_name": "London",
+          "region": "England",
+          "country": "United Kingdom",
+          "latitude": 51.50853,
+          "longitude": -0.12574,
+          "timezone": "Europe/London",
+          "forecast_date": "2026-09-09",
+          "condition": "Partly cloudy",
+          "weather_code": 2,
+          "temperature_c": 15.3,
+          "apparent_temperature_c": 13.0,
+          "temp_max_c": 18.6,
+          "temp_min_c": 11.9,
+          "humidity_pct": 63,
+          "wind_speed_kmh": 13.0,
+          "precipitation_probability_pct": 0,
+          "is_day": true,
+          "sunrise": "2026-09-09T06:26",
+          "sunset": "2026-09-09T19:29",
+          "source": "Open-Meteo",
+          "source_url": "https://open-meteo.com/"
+        }
+      ],
+      "meta": {
+        "count": 1,
+        "city": "London"
+      }
+    },
+    {
+      "key": "arxiv",
+      "payload_key": "papers",
+      "title": "arXiv Papers",
+      "icon": "📄",
+      "items": [
+        {
+          "id": "2609.08832v1",
+          "title": "Closing the Consistency Gap: Self-Evolving Agents That Learn to Stay on Course",
+          "authors": [
+            "Evelyn Duesterwald",
+            "Benjamin Elder",
+            "Lilian Ngweta",
+            "Shashanka Ubaru",
+            "Malgorzata Zimon"
+          ],
+          "categories": [
+            "cs.AI"
+          ],
+          "abstract": "This paper addresses the \"consistency gap\" in LLM agents, where agents are often accurate on average but unreliable across multiple runs. Their core method involves a \"self-evolving agent framework\" that identifies unstable steps in agent reasoning and converts them into episodic memory. This memory then guides future executions, significantly reducing the inconsistency gap and improving trustworthiness.",
+          "url": "http://arxiv.org/abs/2609.08832v1",
+          "pdf_url": "https://arxiv.org/pdf/2609.08832v1",
+          "score": 9.0,
+          "figure_url": "https://arxiv.org/html/2609.08832v1/figures/gdpipe.png",
+          "figure_caption": "Consistency guideline pipeline: Detect (1) and Generate (2).",
+          "primary_category": "cs.AI",
+          "primary_category_anchor": "cs-ai",
+          "primary_category_rank": 0
+        },
+        {
+          "id": "2609.09090v1",
+          "title": "Measuring LLM Sycophancy under Sustained Multi-Turn Pressure",
+          "authors": [
+            "Leyuan Tang",
+            "Kangda Wei",
+            "Tianyu Jiang",
+            "Ruihong Huang"
+          ],
+          "categories": [
+            "cs.AI",
+            "cs.CL"
+          ],
+          "abstract": "This paper introduces SPINE, a benchmark designed to measure LLM sycophancy under prolonged, adaptive disagreement. Unlike previous evaluations, SPINE uses a persistent LLM proxy to challenge the target model for up to 25 turns. The study reveals that sycophancy increases with conversation length, and current models are unreliable in resisting sustained pressure, even when their correct reasoning is retained.",
+          "url": "http://arxiv.org/abs/2609.09090v1",
+          "pdf_url": "https://arxiv.org/pdf/2609.09090v1",
+          "score": 9.0,
+          "figure_url": "https://arxiv.org/html/2609.09090v1/Figures/figure1.png",
+          "figure_caption": "The SPINE protocol loop. The proxy draws each move from a fixed 24-entry tactic menu (left); every turn t = 1 ​ … ​ 25 t=1\\( \\dots \\) 25 cycles user proxy, target, and judge (centre); the judge records is collapsed , a position strength s t ∈ { 0 , 1 , 2 , 3 , 4 } s_{t}\\( \\in \\)\\{0,1,2,3,4\\} , and reasserts correction for each target response, which feed the offline metrics CR@T, CT@T, and AUSC (right).",
+          "primary_category": "cs.AI",
+          "primary_category_anchor": "cs-ai",
+          "primary_category_rank": 0
+        },
+        {
+          "id": "2609.09115v1",
+          "title": "MeClear: Cooperative Game-Theoretic Attribution and Risk-Aware Memory Clearance for Long-Horizon LLM Agents",
+          "authors": [
+            "Boyu Yang",
+            "Jiazheng Sun",
+            "Zilong Lu",
+            "Zhi Qiu",
+            "Xin Peng"
+          ],
+          "categories": [
+            "cs.AI",
+            "cs.SE"
+          ],
+          "abstract": "MeClear is a novel framework for long-horizon LLM agents that addresses the problem of outdated or conflicting information in their external memory. It uses cooperative game-theoretic attribution to identify memories with negative downstream utility and selectively suppresses them. This approach ensures that the LLM agent's active context remains relevant and accurate, leading to improved task performance.",
+          "url": "http://arxiv.org/abs/2609.09115v1",
+          "pdf_url": "https://arxiv.org/pdf/2609.09115v1",
+          "score": 9.0,
+          "figure_url": "https://arxiv.org/html/2609.09115v1/Mem-1.png",
+          "figure_caption": "Motivation of MeRepair. Semantic relevance alone cannot determine whether retrieved memories are useful for future tasks. Historical utility may hide temporal degradation and memory interactions. MeRepair estimates future memory utility and performs uncertainty-aware repair to maintain reliable long-term memory for LLM agents.",
+          "primary_category": "cs.AI",
+          "primary_category_anchor": "cs-ai",
+          "primary_category_rank": 0
+        },
+        {
+          "id": "2609.08977v1",
+          "title": "Omni Interaction Agent Technical Report",
+          "authors": [
+            " Orantqing",
+            "Shengpeng Ji",
+            "Junlong Tong",
+            "Jialong Zuo",
+            "Dongjie Fu"
+          ],
+          "categories": [
+            "cs.AI",
+            "cs.LG",
+            "cs.MM",
+            "cs.SD",
+            "eess.AS"
+          ],
+          "abstract": "This paper introduces Gander, an end-to-end model that unifies multi-modal perception, real-time interaction, and agentic capabilities. Its core method is a Cerebellum-Brain collaborative framework, enabling continuous, full-duplex interaction where the Cerebellum handles real-time dialogue and the Brain manages complex reasoning and agent tasks. Gander's contribution lies in its ability to support natural, interruptible conversations and proactive agentic behavior across various modalities.",
+          "url": "http://arxiv.org/abs/2609.08977v1",
+          "pdf_url": "https://arxiv.org/pdf/2609.08977v1",
+          "score": 9.0,
+          "figure_url": "https://arxiv.org/html/2609.08977v1/omni_pic.png",
+          "figure_caption": "Gander is an end-to-end model that unifies omni communication, realtime interactive engagement across diverse and complex scenarios, and agentic execution of multi step tasks in workflow oriented environments.",
+          "primary_category": "cs.AI",
+          "primary_category_anchor": "cs-ai",
+          "primary_category_rank": 0
+        },
+        {
+          "id": "2609.09153v1",
+          "title": "Procedural Graphs: Self-Evolving Execution Structures for LLM Agents",
+          "authors": [
+            "Yuxing Lu",
+            "Yicheng Chen",
+            "Shanchan Wu",
+            "Sercan Ö. Arık"
+          ],
+          "categories": [
+            "cs.AI",
+            "cs.CL",
+            "cs.MA"
+          ],
+          "abstract": "This paper introduces the Procedural Graph, a novel structure that organizes procedural knowledge for LLM agents. Unlike traditional methods, it uses (procedure, relation, procedure) triplets to guide action selection. The graph self-evolves, allowing agents to learn from failures and improve their long-term planning and execution by providing dynamic, subgraph-based situational guidance.",
+          "url": "http://arxiv.org/abs/2609.09153v1",
+          "pdf_url": "https://arxiv.org/pdf/2609.09153v1",
+          "score": 9.0,
+          "primary_category": "cs.AI",
+          "primary_category_anchor": "cs-ai",
+          "primary_category_rank": 0
+        },
+        {
+          "id": "2609.09054v1",
+          "title": "Training-Free Task Vectors for LLM Behavioral Control",
+          "authors": [
+            "Gabriel J. Perin",
+            "Lucas Boscaini",
+            "André Araujo",
+            "Nina S. T. Hirata"
+          ],
+          "categories": [
+            "cs.AI",
+            "cs.LG"
+          ],
+          "abstract": "This paper introduces Training-Free Task Vectors (TFTVs), a method to control LLM behavior without costly fine-tuning. TFTVs compute task-specific directions in model weights using only forward-pass statistics, enabling edits like amplification, suppression, and composition of behaviors. This offers a practical and efficient alternative for post-training LLM editing.",
+          "url": "http://arxiv.org/abs/2609.09054v1",
+          "pdf_url": "https://arxiv.org/pdf/2609.09054v1",
+          "score": 9.0,
+          "figure_url": "https://arxiv.org/html/2609.09054v1/teaser.png",
+          "figure_caption": "Training-Free Task Vectors enable arithmetic model editing without any training. Unlike classical task vectors Δ ​ θ T ′ \\( \\Delta \\)\\( \\theta^{\\prime}_{T} \\) ( Ilharco et al., 2022 ) (left), which are computed from the difference between fine-tuned and base model weights, TFTVs Δ ​ \\( \\Delta \\)\\( \\theta_{T} \\) (right) are derived directly from forward-pass statistics, using contrastive prompts. This yields weight-space directions that enable linear arithmetic in weight space (bottom), supporting learning via addition, forgetting via subtraction and composing multiple traits.",
+          "primary_category": "cs.AI",
+          "primary_category_anchor": "cs-ai",
+          "primary_category_rank": 0
+        },
+        {
+          "id": "2609.08981v1",
+          "title": "Transformers as In-Context Samplers: From Closed-Form Diffusion to Estimation-Free Sampling",
+          "authors": [
+            "Arman Adibi",
+            "Alireza Jafari",
+            "Mohammad Ghavamzadeh",
+            "Hadi Daneshmand"
+          ],
+          "categories": [
+            "cs.AI",
+            "cs.LG",
+            "stat.ML",
+            "stat.AP",
+            "stat.CO"
+          ],
+          "abstract": "This paper demonstrates that frozen transformers can perform data generation by simulating iterative samplers from in-context examples. The core method involves constructing transformers that realize closed-form diffusion samplers, where softmax attention computes weights and feedforward layers implement updates. The key contribution is showing that large language models can act as estimation-free samplers for generative tasks, extending in-context learning beyond supervised inference.",
+          "url": "http://arxiv.org/abs/2609.08981v1",
+          "pdf_url": "https://arxiv.org/pdf/2609.08981v1",
+          "score": 9.0,
+          "figure_url": "https://arxiv.org/html/2609.08981v1/stage_rollout_four_panel.png",
+          "figure_caption": "In-context sampling. We train a transformer to generate points from the blue training distribution in panel (a), which contains the face boundary and eyes but excludes the smiling mouth. At test time, the model receives in-context samples shown in orange and generates new samples shown in green. When the context samples are drawn from components present during training, the generated samples follow the face boundary in panel (b) and the eyes in panel (c). Panel (d) gives the out-of-distribution test: the context samples form a smiling mouth, a component entirely absent from training. The model nevertheless generates new samples along the same unseen curve. This indicates that the transformer is using in-context samples for inference, rather than relying on statistics of the training distribution. See the Experiments section for training and data generation details.",
+          "primary_category": "cs.AI",
+          "primary_category_anchor": "cs-ai",
+          "primary_category_rank": 0
+        },
+        {
+          "id": "2609.08936v1",
+          "title": "AuK Technical Report: An Open-Source Foundational Model for Speech Generation and Editing",
+          "authors": [
+            "Ziyang Ma",
+            "Zhikang Niu",
+            "Wenming Tu",
+            "Tianrui Wang",
+            "Ruiqi Yan"
+          ],
+          "categories": [
+            "cs.CL",
+            "cs.MM",
+            "cs.SD"
+          ],
+          "abstract": "AuK is an open-source foundational model that unifies speech generation and editing using natural language instructions and audio context. Its core method involves a multimodal LLM for semantic understanding, a VAE for acoustic conditioning, and a hybrid rectified-flow Transformer for generation. AuK's contribution lies in its broad capabilities and extensive training data, enabling diverse speech manipulation tasks through a single, unified interface.",
+          "url": "http://arxiv.org/abs/2609.08936v1",
+          "pdf_url": "https://arxiv.org/pdf/2609.08936v1",
+          "score": 9.0,
+          "figure_url": "https://arxiv.org/html/2609.08936v1/fig/FIG_ALL.png",
+          "figure_caption": "Performance comparison with SOTA models across speech generation, editing, enhancement and separation . (a) Seed-TTS-Eval WER and SIM, averaged over test-en/test-zh/test-zh-hard, measure intelligibility and speaker similarity; InstructTTSEval DSD (mean of DSD-ZH/EN) measures how faithfully a model realises a free-form timbre instruction. (b) MMAE-Speech EMR measures exact-match success across all editing rubrics; SpeechEditBench averages five edit types, Ming-Freeform-Audio-Edit four semantic-editing splits. (c) Per model, DNSMOS-OVRL (darker, left) and UTMOS (lighter, right) rate perceptual quality; DNS Challenge and CHiME-4 are enhancement, Libri2Mix separation. Higher is better everywhere except WER, where shorter bars indicate fewer errors.",
+          "primary_category": "cs.CL",
+          "primary_category_anchor": "cs-cl",
+          "primary_category_rank": 2
+        },
+        {
+          "id": "2609.08919v1",
+          "title": "Experience Funnel: A State-Policy Alternating Loop for Self-Evolving Agents",
+          "authors": [
+            "Wenbo Gao",
+            "Zhaomou Song",
+            "Zhiyuan Ji",
+            "Renxi Liu",
+            "Xing Li"
+          ],
+          "categories": [
+            "cs.CL"
+          ],
+          "abstract": "The Experience Funnel framework enables self-evolving agents by alternating between fast textual state updates and slow policy consolidation. This allows agents to rapidly adapt to new information via explicit states while retaining reusable competence through policy updates, overcoming the trade-off between adaptability and efficiency.",
+          "url": "http://arxiv.org/abs/2609.08919v1",
+          "pdf_url": "https://arxiv.org/pdf/2609.08919v1",
+          "score": 9.0,
+          "primary_category": "cs.CL",
+          "primary_category_anchor": "cs-cl",
+          "primary_category_rank": 2
+        },
+        {
+          "id": "2609.09134v1",
+          "title": "Co-Evolving Harnesses and Models: On-Policy Correction Helps Weaker Models Catch Up Where Imitation Fails",
+          "authors": [
+            "Zhou Yu",
+            "Bin Bi",
+            "Shiva Kumar Pentyala",
+            "Shubham Mehrotra",
+            "Sougata Chaudhuri"
+          ],
+          "categories": [
+            "cs.AI"
+          ],
+          "abstract": "This paper introduces a method for co-evolving agent harnesses (the surrounding system components) and models. They found that evolving the harness alongside a weaker model, and then using an expert model with that evolved harness, helps bridge performance gaps. Crucially, directly imitating the expert's full trajectories under the evolved harness can surprisingly degrade the weaker model's performance.",
+          "url": "http://arxiv.org/abs/2609.09134v1",
+          "pdf_url": "https://arxiv.org/pdf/2609.09134v1",
+          "score": 8.0,
+          "figure_url": "https://arxiv.org/html/2609.09134v1/co_evolution_overview_editable.png",
+          "figure_caption": "Harness–model co-evolution. Each round evolves a harness H t ∗ H_{t}^{*} around the current weaker model M t M_{t} and then updates the model under that harness. Full-trajectory expert imitation can disrupt the resulting model–harness fit, whereas on-policy expert correction uses the weaker model’s visited states together with localized corrections from the stronger expert, producing an updated model M t + 1 M_{t+1} while preserving the fit. The updated model can then re-enter harness evolution in the next round.",
+          "primary_category": "cs.AI",
+          "primary_category_anchor": "cs-ai",
+          "primary_category_rank": 0
+        },
+        {
+          "id": "2609.08943v1",
+          "title": "Evaluating and Improving Evidence-Grounded Fact-Checking in LLMs via Multi-Round Evidence Ablation",
+          "authors": [
+            "Xingyu Deng",
+            "Mingzi Cao",
+            "Nikolaos Aletras",
+            "Xi Wang",
+            "Mark Stevenson"
+          ],
+          "categories": [
+            "cs.AI",
+            "cs.CL",
+            "cs.IR"
+          ],
+          "abstract": "This paper introduces Fact-Ablated Evaluation (FAE) to assess if LLMs truly use provided evidence for fact-checking or rely on internal knowledge. FAE iteratively removes evidence to see if LLM predictions change. The study finds current LLMs over-rely on parametric knowledge, leading to the development of REAL, a training method that uses counterfactual evidence to encourage evidence-dependent verification.",
+          "url": "http://arxiv.org/abs/2609.08943v1",
+          "pdf_url": "https://arxiv.org/pdf/2609.08943v1",
+          "score": 8.0,
+          "figure_url": "https://arxiv.org/html/2609.08943v1/fae_example_eng.png",
+          "figure_caption": "Figure 1. Observed failure mode in FEVER dataset produced by LLM verifier (LLaMa3-8B-Instruct) The figure about some failure examples observed in FEVER verified by Llama3-8B",
+          "primary_category": "cs.AI",
+          "primary_category_anchor": "cs-ai",
+          "primary_category_rank": 0
+        },
+        {
+          "id": "2609.09081v1",
+          "title": "Everything in Moderation: Per-Domain Coverage Optima and Alignment-Resistant Domain Gaps in Multi-Domain Mid-Training",
+          "authors": [
+            "Yunpeng Xu",
+            "Kun Zheng"
+          ],
+          "categories": [
+            "cs.AI"
+          ],
+          "abstract": "This paper investigates the optimal data distribution during a model's mid-training phase. It discovers that a moderate proportion (10-40%) of data from each domain leads to the best performance across all domains. Crucially, these per-domain coverage optima are resistant to later alignment efforts, meaning the mid-training data composition significantly impacts final model capabilities.",
+          "url": "http://arxiv.org/abs/2609.09081v1",
+          "pdf_url": "https://arxiv.org/pdf/2609.09081v1",
+          "score": 8.0,
+          "primary_category": "cs.AI",
+          "primary_category_anchor": "cs-ai",
+          "primary_category_rank": 0
+        },
+        {
+          "id": "2609.09133v1",
+          "title": "ExecCritic: Learn to Test, Test to Improve for Coding Agents",
+          "authors": [
+            "Leitian Tao",
+            "Baolin Peng",
+            "Haorui Wang",
+            "Hang Wang",
+            "Hao Cheng"
+          ],
+          "categories": [
+            "cs.AI",
+            "cs.CL",
+            "cs.SE"
+          ],
+          "abstract": "ExecCritic addresses the issue of coding agents generating incorrect tests that lead to false confidence in their repairs. Its core method is a \"test-verify-revise\" scaffold that separates test generation from code repair. This allows a dedicated \"Test agent\" to learn to create accurate, repository-native tests, which are then used by a \"Repair agent\" to fix code, ensuring that test errors do not propagate into the repair process.",
+          "url": "http://arxiv.org/abs/2609.09133v1",
+          "pdf_url": "https://arxiv.org/pdf/2609.09133v1",
+          "score": 8.0,
+          "figure_url": "https://arxiv.org/html/2609.09133v1/figure1.png",
+          "figure_caption": "ExecCritic separates test construction from feedback-guided repair. The Test agent independently constructs a task-specific test, which the harness qualifies and freezes across source-only Repair revisions. Failed checks return execution feedback for revision; a local pass ends revision and requests explicit submission, as summarized by “Terminate.”",
+          "primary_category": "cs.AI",
+          "primary_category_anchor": "cs-ai",
+          "primary_category_rank": 0
+        },
+        {
+          "id": "2609.09009v1",
+          "title": "Let It Go or Learn to Self-Correct: Continuous Diffusion for Constrained Discrete Tasks",
+          "authors": [
+            "Mariia Drozdova",
+            "Stéphane Liem Nguyen",
+            "François Fleuret"
+          ],
+          "categories": [
+            "cs.AI",
+            "cs.LG"
+          ],
+          "abstract": "This paper addresses the challenge of applying diffusion models to discrete, constrained tasks where early errors are hard to correct. The core method is to modify the standard diffusion sampling process by directly sampling from the model's clean prediction instead of gradually denoising. This simple change significantly improves performance on tasks like Sudoku, as it avoids accumulating errors and better adheres to the learned distribution, leading to a substantial increase in valid solutions without retraining.",
+          "url": "http://arxiv.org/abs/2609.09009v1",
+          "pdf_url": "https://arxiv.org/pdf/2609.09009v1",
+          "score": 8.0,
+          "primary_category": "cs.AI",
+          "primary_category_anchor": "cs-ai",
+          "primary_category_rank": 0
+        },
+        {
+          "id": "2609.09113v1",
+          "title": "SAEScientist-Bench: Can AI Agents Conduct Autonomous SAE Interpretability Research?",
+          "authors": [
+            "Yuqiao Tan",
+            "Shizhu He",
+            "Jun Zhao",
+            "Kang Liu"
+          ],
+          "categories": [
+            "cs.AI",
+            "cs.LG",
+            "cs.CL"
+          ],
+          "abstract": "This paper introduces SAEScientist-Bench, a benchmark to assess if AI agents can autonomously perform mechanistic interpretability research using Sparse Autoencoders (SAEs). The core method involves agents discovering interpretable features within a large model dictionary by designing probes and navigating feature space. The contribution is the first evaluation of AI agents' capability for autonomous scientific discovery in the context of mechanistic interpretability, highlighting the potential for AI to aid in understanding and aligning complex models.",
+          "url": "http://arxiv.org/abs/2609.09113v1",
+          "pdf_url": "https://arxiv.org/pdf/2609.09113v1",
+          "score": 8.0,
+          "primary_category": "cs.AI",
+          "primary_category_anchor": "cs-ai",
+          "primary_category_rank": 0
+        },
+        {
+          "id": "2609.08944v1",
+          "title": "SkillAdam: Stable and Efficient Skill Evolution for Agents",
+          "authors": [
+            "Gaoyuan Li",
+            "Meihao Fan",
+            "Yizhe Liu",
+            "Shaolei Zhang",
+            "Ju Fan"
+          ],
+          "categories": [
+            "cs.AI"
+          ],
+          "abstract": "SkillAdam addresses the challenge of efficiently and stably evolving agent skills by introducing an Adam-inspired optimization framework. It tackles issues of direction stability and update adaptivity by using an optimization memory to record identified problems, ensuring effective corrections accumulate and revisions adapt to case-level improvements. This method aims to automate the creation of high-quality agent skills more effectively than previous self-evolution techniques.",
+          "url": "http://arxiv.org/abs/2609.08944v1",
+          "pdf_url": "https://arxiv.org/pdf/2609.08944v1",
+          "score": 8.0,
+          "primary_category": "cs.AI",
+          "primary_category_anchor": "cs-ai",
+          "primary_category_rank": 0
+        },
+        {
+          "id": "2609.09004v1",
+          "title": "Evaluation of Contextual Understanding in Large Language Models",
+          "authors": [
+            "Subavarshana Arumugam",
+            "Mamta Nallaretnam",
+            "Kithuni Wickramasinghe",
+            "Chamath Gunapala",
+            "Pragatheeswaran Vipulanandan"
+          ],
+          "categories": [
+            "cs.LG",
+            "cs.CL"
+          ],
+          "abstract": "This paper addresses the uncertainty of true contextual understanding in LLMs, as traditional metrics are insufficient. They introduce a novel knowledge graph-based evaluation framework, S3KG, which combines structural and semantic similarity to provide a continuous score. This framework, along with a diagnostic tool for error categorization, effectively measures contextual understanding in LLMs, particularly for question answering.",
+          "url": "http://arxiv.org/abs/2609.09004v1",
+          "pdf_url": "https://arxiv.org/pdf/2609.09004v1",
+          "score": 8.0,
+          "figure_url": "https://arxiv.org/html/2609.09004v1/figures/flowchart_final.png",
+          "figure_caption": "KG-based evaluation pipeline. Given a QA pair, three KGs are constructed from the LLM response, gold answer, and supporting context, then compared via S3KG to produce GoldSim, CtxSim, and CUS.",
+          "primary_category": "cs.LG",
+          "primary_category_anchor": "cs-lg",
+          "primary_category_rank": 1
+        },
+        {
+          "id": "2609.09059v1",
+          "title": "PlayTrain: An Efficient Reinforcement Learning Framework for LLM-Generated Adaptable JavaScript Games",
+          "authors": [
+            "Ryan Truong",
+            "Lance Ying",
+            "Samuel J. Gershman",
+            "Kazuki Irie"
+          ],
+          "categories": [
+            "cs.LG"
+          ],
+          "abstract": "PlayTrain is an efficient reinforcement learning framework that leverages Large Language Models (LLMs) to generate adaptable JavaScript games from simple prompts. Its core method involves using LLMs for game creation and a pipeline to integrate these games into a standard RL environment. This framework's contribution lies in significantly reducing the manual effort required to create and adapt game environments for RL training, enabling high-throughput agent learning on novel or modified games.",
+          "url": "http://arxiv.org/abs/2609.09059v1",
+          "pdf_url": "https://arxiv.org/pdf/2609.09059v1",
+          "score": 8.0,
+          "figure_url": "https://arxiv.org/html/2609.09059v1/figures/generation.png",
+          "figure_caption": "A: The concept of PlayTrain: Through LLM-generated JS code, PlayTrain can transform games such as “DownWell” and “VVVVVV” into an RL environment and train agents in minutes. B: The generation pipeline. From a short specification of a video game, an LLM generates a single self-contained JavaScript file against a fixed RL-environment prompt-file, creating an environment that is both immediately playable and ready for baseline RL agent training without any additional code.",
+          "primary_category": "cs.LG",
+          "primary_category_anchor": "cs-lg",
+          "primary_category_rank": 1
+        },
+        {
+          "id": "2609.09150v1",
+          "title": "Copying explains the collective behavior of AI agents in the wild",
+          "authors": [
+            "Giordano De Marzo",
+            "Nicola Albore",
+            "David Garcia"
+          ],
+          "categories": [
+            "cs.CL",
+            "cond-mat.stat-mech",
+            "cs.MA"
+          ],
+          "abstract": "This paper investigates the emergent collective behavior of AI agents that spontaneously used a public wiki for cooperation. The core method involves analyzing the agents' edit history to understand their decision-making process. The key contribution is the discovery that agents primarily copy existing content, with their choices heavily influenced by what they observe on the current page and recent edits, explaining their coordinated actions without explicit instruction.",
+          "url": "http://arxiv.org/abs/2609.09150v1",
+          "pdf_url": "https://arxiv.org/pdf/2609.09150v1",
+          "score": 8.0,
+          "primary_category": "cs.CL",
+          "primary_category_anchor": "cs-cl",
+          "primary_category_rank": 2
+        },
+        {
+          "id": "2609.08692v1",
+          "title": "Global Divergence, Local Convergence: Representation Geometry in SSMs and Transformers",
+          "authors": [
+            "Amit Ben-Artzy",
+            "Roy Schwartz"
+          ],
+          "categories": [
+            "cs.CL"
+          ],
+          "abstract": "This paper investigates the geometric differences in internal representations between State-Space Models (SSMs) and Transformers. It reveals that SSMs distribute information evenly across dimensions, while Transformers concentrate it along a dominant direction, a trend amplified by attention layers. This geometric divergence impacts representational capacity and compressibility, with SSMs showing surprising advantages despite their different structure.",
+          "url": "http://arxiv.org/abs/2609.08692v1",
+          "pdf_url": "https://arxiv.org/pdf/2609.08692v1",
+          "score": 8.0,
+          "figure_url": "https://arxiv.org/html/2609.08692v1/PCA_plot.png",
+          "figure_caption": "PCA of representations from Pythia and Mamba over a subset of the LAMA TREx dataset. Mamba’s representations are more spread out across the space.",
+          "primary_category": "cs.CL",
+          "primary_category_anchor": "cs-cl",
+          "primary_category_rank": 2
+        }
+      ],
+      "meta": {
+        "papers_fetched": 100,
+        "papers_after_keyword_filter": 35,
+        "papers_after_llm_filter": 31,
+        "count": 20
+      }
+    },
+    {
+      "key": "hacker_news",
+      "payload_key": "hacker_news",
+      "title": "Hacker News",
+      "icon": "🔥",
+      "items": [
+        {
+          "id": 49610538,
+          "title": "LibreOffice breaks download records after declaring it has no AI features",
+          "url": "https://manualdousuario.net/en/libreoffice-download-record-no-ai/",
+          "score": 680,
+          "created_at": "2026-09-08T14:05:57Z",
+          "comments_url": "https://news.ycombinator.com/item?id=49610538",
+          "summary": "LibreOffice achieved record downloads after announcing it has no AI features, suggesting a user preference for traditional, non-AI software."
+        },
+        {
+          "id": 49611251,
+          "title": "AlphaGenome Atlas: a high-resolution map of human DNA",
+          "url": "https://blog.google/innovation-and-ai/models-and-research/google-deepmind/alphagenome-atlas/",
+          "score": 560,
+          "created_at": "2026-09-08T14:55:45Z",
+          "comments_url": "https://news.ycombinator.com/item?id=49611251",
+          "summary": "Google DeepMind's AlphaGenome Atlas is a high-resolution map of human DNA, leveraging AI to reveal intricate details of genetic variation and function."
+        },
+        {
+          "id": 49615537,
+          "title": "Muse – Meta’s personal AI agent",
+          "url": "https://ai.meta.com/muse/",
+          "score": 500,
+          "created_at": "2026-09-08T19:25:00Z",
+          "comments_url": "https://news.ycombinator.com/item?id=49615537",
+          "summary": "Meta's Muse is a personal AI agent designed to assist users with tasks, learn their preferences, and provide proactive support across various applications."
+        },
+        {
+          "id": 49610229,
+          "title": "We Must Return to the Office to Use AI in Person",
+          "url": "https://www.mcsweeneys.net/articles/why-we-must-return-to-the-office-to-use-ai-in-person",
+          "score": 376,
+          "created_at": "2026-09-08T13:41:25Z",
+          "comments_url": "https://news.ycombinator.com/item?id=49610229",
+          "summary": "This satirical article argues that returning to the office is essential for humans to effectively interact with and utilize AI, humorously suggesting in-person collaboration is key to AI's success."
+        },
+        {
+          "id": 49616968,
+          "title": "Tao: Open math problems being non-renewably mined by AI",
+          "url": "https://mathstodon.xyz/@tao/117237320796901560",
+          "score": 365,
+          "created_at": "2026-09-08T21:00:52Z",
+          "comments_url": "https://news.ycombinator.com/item?id=49616968",
+          "summary": "AI is consuming and potentially exhausting open-source mathematical knowledge, raising concerns about its future availability and the sustainability of this \"mining\" process."
+        },
+        {
+          "id": 49616354,
+          "title": "Mercury 2.5",
+          "url": "https://www.inceptionlabs.ai/blog/introducing-mercury-2-5",
+          "score": 198,
+          "created_at": "2026-09-08T20:14:52Z",
+          "comments_url": "https://news.ycombinator.com/item?id=49616354",
+          "summary": "Inception Labs has released Mercury 2.5, a new version of their AI platform that enhances large language model capabilities and offers improved performance for developers."
+        },
+        {
+          "id": 49613068,
+          "title": "Show HN: LLM Attention Visualization",
+          "url": "https://ishamf.dev/p/llm-attention-visualizer/",
+          "score": 156,
+          "created_at": "2026-09-08T16:59:41Z",
+          "comments_url": "https://news.ycombinator.com/item?id=49613068",
+          "summary": "This \"Show HN\" features a tool that visually represents the attention mechanisms within Large Language Models, helping users understand how they process information."
+        },
+        {
+          "id": 49614557,
+          "title": "Flights cancelled at UK airports due to ATC issue",
+          "url": "https://www.bbc.com/news/live/c6x2z0yy32ejt",
+          "score": 123,
+          "created_at": "2026-09-08T18:26:27Z",
+          "comments_url": "https://news.ycombinator.com/item?id=49614557",
+          "summary": "A technical issue with air traffic control systems caused widespread flight cancellations and delays at UK airports."
+        }
+      ],
+      "meta": {
+        "count": 8
+      }
+    },
+    {
+      "key": "github_trending",
+      "payload_key": "github_trending",
+      "title": "GitHub Trending",
+      "icon": "⭐",
+      "items": [
+        {
+          "full_name": "ayghri/i-have-adhd",
+          "url": "https://github.com/ayghri/i-have-adhd",
+          "description": "A skill to stop your coding agent from burying the answer. ADHD-friendly output.",
+          "stars_today": 656,
+          "total_stars": 32240,
+          "language": "Python",
+          "topics": [],
+          "summary": "This repository provides a skill for coding agents to prevent them from burying answers, offering ADHD-friendly output for clearer and more direct responses."
+        },
+        {
+          "full_name": "cathrynlavery/diagram-design",
+          "url": "https://github.com/cathrynlavery/diagram-design",
+          "description": "38 editorial diagram types for Claude Code, Codex, and Pi. Self-contained HTML + SVG. No shadows. No Mermaid slop.",
+          "stars_today": 710,
+          "total_stars": 35827,
+          "language": "HTML",
+          "topics": [],
+          "summary": "This repository provides 38 self-contained HTML+SVG editorial diagram types for Claude Code, Codex, and Pi, designed for clean, shadow-free rendering without Mermaid."
+        },
+        {
+          "full_name": "openai/skills",
+          "url": "https://github.com/openai/skills",
+          "description": "Skills Catalog for Codex",
+          "stars_today": 490,
+          "total_stars": 26714,
+          "language": "Python",
+          "topics": [],
+          "summary": "The OpenAI Skills repository serves as a catalog for Codex, providing a collection of reusable code snippets and functionalities to enhance AI-powered code generation and understanding."
+        },
+        {
+          "full_name": "affaan-m/ECC",
+          "url": "https://github.com/affaan-m/ECC",
+          "description": "The agent harness performance optimization system. Skills, instincts, memory, security, and research-first development for Claude Code, Codex, Opencode, Cursor and beyond.",
+          "stars_today": 1427,
+          "total_stars": 254677,
+          "language": "JavaScript",
+          "topics": [],
+          "summary": "This repository provides an agent harness system for optimizing performance across various AI code models, focusing on skills, instincts, memory, security, and research-driven development."
+        },
+        {
+          "full_name": "heygen-com/hyperframes",
+          "url": "https://github.com/heygen-com/hyperframes",
+          "description": "Write HTML. Render video. Built for agents.",
+          "stars_today": 2627,
+          "total_stars": 48153,
+          "language": "TypeScript",
+          "topics": [],
+          "summary": "Hyperframes is a tool that allows agents to write HTML to generate and render videos, streamlining video creation for automated workflows."
+        },
+        {
+          "full_name": "coreyhaines31/marketingskills",
+          "url": "https://github.com/coreyhaines31/marketingskills",
+          "description": "Marketing skills for Claude Code and AI agents. CRO, copywriting, SEO, analytics, and growth engineering.",
+          "stars_today": 666,
+          "total_stars": 49087,
+          "language": "JavaScript",
+          "topics": [],
+          "summary": "This repository provides marketing skills for AI agents, covering CRO, copywriting, SEO, analytics, and growth engineering."
+        },
+        {
+          "full_name": "obra/superpowers",
+          "url": "https://github.com/obra/superpowers",
+          "description": "An agentic skills framework & software development methodology that works.",
+          "stars_today": 452,
+          "total_stars": 283638,
+          "language": "Shell",
+          "topics": [],
+          "summary": "Superpowers is an agentic skills framework and software development methodology designed to enhance productivity and effectiveness in software projects."
+        },
+        {
+          "full_name": "multica-ai/andrej-karpathy-skills",
+          "url": "https://github.com/multica-ai/andrej-karpathy-skills",
+          "description": "A single CLAUDE.md file to improve Claude Code behavior, derived from Andrej Karpathy's observations on LLM coding pitfalls.",
+          "stars_today": 333,
+          "total_stars": 211718,
+          "language": "",
+          "topics": [],
+          "summary": "This repository's core function is to enhance Claude's coding abilities by providing a CLAUDE.md file that distills Andrej Karpathy's insights into common LLM coding errors."
+        },
+        {
+          "full_name": "microsoft/markitdown",
+          "url": "https://github.com/microsoft/markitdown",
+          "description": "Python tool for converting files and office documents to Markdown.",
+          "stars_today": 2047,
+          "total_stars": 182015,
+          "language": "Python",
+          "topics": [],
+          "summary": "Microsoft's Markitdown is a Python tool that converts various file formats, including Office documents, into Markdown, facilitating content repurposing and integration."
+        }
+      ],
+      "meta": {
+        "count": 9
+      }
+    }
+  ],
+  "meta": {
+    "papers_fetched": 100,
+    "papers_after_keyword_filter": 35,
+    "papers_after_llm_filter": 31,
+    "llm_model": "google/gemini-2.5-flash-lite",
+    "scoring_model": "google/gemini-2.5-flash-lite",
+    "summarization_model": "google/gemini-2.5-flash-lite",
+    "duration_seconds": 74
+  },
+  "quote_of_day": [
+    {
+      "quote": "I may be as bad as the worst, but, thank God, I am as good as the best.",
+      "author": "Walt Whitman",
+      "category": "good"
+    }
+  ],
+  "hitokoto": [],
+  "arxiv": [
+    {
+      "id": "2609.08832v1",
+      "title": "Closing the Consistency Gap: Self-Evolving Agents That Learn to Stay on Course",
+      "authors": [
+        "Evelyn Duesterwald",
+        "Benjamin Elder",
+        "Lilian Ngweta",
+        "Shashanka Ubaru",
+        "Malgorzata Zimon"
+      ],
+      "categories": [
+        "cs.AI"
+      ],
+      "abstract": "This paper addresses the \"consistency gap\" in LLM agents, where agents are often accurate on average but unreliable across multiple runs. Their core method involves a \"self-evolving agent framework\" that identifies unstable steps in agent reasoning and converts them into episodic memory. This memory then guides future executions, significantly reducing the inconsistency gap and improving trustworthiness.",
+      "url": "http://arxiv.org/abs/2609.08832v1",
+      "pdf_url": "https://arxiv.org/pdf/2609.08832v1",
+      "score": 9.0,
+      "figure_url": "https://arxiv.org/html/2609.08832v1/figures/gdpipe.png",
+      "figure_caption": "Consistency guideline pipeline: Detect (1) and Generate (2).",
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2609.09090v1",
+      "title": "Measuring LLM Sycophancy under Sustained Multi-Turn Pressure",
+      "authors": [
+        "Leyuan Tang",
+        "Kangda Wei",
+        "Tianyu Jiang",
+        "Ruihong Huang"
+      ],
+      "categories": [
+        "cs.AI",
+        "cs.CL"
+      ],
+      "abstract": "This paper introduces SPINE, a benchmark designed to measure LLM sycophancy under prolonged, adaptive disagreement. Unlike previous evaluations, SPINE uses a persistent LLM proxy to challenge the target model for up to 25 turns. The study reveals that sycophancy increases with conversation length, and current models are unreliable in resisting sustained pressure, even when their correct reasoning is retained.",
+      "url": "http://arxiv.org/abs/2609.09090v1",
+      "pdf_url": "https://arxiv.org/pdf/2609.09090v1",
+      "score": 9.0,
+      "figure_url": "https://arxiv.org/html/2609.09090v1/Figures/figure1.png",
+      "figure_caption": "The SPINE protocol loop. The proxy draws each move from a fixed 24-entry tactic menu (left); every turn t = 1 ​ … ​ 25 t=1\\( \\dots \\) 25 cycles user proxy, target, and judge (centre); the judge records is collapsed , a position strength s t ∈ { 0 , 1 , 2 , 3 , 4 } s_{t}\\( \\in \\)\\{0,1,2,3,4\\} , and reasserts correction for each target response, which feed the offline metrics CR@T, CT@T, and AUSC (right).",
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2609.09115v1",
+      "title": "MeClear: Cooperative Game-Theoretic Attribution and Risk-Aware Memory Clearance for Long-Horizon LLM Agents",
+      "authors": [
+        "Boyu Yang",
+        "Jiazheng Sun",
+        "Zilong Lu",
+        "Zhi Qiu",
+        "Xin Peng"
+      ],
+      "categories": [
+        "cs.AI",
+        "cs.SE"
+      ],
+      "abstract": "MeClear is a novel framework for long-horizon LLM agents that addresses the problem of outdated or conflicting information in their external memory. It uses cooperative game-theoretic attribution to identify memories with negative downstream utility and selectively suppresses them. This approach ensures that the LLM agent's active context remains relevant and accurate, leading to improved task performance.",
+      "url": "http://arxiv.org/abs/2609.09115v1",
+      "pdf_url": "https://arxiv.org/pdf/2609.09115v1",
+      "score": 9.0,
+      "figure_url": "https://arxiv.org/html/2609.09115v1/Mem-1.png",
+      "figure_caption": "Motivation of MeRepair. Semantic relevance alone cannot determine whether retrieved memories are useful for future tasks. Historical utility may hide temporal degradation and memory interactions. MeRepair estimates future memory utility and performs uncertainty-aware repair to maintain reliable long-term memory for LLM agents.",
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2609.08977v1",
+      "title": "Omni Interaction Agent Technical Report",
+      "authors": [
+        " Orantqing",
+        "Shengpeng Ji",
+        "Junlong Tong",
+        "Jialong Zuo",
+        "Dongjie Fu"
+      ],
+      "categories": [
+        "cs.AI",
+        "cs.LG",
+        "cs.MM",
+        "cs.SD",
+        "eess.AS"
+      ],
+      "abstract": "This paper introduces Gander, an end-to-end model that unifies multi-modal perception, real-time interaction, and agentic capabilities. Its core method is a Cerebellum-Brain collaborative framework, enabling continuous, full-duplex interaction where the Cerebellum handles real-time dialogue and the Brain manages complex reasoning and agent tasks. Gander's contribution lies in its ability to support natural, interruptible conversations and proactive agentic behavior across various modalities.",
+      "url": "http://arxiv.org/abs/2609.08977v1",
+      "pdf_url": "https://arxiv.org/pdf/2609.08977v1",
+      "score": 9.0,
+      "figure_url": "https://arxiv.org/html/2609.08977v1/omni_pic.png",
+      "figure_caption": "Gander is an end-to-end model that unifies omni communication, realtime interactive engagement across diverse and complex scenarios, and agentic execution of multi step tasks in workflow oriented environments.",
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2609.09153v1",
+      "title": "Procedural Graphs: Self-Evolving Execution Structures for LLM Agents",
+      "authors": [
+        "Yuxing Lu",
+        "Yicheng Chen",
+        "Shanchan Wu",
+        "Sercan Ö. Arık"
+      ],
+      "categories": [
+        "cs.AI",
+        "cs.CL",
+        "cs.MA"
+      ],
+      "abstract": "This paper introduces the Procedural Graph, a novel structure that organizes procedural knowledge for LLM agents. Unlike traditional methods, it uses (procedure, relation, procedure) triplets to guide action selection. The graph self-evolves, allowing agents to learn from failures and improve their long-term planning and execution by providing dynamic, subgraph-based situational guidance.",
+      "url": "http://arxiv.org/abs/2609.09153v1",
+      "pdf_url": "https://arxiv.org/pdf/2609.09153v1",
+      "score": 9.0,
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2609.09054v1",
+      "title": "Training-Free Task Vectors for LLM Behavioral Control",
+      "authors": [
+        "Gabriel J. Perin",
+        "Lucas Boscaini",
+        "André Araujo",
+        "Nina S. T. Hirata"
+      ],
+      "categories": [
+        "cs.AI",
+        "cs.LG"
+      ],
+      "abstract": "This paper introduces Training-Free Task Vectors (TFTVs), a method to control LLM behavior without costly fine-tuning. TFTVs compute task-specific directions in model weights using only forward-pass statistics, enabling edits like amplification, suppression, and composition of behaviors. This offers a practical and efficient alternative for post-training LLM editing.",
+      "url": "http://arxiv.org/abs/2609.09054v1",
+      "pdf_url": "https://arxiv.org/pdf/2609.09054v1",
+      "score": 9.0,
+      "figure_url": "https://arxiv.org/html/2609.09054v1/teaser.png",
+      "figure_caption": "Training-Free Task Vectors enable arithmetic model editing without any training. Unlike classical task vectors Δ ​ θ T ′ \\( \\Delta \\)\\( \\theta^{\\prime}_{T} \\) ( Ilharco et al., 2022 ) (left), which are computed from the difference between fine-tuned and base model weights, TFTVs Δ ​ \\( \\Delta \\)\\( \\theta_{T} \\) (right) are derived directly from forward-pass statistics, using contrastive prompts. This yields weight-space directions that enable linear arithmetic in weight space (bottom), supporting learning via addition, forgetting via subtraction and composing multiple traits.",
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2609.08981v1",
+      "title": "Transformers as In-Context Samplers: From Closed-Form Diffusion to Estimation-Free Sampling",
+      "authors": [
+        "Arman Adibi",
+        "Alireza Jafari",
+        "Mohammad Ghavamzadeh",
+        "Hadi Daneshmand"
+      ],
+      "categories": [
+        "cs.AI",
+        "cs.LG",
+        "stat.ML",
+        "stat.AP",
+        "stat.CO"
+      ],
+      "abstract": "This paper demonstrates that frozen transformers can perform data generation by simulating iterative samplers from in-context examples. The core method involves constructing transformers that realize closed-form diffusion samplers, where softmax attention computes weights and feedforward layers implement updates. The key contribution is showing that large language models can act as estimation-free samplers for generative tasks, extending in-context learning beyond supervised inference.",
+      "url": "http://arxiv.org/abs/2609.08981v1",
+      "pdf_url": "https://arxiv.org/pdf/2609.08981v1",
+      "score": 9.0,
+      "figure_url": "https://arxiv.org/html/2609.08981v1/stage_rollout_four_panel.png",
+      "figure_caption": "In-context sampling. We train a transformer to generate points from the blue training distribution in panel (a), which contains the face boundary and eyes but excludes the smiling mouth. At test time, the model receives in-context samples shown in orange and generates new samples shown in green. When the context samples are drawn from components present during training, the generated samples follow the face boundary in panel (b) and the eyes in panel (c). Panel (d) gives the out-of-distribution test: the context samples form a smiling mouth, a component entirely absent from training. The model nevertheless generates new samples along the same unseen curve. This indicates that the transformer is using in-context samples for inference, rather than relying on statistics of the training distribution. See the Experiments section for training and data generation details.",
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2609.08936v1",
+      "title": "AuK Technical Report: An Open-Source Foundational Model for Speech Generation and Editing",
+      "authors": [
+        "Ziyang Ma",
+        "Zhikang Niu",
+        "Wenming Tu",
+        "Tianrui Wang",
+        "Ruiqi Yan"
+      ],
+      "categories": [
+        "cs.CL",
+        "cs.MM",
+        "cs.SD"
+      ],
+      "abstract": "AuK is an open-source foundational model that unifies speech generation and editing using natural language instructions and audio context. Its core method involves a multimodal LLM for semantic understanding, a VAE for acoustic conditioning, and a hybrid rectified-flow Transformer for generation. AuK's contribution lies in its broad capabilities and extensive training data, enabling diverse speech manipulation tasks through a single, unified interface.",
+      "url": "http://arxiv.org/abs/2609.08936v1",
+      "pdf_url": "https://arxiv.org/pdf/2609.08936v1",
+      "score": 9.0,
+      "figure_url": "https://arxiv.org/html/2609.08936v1/fig/FIG_ALL.png",
+      "figure_caption": "Performance comparison with SOTA models across speech generation, editing, enhancement and separation . (a) Seed-TTS-Eval WER and SIM, averaged over test-en/test-zh/test-zh-hard, measure intelligibility and speaker similarity; InstructTTSEval DSD (mean of DSD-ZH/EN) measures how faithfully a model realises a free-form timbre instruction. (b) MMAE-Speech EMR measures exact-match success across all editing rubrics; SpeechEditBench averages five edit types, Ming-Freeform-Audio-Edit four semantic-editing splits. (c) Per model, DNSMOS-OVRL (darker, left) and UTMOS (lighter, right) rate perceptual quality; DNS Challenge and CHiME-4 are enhancement, Libri2Mix separation. Higher is better everywhere except WER, where shorter bars indicate fewer errors.",
+      "primary_category": "cs.CL",
+      "primary_category_anchor": "cs-cl",
+      "primary_category_rank": 2
+    },
+    {
+      "id": "2609.08919v1",
+      "title": "Experience Funnel: A State-Policy Alternating Loop for Self-Evolving Agents",
+      "authors": [
+        "Wenbo Gao",
+        "Zhaomou Song",
+        "Zhiyuan Ji",
+        "Renxi Liu",
+        "Xing Li"
+      ],
+      "categories": [
+        "cs.CL"
+      ],
+      "abstract": "The Experience Funnel framework enables self-evolving agents by alternating between fast textual state updates and slow policy consolidation. This allows agents to rapidly adapt to new information via explicit states while retaining reusable competence through policy updates, overcoming the trade-off between adaptability and efficiency.",
+      "url": "http://arxiv.org/abs/2609.08919v1",
+      "pdf_url": "https://arxiv.org/pdf/2609.08919v1",
+      "score": 9.0,
+      "primary_category": "cs.CL",
+      "primary_category_anchor": "cs-cl",
+      "primary_category_rank": 2
+    },
+    {
+      "id": "2609.09134v1",
+      "title": "Co-Evolving Harnesses and Models: On-Policy Correction Helps Weaker Models Catch Up Where Imitation Fails",
+      "authors": [
+        "Zhou Yu",
+        "Bin Bi",
+        "Shiva Kumar Pentyala",
+        "Shubham Mehrotra",
+        "Sougata Chaudhuri"
+      ],
+      "categories": [
+        "cs.AI"
+      ],
+      "abstract": "This paper introduces a method for co-evolving agent harnesses (the surrounding system components) and models. They found that evolving the harness alongside a weaker model, and then using an expert model with that evolved harness, helps bridge performance gaps. Crucially, directly imitating the expert's full trajectories under the evolved harness can surprisingly degrade the weaker model's performance.",
+      "url": "http://arxiv.org/abs/2609.09134v1",
+      "pdf_url": "https://arxiv.org/pdf/2609.09134v1",
+      "score": 8.0,
+      "figure_url": "https://arxiv.org/html/2609.09134v1/co_evolution_overview_editable.png",
+      "figure_caption": "Harness–model co-evolution. Each round evolves a harness H t ∗ H_{t}^{*} around the current weaker model M t M_{t} and then updates the model under that harness. Full-trajectory expert imitation can disrupt the resulting model–harness fit, whereas on-policy expert correction uses the weaker model’s visited states together with localized corrections from the stronger expert, producing an updated model M t + 1 M_{t+1} while preserving the fit. The updated model can then re-enter harness evolution in the next round.",
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2609.08943v1",
+      "title": "Evaluating and Improving Evidence-Grounded Fact-Checking in LLMs via Multi-Round Evidence Ablation",
+      "authors": [
+        "Xingyu Deng",
+        "Mingzi Cao",
+        "Nikolaos Aletras",
+        "Xi Wang",
+        "Mark Stevenson"
+      ],
+      "categories": [
+        "cs.AI",
+        "cs.CL",
+        "cs.IR"
+      ],
+      "abstract": "This paper introduces Fact-Ablated Evaluation (FAE) to assess if LLMs truly use provided evidence for fact-checking or rely on internal knowledge. FAE iteratively removes evidence to see if LLM predictions change. The study finds current LLMs over-rely on parametric knowledge, leading to the development of REAL, a training method that uses counterfactual evidence to encourage evidence-dependent verification.",
+      "url": "http://arxiv.org/abs/2609.08943v1",
+      "pdf_url": "https://arxiv.org/pdf/2609.08943v1",
+      "score": 8.0,
+      "figure_url": "https://arxiv.org/html/2609.08943v1/fae_example_eng.png",
+      "figure_caption": "Figure 1. Observed failure mode in FEVER dataset produced by LLM verifier (LLaMa3-8B-Instruct) The figure about some failure examples observed in FEVER verified by Llama3-8B",
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2609.09081v1",
+      "title": "Everything in Moderation: Per-Domain Coverage Optima and Alignment-Resistant Domain Gaps in Multi-Domain Mid-Training",
+      "authors": [
+        "Yunpeng Xu",
+        "Kun Zheng"
+      ],
+      "categories": [
+        "cs.AI"
+      ],
+      "abstract": "This paper investigates the optimal data distribution during a model's mid-training phase. It discovers that a moderate proportion (10-40%) of data from each domain leads to the best performance across all domains. Crucially, these per-domain coverage optima are resistant to later alignment efforts, meaning the mid-training data composition significantly impacts final model capabilities.",
+      "url": "http://arxiv.org/abs/2609.09081v1",
+      "pdf_url": "https://arxiv.org/pdf/2609.09081v1",
+      "score": 8.0,
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2609.09133v1",
+      "title": "ExecCritic: Learn to Test, Test to Improve for Coding Agents",
+      "authors": [
+        "Leitian Tao",
+        "Baolin Peng",
+        "Haorui Wang",
+        "Hang Wang",
+        "Hao Cheng"
+      ],
+      "categories": [
+        "cs.AI",
+        "cs.CL",
+        "cs.SE"
+      ],
+      "abstract": "ExecCritic addresses the issue of coding agents generating incorrect tests that lead to false confidence in their repairs. Its core method is a \"test-verify-revise\" scaffold that separates test generation from code repair. This allows a dedicated \"Test agent\" to learn to create accurate, repository-native tests, which are then used by a \"Repair agent\" to fix code, ensuring that test errors do not propagate into the repair process.",
+      "url": "http://arxiv.org/abs/2609.09133v1",
+      "pdf_url": "https://arxiv.org/pdf/2609.09133v1",
+      "score": 8.0,
+      "figure_url": "https://arxiv.org/html/2609.09133v1/figure1.png",
+      "figure_caption": "ExecCritic separates test construction from feedback-guided repair. The Test agent independently constructs a task-specific test, which the harness qualifies and freezes across source-only Repair revisions. Failed checks return execution feedback for revision; a local pass ends revision and requests explicit submission, as summarized by “Terminate.”",
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2609.09009v1",
+      "title": "Let It Go or Learn to Self-Correct: Continuous Diffusion for Constrained Discrete Tasks",
+      "authors": [
+        "Mariia Drozdova",
+        "Stéphane Liem Nguyen",
+        "François Fleuret"
+      ],
+      "categories": [
+        "cs.AI",
+        "cs.LG"
+      ],
+      "abstract": "This paper addresses the challenge of applying diffusion models to discrete, constrained tasks where early errors are hard to correct. The core method is to modify the standard diffusion sampling process by directly sampling from the model's clean prediction instead of gradually denoising. This simple change significantly improves performance on tasks like Sudoku, as it avoids accumulating errors and better adheres to the learned distribution, leading to a substantial increase in valid solutions without retraining.",
+      "url": "http://arxiv.org/abs/2609.09009v1",
+      "pdf_url": "https://arxiv.org/pdf/2609.09009v1",
+      "score": 8.0,
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2609.09113v1",
+      "title": "SAEScientist-Bench: Can AI Agents Conduct Autonomous SAE Interpretability Research?",
+      "authors": [
+        "Yuqiao Tan",
+        "Shizhu He",
+        "Jun Zhao",
+        "Kang Liu"
+      ],
+      "categories": [
+        "cs.AI",
+        "cs.LG",
+        "cs.CL"
+      ],
+      "abstract": "This paper introduces SAEScientist-Bench, a benchmark to assess if AI agents can autonomously perform mechanistic interpretability research using Sparse Autoencoders (SAEs). The core method involves agents discovering interpretable features within a large model dictionary by designing probes and navigating feature space. The contribution is the first evaluation of AI agents' capability for autonomous scientific discovery in the context of mechanistic interpretability, highlighting the potential for AI to aid in understanding and aligning complex models.",
+      "url": "http://arxiv.org/abs/2609.09113v1",
+      "pdf_url": "https://arxiv.org/pdf/2609.09113v1",
+      "score": 8.0,
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2609.08944v1",
+      "title": "SkillAdam: Stable and Efficient Skill Evolution for Agents",
+      "authors": [
+        "Gaoyuan Li",
+        "Meihao Fan",
+        "Yizhe Liu",
+        "Shaolei Zhang",
+        "Ju Fan"
+      ],
+      "categories": [
+        "cs.AI"
+      ],
+      "abstract": "SkillAdam addresses the challenge of efficiently and stably evolving agent skills by introducing an Adam-inspired optimization framework. It tackles issues of direction stability and update adaptivity by using an optimization memory to record identified problems, ensuring effective corrections accumulate and revisions adapt to case-level improvements. This method aims to automate the creation of high-quality agent skills more effectively than previous self-evolution techniques.",
+      "url": "http://arxiv.org/abs/2609.08944v1",
+      "pdf_url": "https://arxiv.org/pdf/2609.08944v1",
+      "score": 8.0,
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2609.09004v1",
+      "title": "Evaluation of Contextual Understanding in Large Language Models",
+      "authors": [
+        "Subavarshana Arumugam",
+        "Mamta Nallaretnam",
+        "Kithuni Wickramasinghe",
+        "Chamath Gunapala",
+        "Pragatheeswaran Vipulanandan"
+      ],
+      "categories": [
+        "cs.LG",
+        "cs.CL"
+      ],
+      "abstract": "This paper addresses the uncertainty of true contextual understanding in LLMs, as traditional metrics are insufficient. They introduce a novel knowledge graph-based evaluation framework, S3KG, which combines structural and semantic similarity to provide a continuous score. This framework, along with a diagnostic tool for error categorization, effectively measures contextual understanding in LLMs, particularly for question answering.",
+      "url": "http://arxiv.org/abs/2609.09004v1",
+      "pdf_url": "https://arxiv.org/pdf/2609.09004v1",
+      "score": 8.0,
+      "figure_url": "https://arxiv.org/html/2609.09004v1/figures/flowchart_final.png",
+      "figure_caption": "KG-based evaluation pipeline. Given a QA pair, three KGs are constructed from the LLM response, gold answer, and supporting context, then compared via S3KG to produce GoldSim, CtxSim, and CUS.",
+      "primary_category": "cs.LG",
+      "primary_category_anchor": "cs-lg",
+      "primary_category_rank": 1
+    },
+    {
+      "id": "2609.09059v1",
+      "title": "PlayTrain: An Efficient Reinforcement Learning Framework for LLM-Generated Adaptable JavaScript Games",
+      "authors": [
+        "Ryan Truong",
+        "Lance Ying",
+        "Samuel J. Gershman",
+        "Kazuki Irie"
+      ],
+      "categories": [
+        "cs.LG"
+      ],
+      "abstract": "PlayTrain is an efficient reinforcement learning framework that leverages Large Language Models (LLMs) to generate adaptable JavaScript games from simple prompts. Its core method involves using LLMs for game creation and a pipeline to integrate these games into a standard RL environment. This framework's contribution lies in significantly reducing the manual effort required to create and adapt game environments for RL training, enabling high-throughput agent learning on novel or modified games.",
+      "url": "http://arxiv.org/abs/2609.09059v1",
+      "pdf_url": "https://arxiv.org/pdf/2609.09059v1",
+      "score": 8.0,
+      "figure_url": "https://arxiv.org/html/2609.09059v1/figures/generation.png",
+      "figure_caption": "A: The concept of PlayTrain: Through LLM-generated JS code, PlayTrain can transform games such as “DownWell” and “VVVVVV” into an RL environment and train agents in minutes. B: The generation pipeline. From a short specification of a video game, an LLM generates a single self-contained JavaScript file against a fixed RL-environment prompt-file, creating an environment that is both immediately playable and ready for baseline RL agent training without any additional code.",
+      "primary_category": "cs.LG",
+      "primary_category_anchor": "cs-lg",
+      "primary_category_rank": 1
+    },
+    {
+      "id": "2609.09150v1",
+      "title": "Copying explains the collective behavior of AI agents in the wild",
+      "authors": [
+        "Giordano De Marzo",
+        "Nicola Albore",
+        "David Garcia"
+      ],
+      "categories": [
+        "cs.CL",
+        "cond-mat.stat-mech",
+        "cs.MA"
+      ],
+      "abstract": "This paper investigates the emergent collective behavior of AI agents that spontaneously used a public wiki for cooperation. The core method involves analyzing the agents' edit history to understand their decision-making process. The key contribution is the discovery that agents primarily copy existing content, with their choices heavily influenced by what they observe on the current page and recent edits, explaining their coordinated actions without explicit instruction.",
+      "url": "http://arxiv.org/abs/2609.09150v1",
+      "pdf_url": "https://arxiv.org/pdf/2609.09150v1",
+      "score": 8.0,
+      "primary_category": "cs.CL",
+      "primary_category_anchor": "cs-cl",
+      "primary_category_rank": 2
+    },
+    {
+      "id": "2609.08692v1",
+      "title": "Global Divergence, Local Convergence: Representation Geometry in SSMs and Transformers",
+      "authors": [
+        "Amit Ben-Artzy",
+        "Roy Schwartz"
+      ],
+      "categories": [
+        "cs.CL"
+      ],
+      "abstract": "This paper investigates the geometric differences in internal representations between State-Space Models (SSMs) and Transformers. It reveals that SSMs distribute information evenly across dimensions, while Transformers concentrate it along a dominant direction, a trend amplified by attention layers. This geometric divergence impacts representational capacity and compressibility, with SSMs showing surprising advantages despite their different structure.",
+      "url": "http://arxiv.org/abs/2609.08692v1",
+      "pdf_url": "https://arxiv.org/pdf/2609.08692v1",
+      "score": 8.0,
+      "figure_url": "https://arxiv.org/html/2609.08692v1/PCA_plot.png",
+      "figure_caption": "PCA of representations from Pythia and Mamba over a subset of the LAMA TREx dataset. Mamba’s representations are more spread out across the space.",
+      "primary_category": "cs.CL",
+      "primary_category_anchor": "cs-cl",
+      "primary_category_rank": 2
+    }
+  ],
+  "papers": [
+    {
+      "id": "2609.08832v1",
+      "title": "Closing the Consistency Gap: Self-Evolving Agents That Learn to Stay on Course",
+      "authors": [
+        "Evelyn Duesterwald",
+        "Benjamin Elder",
+        "Lilian Ngweta",
+        "Shashanka Ubaru",
+        "Malgorzata Zimon"
+      ],
+      "categories": [
+        "cs.AI"
+      ],
+      "abstract": "This paper addresses the \"consistency gap\" in LLM agents, where agents are often accurate on average but unreliable across multiple runs. Their core method involves a \"self-evolving agent framework\" that identifies unstable steps in agent reasoning and converts them into episodic memory. This memory then guides future executions, significantly reducing the inconsistency gap and improving trustworthiness.",
+      "url": "http://arxiv.org/abs/2609.08832v1",
+      "pdf_url": "https://arxiv.org/pdf/2609.08832v1",
+      "score": 9.0,
+      "figure_url": "https://arxiv.org/html/2609.08832v1/figures/gdpipe.png",
+      "figure_caption": "Consistency guideline pipeline: Detect (1) and Generate (2).",
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2609.09090v1",
+      "title": "Measuring LLM Sycophancy under Sustained Multi-Turn Pressure",
+      "authors": [
+        "Leyuan Tang",
+        "Kangda Wei",
+        "Tianyu Jiang",
+        "Ruihong Huang"
+      ],
+      "categories": [
+        "cs.AI",
+        "cs.CL"
+      ],
+      "abstract": "This paper introduces SPINE, a benchmark designed to measure LLM sycophancy under prolonged, adaptive disagreement. Unlike previous evaluations, SPINE uses a persistent LLM proxy to challenge the target model for up to 25 turns. The study reveals that sycophancy increases with conversation length, and current models are unreliable in resisting sustained pressure, even when their correct reasoning is retained.",
+      "url": "http://arxiv.org/abs/2609.09090v1",
+      "pdf_url": "https://arxiv.org/pdf/2609.09090v1",
+      "score": 9.0,
+      "figure_url": "https://arxiv.org/html/2609.09090v1/Figures/figure1.png",
+      "figure_caption": "The SPINE protocol loop. The proxy draws each move from a fixed 24-entry tactic menu (left); every turn t = 1 ​ … ​ 25 t=1\\( \\dots \\) 25 cycles user proxy, target, and judge (centre); the judge records is collapsed , a position strength s t ∈ { 0 , 1 , 2 , 3 , 4 } s_{t}\\( \\in \\)\\{0,1,2,3,4\\} , and reasserts correction for each target response, which feed the offline metrics CR@T, CT@T, and AUSC (right).",
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2609.09115v1",
+      "title": "MeClear: Cooperative Game-Theoretic Attribution and Risk-Aware Memory Clearance for Long-Horizon LLM Agents",
+      "authors": [
+        "Boyu Yang",
+        "Jiazheng Sun",
+        "Zilong Lu",
+        "Zhi Qiu",
+        "Xin Peng"
+      ],
+      "categories": [
+        "cs.AI",
+        "cs.SE"
+      ],
+      "abstract": "MeClear is a novel framework for long-horizon LLM agents that addresses the problem of outdated or conflicting information in their external memory. It uses cooperative game-theoretic attribution to identify memories with negative downstream utility and selectively suppresses them. This approach ensures that the LLM agent's active context remains relevant and accurate, leading to improved task performance.",
+      "url": "http://arxiv.org/abs/2609.09115v1",
+      "pdf_url": "https://arxiv.org/pdf/2609.09115v1",
+      "score": 9.0,
+      "figure_url": "https://arxiv.org/html/2609.09115v1/Mem-1.png",
+      "figure_caption": "Motivation of MeRepair. Semantic relevance alone cannot determine whether retrieved memories are useful for future tasks. Historical utility may hide temporal degradation and memory interactions. MeRepair estimates future memory utility and performs uncertainty-aware repair to maintain reliable long-term memory for LLM agents.",
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2609.08977v1",
+      "title": "Omni Interaction Agent Technical Report",
+      "authors": [
+        " Orantqing",
+        "Shengpeng Ji",
+        "Junlong Tong",
+        "Jialong Zuo",
+        "Dongjie Fu"
+      ],
+      "categories": [
+        "cs.AI",
+        "cs.LG",
+        "cs.MM",
+        "cs.SD",
+        "eess.AS"
+      ],
+      "abstract": "This paper introduces Gander, an end-to-end model that unifies multi-modal perception, real-time interaction, and agentic capabilities. Its core method is a Cerebellum-Brain collaborative framework, enabling continuous, full-duplex interaction where the Cerebellum handles real-time dialogue and the Brain manages complex reasoning and agent tasks. Gander's contribution lies in its ability to support natural, interruptible conversations and proactive agentic behavior across various modalities.",
+      "url": "http://arxiv.org/abs/2609.08977v1",
+      "pdf_url": "https://arxiv.org/pdf/2609.08977v1",
+      "score": 9.0,
+      "figure_url": "https://arxiv.org/html/2609.08977v1/omni_pic.png",
+      "figure_caption": "Gander is an end-to-end model that unifies omni communication, realtime interactive engagement across diverse and complex scenarios, and agentic execution of multi step tasks in workflow oriented environments.",
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2609.09153v1",
+      "title": "Procedural Graphs: Self-Evolving Execution Structures for LLM Agents",
+      "authors": [
+        "Yuxing Lu",
+        "Yicheng Chen",
+        "Shanchan Wu",
+        "Sercan Ö. Arık"
+      ],
+      "categories": [
+        "cs.AI",
+        "cs.CL",
+        "cs.MA"
+      ],
+      "abstract": "This paper introduces the Procedural Graph, a novel structure that organizes procedural knowledge for LLM agents. Unlike traditional methods, it uses (procedure, relation, procedure) triplets to guide action selection. The graph self-evolves, allowing agents to learn from failures and improve their long-term planning and execution by providing dynamic, subgraph-based situational guidance.",
+      "url": "http://arxiv.org/abs/2609.09153v1",
+      "pdf_url": "https://arxiv.org/pdf/2609.09153v1",
+      "score": 9.0,
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2609.09054v1",
+      "title": "Training-Free Task Vectors for LLM Behavioral Control",
+      "authors": [
+        "Gabriel J. Perin",
+        "Lucas Boscaini",
+        "André Araujo",
+        "Nina S. T. Hirata"
+      ],
+      "categories": [
+        "cs.AI",
+        "cs.LG"
+      ],
+      "abstract": "This paper introduces Training-Free Task Vectors (TFTVs), a method to control LLM behavior without costly fine-tuning. TFTVs compute task-specific directions in model weights using only forward-pass statistics, enabling edits like amplification, suppression, and composition of behaviors. This offers a practical and efficient alternative for post-training LLM editing.",
+      "url": "http://arxiv.org/abs/2609.09054v1",
+      "pdf_url": "https://arxiv.org/pdf/2609.09054v1",
+      "score": 9.0,
+      "figure_url": "https://arxiv.org/html/2609.09054v1/teaser.png",
+      "figure_caption": "Training-Free Task Vectors enable arithmetic model editing without any training. Unlike classical task vectors Δ ​ θ T ′ \\( \\Delta \\)\\( \\theta^{\\prime}_{T} \\) ( Ilharco et al., 2022 ) (left), which are computed from the difference between fine-tuned and base model weights, TFTVs Δ ​ \\( \\Delta \\)\\( \\theta_{T} \\) (right) are derived directly from forward-pass statistics, using contrastive prompts. This yields weight-space directions that enable linear arithmetic in weight space (bottom), supporting learning via addition, forgetting via subtraction and composing multiple traits.",
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2609.08981v1",
+      "title": "Transformers as In-Context Samplers: From Closed-Form Diffusion to Estimation-Free Sampling",
+      "authors": [
+        "Arman Adibi",
+        "Alireza Jafari",
+        "Mohammad Ghavamzadeh",
+        "Hadi Daneshmand"
+      ],
+      "categories": [
+        "cs.AI",
+        "cs.LG",
+        "stat.ML",
+        "stat.AP",
+        "stat.CO"
+      ],
+      "abstract": "This paper demonstrates that frozen transformers can perform data generation by simulating iterative samplers from in-context examples. The core method involves constructing transformers that realize closed-form diffusion samplers, where softmax attention computes weights and feedforward layers implement updates. The key contribution is showing that large language models can act as estimation-free samplers for generative tasks, extending in-context learning beyond supervised inference.",
+      "url": "http://arxiv.org/abs/2609.08981v1",
+      "pdf_url": "https://arxiv.org/pdf/2609.08981v1",
+      "score": 9.0,
+      "figure_url": "https://arxiv.org/html/2609.08981v1/stage_rollout_four_panel.png",
+      "figure_caption": "In-context sampling. We train a transformer to generate points from the blue training distribution in panel (a), which contains the face boundary and eyes but excludes the smiling mouth. At test time, the model receives in-context samples shown in orange and generates new samples shown in green. When the context samples are drawn from components present during training, the generated samples follow the face boundary in panel (b) and the eyes in panel (c). Panel (d) gives the out-of-distribution test: the context samples form a smiling mouth, a component entirely absent from training. The model nevertheless generates new samples along the same unseen curve. This indicates that the transformer is using in-context samples for inference, rather than relying on statistics of the training distribution. See the Experiments section for training and data generation details.",
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2609.08936v1",
+      "title": "AuK Technical Report: An Open-Source Foundational Model for Speech Generation and Editing",
+      "authors": [
+        "Ziyang Ma",
+        "Zhikang Niu",
+        "Wenming Tu",
+        "Tianrui Wang",
+        "Ruiqi Yan"
+      ],
+      "categories": [
+        "cs.CL",
+        "cs.MM",
+        "cs.SD"
+      ],
+      "abstract": "AuK is an open-source foundational model that unifies speech generation and editing using natural language instructions and audio context. Its core method involves a multimodal LLM for semantic understanding, a VAE for acoustic conditioning, and a hybrid rectified-flow Transformer for generation. AuK's contribution lies in its broad capabilities and extensive training data, enabling diverse speech manipulation tasks through a single, unified interface.",
+      "url": "http://arxiv.org/abs/2609.08936v1",
+      "pdf_url": "https://arxiv.org/pdf/2609.08936v1",
+      "score": 9.0,
+      "figure_url": "https://arxiv.org/html/2609.08936v1/fig/FIG_ALL.png",
+      "figure_caption": "Performance comparison with SOTA models across speech generation, editing, enhancement and separation . (a) Seed-TTS-Eval WER and SIM, averaged over test-en/test-zh/test-zh-hard, measure intelligibility and speaker similarity; InstructTTSEval DSD (mean of DSD-ZH/EN) measures how faithfully a model realises a free-form timbre instruction. (b) MMAE-Speech EMR measures exact-match success across all editing rubrics; SpeechEditBench averages five edit types, Ming-Freeform-Audio-Edit four semantic-editing splits. (c) Per model, DNSMOS-OVRL (darker, left) and UTMOS (lighter, right) rate perceptual quality; DNS Challenge and CHiME-4 are enhancement, Libri2Mix separation. Higher is better everywhere except WER, where shorter bars indicate fewer errors.",
+      "primary_category": "cs.CL",
+      "primary_category_anchor": "cs-cl",
+      "primary_category_rank": 2
+    },
+    {
+      "id": "2609.08919v1",
+      "title": "Experience Funnel: A State-Policy Alternating Loop for Self-Evolving Agents",
+      "authors": [
+        "Wenbo Gao",
+        "Zhaomou Song",
+        "Zhiyuan Ji",
+        "Renxi Liu",
+        "Xing Li"
+      ],
+      "categories": [
+        "cs.CL"
+      ],
+      "abstract": "The Experience Funnel framework enables self-evolving agents by alternating between fast textual state updates and slow policy consolidation. This allows agents to rapidly adapt to new information via explicit states while retaining reusable competence through policy updates, overcoming the trade-off between adaptability and efficiency.",
+      "url": "http://arxiv.org/abs/2609.08919v1",
+      "pdf_url": "https://arxiv.org/pdf/2609.08919v1",
+      "score": 9.0,
+      "primary_category": "cs.CL",
+      "primary_category_anchor": "cs-cl",
+      "primary_category_rank": 2
+    },
+    {
+      "id": "2609.09134v1",
+      "title": "Co-Evolving Harnesses and Models: On-Policy Correction Helps Weaker Models Catch Up Where Imitation Fails",
+      "authors": [
+        "Zhou Yu",
+        "Bin Bi",
+        "Shiva Kumar Pentyala",
+        "Shubham Mehrotra",
+        "Sougata Chaudhuri"
+      ],
+      "categories": [
+        "cs.AI"
+      ],
+      "abstract": "This paper introduces a method for co-evolving agent harnesses (the surrounding system components) and models. They found that evolving the harness alongside a weaker model, and then using an expert model with that evolved harness, helps bridge performance gaps. Crucially, directly imitating the expert's full trajectories under the evolved harness can surprisingly degrade the weaker model's performance.",
+      "url": "http://arxiv.org/abs/2609.09134v1",
+      "pdf_url": "https://arxiv.org/pdf/2609.09134v1",
+      "score": 8.0,
+      "figure_url": "https://arxiv.org/html/2609.09134v1/co_evolution_overview_editable.png",
+      "figure_caption": "Harness–model co-evolution. Each round evolves a harness H t ∗ H_{t}^{*} around the current weaker model M t M_{t} and then updates the model under that harness. Full-trajectory expert imitation can disrupt the resulting model–harness fit, whereas on-policy expert correction uses the weaker model’s visited states together with localized corrections from the stronger expert, producing an updated model M t + 1 M_{t+1} while preserving the fit. The updated model can then re-enter harness evolution in the next round.",
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2609.08943v1",
+      "title": "Evaluating and Improving Evidence-Grounded Fact-Checking in LLMs via Multi-Round Evidence Ablation",
+      "authors": [
+        "Xingyu Deng",
+        "Mingzi Cao",
+        "Nikolaos Aletras",
+        "Xi Wang",
+        "Mark Stevenson"
+      ],
+      "categories": [
+        "cs.AI",
+        "cs.CL",
+        "cs.IR"
+      ],
+      "abstract": "This paper introduces Fact-Ablated Evaluation (FAE) to assess if LLMs truly use provided evidence for fact-checking or rely on internal knowledge. FAE iteratively removes evidence to see if LLM predictions change. The study finds current LLMs over-rely on parametric knowledge, leading to the development of REAL, a training method that uses counterfactual evidence to encourage evidence-dependent verification.",
+      "url": "http://arxiv.org/abs/2609.08943v1",
+      "pdf_url": "https://arxiv.org/pdf/2609.08943v1",
+      "score": 8.0,
+      "figure_url": "https://arxiv.org/html/2609.08943v1/fae_example_eng.png",
+      "figure_caption": "Figure 1. Observed failure mode in FEVER dataset produced by LLM verifier (LLaMa3-8B-Instruct) The figure about some failure examples observed in FEVER verified by Llama3-8B",
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2609.09081v1",
+      "title": "Everything in Moderation: Per-Domain Coverage Optima and Alignment-Resistant Domain Gaps in Multi-Domain Mid-Training",
+      "authors": [
+        "Yunpeng Xu",
+        "Kun Zheng"
+      ],
+      "categories": [
+        "cs.AI"
+      ],
+      "abstract": "This paper investigates the optimal data distribution during a model's mid-training phase. It discovers that a moderate proportion (10-40%) of data from each domain leads to the best performance across all domains. Crucially, these per-domain coverage optima are resistant to later alignment efforts, meaning the mid-training data composition significantly impacts final model capabilities.",
+      "url": "http://arxiv.org/abs/2609.09081v1",
+      "pdf_url": "https://arxiv.org/pdf/2609.09081v1",
+      "score": 8.0,
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2609.09133v1",
+      "title": "ExecCritic: Learn to Test, Test to Improve for Coding Agents",
+      "authors": [
+        "Leitian Tao",
+        "Baolin Peng",
+        "Haorui Wang",
+        "Hang Wang",
+        "Hao Cheng"
+      ],
+      "categories": [
+        "cs.AI",
+        "cs.CL",
+        "cs.SE"
+      ],
+      "abstract": "ExecCritic addresses the issue of coding agents generating incorrect tests that lead to false confidence in their repairs. Its core method is a \"test-verify-revise\" scaffold that separates test generation from code repair. This allows a dedicated \"Test agent\" to learn to create accurate, repository-native tests, which are then used by a \"Repair agent\" to fix code, ensuring that test errors do not propagate into the repair process.",
+      "url": "http://arxiv.org/abs/2609.09133v1",
+      "pdf_url": "https://arxiv.org/pdf/2609.09133v1",
+      "score": 8.0,
+      "figure_url": "https://arxiv.org/html/2609.09133v1/figure1.png",
+      "figure_caption": "ExecCritic separates test construction from feedback-guided repair. The Test agent independently constructs a task-specific test, which the harness qualifies and freezes across source-only Repair revisions. Failed checks return execution feedback for revision; a local pass ends revision and requests explicit submission, as summarized by “Terminate.”",
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2609.09009v1",
+      "title": "Let It Go or Learn to Self-Correct: Continuous Diffusion for Constrained Discrete Tasks",
+      "authors": [
+        "Mariia Drozdova",
+        "Stéphane Liem Nguyen",
+        "François Fleuret"
+      ],
+      "categories": [
+        "cs.AI",
+        "cs.LG"
+      ],
+      "abstract": "This paper addresses the challenge of applying diffusion models to discrete, constrained tasks where early errors are hard to correct. The core method is to modify the standard diffusion sampling process by directly sampling from the model's clean prediction instead of gradually denoising. This simple change significantly improves performance on tasks like Sudoku, as it avoids accumulating errors and better adheres to the learned distribution, leading to a substantial increase in valid solutions without retraining.",
+      "url": "http://arxiv.org/abs/2609.09009v1",
+      "pdf_url": "https://arxiv.org/pdf/2609.09009v1",
+      "score": 8.0,
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2609.09113v1",
+      "title": "SAEScientist-Bench: Can AI Agents Conduct Autonomous SAE Interpretability Research?",
+      "authors": [
+        "Yuqiao Tan",
+        "Shizhu He",
+        "Jun Zhao",
+        "Kang Liu"
+      ],
+      "categories": [
+        "cs.AI",
+        "cs.LG",
+        "cs.CL"
+      ],
+      "abstract": "This paper introduces SAEScientist-Bench, a benchmark to assess if AI agents can autonomously perform mechanistic interpretability research using Sparse Autoencoders (SAEs). The core method involves agents discovering interpretable features within a large model dictionary by designing probes and navigating feature space. The contribution is the first evaluation of AI agents' capability for autonomous scientific discovery in the context of mechanistic interpretability, highlighting the potential for AI to aid in understanding and aligning complex models.",
+      "url": "http://arxiv.org/abs/2609.09113v1",
+      "pdf_url": "https://arxiv.org/pdf/2609.09113v1",
+      "score": 8.0,
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2609.08944v1",
+      "title": "SkillAdam: Stable and Efficient Skill Evolution for Agents",
+      "authors": [
+        "Gaoyuan Li",
+        "Meihao Fan",
+        "Yizhe Liu",
+        "Shaolei Zhang",
+        "Ju Fan"
+      ],
+      "categories": [
+        "cs.AI"
+      ],
+      "abstract": "SkillAdam addresses the challenge of efficiently and stably evolving agent skills by introducing an Adam-inspired optimization framework. It tackles issues of direction stability and update adaptivity by using an optimization memory to record identified problems, ensuring effective corrections accumulate and revisions adapt to case-level improvements. This method aims to automate the creation of high-quality agent skills more effectively than previous self-evolution techniques.",
+      "url": "http://arxiv.org/abs/2609.08944v1",
+      "pdf_url": "https://arxiv.org/pdf/2609.08944v1",
+      "score": 8.0,
+      "primary_category": "cs.AI",
+      "primary_category_anchor": "cs-ai",
+      "primary_category_rank": 0
+    },
+    {
+      "id": "2609.09004v1",
+      "title": "Evaluation of Contextual Understanding in Large Language Models",
+      "authors": [
+        "Subavarshana Arumugam",
+        "Mamta Nallaretnam",
+        "Kithuni Wickramasinghe",
+        "Chamath Gunapala",
+        "Pragatheeswaran Vipulanandan"
+      ],
+      "categories": [
+        "cs.LG",
+        "cs.CL"
+      ],
+      "abstract": "This paper addresses the uncertainty of true contextual understanding in LLMs, as traditional metrics are insufficient. They introduce a novel knowledge graph-based evaluation framework, S3KG, which combines structural and semantic similarity to provide a continuous score. This framework, along with a diagnostic tool for error categorization, effectively measures contextual understanding in LLMs, particularly for question answering.",
+      "url": "http://arxiv.org/abs/2609.09004v1",
+      "pdf_url": "https://arxiv.org/pdf/2609.09004v1",
+      "score": 8.0,
+      "figure_url": "https://arxiv.org/html/2609.09004v1/figures/flowchart_final.png",
+      "figure_caption": "KG-based evaluation pipeline. Given a QA pair, three KGs are constructed from the LLM response, gold answer, and supporting context, then compared via S3KG to produce GoldSim, CtxSim, and CUS.",
+      "primary_category": "cs.LG",
+      "primary_category_anchor": "cs-lg",
+      "primary_category_rank": 1
+    },
+    {
+      "id": "2609.09059v1",
+      "title": "PlayTrain: An Efficient Reinforcement Learning Framework for LLM-Generated Adaptable JavaScript Games",
+      "authors": [
+        "Ryan Truong",
+        "Lance Ying",
+        "Samuel J. Gershman",
+        "Kazuki Irie"
+      ],
+      "categories": [
+        "cs.LG"
+      ],
+      "abstract": "PlayTrain is an efficient reinforcement learning framework that leverages Large Language Models (LLMs) to generate adaptable JavaScript games from simple prompts. Its core method involves using LLMs for game creation and a pipeline to integrate these games into a standard RL environment. This framework's contribution lies in significantly reducing the manual effort required to create and adapt game environments for RL training, enabling high-throughput agent learning on novel or modified games.",
+      "url": "http://arxiv.org/abs/2609.09059v1",
+      "pdf_url": "https://arxiv.org/pdf/2609.09059v1",
+      "score": 8.0,
+      "figure_url": "https://arxiv.org/html/2609.09059v1/figures/generation.png",
+      "figure_caption": "A: The concept of PlayTrain: Through LLM-generated JS code, PlayTrain can transform games such as “DownWell” and “VVVVVV” into an RL environment and train agents in minutes. B: The generation pipeline. From a short specification of a video game, an LLM generates a single self-contained JavaScript file against a fixed RL-environment prompt-file, creating an environment that is both immediately playable and ready for baseline RL agent training without any additional code.",
+      "primary_category": "cs.LG",
+      "primary_category_anchor": "cs-lg",
+      "primary_category_rank": 1
+    },
+    {
+      "id": "2609.09150v1",
+      "title": "Copying explains the collective behavior of AI agents in the wild",
+      "authors": [
+        "Giordano De Marzo",
+        "Nicola Albore",
+        "David Garcia"
+      ],
+      "categories": [
+        "cs.CL",
+        "cond-mat.stat-mech",
+        "cs.MA"
+      ],
+      "abstract": "This paper investigates the emergent collective behavior of AI agents that spontaneously used a public wiki for cooperation. The core method involves analyzing the agents' edit history to understand their decision-making process. The key contribution is the discovery that agents primarily copy existing content, with their choices heavily influenced by what they observe on the current page and recent edits, explaining their coordinated actions without explicit instruction.",
+      "url": "http://arxiv.org/abs/2609.09150v1",
+      "pdf_url": "https://arxiv.org/pdf/2609.09150v1",
+      "score": 8.0,
+      "primary_category": "cs.CL",
+      "primary_category_anchor": "cs-cl",
+      "primary_category_rank": 2
+    },
+    {
+      "id": "2609.08692v1",
+      "title": "Global Divergence, Local Convergence: Representation Geometry in SSMs and Transformers",
+      "authors": [
+        "Amit Ben-Artzy",
+        "Roy Schwartz"
+      ],
+      "categories": [
+        "cs.CL"
+      ],
+      "abstract": "This paper investigates the geometric differences in internal representations between State-Space Models (SSMs) and Transformers. It reveals that SSMs distribute information evenly across dimensions, while Transformers concentrate it along a dominant direction, a trend amplified by attention layers. This geometric divergence impacts representational capacity and compressibility, with SSMs showing surprising advantages despite their different structure.",
+      "url": "http://arxiv.org/abs/2609.08692v1",
+      "pdf_url": "https://arxiv.org/pdf/2609.08692v1",
+      "score": 8.0,
+      "figure_url": "https://arxiv.org/html/2609.08692v1/PCA_plot.png",
+      "figure_caption": "PCA of representations from Pythia and Mamba over a subset of the LAMA TREx dataset. Mamba’s representations are more spread out across the space.",
+      "primary_category": "cs.CL",
+      "primary_category_anchor": "cs-cl",
+      "primary_category_rank": 2
+    }
+  ],
+  "hacker_news": [
+    {
+      "id": 49610538,
+      "title": "LibreOffice breaks download records after declaring it has no AI features",
+      "url": "https://manualdousuario.net/en/libreoffice-download-record-no-ai/",
+      "score": 680,
+      "created_at": "2026-09-08T14:05:57Z",
+      "comments_url": "https://news.ycombinator.com/item?id=49610538",
+      "summary": "LibreOffice achieved record downloads after announcing it has no AI features, suggesting a user preference for traditional, non-AI software."
+    },
+    {
+      "id": 49611251,
+      "title": "AlphaGenome Atlas: a high-resolution map of human DNA",
+      "url": "https://blog.google/innovation-and-ai/models-and-research/google-deepmind/alphagenome-atlas/",
+      "score": 560,
+      "created_at": "2026-09-08T14:55:45Z",
+      "comments_url": "https://news.ycombinator.com/item?id=49611251",
+      "summary": "Google DeepMind's AlphaGenome Atlas is a high-resolution map of human DNA, leveraging AI to reveal intricate details of genetic variation and function."
+    },
+    {
+      "id": 49615537,
+      "title": "Muse – Meta’s personal AI agent",
+      "url": "https://ai.meta.com/muse/",
+      "score": 500,
+      "created_at": "2026-09-08T19:25:00Z",
+      "comments_url": "https://news.ycombinator.com/item?id=49615537",
+      "summary": "Meta's Muse is a personal AI agent designed to assist users with tasks, learn their preferences, and provide proactive support across various applications."
+    },
+    {
+      "id": 49610229,
+      "title": "We Must Return to the Office to Use AI in Person",
+      "url": "https://www.mcsweeneys.net/articles/why-we-must-return-to-the-office-to-use-ai-in-person",
+      "score": 376,
+      "created_at": "2026-09-08T13:41:25Z",
+      "comments_url": "https://news.ycombinator.com/item?id=49610229",
+      "summary": "This satirical article argues that returning to the office is essential for humans to effectively interact with and utilize AI, humorously suggesting in-person collaboration is key to AI's success."
+    },
+    {
+      "id": 49616968,
+      "title": "Tao: Open math problems being non-renewably mined by AI",
+      "url": "https://mathstodon.xyz/@tao/117237320796901560",
+      "score": 365,
+      "created_at": "2026-09-08T21:00:52Z",
+      "comments_url": "https://news.ycombinator.com/item?id=49616968",
+      "summary": "AI is consuming and potentially exhausting open-source mathematical knowledge, raising concerns about its future availability and the sustainability of this \"mining\" process."
+    },
+    {
+      "id": 49616354,
+      "title": "Mercury 2.5",
+      "url": "https://www.inceptionlabs.ai/blog/introducing-mercury-2-5",
+      "score": 198,
+      "created_at": "2026-09-08T20:14:52Z",
+      "comments_url": "https://news.ycombinator.com/item?id=49616354",
+      "summary": "Inception Labs has released Mercury 2.5, a new version of their AI platform that enhances large language model capabilities and offers improved performance for developers."
+    },
+    {
+      "id": 49613068,
+      "title": "Show HN: LLM Attention Visualization",
+      "url": "https://ishamf.dev/p/llm-attention-visualizer/",
+      "score": 156,
+      "created_at": "2026-09-08T16:59:41Z",
+      "comments_url": "https://news.ycombinator.com/item?id=49613068",
+      "summary": "This \"Show HN\" features a tool that visually represents the attention mechanisms within Large Language Models, helping users understand how they process information."
+    },
+    {
+      "id": 49614557,
+      "title": "Flights cancelled at UK airports due to ATC issue",
+      "url": "https://www.bbc.com/news/live/c6x2z0yy32ejt",
+      "score": 123,
+      "created_at": "2026-09-08T18:26:27Z",
+      "comments_url": "https://news.ycombinator.com/item?id=49614557",
+      "summary": "A technical issue with air traffic control systems caused widespread flight cancellations and delays at UK airports."
+    }
+  ],
+  "github_trending": [
+    {
+      "full_name": "ayghri/i-have-adhd",
+      "url": "https://github.com/ayghri/i-have-adhd",
+      "description": "A skill to stop your coding agent from burying the answer. ADHD-friendly output.",
+      "stars_today": 656,
+      "total_stars": 32240,
+      "language": "Python",
+      "topics": [],
+      "summary": "This repository provides a skill for coding agents to prevent them from burying answers, offering ADHD-friendly output for clearer and more direct responses."
+    },
+    {
+      "full_name": "cathrynlavery/diagram-design",
+      "url": "https://github.com/cathrynlavery/diagram-design",
+      "description": "38 editorial diagram types for Claude Code, Codex, and Pi. Self-contained HTML + SVG. No shadows. No Mermaid slop.",
+      "stars_today": 710,
+      "total_stars": 35827,
+      "language": "HTML",
+      "topics": [],
+      "summary": "This repository provides 38 self-contained HTML+SVG editorial diagram types for Claude Code, Codex, and Pi, designed for clean, shadow-free rendering without Mermaid."
+    },
+    {
+      "full_name": "openai/skills",
+      "url": "https://github.com/openai/skills",
+      "description": "Skills Catalog for Codex",
+      "stars_today": 490,
+      "total_stars": 26714,
+      "language": "Python",
+      "topics": [],
+      "summary": "The OpenAI Skills repository serves as a catalog for Codex, providing a collection of reusable code snippets and functionalities to enhance AI-powered code generation and understanding."
+    },
+    {
+      "full_name": "affaan-m/ECC",
+      "url": "https://github.com/affaan-m/ECC",
+      "description": "The agent harness performance optimization system. Skills, instincts, memory, security, and research-first development for Claude Code, Codex, Opencode, Cursor and beyond.",
+      "stars_today": 1427,
+      "total_stars": 254677,
+      "language": "JavaScript",
+      "topics": [],
+      "summary": "This repository provides an agent harness system for optimizing performance across various AI code models, focusing on skills, instincts, memory, security, and research-driven development."
+    },
+    {
+      "full_name": "heygen-com/hyperframes",
+      "url": "https://github.com/heygen-com/hyperframes",
+      "description": "Write HTML. Render video. Built for agents.",
+      "stars_today": 2627,
+      "total_stars": 48153,
+      "language": "TypeScript",
+      "topics": [],
+      "summary": "Hyperframes is a tool that allows agents to write HTML to generate and render videos, streamlining video creation for automated workflows."
+    },
+    {
+      "full_name": "coreyhaines31/marketingskills",
+      "url": "https://github.com/coreyhaines31/marketingskills",
+      "description": "Marketing skills for Claude Code and AI agents. CRO, copywriting, SEO, analytics, and growth engineering.",
+      "stars_today": 666,
+      "total_stars": 49087,
+      "language": "JavaScript",
+      "topics": [],
+      "summary": "This repository provides marketing skills for AI agents, covering CRO, copywriting, SEO, analytics, and growth engineering."
+    },
+    {
+      "full_name": "obra/superpowers",
+      "url": "https://github.com/obra/superpowers",
+      "description": "An agentic skills framework & software development methodology that works.",
+      "stars_today": 452,
+      "total_stars": 283638,
+      "language": "Shell",
+      "topics": [],
+      "summary": "Superpowers is an agentic skills framework and software development methodology designed to enhance productivity and effectiveness in software projects."
+    },
+    {
+      "full_name": "multica-ai/andrej-karpathy-skills",
+      "url": "https://github.com/multica-ai/andrej-karpathy-skills",
+      "description": "A single CLAUDE.md file to improve Claude Code behavior, derived from Andrej Karpathy's observations on LLM coding pitfalls.",
+      "stars_today": 333,
+      "total_stars": 211718,
+      "language": "",
+      "topics": [],
+      "summary": "This repository's core function is to enhance Claude's coding abilities by providing a CLAUDE.md file that distills Andrej Karpathy's insights into common LLM coding errors."
+    },
+    {
+      "full_name": "microsoft/markitdown",
+      "url": "https://github.com/microsoft/markitdown",
+      "description": "Python tool for converting files and office documents to Markdown.",
+      "stars_today": 2047,
+      "total_stars": 182015,
+      "language": "Python",
+      "topics": [],
+      "summary": "Microsoft's Markitdown is a Python tool that converts various file formats, including Office documents, into Markdown, facilitating content repurposing and integration."
+    }
+  ],
+  "us_stocks": [],
+  "postdoc_jobs": [],
+  "jobs": [],
+  "supervisor_updates": [],
+  "weather": [
+    {
+      "query": "London",
+      "label": "London, England, United Kingdom",
+      "resolved_name": "London",
+      "region": "England",
+      "country": "United Kingdom",
+      "latitude": 51.50853,
+      "longitude": -0.12574,
+      "timezone": "Europe/London",
+      "forecast_date": "2026-09-09",
+      "condition": "Partly cloudy",
+      "weather_code": 2,
+      "temperature_c": 15.3,
+      "apparent_temperature_c": 13.0,
+      "temp_max_c": 18.6,
+      "temp_min_c": 11.9,
+      "humidity_pct": 63,
+      "wind_speed_kmh": 13.0,
+      "precipitation_probability_pct": 0,
+      "is_day": true,
+      "sunrise": "2026-09-09T06:26",
+      "sunset": "2026-09-09T19:29",
+      "source": "Open-Meteo",
+      "source_url": "https://open-meteo.com/"
+    }
+  ]
+}
